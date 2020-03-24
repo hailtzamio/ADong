@@ -5,13 +5,16 @@ import android.os.Bundle
 
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.zamio.adong.MyApplication
 import com.zamio.adong.R
+import com.zamio.adong.utils.ConnectivityReceiver
 import com.zamio.adong.utils.ProgressDialogUtils
 
 
-abstract class BaseActivity : FragmentActivity() {
+abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
     protected var TAG = ""
     protected val TAG_ACTIVITY = 999
 
@@ -22,6 +25,11 @@ abstract class BaseActivity : FragmentActivity() {
     protected abstract fun initData()
 
     protected abstract fun resumeData()
+
+
+    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+        Toast.makeText(this, "Internet Changed", Toast.LENGTH_SHORT).show()
+    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +43,7 @@ abstract class BaseActivity : FragmentActivity() {
 
     override fun onResume() {
         super.onResume()
+        MyApplication.getInstance().setConnectivityListener(this);
         resumeData()
     }
 
@@ -150,6 +159,9 @@ abstract class BaseActivity : FragmentActivity() {
     fun dismisProgressDialog() {
         ProgressDialogUtils.dismissProgressDialog()
     }
+
+
+
 
 }
 
