@@ -4,6 +4,8 @@ package com.zamio.adong.model
 import com.google.gson.annotations.SerializedName
 
 data class Product(
+
+
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")

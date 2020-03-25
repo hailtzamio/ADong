@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.zamio.adong.ui.product.notifications.NotificationsFragment"
+        android:name="com.zamio.adong.ui.PermissionsFragment"
         android:label="@string/product_title_notifications"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.zamio.adong.ui.product.home.HomeFragment"
+        android:name="com.zamio.adong.ui.product.MainProductFragment"
         android:label="@string/product_title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.zamio.adong.ui.product.dashboard.DashboardFragment"
+        android:name="com.zamio.adong.ui.DashboardFragment"
         android:label="@string/product_title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 

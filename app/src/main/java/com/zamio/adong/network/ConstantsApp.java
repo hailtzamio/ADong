@@ -43,14 +43,9 @@ public class ConstantsApp {
     // SoloQuestionIntro
     public static String KEY_TYPE_OF_GAME= "KEY_TYPE_OF_GAME";
     public static String KEY_QUESTION_ID= "KEY_QUESTION_ID";
-    public static String KEY_ANSWER_ID= "KEY_ANSWER_ID";
-    public static String KEY_SOLO_MATCH_ID= "KEY_SOLO_MATCH_ID";
-    public static String KEY_QUESTION_NUMBER= "KEY_QUESTION_NUMBER";
-    public static String KEY_LAST_QUESTION= "KEY_LAST_QUESTION";
-    public static String KEY_INTRODUCTION_VALUE= "KEY_INTRODUCTION_VALUE";
-    public static int REQUEST_CODE_FROM_QUESTION_INTRO_ACTIVITY = 102;
-    public static int RESULT_CODE_FROM_RIGHT_ANSWER = 103;
-    public static int RESULT_CODE_FROM_RIGHT_ANSWER_USING_COINS = 104;
+    public static String KEY_PERMISSION= "KEY_PERMISSION";
+    public static String PERMISSION= "c-r-u-d";
+
 
     public static String KEY_LIVE_CHALLENGE_VALUE= "KEY_LIVE_CHALLENGE_VALUE";
     public static String KEY_LIVE_CHALLENGE_ID_VALUE= "KEY_LIVE_CHALLENGE_ID_VALUE";

@@ -2,9 +2,9 @@ package com.elcom.com.quizupapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-
 import android.view.Window
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +12,7 @@ import com.zamio.adong.MyApplication
 import com.zamio.adong.R
 import com.zamio.adong.utils.ConnectivityReceiver
 import com.zamio.adong.utils.ProgressDialogUtils
+import kotlinx.android.synthetic.main.item_header_layout.*
 
 
 abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
@@ -39,6 +40,12 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
         setContentView(getLayout())
         initView()
         initData()
+
+        if(imvBack != null) {
+            imvBack.setOnClickListener {
+                onBackPressed()
+            }
+        }
     }
 
     override fun onResume() {
@@ -158,6 +165,14 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
 
     fun dismisProgressDialog() {
         ProgressDialogUtils.dismissProgressDialog()
+    }
+
+    fun showToast(content:String){
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
+    }
+
+    fun isEmpty(etText: EditText): Boolean {
+        return etText.text.toString().trim { it <= ' ' }.isEmpty()
     }
 
 

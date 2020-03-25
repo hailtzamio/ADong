@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PermissionsFragment">
+    tools:context=".ui.product.MainProductFragment">
 
     <include layout="@layout/item_header_layout"
         android:id="@+id/view"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/header_size"
         android:background="#2196F3"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"

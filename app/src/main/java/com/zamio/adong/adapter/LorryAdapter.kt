@@ -8,14 +8,15 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
+import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Product
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
-    var onItemClick: ((Product) -> Unit)? = null
+class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter<LorryAdapter.MyViewHolder>() {
+    var onItemClick: ((Lorry) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -40,10 +41,10 @@ class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.name
-        holder.type.text = topic.type
-        holder.unit.text = topic.unit
-        holder.quantity.text = topic.quantity.toString()
+        holder.name.text = topic.brand
+        holder.type.text = topic.model
+        holder.unit.text = topic.plateNumber
+        holder.quantity.text = topic.capacity
     }
 
     override fun getItemCount(): Int {

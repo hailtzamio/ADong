@@ -3,9 +3,13 @@
 
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.zamio.adong.model.Lorry
+import com.zamio.adong.model.Permission
 import com.zamio.adong.model.Product
 import retrofit2.Call
 import retrofit2.http.*
+
 
 /**
  * Created by admin on 3/8/2018.
@@ -18,12 +22,24 @@ interface RestService {
     @FormUrlEncoded
     abstract fun loginWithFacebook(@Field("facebook_id") feedId: String,@Field("access_token") id: String): Call<RestData<JsonElement>>
 
-    @POST("user/login-by-facebook")
-    @FormUrlEncoded
-    abstract fun loginWithGoogle(@Field("access_token") id: String): Call<RestData<JsonElement>>
+    @GET("myPermissions")
+    fun getPermissions(): Call<RestData<List<Permission>>>
 
     @GET("product")
     abstract fun getProducts(): Call<RestData<List<Product>>>
+
+    @GET("product/{id}")
+    fun getProduct(@Path("id") productId: Int): Call<RestData<Product>>
+
+    @POST("product")
+    fun createUser(@Body product: JsonObject): Call<RestData<JsonElement>>
+
+    @GET("lorry")
+    abstract fun getLorries(): Call<RestData<List<Lorry>>>
+
+    @GET("lorry/{id}")
+    fun getLorry(@Path("id") lorryId: Int): Call<RestData<Lorry>>
+
 
 
 //    // Topic Detail
