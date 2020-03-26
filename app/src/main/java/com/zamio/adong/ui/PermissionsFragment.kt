@@ -43,7 +43,7 @@ class PermissionsFragment : BaseFragment() {
 
         imvBack.visibility = View.GONE
         rightButton.visibility = View.GONE
-
+        tvTitle.text = "Trang Chủ"
         getPermission()
     }
 

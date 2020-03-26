@@ -22,7 +22,6 @@ import retrofit2.Response
 class MainProductFragment : BaseFragment() {
 
 
-    var actionString = ""
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -36,8 +35,8 @@ class MainProductFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showProgessDialog()
-        getProducts()
+
+
 
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateProductActivity::class.java)
@@ -57,7 +56,13 @@ class MainProductFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getProducts()
+    }
+
     private fun getProducts(){
+        showProgessDialog()
         RestClient().getRestService().getProducts().enqueue(object :
             Callback<RestData<List<Product>>> {
             override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
@@ -81,7 +86,6 @@ class MainProductFragment : BaseFragment() {
 
         mAdapter.onItemClick = { product ->
             val intent = Intent(context, DetailProductActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
             intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

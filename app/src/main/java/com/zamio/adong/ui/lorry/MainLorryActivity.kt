@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.zamio.adong.R
+import com.zamio.adong.network.ConstantsApp
 
 import kotlinx.android.synthetic.main.item_header_layout.*
 

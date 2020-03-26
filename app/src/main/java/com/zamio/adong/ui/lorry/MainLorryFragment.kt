@@ -22,6 +22,7 @@ import com.zamio.adong.network.ConstantsApp
 
 import com.zamio.adong.ui.product.DetailProductActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
+import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +49,18 @@ class MainLorryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        rightButton.setOnClickListener {
+            val intent = Intent(context, CreateLorryActivity::class.java)
+            intent.putExtra("EMAIL", "")
+            startActivity(intent)
+            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         getProducts()
     }
 

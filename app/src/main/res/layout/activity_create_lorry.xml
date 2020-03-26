@@ -23,35 +23,43 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    >
+        >
 
         <EditText
-             android:hint="Tên"
+            android:hint="Hãng"
             android:paddingLeft="10dp"
-            android:id="@+id/edtName"
+            android:id="@+id/edtBrand"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:inputType="number"
-            android:hint="Số lượng"
+            android:hint="Tên"
             android:paddingLeft="10dp"
-            android:id="@+id/edtUnit"
+            android:id="@+id/edtModel"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:hint="Loại"
+            android:hint="Biển số xe"
             android:paddingLeft="10dp"
-            android:id="@+id/edtType"
+            android:id="@+id/edtPlateNumber"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
-        
+
+        <EditText
+            android:hint="Trọng tải"
+            android:paddingLeft="10dp"
+            android:id="@+id/edtCapacity"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
         <TextView
             android:id="@+id/tvOk"
             android:textColor="@color/white"

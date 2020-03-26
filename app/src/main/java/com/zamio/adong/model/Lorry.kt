@@ -2,8 +2,9 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-data class Lorry(
+data class Lorry (
     @SerializedName("address")
     val address: Any,
     @SerializedName("brand")
@@ -42,4 +43,4 @@ data class Lorry(
     val updatedById: Int,
     @SerializedName("updatedTime")
     val updatedTime: String
-)
+) : Serializable

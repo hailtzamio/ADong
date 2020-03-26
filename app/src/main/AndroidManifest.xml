@@ -17,13 +17,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme">
-        <activity android:name=".ui.lorry.DetailLorryActivity"></activity>
-        <activity android:name=".ui.lorry.MainLorryActivity" />
-        <activity android:name=".ui.product.MainProductActivity" />
-        <activity android:name=".ui.product.RemoveActivity" />
-        <activity android:name=".ui.product.DetailProductActivity" />
-        <activity android:name=".ui.product.CreateProductActivity" />
-        <activity android:name=".ui.activity.ProductCreateActivity" />
+        <activity android:name=".ui.product.UpdateProductActivity"></activity>
+        <activity android:name=".ui.lorry.UpdateLorryActivity" />
+        <activity
+            android:name=".ui.lorry.CreateLorryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.lorry.DetailLorryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.lorry.MainLorryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.product.MainProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.product.RemoveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.product.DetailProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.product.CreateProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ProductCreateActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

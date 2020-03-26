@@ -23,10 +23,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    >
+        >
 
         <EditText
-             android:hint="Tên"
+            android:hint="Tên"
             android:paddingLeft="10dp"
             android:id="@+id/edtName"
             android:background="@drawable/button_normal_main_radius_layout"
@@ -51,7 +51,7 @@
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
-        
+
         <TextView
             android:id="@+id/tvOk"
             android:textColor="@color/white"

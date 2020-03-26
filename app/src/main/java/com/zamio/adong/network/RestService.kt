@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Permission
 import com.zamio.adong.model.Product
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -34,13 +35,27 @@ interface RestService {
     @POST("product")
     fun createUser(@Body product: JsonObject): Call<RestData<JsonElement>>
 
+    @DELETE("product/{id}")
+    fun removeProduct(@Path("id") productId: Int): Call<RestData<JsonElement>>
+
+    @PUT("product/{id}")
+    fun updateProduct(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+
+
     @GET("lorry")
     abstract fun getLorries(): Call<RestData<List<Lorry>>>
 
     @GET("lorry/{id}")
     fun getLorry(@Path("id") lorryId: Int): Call<RestData<Lorry>>
 
+    @POST("lorry")
+    fun createLorry(@Body product: JsonObject): Call<RestData<JsonElement>>
 
+    @DELETE("lorry/{id}")
+    fun removeLorry(@Path("id") lorryId: Int): Call<RestData<JsonElement>>
+
+    @PUT("lorry/{id}")
+    fun updateLorry(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
 
 //    // Topic Detail
 //    @GET("topic/view?")

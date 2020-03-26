@@ -2,6 +2,7 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Product(
 
@@ -26,4 +27,4 @@ data class Product(
     val updatedById: Int,
     @SerializedName("updatedTime")
     val updatedTime: String
-)
+) : Serializable

@@ -14,6 +14,7 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.elcom.com.quizupapp.utils.PreferUtils
 import com.google.gson.JsonElement
+import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
