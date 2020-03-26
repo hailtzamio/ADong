@@ -7,6 +7,8 @@ import com.google.gson.JsonObject
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Permission
 import com.zamio.adong.model.Product
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -56,6 +58,11 @@ interface RestService {
 
     @PUT("lorry/{id}")
     fun updateLorry(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+
+
+    @Multipart
+    @POST("uploadAvatar")
+    fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
 //    // Topic Detail
 //    @GET("topic/view?")

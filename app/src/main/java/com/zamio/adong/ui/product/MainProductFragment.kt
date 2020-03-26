@@ -36,8 +36,6 @@ class MainProductFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateProductActivity::class.java)
             intent.putExtra("EMAIL", "")

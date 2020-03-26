@@ -50,10 +50,12 @@ class MainLorryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(!ConstantsApp.PERMISSION!!.contains("c")){
+            rightButton.visibility = View.GONE
+        }
 
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateLorryActivity::class.java)
-            intent.putExtra("EMAIL", "")
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }

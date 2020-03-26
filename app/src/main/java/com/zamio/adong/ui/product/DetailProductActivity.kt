@@ -38,10 +38,14 @@ class DetailProductActivity : BaseActivity() {
         if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)){
 
             productId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
-            val actionString = ConstantsApp.PERMISSION
 
-            if( actionString != null && !actionString.contains("u")){
+
+            if(!ConstantsApp.PERMISSION.contains("u")){
                 rightButton.visibility = View.GONE
+            }
+
+            if(!ConstantsApp.PERMISSION.contains("d")){
+                tvOk.visibility = View.GONE
             }
 
 

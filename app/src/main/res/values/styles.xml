@@ -10,13 +10,13 @@
     </style>
 
     <style name="BlueActivityTheme" parent="AppTheme">
-<!--        <item name="android:typeface">monospace</item>-->
+        <item name="android:typeface">monospace</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorName</item>
         <item name="android:textSize">14sp</item>
     </style>
 

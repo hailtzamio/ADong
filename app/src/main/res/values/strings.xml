@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ADong</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_permissions">Permissions</string>
+    <string name="title_home">Thông báo</string>
+    <string name="title_dashboard">Cài đặt</string>
+    <string name="title_permissions">Quyền</string>
 
     <string name="product_title_home">Product</string>
     <string name="product_title_dashboard">Dashboard</string>

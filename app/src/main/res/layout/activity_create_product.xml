@@ -25,7 +25,16 @@
         android:layout_height="match_parent"
     >
 
+        <com.theartofdev.edmodo.cropper.CropImageView
+           android:layout_gravity="center_horizontal"
+            android:id="@+id/cropImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/colorPrimary"
+        />
+
         <EditText
+            android:layout_marginTop="20dp"
              android:hint="Tên"
             android:paddingLeft="10dp"
             android:id="@+id/edtName"

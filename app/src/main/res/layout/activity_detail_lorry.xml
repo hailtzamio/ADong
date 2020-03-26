@@ -18,16 +18,22 @@
 
         />
 
-    <ImageView
-        android:background="@drawable/ic_launcher_background"
-        android:id="@+id/imvAva"
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/cropImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:background="@color/colorPrimary"
+        />
+
+
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_below="@+id/imvAva"
+        android:layout_below="@+id/cropImageView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

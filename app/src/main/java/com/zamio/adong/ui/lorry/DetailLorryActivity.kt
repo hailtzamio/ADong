@@ -4,6 +4,7 @@ import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -28,6 +29,14 @@ class DetailLorryActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setImageResource(R.drawable.icon_update);
+
+        if(!ConstantsApp.PERMISSION.contains("u")){
+            rightButton.visibility = View.GONE
+        }
+
+        if(!ConstantsApp.PERMISSION.contains("d")){
+            tvOk.visibility = View.GONE
+        }
     }
 
     override fun initData() {
