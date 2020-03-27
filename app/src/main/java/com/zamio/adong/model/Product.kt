@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Product(
-
-
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -26,5 +24,7 @@ data class Product(
     @SerializedName("updatedById")
     val updatedById: Int,
     @SerializedName("updatedTime")
-    val updatedTime: String
+    val updatedTime: String,
+    @SerializedName("thumbnailUrl")
+    val thumbnailUrl: String
 ) : Serializable

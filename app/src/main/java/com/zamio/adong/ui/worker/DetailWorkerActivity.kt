@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.product
+package com.zamio.adong.ui.worker
 
 import RestClient
 import android.app.AlertDialog
@@ -10,20 +10,22 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
-import com.zamio.adong.model.Product
+import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.product.UpdateProductActivity
 import kotlinx.android.synthetic.main.activity_detail_product.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailProductActivity : BaseActivity() {
+class DetailWorkerActivity : BaseActivity() {
 
-    var product:Product? = null
+
+    var product:Worker? = null
     var productId = 1
     override fun getLayout(): Int {
-        return R.layout.activity_detail_product
+        return R.layout.activity_detail_worker
     }
 
     override fun initView() {
@@ -44,8 +46,6 @@ class DetailProductActivity : BaseActivity() {
             if(!ConstantsApp.PERMISSION.contains("d")){
                 tvOk.visibility = View.GONE
             }
-
-
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateProductActivity::class.java)
@@ -81,22 +81,22 @@ class DetailProductActivity : BaseActivity() {
 
     private fun getProduct(id:Int){
         showProgessDialog()
-        RestClient().getRestService().getProduct(id).enqueue(object :
-            Callback<RestData<Product>> {
+        RestClient().getRestService().getWorker(id).enqueue(object :
+            Callback<RestData<Worker>> {
 
-            override fun onFailure(call: Call<RestData<Product>>?, t: Throwable?) {
+            override fun onFailure(call: Call<RestData<Worker>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<Product>>?, response: Response<RestData<Product>>?) {
+            override fun onResponse(call: Call<RestData<Worker>>?, response: Response<RestData<Worker>>?) {
                 dismisProgressDialog()
                 if( response!!.body().status == 1){
                     product = response.body().data ?: return
-                    tvName.text = product!!.name
-                    tvType.text = product!!.type
-                    tvUnit.text = product!!.unit
-                    tvQuantity.text = product!!.quantity.toString()
-                    Picasso.get().load(product!!.thumbnailUrl).into(cropImageView)
+                    tvName.text = product!!.fullName
+                    tvType.text = product!!.phone
+                    tvUnit.text = product!!.address
+
+                    Picasso.get().load(product!!.avatarUrl).into(cropImageView)
                 }
             }
         })
@@ -104,7 +104,7 @@ class DetailProductActivity : BaseActivity() {
 
     private fun removeLorry(){
         showProgessDialog()
-        RestClient().getRestService().removeProduct(product!!.id).enqueue(object :
+        RestClient().getRestService().removeWorker(product!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -128,4 +128,5 @@ class DetailProductActivity : BaseActivity() {
             getProduct(productId)
         }
     }
+
 }

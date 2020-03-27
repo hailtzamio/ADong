@@ -3,9 +3,6 @@ package com.zamio.adong.ui.product
 import ProductAdapter
 import RestClient
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
@@ -47,7 +44,7 @@ class RemoveActivity : BaseActivity() {
 
     private fun getProducts(){
         showProgessDialog()
-        RestClient().getRestService().getProducts().enqueue(object :
+        RestClient().getRestService().getProducts(0).enqueue(object :
             Callback<RestData<List<Product>>> {
             override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
 

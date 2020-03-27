@@ -9,6 +9,10 @@ class Pagination {
     @Expose
     var totalRecords: Int? = null
 
+    @SerializedName("totalPages")
+    @Expose
+    var totalPages: Int? = null
+
     @SerializedName("page")
     @Expose
     var page: Int? = null

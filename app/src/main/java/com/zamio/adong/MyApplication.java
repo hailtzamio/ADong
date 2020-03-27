@@ -8,14 +8,14 @@ import com.zamio.adong.utils.FontsOverride;
 public class MyApplication extends Application {
 
     private static MyApplication mInstance;
-
+    private String font = "fonts/Crimson.ttf";
     @Override
     public void onCreate() {
         super.onCreate();
-        FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/RobotoLight.ttf");
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/RobotoLight.ttf");
-        FontsOverride.setDefaultFont(this, "SERIF", "fonts/RobotoLight.ttf");
-        FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/RobotoLight.ttf");
+        FontsOverride.setDefaultFont(this, "DEFAULT", font);
+        FontsOverride.setDefaultFont(this, "MONOSPACE", font);
+        FontsOverride.setDefaultFont(this, "SERIF", font);
+        FontsOverride.setDefaultFont(this, "SANS_SERIF", font);
         mInstance = this;
     }
 

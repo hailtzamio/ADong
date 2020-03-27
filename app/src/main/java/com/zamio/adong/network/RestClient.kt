@@ -1,16 +1,14 @@
 
 
-import RestService
-
 import com.google.gson.GsonBuilder
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.zamio.adong.network.ConstantsApp
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -44,6 +42,17 @@ class RestClient {
 
                 chain.proceed(request)
             }
+
+            builder.addInterceptor(
+                LoggingInterceptor.Builder()
+                    .loggable(true)
+                    .setLevel(Level.BASIC)
+                    .log(Platform.INFO)
+                    .request("request-hailpt")
+                    .response("response-hailpt")
+                    .log(Platform.INFO)
+                    .build())
+
             builder.readTimeout(20, TimeUnit.SECONDS)
             builder.connectTimeout(15, TimeUnit.SECONDS)
             builder.writeTimeout(30, TimeUnit.SECONDS)

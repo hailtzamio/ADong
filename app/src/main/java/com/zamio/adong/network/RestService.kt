@@ -7,9 +7,8 @@ import com.google.gson.JsonObject
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Permission
 import com.zamio.adong.model.Product
+import com.zamio.adong.model.Worker
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -29,7 +28,7 @@ interface RestService {
     fun getPermissions(): Call<RestData<List<Permission>>>
 
     @GET("product")
-    abstract fun getProducts(): Call<RestData<List<Product>>>
+    abstract fun getProducts(@Query("page") page: Int): Call<RestData<List<Product>>>
 
     @GET("product/{id}")
     fun getProduct(@Path("id") productId: Int): Call<RestData<Product>>
@@ -63,6 +62,23 @@ interface RestService {
     @Multipart
     @POST("uploadAvatar")
     fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    /* Woker */
+    @GET("worker")
+    fun getWorkers(@Query("page") page: Int): Call<RestData<List<Worker>>>
+
+    @GET("worker/{id}")
+    fun getWorker(@Path("id") lorryId: Int): Call<RestData<Worker>>
+
+    @PUT("worker/{id}")
+    fun updateWorker(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+
+    @POST("worker")
+    fun createWorker(@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @DELETE("worker/{id}")
+    fun removeWorker(@Path("id") productId: Int): Call<RestData<JsonElement>>
+    /* End Woker */
 
 //    // Topic Detail
 //    @GET("topic/view?")

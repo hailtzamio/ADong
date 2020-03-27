@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.product
+package com.zamio.adong.ui.worker
 
 import RestClient
 import android.app.Activity
@@ -9,55 +9,60 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
-import com.zamio.adong.model.Product
-import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_update_product.*
+import kotlinx.android.synthetic.main.activity_create_product.*
+import kotlinx.android.synthetic.main.activity_create_product.cropImageView
+import kotlinx.android.synthetic.main.activity_create_product.edtName
+import kotlinx.android.synthetic.main.activity_create_product.tvOk
+import kotlinx.android.synthetic.main.activity_create_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
-class UpdateProductActivity : BaseActivity() {
+
+class CreateWorkerActivity : BaseActivity() {
 
     var thumbnailExtId = ""
     override fun getLayout(): Int {
-       return R.layout.activity_update_product
+        return R.layout.activity_create_worker
     }
 
     override fun initView() {
+        tvTitle.text = "Tạo Công Nhân"
         rightButton.visibility = View.GONE
-        tvTitle.text = "Cập Nhật"
     }
 
     override fun initData() {
-        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Product
-        thumbnailExtId = productOb.thumbnailUrl
-        edtName.setText(productOb.name)
-        edtUnit.setText(productOb.unit)
-        edtType.setText(productOb.type)
-        Picasso.get().load(thumbnailExtId).into(cropImageView)
 
         tvOk.setOnClickListener {
 
-            if(isEmpty(edtName) || isEmpty(edtUnit) || isEmpty(edtType)){
+            if(thumbnailExtId == ""){
+                showToast("Chọn ảnh")
+                return@setOnClickListener
+            }
+
+            if(isEmpty(edtName) || isEmpty(edtEmail) || isEmpty(edtPhone)|| isEmpty(edtBankName) || isEmpty(edtBankAccount)){
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
 
             val product = JsonObject()
-            product.addProperty("name",edtName.text.toString())
-            product.addProperty("unit",edtUnit.text.toString())
-            product.addProperty("type",edtType.text.toString())
-            product.addProperty("thumbnailExtId",thumbnailExtId)
-            updateProduct(productOb.id,product )
+            product.addProperty("fullName",edtName.text.toString())
+            product.addProperty("address",edtAddress.text.toString())
+            product.addProperty("email",edtEmail.text.toString())
+            product.addProperty("phone",edtPhone.text.toString())
+            product.addProperty("bankName",edtBankName.text.toString())
+            product.addProperty("bankAccount",edtBankAccount.text.toString())
+            product.addProperty("avatarExtId",thumbnailExtId)
+            createProduct(product)
         }
 
         cropImageView.setOnClickListener {
@@ -66,12 +71,16 @@ class UpdateProductActivity : BaseActivity() {
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this)
         }
+
     }
 
-    private fun updateProduct(id:Int, lorry: JsonObject){
+    override fun resumeData() {
 
+    }
+
+    private fun createProduct(product:JsonObject){
         showProgessDialog()
-        RestClient().getRestService().updateProduct(id,lorry).enqueue(object :
+        RestClient().getRestService().createWorker(product).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -80,17 +89,16 @@ class UpdateProductActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
-                    showToast("Cập nhật thành công")
+                if( response?.body() != null && response.body().status == 1){
+                    showToast("Tạo công nhân thành công")
                     setResult(100)
                     finish()
+                } else {
+                    val obj = JSONObject(response!!.errorBody().string())
+                    showToast(obj["message"].toString())
                 }
             }
         })
-    }
-
-    override fun resumeData() {
-
     }
 
     private fun uploadImage(file:File){
@@ -126,13 +134,10 @@ class UpdateProductActivity : BaseActivity() {
                 val resultUri: Uri = result.uri
                 val file = File(resultUri.path!!)
                 uploadImage(file)
-                cropImageView.setImageURI(resultUri);
+                cropImageView.setImageUriAsync(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
             }
         }
     }
-
-
-
 }

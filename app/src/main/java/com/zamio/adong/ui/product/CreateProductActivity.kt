@@ -4,7 +4,6 @@ import RestClient
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -18,10 +17,10 @@ import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 import java.io.File
 
 
@@ -87,7 +86,8 @@ class CreateProductActivity : BaseActivity() {
                     showToast("Tạo vật tư thành công")
                     onBackPressed()
                 } else {
-                    showToast("Không thành công")
+                    val obj = JSONObject(response!!.errorBody().string())
+                    showToast(obj["message"].toString())
                 }
             }
         })
@@ -112,7 +112,7 @@ class CreateProductActivity : BaseActivity() {
                 if( response?.body() != null && response.body().status == 1){
 //                    showToast("Tạo vật tư thành công " + response.body().data)
                     val idOb = response.body().data!!.asJsonObject
-                    thumbnailExtId = idOb["id"].toString()
+                    thumbnailExtId = idOb["id"].asString
                 }
             }
         })

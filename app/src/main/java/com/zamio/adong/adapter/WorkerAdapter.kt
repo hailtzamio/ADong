@@ -9,14 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
-import com.zamio.adong.model.Product
+import com.zamio.adong.model.Worker
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
-    var onItemClick: ((Product) -> Unit)? = null
+class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapter<WorkerAdapter.MyViewHolder>() {
+    var onItemClick: ((Worker) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -42,12 +42,12 @@ class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.name
-        holder.type.text = topic.type
-        holder.unit.text = topic.unit
-        holder.quantity.text = topic.quantity.toString()
-        if(topic.thumbnailUrl != null){
-            Picasso.get().load(topic.thumbnailUrl).into(holder.imvAva)
+        holder.name.text = topic.fullName
+        holder.type.text = topic.phone
+        holder.unit.text = topic.address
+
+        if(topic.avatarUrl != null){
+            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
         }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

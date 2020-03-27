@@ -18,6 +18,7 @@ import com.zamio.adong.model.Permission
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
+import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -57,7 +58,7 @@ class PermissionsFragment : BaseFragment() {
 
             override fun onResponse(call: Call<RestData<List<Permission>>>?, response: Response<RestData<List<Permission>>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if( response!!.body() != null && response!!.body().status == 1){
                     setupRecyclerView(response.body().data!!)
                 }
             }
@@ -102,6 +103,7 @@ class PermissionsFragment : BaseFragment() {
             when (product.appEntityCode) {
                 "Product" -> intent = Intent(context, MainProductActivity::class.java)
                 "Lorry" -> intent = Intent(context, MainLorryActivity::class.java)
+                "Worker" -> intent = Intent(context, MainWorkerActivity::class.java)
             }
 
             ConstantsApp.PERMISSION = actionString
