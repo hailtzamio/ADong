@@ -34,7 +34,8 @@
         />
 
         <EditText
-            android:layout_marginTop="20dp"
+            android:singleLine="true"
+             android:layout_marginTop="20dp"
              android:hint="Tên"
             android:paddingLeft="10dp"
             android:id="@+id/edtName"
@@ -53,6 +54,8 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
+
+            android:singleLine="true"
             android:hint="Loại"
             android:paddingLeft="10dp"
             android:id="@+id/edtType"

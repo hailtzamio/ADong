@@ -35,7 +35,7 @@
 
 
 
-        <EditText
+        <EditText   android:singleLine="true"
             android:layout_marginTop="20dp"
             android:hint="Tên"
             android:paddingLeft="10dp"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
-        <EditText
+        <EditText  android:singleLine="true"
             android:inputType="number"
             android:hint="Số lượng"
             android:paddingLeft="10dp"
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
-        <EditText
+        <EditText  android:singleLine="true"
             android:hint="Loại"
             android:paddingLeft="10dp"
             android:id="@+id/edtType"

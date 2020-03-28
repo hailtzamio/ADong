@@ -1,23 +1,38 @@
 package com.zamio.adong.ui.worker
 
 import RestClient
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.theartofdev.edmodo.cropper.CropImage
 import com.zamio.adong.R
 import com.zamio.adong.model.Product
+import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_create_product.*
+import kotlinx.android.synthetic.main.activity_update_worker.*
+import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.item_header_layout.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class UpdateWorkerActivity : BaseActivity() {
+
+
+    var avatarUrl = ""
+    var avatarExtId = ""
     override fun getLayout(): Int {
-       return R.layout.activity_update_product
+       return R.layout.activity_update_worker
     }
 
     override fun initView() {
@@ -26,32 +41,48 @@ class UpdateWorkerActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Product
+        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Worker
+        avatarExtId = productOb.avatarExtId
 
+        edtName.setText(productOb.fullName)
+        edtPhone.setText(productOb.phone)
+        edtAddress.setText(productOb.address)
+        edtBankAccount.setText(productOb.bankAccount)
+        edtBankName.setText(productOb.bankName)
+        edtEmail.setText(productOb.email)
 
-        edtName.setText(productOb.name)
-        edtUnit.setText(productOb.unit)
-        edtType.setText(productOb.type)
+        Picasso.get().load(productOb.avatarUrl).into(cropImageView)
 
         tvOk.setOnClickListener {
 
-            if(isEmpty(edtName) || isEmpty(edtUnit) || isEmpty(edtType)){
+            if(isEmpty(edtName) || isEmpty(edtPhone) || isEmpty(edtAddress)){
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
 
-            val product = JsonObject()
-            product.addProperty("name",edtName.text.toString())
-            product.addProperty("unit",edtUnit.text.toString())
-            product.addProperty("type",edtType.text.toString())
-            updateProduct(productOb.id,product )
+            val worker = JsonObject()
+            worker.addProperty("fullName",edtName.text.toString())
+            worker.addProperty("phone",edtPhone.text.toString())
+            worker.addProperty("address",edtAddress.text.toString())
+            worker.addProperty("bankAccount",edtBankAccount.text.toString())
+            worker.addProperty("bankName",edtBankName.text.toString())
+            worker.addProperty("email",edtEmail.text.toString())
+            worker.addProperty("avatarExtId",avatarExtId)
+            updateWorker(productOb.id,worker )
+        }
+
+        cropImageView.setOnClickListener {
+            CropImage.activity()
+                .setAspectRatio(1,1)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this)
         }
     }
 
-    private fun updateProduct(id:Int, lorry: JsonObject){
+    private fun updateWorker(id:Int, woker: JsonObject){
 
         showProgessDialog()
-        RestClient().getRestService().updateProduct(id,lorry).enqueue(object :
+        RestClient().getRestService().updateWorker(id,woker).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -71,6 +102,46 @@ class UpdateWorkerActivity : BaseActivity() {
 
     override fun resumeData() {
 
+    }
+
+    private fun uploadImage(file:File){
+        val requestFile =
+            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val body =
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        showProgessDialog()
+        RestClient().getRestService().updateProfile(body).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+                dismisProgressDialog()
+                if( response?.body() != null && response.body().status == 1){
+//                    showToast("Tạo vật tư thành công " + response.body().data)
+                    val idOb = response.body().data!!.asJsonObject
+                    avatarExtId = idOb["id"].asString
+                }
+            }
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == Activity.RESULT_OK) {
+                val resultUri: Uri = result.uri
+                val file = File(resultUri.path!!)
+                uploadImage(file)
+                cropImageView.setImageURI(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+            }
+        }
     }
 
 

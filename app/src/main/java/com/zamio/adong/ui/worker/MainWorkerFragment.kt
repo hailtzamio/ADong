@@ -131,10 +131,10 @@ class MainWorkerFragment : BaseFragment() {
 
             override fun loadMoreItems() {
                 isLoading = true
-                if((currentPage + 1) < totalPages){
-                    getProducts(currentPage++)
-                }
-                currentPage += 1
+//                if((currentPage + 1) < totalPages){
+//                    getProducts(currentPage++)
+//                }
+//                currentPage += 1
             }
         })
     }

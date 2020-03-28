@@ -22,6 +22,7 @@
         <activity android:name=".ui.worker.MainWorkerActivity"     android:screenOrientation="portrait"/>
         <activity android:name=".ui.product.UpdateProductActivity"     android:screenOrientation="portrait"/>
         <activity android:name=".ui.lorry.UpdateLorryActivity"    android:screenOrientation="portrait" />
+        <activity android:name=".ui.worker.UpdateWorkerActivity"    android:screenOrientation="portrait" />
         <activity
             android:name=".ui.lorry.CreateLorryActivity"
             android:screenOrientation="portrait" />

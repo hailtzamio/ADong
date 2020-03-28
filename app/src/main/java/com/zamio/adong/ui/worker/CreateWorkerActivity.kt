@@ -12,10 +12,6 @@ import com.google.gson.JsonObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
-import kotlinx.android.synthetic.main.activity_create_product.*
-import kotlinx.android.synthetic.main.activity_create_product.cropImageView
-import kotlinx.android.synthetic.main.activity_create_product.edtName
-import kotlinx.android.synthetic.main.activity_create_product.tvOk
 import kotlinx.android.synthetic.main.activity_create_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
@@ -121,6 +117,11 @@ class CreateWorkerActivity : BaseActivity() {
 //                    showToast("Tạo vật tư thành công " + response.body().data)
                     val idOb = response.body().data!!.asJsonObject
                     thumbnailExtId = idOb["id"].asString
+                } else {
+                    if(response!!.errorBody() != null){
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
                 }
             }
         })
@@ -134,7 +135,7 @@ class CreateWorkerActivity : BaseActivity() {
                 val resultUri: Uri = result.uri
                 val file = File(resultUri.path!!)
                 uploadImage(file)
-                cropImageView.setImageUriAsync(resultUri);
+                cropImageView.setImageURI(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
             }

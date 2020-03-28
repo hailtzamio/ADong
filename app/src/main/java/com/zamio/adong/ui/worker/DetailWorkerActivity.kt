@@ -13,7 +13,8 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.product.UpdateProductActivity
-import kotlinx.android.synthetic.main.activity_detail_product.*
+import kotlinx.android.synthetic.main.activity_detail_worker.*
+
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +49,7 @@ class DetailWorkerActivity : BaseActivity() {
             }
 
             rightButton.setOnClickListener {
-                val intent = Intent(this, UpdateProductActivity::class.java)
+                val intent = Intent(this, UpdateWorkerActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -90,11 +91,14 @@ class DetailWorkerActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<Worker>>?, response: Response<RestData<Worker>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                 if(response!!.body().status == 1){
                     product = response.body().data ?: return
                     tvName.text = product!!.fullName
-                    tvType.text = product!!.phone
-                    tvUnit.text = product!!.address
+                    tvPhone.text = product!!.phone
+                    tvAddress.text = product!!.address
+                    tvEmail.text = product!!.email
+                    tvBankName.text = product!!.bankName
+                    tvBankAccount.text = product!!.bankAccount
 
                     Picasso.get().load(product!!.avatarUrl).into(cropImageView)
                 }

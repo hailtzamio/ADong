@@ -11,6 +11,7 @@ import com.google.gson.JsonObject
 import com.zamio.adong.R
 import kotlinx.android.synthetic.main.activity_create_lorry.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +32,11 @@ class CreateLorryActivity : BaseActivity() {
 
             if(isEmpty(edtBrand) || isEmpty(edtModel) || isEmpty(edtPlateNumber) || isEmpty(edtCapacity)){
                 showToast("Nhập thiếu thông tin")
+                return@setOnClickListener
+            }
+
+            if(edtPlateNumber.text.length < 8 || edtPlateNumber.text.length > 12 ){
+                showToast("Biển số xe sai định dạng")
                 return@setOnClickListener
             }
 
@@ -58,9 +64,13 @@ class CreateLorryActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if( response!!.body() != null && response!!.body().status == 1){
                     showToast("Tạo xe thành công")
-                    onBackPressed()
+                    setResult(100)
+                    finish()
+                } else {
+                    val obj = JSONObject(response!!.errorBody().string())
+                    showToast(obj["message"].toString())
                 }
             }
         })

@@ -26,5 +26,7 @@ data class Product(
     @SerializedName("updatedTime")
     val updatedTime: String,
     @SerializedName("thumbnailUrl")
-    val thumbnailUrl: String
+    val thumbnailUrl: String,
+    @SerializedName("thumbnailExtId")
+    val thumbnailExtId: String
 ) : Serializable

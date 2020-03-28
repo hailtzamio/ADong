@@ -39,11 +39,11 @@ class UpdateProductActivity : BaseActivity() {
 
     override fun initData() {
         val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Product
-        thumbnailExtId = productOb.thumbnailUrl
+        thumbnailExtId = productOb.thumbnailExtId
         edtName.setText(productOb.name)
         edtUnit.setText(productOb.unit)
         edtType.setText(productOb.type)
-        Picasso.get().load(thumbnailExtId).into(cropImageView)
+        Picasso.get().load(productOb.thumbnailUrl).into(cropImageView)
 
         tvOk.setOnClickListener {
 
@@ -80,7 +80,7 @@ class UpdateProductActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response.body().status == 1){
                     showToast("Cập nhật thành công")
                     setResult(100)
                     finish()
