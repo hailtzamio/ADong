@@ -84,7 +84,8 @@ class CreateProductActivity : BaseActivity() {
                 dismisProgressDialog()
                 if( response?.body() != null && response.body().status == 1){
                     showToast("Tạo vật tư thành công")
-                    onBackPressed()
+                    setResult(100)
+                    finish()
                 } else {
                     val obj = JSONObject(response!!.errorBody().string())
                     showToast(obj["message"].toString())
