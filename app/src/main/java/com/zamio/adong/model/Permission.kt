@@ -7,7 +7,7 @@ data class Permission(
     @SerializedName("action")
     val action: String,
     @SerializedName("appEntityCode")
-    val appEntityCode: String,
+    var appEntityCode: String,
     @SerializedName("appEntityId")
     val appEntityId: Int,
     @SerializedName("authorityId")

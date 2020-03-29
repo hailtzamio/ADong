@@ -52,7 +52,6 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:inputType="number"
             android:hint="Trọng tải"
             android:paddingLeft="10dp"
             android:id="@+id/edtCapacity"

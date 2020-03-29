@@ -81,7 +81,20 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r"){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" )){
+
+                if (it.appEntityCode == "Worker" ){
+                    it.appEntityCode = "Công Nhân"
+                }
+
+                if (it.appEntityCode == "Product" ){
+                    it.appEntityCode = "Vật Tư"
+                }
+
+                if (it.appEntityCode == "Lorry" ){
+                    it.appEntityCode = "Xe"
+                }
+
                 permissions.add(it)
             }
         }
@@ -101,9 +114,9 @@ class PermissionsFragment : BaseFragment() {
 
             var intent:Intent? = null
             when (product.appEntityCode) {
-                "Product" -> intent = Intent(context, MainProductActivity::class.java)
-                "Lorry" -> intent = Intent(context, MainLorryActivity::class.java)
-                "Worker" -> intent = Intent(context, MainWorkerActivity::class.java)
+                "Vật Tư" -> intent = Intent(context, MainProductActivity::class.java)
+                "Xe" -> intent = Intent(context, MainLorryActivity::class.java)
+                "Công Nhân" -> intent = Intent(context, MainWorkerActivity::class.java)
             }
 
             ConstantsApp.PERMISSION = actionString
