@@ -42,7 +42,7 @@ class MainProductFragment : BaseFragment() {
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateProductActivity::class.java)
             intent.putExtra("EMAIL", "")
-            startActivity(intent)
+            startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
@@ -64,10 +64,10 @@ class MainProductFragment : BaseFragment() {
 
     private fun getProducts(page:Int){
         showProgessDialog()
-        RestClient().getRestService().getProducts(page).enqueue(object :
+        RestClient().getInstance().getRestService().getProducts(page).enqueue(object :
             Callback<RestData<List<Product>>> {
             override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
-
+                dismisProgressDialog()
             }
 
             override fun onResponse(call: Call<RestData<List<Product>>>?, response: Response<RestData<List<Product>>>?) {

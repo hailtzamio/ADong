@@ -2,8 +2,6 @@ package com.elcom.com.quizupapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -36,8 +34,8 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(getLayout())
         initView()
         initData()

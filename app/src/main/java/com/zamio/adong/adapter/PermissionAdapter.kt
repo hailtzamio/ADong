@@ -2,14 +2,13 @@
 
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Permission
-import com.zamio.adong.model.Product
 
 
 /**
@@ -19,6 +18,7 @@ class PermissionAdapter(private val topicDetails: List<Permission>) : RecyclerVi
     var onItemClick: ((Permission) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
+        var imvAva: ImageView = view.findViewById(R.id.imvAva)
 
 
 
@@ -40,6 +40,18 @@ class PermissionAdapter(private val topicDetails: List<Permission>) : RecyclerVi
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.appEntityCode
+
+        if(topic.appEntityCode == "Xe"){
+            holder.imvAva.setImageResource(R.drawable.lorry)
+        }
+
+        if(topic.appEntityCode == "Công Nhân"){
+            holder.imvAva.setImageResource(R.drawable.worker)
+        }
+
+        if(topic.appEntityCode == "Vật Tư"){
+            holder.imvAva.setImageResource(R.drawable.materials)
+        }
 
     }
 

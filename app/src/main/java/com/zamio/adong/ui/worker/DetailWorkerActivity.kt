@@ -12,9 +12,7 @@ import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.product.UpdateProductActivity
 import kotlinx.android.synthetic.main.activity_detail_worker.*
-
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,7 +66,7 @@ class DetailWorkerActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("xóa vật tư này?").setPositiveButton("Đồng ý", dialogClickListener)
+                builder.setMessage("xóa công nhân này?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
         }
@@ -82,7 +80,7 @@ class DetailWorkerActivity : BaseActivity() {
 
     private fun getProduct(id:Int){
         showProgessDialog()
-        RestClient().getRestService().getWorker(id).enqueue(object :
+        RestClient().getInstance().getRestService().getWorker(id).enqueue(object :
             Callback<RestData<Worker>> {
 
             override fun onFailure(call: Call<RestData<Worker>>?, t: Throwable?) {
@@ -108,7 +106,7 @@ class DetailWorkerActivity : BaseActivity() {
 
     private fun removeLorry(){
         showProgessDialog()
-        RestClient().getRestService().removeWorker(product!!.id).enqueue(object :
+        RestClient().getInstance().getRestService().removeWorker(product!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

@@ -1,29 +1,17 @@
 package com.zamio.adong
 
-import RestClient
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
-import com.elcom.com.quizupapp.ui.network.RestData
 import com.elcom.com.quizupapp.utils.PreferUtils
-import com.google.gson.JsonElement
-import kotlinx.android.synthetic.main.item_header_layout.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
 
     override fun getLayout(): Int {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         val preferUtils = PreferUtils()
         val userId = preferUtils.getUserId(this)

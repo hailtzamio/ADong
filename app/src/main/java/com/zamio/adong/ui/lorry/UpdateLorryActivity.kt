@@ -1,8 +1,6 @@
 package com.zamio.adong.ui.lorry
 
 import RestClient
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
@@ -13,7 +11,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_update_lorry.*
-
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -64,7 +61,7 @@ class UpdateLorryActivity : BaseActivity() {
     private fun updateLorry(id:Int, lorry: JsonObject){
 
         showProgessDialog()
-        RestClient().getRestService().updateLorry(id,lorry).enqueue(object :
+        RestClient().getInstance().getRestService().updateLorry(id,lorry).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

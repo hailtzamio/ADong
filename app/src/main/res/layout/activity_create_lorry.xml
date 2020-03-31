@@ -26,7 +26,7 @@
         >
 
         <EditText
-            android:hint="Hãng"
+            android:hint="Hãng sản xuất"
             android:paddingLeft="10dp"
             android:id="@+id/edtBrand"
             android:background="@drawable/button_normal_main_radius_layout"
@@ -34,7 +34,7 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:hint="Tên"
+            android:hint="Model"
             android:paddingLeft="10dp"
             android:id="@+id/edtModel"
             android:layout_marginTop="10dp"

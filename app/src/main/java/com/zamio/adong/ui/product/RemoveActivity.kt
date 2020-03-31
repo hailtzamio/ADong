@@ -44,7 +44,7 @@ class RemoveActivity : BaseActivity() {
 
     private fun getProducts(){
         showProgessDialog()
-        RestClient().getRestService().getProducts(0).enqueue(object :
+        RestClient().getInstance().getRestService().getProducts(0).enqueue(object :
             Callback<RestData<List<Product>>> {
             override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
 

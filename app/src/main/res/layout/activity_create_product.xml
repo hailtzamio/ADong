@@ -45,7 +45,7 @@
 
         <EditText
             android:inputType="number"
-            android:hint="Số lượng"
+            android:hint="Đơn vị tính"
             android:paddingLeft="10dp"
             android:id="@+id/edtUnit"
             android:layout_marginTop="10dp"
@@ -53,16 +53,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
-        <EditText
-
+        <Spinner
             android:singleLine="true"
-            android:hint="Loại"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtType"
+            android:paddingLeft="4dp"
+            android:id="@+id/spinType"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
+
 
         <TextView
             android:id="@+id/tvOk"

@@ -44,8 +44,8 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
         val topic = topicDetails[position]
         holder.name.text = topic.fullName
         holder.type.text = topic.phone
-        holder.unit.text = topic.address
-
+        holder.unit.text = topic.email
+        holder.quantity.text = topic.address
         if(topic.avatarUrl != null){
             Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
         }else {

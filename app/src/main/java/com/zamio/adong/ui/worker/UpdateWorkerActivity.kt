@@ -9,14 +9,13 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
-import com.zamio.adong.model.Product
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_update_worker.*
-import com.squareup.picasso.Picasso
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -82,7 +81,7 @@ class UpdateWorkerActivity : BaseActivity() {
     private fun updateWorker(id:Int, woker: JsonObject){
 
         showProgessDialog()
-        RestClient().getRestService().updateWorker(id,woker).enqueue(object :
+        RestClient().getInstance().getRestService().updateWorker(id,woker).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -111,7 +110,7 @@ class UpdateWorkerActivity : BaseActivity() {
             MultipartBody.Part.createFormData("image", file.name, requestFile)
 
         showProgessDialog()
-        RestClient().getRestService().updateProfile(body).enqueue(object :
+        RestClient().getInstance().getRestService().updateProfile(body).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

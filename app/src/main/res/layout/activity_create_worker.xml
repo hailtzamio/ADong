@@ -72,7 +72,7 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText  android:singleLine="true"
-            android:hint="Tên tài khoản"
+            android:hint="Ngân hàng"
             android:paddingLeft="10dp"
             android:id="@+id/edtBankName"
             android:layout_marginTop="10dp"

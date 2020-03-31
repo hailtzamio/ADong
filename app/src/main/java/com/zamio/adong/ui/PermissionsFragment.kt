@@ -8,12 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.elcom.com.quizupapp.utils.PreferUtils
 import com.zamio.adong.MainActivity
 import com.zamio.adong.R
+import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.MainLorryActivity
@@ -28,8 +29,7 @@ import retrofit2.Response
 
 class PermissionsFragment : BaseFragment() {
 
-
-
+    var adapter: PermissionGridAdapter? = null
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -46,20 +46,23 @@ class PermissionsFragment : BaseFragment() {
         rightButton.visibility = View.GONE
         tvTitle.text = "Trang Chủ"
         getPermission()
+
+
     }
 
     private fun getPermission(){
         showProgessDialog()
         RestClient().getRestService().getPermissions().enqueue(object :
-            Callback<RestData<List<Permission>>> {
-            override fun onFailure(call: Call<RestData<List<Permission>>>?, t: Throwable?) {
-                val preferUtils = PreferUtils()
+            Callback<RestData<ArrayList<Permission>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<Permission>>>?, t: Throwable?) {
+                dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<Permission>>>?, response: Response<RestData<List<Permission>>>?) {
+            override fun onResponse(call: Call<RestData<ArrayList<Permission>>>?, response: Response<RestData<ArrayList<Permission>>>?) {
                 dismisProgressDialog()
                 if( response!!.body() != null && response!!.body().status == 1){
-                    setupRecyclerView(response.body().data!!)
+//                    setupRecyclerView(response.body().data!!)
+                    setupGridView(response!!.body().data!!)
                 }
             }
         })
@@ -74,6 +77,56 @@ class PermissionsFragment : BaseFragment() {
 //            context.finish()
 //        }
 //        Runtime.getRuntime().exit(0)
+    }
+
+    private fun setupGridView(data:ArrayList<Permission>){
+
+        val permissions = ArrayList<Permission>()
+
+        data.forEach {
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" )){
+
+                if (it.appEntityCode == "Worker" ){
+                    it.appEntityCode = "Công Nhân"
+                }
+
+                if (it.appEntityCode == "Product" ){
+                    it.appEntityCode = "Vật Tư"
+                }
+
+                if (it.appEntityCode == "Lorry" ){
+                    it.appEntityCode = "Xe"
+                }
+
+                permissions.add(it)
+            }
+        }
+
+        adapter = PermissionGridAdapter(context!!, permissions)
+        gvFoods.adapter = adapter
+
+        gvFoods.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                val product = permissions[position]
+                var actionString = ""
+
+                var intent:Intent? = null
+                when (product.appEntityCode) {
+                    "Vật Tư" -> intent = Intent(context, MainProductActivity::class.java)
+                    "Xe" -> intent = Intent(context, MainLorryActivity::class.java)
+                    "Công Nhân" -> intent = Intent(context, MainWorkerActivity::class.java)
+                }
+
+                ConstantsApp.PERMISSION = actionString
+
+                if(intent != null){
+                    startActivity(intent)
+                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }
+
+            }
     }
 
     private fun setupRecyclerView(data:List<Permission>){

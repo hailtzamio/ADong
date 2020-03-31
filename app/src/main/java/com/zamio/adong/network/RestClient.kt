@@ -71,38 +71,4 @@ class RestClient {
         }
         return restService as RestService
     }
-
-    fun getRestServiceCompany(): RestService? {
-
-        if (restServiceCompany == null) {
-            val builder = OkHttpClient().newBuilder()
-
-            builder.addInterceptor { chain ->
-                val original = chain.request()
-
-                val request = original.newBuilder()
-                        .header("X-DEVICE", ConstantsApp.BASE64_HEADER)
-                        .header("X-AUTH-TOKEN", ConstantsApp.BASE64_AUTH_TOKEN)
-                        .build()
-
-                chain.proceed(request)
-            }
-
-            builder.readTimeout(20, TimeUnit.SECONDS)
-            builder.connectTimeout(15, TimeUnit.SECONDS)
-            builder.writeTimeout(30, TimeUnit.SECONDS)
-            val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-            val retrofit = Retrofit.Builder()
-                    .client(builder.build())
-                    .baseUrl(ConstantsApp.SERVER_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build()
-
-            restServiceCompany = retrofit.create(RestService::class.java)
-            return restServiceCompany
-        }
-        return restServiceCompany
-    }
 }

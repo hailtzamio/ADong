@@ -15,7 +15,6 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.product.MainProductActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -63,7 +62,7 @@ class MainWorkerFragment : BaseFragment() {
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateWorkerActivity::class.java)
             intent.putExtra("EMAIL", "")
-            startActivity(intent)
+            startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
@@ -71,10 +70,8 @@ class MainWorkerFragment : BaseFragment() {
             activity!!.onBackPressed()
         }
 
-        if(activity is MainProductActivity){
-            if(!ConstantsApp.PERMISSION!!.contains("c")){
-                rightButton.visibility = View.GONE
-            }
+        if(!ConstantsApp.PERMISSION!!.contains("c")){
+            rightButton.visibility = View.GONE
         }
     }
 
@@ -85,10 +82,10 @@ class MainWorkerFragment : BaseFragment() {
 
     private fun getProducts(page:Int){
         showProgessDialog()
-        RestClient().getRestService().getWorkers(page).enqueue(object :
+        RestClient().getInstance().getRestService().getWorkers(page).enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
-
+                dismisProgressDialog()
             }
 
             override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {

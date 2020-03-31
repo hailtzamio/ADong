@@ -76,7 +76,7 @@ class DetailLorryActivity : BaseActivity() {
 
     private fun getLorry(id:Int){
         showProgessDialog()
-        RestClient().getRestService().getLorry(id).enqueue(object :
+        RestClient().getInstance().getRestService().getLorry(id).enqueue(object :
             Callback<RestData<Lorry>> {
 
             override fun onFailure(call: Call<RestData<Lorry>>?, t: Throwable?) {

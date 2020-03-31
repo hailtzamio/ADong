@@ -81,7 +81,7 @@ class DetailProductActivity : BaseActivity() {
 
     private fun getProduct(id:Int){
         showProgessDialog()
-        RestClient().getRestService().getProduct(id).enqueue(object :
+        RestClient().getInstance().getRestService().getProduct(id).enqueue(object :
             Callback<RestData<Product>> {
 
             override fun onFailure(call: Call<RestData<Product>>?, t: Throwable?) {
@@ -93,7 +93,13 @@ class DetailProductActivity : BaseActivity() {
                 if( response!!.body().status == 1){
                     product = response.body().data ?: return
                     tvName.text = product!!.name
-                    tvType.text = product!!.type
+
+                    when (product!!.type) {
+                        "buy" ->  tvType.text = "Mua tại công trình"
+                        "manufacture" ->  tvType.text = "Sản xuất"
+                        "tool" ->  tvType.text = "Công cụ"
+                    }
+
                     tvUnit.text = product!!.unit
                     tvQuantity.text = product!!.quantity.toString()
                     Picasso.get().load(product!!.thumbnailUrl).into(cropImageView)

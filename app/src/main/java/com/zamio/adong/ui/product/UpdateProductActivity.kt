@@ -71,7 +71,7 @@ class UpdateProductActivity : BaseActivity() {
     private fun updateProduct(id:Int, lorry: JsonObject){
 
         showProgessDialog()
-        RestClient().getRestService().updateProduct(id,lorry).enqueue(object :
+        RestClient().getInstance().getRestService().updateProduct(id,lorry).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

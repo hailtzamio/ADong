@@ -76,7 +76,7 @@ class CreateWorkerActivity : BaseActivity() {
 
     private fun createProduct(product:JsonObject){
         showProgessDialog()
-        RestClient().getRestService().createWorker(product).enqueue(object :
+        RestClient().getInstance().getRestService().createWorker(product).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

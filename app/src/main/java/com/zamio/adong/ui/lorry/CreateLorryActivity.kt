@@ -1,8 +1,6 @@
 package com.zamio.adong.ui.lorry
 
 import RestClient
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -55,7 +53,7 @@ class CreateLorryActivity : BaseActivity() {
 
     private fun createProduct(lorry: JsonObject){
         showProgessDialog()
-        RestClient().getRestService().createLorry(lorry).enqueue(object :
+        RestClient().getInstance().getRestService().createLorry(lorry).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
