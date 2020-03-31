@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zamio.adong.MyApplication
 import com.zamio.adong.R
-import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.utils.ConnectivityReceiver
 import com.zamio.adong.utils.ProgressDialogUtils
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -39,7 +38,7 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
         setContentView(getLayout())
         initView()
         initData()
-        showToast("Per = "+ ConstantsApp.PERMISSION)
+//        showToast("Per = "+ ConstantsApp.PERMISSION)
         if(imvBack != null) {
             imvBack.setOnClickListener {
                 onBackPressed()
