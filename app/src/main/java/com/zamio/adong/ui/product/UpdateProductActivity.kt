@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -24,10 +26,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.util.*
 
 class UpdateProductActivity : BaseActivity() {
 
     var thumbnailExtId = ""
+    var type = "buy"
     override fun getLayout(): Int {
        return R.layout.activity_update_product
     }
@@ -42,12 +46,19 @@ class UpdateProductActivity : BaseActivity() {
         thumbnailExtId = productOb.thumbnailExtId
         edtName.setText(productOb.name)
         edtUnit.setText(productOb.unit)
-        edtType.setText(productOb.type)
+
         Picasso.get().load(productOb.thumbnailUrl).into(cropImageView)
+        setupChooseSpinner()
+
+        when (productOb.type) {
+            "buy"->  spinType.setSelection(0)
+            "manufacture"->  spinType.setSelection(1)
+            "tool" ->  spinType.setSelection(2)
+        }
 
         tvOk.setOnClickListener {
 
-            if(isEmpty(edtName) || isEmpty(edtUnit) || isEmpty(edtType)){
+            if(isEmpty(edtName) || isEmpty(edtUnit)){
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
@@ -55,7 +66,7 @@ class UpdateProductActivity : BaseActivity() {
             val product = JsonObject()
             product.addProperty("name",edtName.text.toString())
             product.addProperty("unit",edtUnit.text.toString())
-            product.addProperty("type",edtType.text.toString())
+            product.addProperty("type",type)
             product.addProperty("thumbnailExtId",thumbnailExtId)
             updateProduct(productOb.id,product )
         }
@@ -65,6 +76,40 @@ class UpdateProductActivity : BaseActivity() {
                 .setAspectRatio(1,1)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this)
+        }
+
+
+    }
+
+    private fun setupChooseSpinner(){
+        val list: MutableList<String> = ArrayList()
+        list.add("Mua tại công trình")
+        list.add("Sản xuất")
+        list.add("Công cụ")
+
+        val dataAdapter = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, list
+        )
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinType.adapter = dataAdapter
+        spinType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> type = "buy"
+                    1 -> type = "manufacture"
+                    2 -> type = "tool"
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
     }
 

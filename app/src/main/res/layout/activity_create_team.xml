@@ -26,7 +26,6 @@
         >
 
         <EditText
-            android:singleLine="true"
             android:hint="Hãng sản xuất"
             android:paddingLeft="10dp"
             android:id="@+id/edtBrand"
@@ -35,7 +34,6 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:singleLine="true"
             android:hint="Model"
             android:paddingLeft="10dp"
             android:id="@+id/edtModel"
@@ -45,7 +43,6 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:singleLine="true"
             android:hint="Biển số xe"
             android:paddingLeft="10dp"
             android:id="@+id/edtPlateNumber"
@@ -55,7 +52,6 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:singleLine="true"
             android:hint="Trọng tải"
             android:paddingLeft="10dp"
             android:id="@+id/edtCapacity"

@@ -44,7 +44,7 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText
-            android:inputType="number"
+            android:singleLine="true"
             android:hint="Đơn vị tính"
             android:paddingLeft="10dp"
             android:id="@+id/edtUnit"
@@ -54,6 +54,8 @@
             android:layout_height="@dimen/edt_size" />
 
         <Spinner
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:paddingLeft="4dp"
             android:id="@+id/spinType"

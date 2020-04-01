@@ -58,7 +58,7 @@ class MainWorkerFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProducts(0)
+//        getProducts(0)
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateWorkerActivity::class.java)
             intent.putExtra("EMAIL", "")
@@ -77,7 +77,7 @@ class MainWorkerFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-
+        getProducts(0)
     }
 
     private fun getProducts(page:Int){
@@ -139,7 +139,7 @@ class MainWorkerFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 100){
-            getProducts(0)
+//            getProducts(0)
         }
     }
 

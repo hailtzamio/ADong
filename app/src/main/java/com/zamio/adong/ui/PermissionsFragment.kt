@@ -19,6 +19,7 @@ import com.zamio.adong.model.Permission
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
+import com.zamio.adong.ui.team.MainTeamActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -84,18 +85,22 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" )){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product"|| it.appEntityCode == "Team" )){
 
                 if (it.appEntityCode == "Worker" ){
-                    it.appEntityCode = "Công Nhân"
+                    it.name = "Công Nhân"
                 }
 
                 if (it.appEntityCode == "Product" ){
-                    it.appEntityCode = "Vật Tư"
+                    it.name = "Vật Tư"
                 }
 
                 if (it.appEntityCode == "Lorry" ){
-                    it.appEntityCode = "Xe"
+                    it.name = "Xe"
+                }
+
+                if (it.appEntityCode == "Team" ){
+                    it.name = "Đội Thi Công"
                 }
 
                 permissions.add(it)
@@ -111,12 +116,17 @@ class PermissionsFragment : BaseFragment() {
                 val selectedItem = parent.getItemAtPosition(position).toString()
                 val product = permissions[position]
                 var actionString = ""
-
+                data.forEach {
+                    if (it.appEntityCode == product.appEntityCode){
+                        actionString = actionString + "-" + it.action
+                    }
+                }
                 var intent:Intent? = null
                 when (product.appEntityCode) {
-                    "Vật Tư" -> intent = Intent(context, MainProductActivity::class.java)
-                    "Xe" -> intent = Intent(context, MainLorryActivity::class.java)
-                    "Công Nhân" -> intent = Intent(context, MainWorkerActivity::class.java)
+                    "Product" -> intent = Intent(context, MainProductActivity::class.java)
+                    "Lorry" -> intent = Intent(context, MainLorryActivity::class.java)
+                    "Worker" -> intent = Intent(context, MainWorkerActivity::class.java)
+                    "Team" -> intent = Intent(context, MainTeamActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString
@@ -137,15 +147,19 @@ class PermissionsFragment : BaseFragment() {
             if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" )){
 
                 if (it.appEntityCode == "Worker" ){
-                    it.appEntityCode = "Công Nhân"
+                    it.name = "Công Nhân"
                 }
 
                 if (it.appEntityCode == "Product" ){
-                    it.appEntityCode = "Vật Tư"
+                    it.name = "Vật Tư"
                 }
 
                 if (it.appEntityCode == "Lorry" ){
-                    it.appEntityCode = "Xe"
+                    it.name = "Xe"
+                }
+
+                if (it.appEntityCode == "Team" ){
+                    it.name = "Đội Thi Công"
                 }
 
                 permissions.add(it)
@@ -166,7 +180,7 @@ class PermissionsFragment : BaseFragment() {
             }
 
             var intent:Intent? = null
-            when (product.appEntityCode) {
+            when (product.name) {
                 "Vật Tư" -> intent = Intent(context, MainProductActivity::class.java)
                 "Xe" -> intent = Intent(context, MainLorryActivity::class.java)
                 "Công Nhân" -> intent = Intent(context, MainWorkerActivity::class.java)

@@ -2,27 +2,27 @@
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+
+import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.zamio.adong.R
+import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Product
+import com.zamio.adong.model.Team
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
-    var onItemClick: ((Product) -> Unit)? = null
+class TeamAdapter(private val topicDetails: List<Team>) : RecyclerView.Adapter<TeamAdapter.MyViewHolder>() {
+    var onItemClick: ((Team) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
-        var imvAva: ImageView = view.findViewById(R.id.imvAva)
 
 
         init {
@@ -35,7 +35,7 @@ class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Ada
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_product_layout, parent, false)
+                .inflate(R.layout.item_team_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -43,21 +43,9 @@ class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.name
-        holder.unit.text = topic.unit
-        holder.quantity.text = topic.quantity.toString()
-
-        when (topic.type) {
-            "buy" ->  holder.type.text = "Mua tại công trình"
-            "manufacture" ->  holder.type.text = "Sản xuất"
-            "tool" ->  holder.type.text = "Công cụ"
-        }
-
-        if(topic.thumbnailUrl != null){
-            Picasso.get().load(topic.thumbnailUrl).into(holder.imvAva)
-        }else {
-            holder.imvAva.setImageResource(R.drawable.ava);
-        }
-
+        holder.type.text = topic.address
+        holder.unit.text = topic.phone
+        holder.quantity.text = topic.provinceName
     }
 
     override fun getItemCount(): Int {

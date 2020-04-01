@@ -29,7 +29,7 @@ interface RestService {
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
     @GET("product?size=1000")
-    abstract fun getProducts(@Query("page") page: Int): Call<RestData<List<Product>>>
+    abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Product>>>
 
     @GET("product/{id}")
     fun getProduct(@Path("id") productId: Int): Call<RestData<Product>>
@@ -80,6 +80,22 @@ interface RestService {
     @DELETE("worker/{id}")
     fun removeWorker(@Path("id") productId: Int): Call<RestData<JsonElement>>
     /* End Woker */
+
+    /* Team */
+    @GET("team?size=1000")
+    fun getTeams(@Query("page") page: Int): Call<RestData<List<Team>>>
+
+    @GET("team/{id}")
+    fun getTeam(@Path("id") teamId: Int): Call<RestData<Team>>
+
+    @DELETE("team/{id}")
+    fun removeTeam(@Path("id") lorryId: Int): Call<RestData<JsonElement>>
+
+    @POST("team")
+    fun createTeam(@Body product: JsonObject): Call<RestData<JsonElement>>
+
+    /* End Team */
+
 
 //    // Topic Detail
 //    @GET("topic/view?")

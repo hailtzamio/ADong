@@ -39,17 +39,17 @@ class PermissionAdapter(private val topicDetails: List<Permission>) : RecyclerVi
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.appEntityCode
+        holder.name.text = topic.name
 
-        if(topic.appEntityCode == "Xe"){
+        if(topic.appEntityCode == "Lorry"){
             holder.imvAva.setImageResource(R.drawable.lorry)
         }
 
-        if(topic.appEntityCode == "Công Nhân"){
+        if(topic.appEntityCode == "Worker"){
             holder.imvAva.setImageResource(R.drawable.worker)
         }
 
-        if(topic.appEntityCode == "Vật Tư"){
+        if(topic.appEntityCode == "Product"){
             holder.imvAva.setImageResource(R.drawable.materials)
         }
 

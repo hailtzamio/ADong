@@ -13,5 +13,7 @@ data class Permission(
     @SerializedName("authorityId")
     val authorityId: Int,
     @SerializedName("id")
-    val id: Int
+    val id: Int,
+    @SerializedName("name")
+    var name: String
 )

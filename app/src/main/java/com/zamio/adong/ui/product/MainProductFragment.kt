@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainProductFragment : BaseFragment() {
 
@@ -38,7 +41,7 @@ class MainProductFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProducts(0)
+//        getProducts(0)
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateProductActivity::class.java)
             intent.putExtra("EMAIL", "")
@@ -55,16 +58,24 @@ class MainProductFragment : BaseFragment() {
                 rightButton.visibility = View.GONE
             }
         }
+
+        edtSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getProducts(0)
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     override fun onResume() {
         super.onResume()
-
+        getProducts(0)
     }
 
     private fun getProducts(page:Int){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProducts(page).enqueue(object :
+        RestClient().getInstance().getRestService().getProducts(page,edtSearch.text.toString()).enqueue(object :
             Callback<RestData<List<Product>>> {
             override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
                 dismisProgressDialog()
@@ -121,7 +132,7 @@ class MainProductFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 100){
-            getProducts(0)
+//            getProducts(0)
         }
     }
 }

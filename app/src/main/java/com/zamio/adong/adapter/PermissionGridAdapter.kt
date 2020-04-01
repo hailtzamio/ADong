@@ -41,17 +41,17 @@ class PermissionGridAdapter : BaseAdapter {
         var imvAva: ImageView = view.findViewById(R.id.imvAva)
 
         val topic = topicDetails[position]
-        name.text = topic.appEntityCode
+        name.text = topic.name
 
-        if(topic.appEntityCode == "Xe"){
-          imvAva.setImageResource(R.drawable.lorry)
+        if(topic.appEntityCode == "Lorry"){
+          imvAva.setImageResource(R.drawable.truck)
         }
 
-        if(topic.appEntityCode == "Công Nhân"){
+        if(topic.appEntityCode == "Worker"){
          imvAva.setImageResource(R.drawable.worker)
         }
 
-        if(topic.appEntityCode == "Vật Tư"){
+        if(topic.appEntityCode == "Product"){
           imvAva.setImageResource(R.drawable.materials)
         }
 
