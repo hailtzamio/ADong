@@ -90,6 +90,19 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
 
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <CheckBox
+                android:id="@+id/cbLeader"
+                android:text="Đội trưởng ?"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tvOk"
             android:textColor="@color/white"

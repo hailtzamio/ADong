@@ -9,11 +9,10 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Team
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.UpdateLorryActivity
-import kotlinx.android.synthetic.main.activity_detail_lorry.*
+import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback

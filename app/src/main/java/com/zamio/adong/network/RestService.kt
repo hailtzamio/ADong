@@ -66,7 +66,10 @@ interface RestService {
 
     /* Woker */
     @GET("worker?size=1000")
-    fun getWorkers(@Query("page") page: Int): Call<RestData<List<Worker>>>
+    fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
+
+    @GET("worker?size=1000")
+    fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker>>>
 
     @GET("worker/{id}")
     fun getWorker(@Path("id") lorryId: Int): Call<RestData<Worker>>
@@ -94,6 +97,8 @@ interface RestService {
     @POST("team")
     fun createTeam(@Body product: JsonObject): Call<RestData<JsonElement>>
 
+    @GET("worker?isTeamLeader=true")
+    fun getTeamLeaders(@Query("page") page: Int,@Query("name") name: String): Call<RestData<List<Worker>>>
     /* End Team */
 
 

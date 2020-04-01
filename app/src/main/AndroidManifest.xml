@@ -18,7 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.team.ChooseTeamWorkerActivity"></activity>
+        <activity android:name=".ui.team.ChooseTeamLeaderActivity"></activity>
+        <activity
+            android:name=".test.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/BlueActivityTheme.NoActionBar" />
+        <activity android:name=".ui.team.ChooseTeamWorkerActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".MainActivity"

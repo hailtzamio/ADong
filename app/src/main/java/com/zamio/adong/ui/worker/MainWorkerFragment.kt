@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
@@ -15,6 +17,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -73,6 +76,14 @@ class MainWorkerFragment : BaseFragment() {
         if(!ConstantsApp.PERMISSION!!.contains("c")){
             rightButton.visibility = View.GONE
         }
+
+        edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getProducts(0)
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     override fun onResume() {
@@ -82,7 +93,7 @@ class MainWorkerFragment : BaseFragment() {
 
     private fun getProducts(page:Int){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getWorkers(page).enqueue(object :
+        RestClient().getInstance().getRestService().getWorkers(page,edtSearch.text.toString()).enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()
