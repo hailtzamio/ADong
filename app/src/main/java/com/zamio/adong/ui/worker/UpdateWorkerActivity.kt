@@ -4,7 +4,9 @@ import RestClient
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.util.Patterns
 import android.view.View
+import android.widget.CompoundButton
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -30,6 +32,8 @@ class UpdateWorkerActivity : BaseActivity() {
 
     var avatarUrl = ""
     var avatarExtId = ""
+    val worker = JsonObject()
+    var isTeamLeader = false
     override fun getLayout(): Int {
        return R.layout.activity_update_worker
     }
@@ -49,6 +53,8 @@ class UpdateWorkerActivity : BaseActivity() {
         edtBankAccount.setText(productOb.bankAccount)
         edtBankName.setText(productOb.bankName)
         edtEmail.setText(productOb.email)
+        cbLeader.isChecked = productOb.isTeamLeader
+        isTeamLeader = productOb.isTeamLeader
 
         Picasso.get().load(productOb.avatarUrl).into(cropImageView)
 
@@ -59,7 +65,16 @@ class UpdateWorkerActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            val worker = JsonObject()
+            if (!edtEmail.text.toString().isValidEmail()) {
+                showToast("Sai định dạng email")
+                return@setOnClickListener
+            }
+
+            if (edtPhone.text.toString().length != 10) {
+                showToast("Sai định dạng số điện thoại")
+                return@setOnClickListener
+            }
+
             worker.addProperty("fullName",edtName.text.toString())
             worker.addProperty("phone",edtPhone.text.toString())
             worker.addProperty("address",edtAddress.text.toString())
@@ -67,6 +82,7 @@ class UpdateWorkerActivity : BaseActivity() {
             worker.addProperty("bankName",edtBankName.text.toString())
             worker.addProperty("email",edtEmail.text.toString())
             worker.addProperty("avatarExtId",avatarExtId)
+            worker.addProperty("isTeamLeader", isTeamLeader)
             updateWorker(productOb.id,worker )
         }
 
@@ -76,7 +92,16 @@ class UpdateWorkerActivity : BaseActivity() {
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this)
         }
+
+        cbLeader.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            isTeamLeader = isChecked
+        }
+        )
+
     }
+
+    fun CharSequence?.isValidEmail() =
+        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     private fun updateWorker(id:Int, woker: JsonObject){
 

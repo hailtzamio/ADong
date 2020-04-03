@@ -51,10 +51,10 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:textColor="@color/colorGray"
-                android:text="Hãng sản xuất"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Tên Công Trình"
+                android:textColor="@color/colorGray" />
 
 
             <TextView
@@ -80,12 +80,39 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Model "
+                android:text="Tên đội trưởng"
                 android:textColor="@color/colorGray" />
 
 
             <TextView
-                android:id="@+id/tvModel"
+                android:id="@+id/tvLeaderName"
+                android:textColor="@color/colorName"
+                android:layout_alignParentRight="true"
+                tools:text="Tên "
+                android:ellipsize="end"
+                android:layout_width="200dp"
+                android:gravity="end"
+                app:autoSizeTextType="uniform"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số thành viên"
+                android:textColor="@color/colorGray" />
+
+
+            <TextView
+                android:id="@+id/tvSize"
                 android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
@@ -106,13 +133,13 @@
 
             <TextView
                 android:textColor="@color/colorGray"
-                android:text="Biển số xe "
+                android:text="Số điện thoại"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
             <TextView
-                android:id="@+id/tvPlateNumber"
+                android:id="@+id/tvPhone"
                 android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
@@ -133,13 +160,40 @@
 
             <TextView
                 android:textColor="@color/colorGray"
-                android:text="Trọng tải "
+                android:text="Số điện thoại 2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
             <TextView
-                android:id="@+id/tvCapacity"
+                android:id="@+id/tvPhone2"
+                android:textColor="@color/colorName"
+                android:layout_alignParentRight="true"
+                tools:text="Tên "
+                android:ellipsize="end"
+                android:layout_width="200dp"
+                android:gravity="end"
+                app:autoSizeTextType="uniform"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:text="Địa chỉ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tvAddress"
                 android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "

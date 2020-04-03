@@ -1,17 +1,18 @@
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
-import com.zamio.adong.model.Worker
+import com.zamio.adong.model.Worker2
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class LeaderHoriAdapter(private val topicDetails: MutableList<Worker>) :
+class LeaderHoriAdapter(private val topicDetails: MutableList<Worker2>) :
     RecyclerView.Adapter<LeaderHoriAdapter.MyViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
 
@@ -20,10 +21,11 @@ class LeaderHoriAdapter(private val topicDetails: MutableList<Worker>) :
 //        var type: TextView = view.findViewById(R.id.tvType)
 //        var unit: TextView = view.findViewById(R.id.tvUnit)
 //        var quantity: TextView = view.findViewById(R.id.tvQuantity)
-        var imvAva: ImageView = view.findViewById(R.id.imvAva)
+        var imvAva: CircleImageView = view.findViewById(R.id.imvAva)
+        var imvRemove: CircleImageView = view.findViewById(R.id.imvRemove)
 
         init {
-            itemView.setOnClickListener {
+            imvRemove.setOnClickListener {
                 onItemClick?.invoke(adapterPosition)
             }
         }

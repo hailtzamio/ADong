@@ -33,6 +33,15 @@
             android:background="@drawable/ava"
             />
 
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:text="Chọn ảnh"
+            android:id="@+id/imvImage"
+            android:padding="3dp"
+            android:src="@drawable/photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <EditText  android:singleLine="true"
             android:layout_marginTop="20dp"
             android:hint="Tên"

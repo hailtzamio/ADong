@@ -25,22 +25,12 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/tvOk"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
-    <TextView
-        android:layout_alignParentBottom="true"
-        android:id="@+id/tvOk"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:text="ĐỒNG Ý"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_radius_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size" />
+
 
 </RelativeLayout>

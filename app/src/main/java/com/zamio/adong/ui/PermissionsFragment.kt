@@ -144,7 +144,7 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" )){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" || it.appEntityCode == "Team")){
 
                 if (it.appEntityCode == "Worker" ){
                     it.name = "Công Nhân"

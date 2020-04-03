@@ -97,6 +97,11 @@ class DetailWorkerActivity : BaseActivity() {
                     tvEmail.text = product!!.email
                     tvBankName.text = product!!.bankName
                     tvBankAccount.text = product!!.bankAccount
+                     if (product!!.isTeamLeader){
+                         tvPosition.text = "Đội trưởng"
+                     } else {
+                         tvPosition.text = "Công nhân"
+                     }
 
                     Picasso.get().load(product!!.avatarUrl).into(cropImageView)
                 }

@@ -168,7 +168,7 @@ class CreateProductActivity : BaseActivity() {
                 val resultUri: Uri = result.uri
                 val file = File(resultUri.path!!)
                 uploadImage(file)
-                cropImageView.setImageUriAsync(resultUri);
+                cropImageView.setImageURI(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
             }

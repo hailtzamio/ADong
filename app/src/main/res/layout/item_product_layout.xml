@@ -1,86 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_marginTop="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools">
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp">
 
 
-
-<androidx.cardview.widget.CardView
-    android:layout_centerInParent="true"
-    card_view:cardBackgroundColor="#E6E6E6"
-    card_view:cardCornerRadius="8dp"
-    card_view:cardElevation="8dp"
-    android:layout_width="match_parent"
-    android:layout_height="80dp">
-
-    <RelativeLayout
-        android:id="@+id/lnRoot"
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        card_view:cardBackgroundColor="#E6E6E6"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="8dp">
 
-        <ImageView
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            android:id="@+id/imvAva"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/ava" />
         <RelativeLayout
-            android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/imvAva"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-
-
-            android:id="@+id/tvName"
-            android:text="11111"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-
-            android:layout_below="@+id/tvName"
-            android:id="@+id/tvType"
-            android:text="11111"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_marginRight="10dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_below="@+id/tvType"
-            android:id="@+id/tvUnit"
-            android:text="11111"
+            android:id="@+id/lnRoot"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:layout_below="@+id/tvUnit"
-            android:id="@+id/tvQuantity"
-            android:text="11111"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imvAva"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ava" />
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/imvAva"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView
+                    android:id="@+id/tvType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView
+                    android:id="@+id/tvUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvType"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUnit"
+                    android:singleLine="true"
+                    android:text="11111" />
+            </RelativeLayout>
+
+        </RelativeLayout>
 
 
-
-</androidx.cardview.widget.CardView>
-
-
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

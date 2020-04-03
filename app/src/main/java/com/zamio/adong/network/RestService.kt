@@ -25,6 +25,9 @@ interface RestService {
     @POST("login")
     fun login(@Body user: JsonObject): Call<User>
 
+    @GET("myProfile")
+    fun getProfile(): Call<RestData<Profile>>
+
     @GET("myPermissions")
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
@@ -69,7 +72,7 @@ interface RestService {
     fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
     @GET("worker?size=1000")
-    fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker>>>
+    fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker2>>>
 
     @GET("worker/{id}")
     fun getWorker(@Path("id") lorryId: Int): Call<RestData<Worker>>

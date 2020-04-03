@@ -35,7 +35,7 @@ class PermissionGridAdapter : BaseAdapter {
         val food = this.topicDetails[position]
 
         var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var view = inflator.inflate(R.layout.item_permission_layout, null)
+        var view = inflator.inflate(R.layout.item_permission_grid_layout, null)
 
         var name: TextView = view.findViewById(R.id.tvName)
         var imvAva: ImageView = view.findViewById(R.id.imvAva)

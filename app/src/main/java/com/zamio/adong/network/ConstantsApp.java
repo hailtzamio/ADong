@@ -1,6 +1,9 @@
 package com.zamio.adong.network;
 
 
+import com.zamio.adong.model.Worker2;
+
+import java.util.ArrayList;
 
 public class ConstantsApp {
     public static final boolean DEBUG = true;
@@ -17,7 +20,7 @@ public class ConstantsApp {
     public static final String DB_NAME = "quizupelcom";
     public static String BASE64_AUTH_TOKEN = "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNpbXBsZS1jbGllbnQiLCJpc3MiOiJTaW1wbGVBUEkiLCJyb2xlcyI6WyJBZG1pbmlzdHJhdG9yIl0sInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbiJ9.YVk6B1qksEk9noTkV8ArurNVXhBOPKyNyHFM-Nu9oRCnmjg2dR7dnZJ8s8gk7xX_3dGPZAA2L3JjBz_48P0-hA";
     public static String BASE64_HEADER = "";
-    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
+    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
 
 
 
@@ -45,6 +48,8 @@ public class ConstantsApp {
     public static String KEY_QUESTION_ID= "KEY_QUESTION_ID";
     public static String KEY_PERMISSION= "KEY_PERMISSION";
     public static String PERMISSION= "c-r-u-d";
+    public static  ArrayList<Worker2> workers = new ArrayList<Worker2>();
+
 
 
     public static String KEY_LIVE_CHALLENGE_VALUE= "KEY_LIVE_CHALLENGE_VALUE";

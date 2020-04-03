@@ -4,6 +4,7 @@ import RestClient
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.util.Patterns
 import android.view.View
 import android.widget.CompoundButton
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
@@ -29,6 +30,7 @@ class CreateWorkerActivity : BaseActivity() {
 
     var thumbnailExtId = ""
     val product = JsonObject()
+    var isTeamLeader = false
     override fun getLayout(): Int {
         return R.layout.activity_create_worker
     }
@@ -36,7 +38,6 @@ class CreateWorkerActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Tạo Công Nhân"
         rightButton.visibility = View.GONE
-        product.addProperty("isTeamLeader", false)
     }
 
     override fun initData() {
@@ -48,11 +49,18 @@ class CreateWorkerActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            if (isEmpty(edtName) || isEmpty(edtEmail) || isEmpty(edtPhone) || isEmpty(edtBankName) || isEmpty(
-                    edtBankAccount
-                )
-            ) {
-                showToast("Nhập thiếu thông tin")
+            if (isEmpty(edtName) || isEmpty(edtEmail) || isEmpty(edtPhone) || isEmpty(edtBankName) || isEmpty(edtBankAccount)) {
+            showToast("Nhập thiếu thông tin")
+            return@setOnClickListener
+            }
+
+            if (!edtEmail.text.toString().isValidEmail()) {
+                showToast("Sai định dạng email")
+                return@setOnClickListener
+            }
+
+            if (edtPhone.text.toString().length != 10) {
+                showToast("Sai định dạng số điện thoại")
                 return@setOnClickListener
             }
 
@@ -64,6 +72,7 @@ class CreateWorkerActivity : BaseActivity() {
             product.addProperty("bankName", edtBankName.text.toString())
             product.addProperty("bankAccount", edtBankAccount.text.toString())
             product.addProperty("avatarExtId", thumbnailExtId)
+            product.addProperty("isTeamLeader", isTeamLeader)
             createProduct(product)
         }
 
@@ -76,10 +85,13 @@ class CreateWorkerActivity : BaseActivity() {
 
 
         cbLeader.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            product.addProperty("isTeamLeader", isChecked)
-            }
+            isTeamLeader = isChecked
+        }
         )
     }
+
+    fun CharSequence?.isValidEmail() =
+        !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
     override fun resumeData() {
 
