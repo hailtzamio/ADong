@@ -61,7 +61,7 @@ class ProfileFragment : BaseFragment() {
         }
 
         lnChangePassword.setOnClickListener {
-            //            startActivityForResult(Intent(context, ChangePasswordActivity::class.java),1000)
+            startActivityForResult(Intent(context, ChangePasswordActivity::class.java), 1000)
         }
     }
 

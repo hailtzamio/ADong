@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.activity.PreviewImageActivity
 import kotlinx.android.synthetic.main.activity_detail_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -68,6 +69,12 @@ class DetailWorkerActivity : BaseActivity() {
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
                 builder.setMessage("xóa công nhân này?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
+            }
+
+            cropImageView.setOnClickListener {
+                val intent = Intent(this, PreviewImageActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.avatarUrl)
+                startActivityForResult(intent, 1000)
             }
         }
 

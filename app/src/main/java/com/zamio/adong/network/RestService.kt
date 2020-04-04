@@ -25,6 +25,9 @@ interface RestService {
     @POST("login")
     fun login(@Body user: JsonObject): Call<User>
 
+    @PUT("changeMyPassword")
+    fun changeMyPassword(@Body user: JsonObject): Call<JsonElement>
+
     @GET("myProfile")
     fun getProfile(): Call<RestData<Profile>>
 

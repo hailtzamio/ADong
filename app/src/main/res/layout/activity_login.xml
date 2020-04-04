@@ -19,28 +19,53 @@
         android:layout_width="100dp"
         android:layout_height="100dp" />
 
-
-    <EditText
-        android:singleLine="true"
+    <RelativeLayout
         android:layout_marginTop="20dp"
-        android:hint="Tên đăng nhập"
-        android:paddingLeft="10dp"
-        android:id="@+id/edtUsername"
-        android:background="@drawable/username_radius_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edt_size" />
+        android:layout_height="wrap_content">
 
+        <EditText
+            android:singleLine="true"
+            android:hint="Tên đăng nhập"
+            android:paddingLeft="30dp"
+            android:id="@+id/edtUsername"
+            android:background="@drawable/username_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+
+
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/user"
+            android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:inputType="textPassword"
         android:singleLine="true"
-        android:layout_marginTop="0.5dp"
         android:hint="Mật khẩu"
-        android:paddingLeft="10dp"
+        android:paddingLeft="30dp"
         android:id="@+id/edtPassword"
         android:background="@drawable/password_radius_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/edt_size" />
 
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/lock"
+            android:layout_marginLeft="10dp"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/tvOk"
         android:textColor="@color/colorHeader"

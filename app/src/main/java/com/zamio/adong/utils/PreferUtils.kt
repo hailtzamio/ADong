@@ -9,6 +9,7 @@ class PreferUtils {
 
     private val PREFER_NAME = "quizup"
     private val PREFER_GCM_TOKEN = "gcm_token"
+    private val PREFER_USER_PASSWORD = "PREFER_USER_PASSWORD"
     private val PREFER_AVATAR_MYSELF = "PREFER_AVATAR_MYSELF"
     private val USER_ID = "user_id"
     private val CHANLLENGE_TIME_TO_INTIVE = "CHANLLENGE_TIME_TO_INTIVE"
@@ -25,6 +26,18 @@ class PreferUtils {
     fun getToken(context: Context): String? {
         val preferences = context.getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE)
         return preferences.getString(PREFER_GCM_TOKEN, "")
+    }
+
+
+    fun setPassword(context: Context, token: String) {
+        val editor = context.getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE).edit()
+        editor.putString(PREFER_USER_PASSWORD, token)
+        editor.commit()
+    }
+
+    fun getPassword(context: Context): String? {
+        val preferences = context.getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE)
+        return preferences.getString(PREFER_USER_PASSWORD, "")
     }
 
     fun setAvatar(context: Context, token: String) {

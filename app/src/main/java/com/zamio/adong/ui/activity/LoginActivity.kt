@@ -27,7 +27,6 @@ class LoginActivity : BaseActivity() {
 
     override fun initData() {
 
-
         tvOk.setOnClickListener {
 
             if(isEmpty(edtUsername) || isEmpty(edtPassword)){
@@ -66,6 +65,7 @@ class LoginActivity : BaseActivity() {
                     finish()
                     val preferUtils = PreferUtils()
                     preferUtils.setToken(this@LoginActivity, ConstantsApp.BASE64_AUTH_TOKEN)
+                    preferUtils.setPassword(this@LoginActivity,edtPassword.text.toString())
 //                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else {
                     val obj = JSONObject(response!!.errorBody().string())

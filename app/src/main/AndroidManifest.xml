@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.team.ChooseTeamLeaderActivity"></activity>
+        <activity android:name=".ui.activity.PreviewImageActivity"></activity>
+        <activity android:name=".ui.team.ChooseTeamLeaderActivity" />
         <activity
             android:name=".test.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -30,6 +31,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.worker.DetailWorkerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.profile.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.worker.CreateWorkerActivity"
