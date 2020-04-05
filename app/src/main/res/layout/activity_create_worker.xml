@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,117 +17,118 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:padding="20dp"
-        android:layout_below="@+id/header"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_below="@+id/header"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <ImageView
-            android:layout_gravity="center_horizontal"
             android:id="@+id/cropImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/ava"
-            />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ava" />
 
         <TextView
-            android:layout_gravity="center_horizontal"
-            android:text="Chọn ảnh"
             android:id="@+id/imvImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:padding="3dp"
             android:src="@drawable/photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="Chọn ảnh" />
 
-        <EditText  android:singleLine="true"
-            android:layout_marginTop="20dp"
-            android:hint="Tên"
-            android:paddingLeft="10dp"
+        <EditText
             android:id="@+id/edtName"
-            android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
-
-        <EditText  android:singleLine="true"
-            android:inputType="textEmailAddress"
-            android:hint="Email"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtEmail"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/edt_size"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
-
-        <EditText  android:singleLine="true"
-            android:inputType="phone"
-            android:hint="Số điện thoại"
+            android:hint="Tên *"
             android:paddingLeft="10dp"
+            android:singleLine="true" />
+
+        <EditText
             android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:hint="Số điện thoại *"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
 
-        <EditText  android:singleLine="true"
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:hint="Line "
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
+
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
             android:hint="Địa chỉ"
             android:paddingLeft="10dp"
-            android:id="@+id/edtAddress"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edtBankName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
-
-        <EditText  android:singleLine="true"
             android:hint="Ngân hàng"
             android:paddingLeft="10dp"
-            android:id="@+id/edtBankName"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:singleLine="true" />
 
-        <EditText  android:singleLine="true"
-            android:inputType="number"
-            android:hint="Số tài khoản"
-            android:paddingLeft="10dp"
+        <EditText
             android:id="@+id/edtBankAccount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:hint="Số tài khoản"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
 
         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
             <CheckBox
                 android:id="@+id/cbLeader"
-                android:text="Đội trưởng ?"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Đội trưởng ?" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvOk"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="ĐỒNG Ý"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size" />
-
-
-
-
+            android:gravity="center"
+            android:text="ĐỒNG Ý"
+            android:textColor="@color/white" />
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

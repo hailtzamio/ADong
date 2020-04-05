@@ -50,7 +50,7 @@ class CreateProductActivity : BaseActivity() {
 //                return@setOnClickListener
 //            }
 
-            if(isEmpty(edtName) || isEmpty(edtUnit)){
+            if(isEmpty(edtName) || isEmpty(edtUnit)) {
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
@@ -59,6 +59,7 @@ class CreateProductActivity : BaseActivity() {
             product.addProperty("name",edtName.text.toString())
             product.addProperty("type",type)
             product.addProperty("unit",edtUnit.text.toString())
+            product.addProperty("code",edtCode.text.toString())
             if(thumbnailExtId != ""){
                 product.addProperty("thumbnailExtId",thumbnailExtId)
             }

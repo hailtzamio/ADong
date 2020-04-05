@@ -85,7 +85,7 @@ class DetailLorryActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<Lorry>>?, response: Response<RestData<Lorry>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response!!.body().status == 1){
                     lorry = response.body().data ?: return
                     if(lorry != null) {
                         tvName.text = lorry!!.brand

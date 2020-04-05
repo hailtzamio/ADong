@@ -49,14 +49,9 @@ class CreateWorkerActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            if (isEmpty(edtName) || isEmpty(edtEmail) || isEmpty(edtPhone) || isEmpty(edtBankName) || isEmpty(edtBankAccount)) {
+            if (isEmpty(edtName) || isEmpty(edtPhone)) {
             showToast("Nhập thiếu thông tin")
             return@setOnClickListener
-            }
-
-            if (!edtEmail.text.toString().isValidEmail()) {
-                showToast("Sai định dạng email")
-                return@setOnClickListener
             }
 
             if (edtPhone.text.toString().length != 10) {
@@ -65,9 +60,14 @@ class CreateWorkerActivity : BaseActivity() {
             }
 
 
+            if (edtEmail.text.toString().trim() != "" && !edtEmail.text.toString().isValidEmail()) {
+                showToast("Sai định dạng email")
+                return@setOnClickListener
+            }
+
             product.addProperty("fullName", edtName.text.toString())
             product.addProperty("address", edtAddress.text.toString())
-            product.addProperty("email", edtEmail.text.toString())
+            product.addProperty("lineId", edtEmail.text.toString())
             product.addProperty("phone", edtPhone.text.toString())
             product.addProperty("bankName", edtBankName.text.toString())
             product.addProperty("bankAccount", edtBankAccount.text.toString())

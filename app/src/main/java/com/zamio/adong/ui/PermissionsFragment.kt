@@ -2,17 +2,16 @@ package com.zamio.adong.ui
 
 import PermissionAdapter
 import RestClient
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.zamio.adong.MainActivity
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
@@ -56,6 +55,7 @@ class PermissionsFragment : BaseFragment() {
         RestClient().getRestService().getPermissions().enqueue(object :
             Callback<RestData<ArrayList<Permission>>> {
             override fun onFailure(call: Call<RestData<ArrayList<Permission>>>?, t: Throwable?) {
+                Toast.makeText(context, ConstantsApp.TOAST, Toast.LENGTH_SHORT).show()
                 dismisProgressDialog()
             }
 
@@ -64,20 +64,11 @@ class PermissionsFragment : BaseFragment() {
                 if( response!!.body() != null && response!!.body().status == 1){
 //                    setupRecyclerView(response.body().data!!)
                     setupGridView(response!!.body().data!!)
+                } else {
+                    Toast.makeText(context, ConstantsApp.TOAST, Toast.LENGTH_SHORT).show()
                 }
             }
         })
-    }
-
-    private fun triggerRebirth(context: Context) {
-        val intent = Intent(context, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-//        intent.putExtra("KEY_RESTART_INTENT", nextIntent)
-        context.startActivity(intent)
-//        if (context is Activity) {
-//            context.finish()
-//        }
-//        Runtime.getRuntime().exit(0)
     }
 
     private fun setupGridView(data:ArrayList<Permission>){

@@ -46,7 +46,7 @@
 
         <EditText   android:singleLine="true"
             android:layout_marginTop="20dp"
-            android:hint="Tên"
+            android:hint="Tên *"
             android:paddingLeft="10dp"
             android:id="@+id/edtName"
             android:background="@drawable/button_normal_main_radius_layout"
@@ -54,7 +54,16 @@
             android:layout_height="@dimen/edt_size" />
 
         <EditText  android:singleLine="true"
-            android:hint="Đơn vị tính"
+            android:hint="Mã"
+            android:paddingLeft="10dp"
+            android:id="@+id/edtCode"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+        <EditText  android:singleLine="true"
+            android:hint="Đơn vị tính *"
             android:paddingLeft="10dp"
             android:id="@+id/edtUnit"
             android:layout_marginTop="10dp"

@@ -73,9 +73,11 @@ class DetailProductActivity : BaseActivity() {
             }
 
             cropImageView.setOnClickListener {
-                val intent = Intent(this, PreviewImageActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.thumbnailUrl)
-                startActivityForResult(intent, 1000)
+                if(product!!.thumbnailUrl != null) {
+                    val intent = Intent(this, PreviewImageActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.thumbnailUrl)
+                    startActivityForResult(intent, 1000)
+                }
             }
         }
 
@@ -97,7 +99,7 @@ class DetailProductActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<Product>>?, response: Response<RestData<Product>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response!!.body().status == 1){
                     product = response.body().data ?: return
                     tvName.text = product!!.name
 
@@ -108,6 +110,7 @@ class DetailProductActivity : BaseActivity() {
                     }
 
                     tvUnit.text = product!!.unit
+                    tvCode.text = product!!.code
                     tvQuantity.text = product!!.quantity.toString()
                     Picasso.get().load(product!!.thumbnailUrl).into(cropImageView)
                 }
@@ -126,10 +129,12 @@ class DetailProductActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response.body().status == 1){
                     showToast("Xóa thành công")
                     setResult(100)
                     finish()
+                } else {
+                    showToast("Không thành công")
                 }
             }
         })

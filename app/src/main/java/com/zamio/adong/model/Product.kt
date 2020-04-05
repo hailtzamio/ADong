@@ -7,6 +7,8 @@ import java.io.Serializable
 data class Product(
     @SerializedName("createdByFullName")
     val createdByFullName: String,
+    @SerializedName("code")
+    val code: String,
     @SerializedName("createdById")
     val createdById: Int,
     @SerializedName("id")

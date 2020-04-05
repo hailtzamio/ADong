@@ -66,6 +66,10 @@ class MainProductFragment : BaseFragment() {
             }
             false
         })
+
+        imvSearch.setOnClickListener {
+            getProducts(0)
+        }
     }
 
     override fun onResume() {
@@ -83,7 +87,7 @@ class MainProductFragment : BaseFragment() {
 
             override fun onResponse(call: Call<RestData<List<Product>>>?, response: Response<RestData<List<Product>>>?) {
                     dismisProgressDialog()
-                    if( response!!.body().status == 1){
+                    if(response!!.body() != null && response!!.body().status == 1){
                         products = response.body().data!!
                         setupRecyclerView()
                         totalPages = response.body().pagination!!.totalPages!!

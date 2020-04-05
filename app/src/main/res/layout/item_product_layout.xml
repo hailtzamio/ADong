@@ -76,10 +76,19 @@
                     android:text="11111" />
             </RelativeLayout>
 
+            <ImageView
+                android:id="@+id/imvStatus"
+                android:src="@drawable/free_dot"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
         </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
+
 
 
 </RelativeLayout>

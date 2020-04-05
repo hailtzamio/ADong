@@ -10,7 +10,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.User
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_login.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,7 +57,7 @@ class LoginActivity : BaseActivity() {
 
             override fun onResponse(call: Call<User>?, response: Response<User>?) {
                 dismisProgressDialog()
-                if( response?.body() != null && response.body().message == "Logged in successfully"){
+                if( response?.body() != null &&  ( response.body().message == "Logged in successfully" ||  response.body().message == "Đăng nhập thành công")){
                     ConstantsApp.BASE64_AUTH_TOKEN = response.body().accessToken
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -68,7 +67,6 @@ class LoginActivity : BaseActivity() {
                     preferUtils.setPassword(this@LoginActivity,edtPassword.text.toString())
 //                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else {
-                    val obj = JSONObject(response!!.errorBody().string())
                     showToast("Sai tên đăng nhập hoặc mật khẩu")
                 }
             }

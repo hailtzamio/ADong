@@ -23,6 +23,7 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
         var imvAva: ImageView = view.findViewById(R.id.imvAva)
+        var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
 
 
         init {
@@ -43,9 +44,21 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.fullName
-        holder.type.text = topic.phone
-        holder.unit.text = topic.email
+        holder.unit.text = topic.phone
         holder.quantity.text = topic.address
+
+        if (topic!!.isTeamLeader){
+            holder.type.text = "Đội trưởng"
+        } else {
+            holder.type.text = "Công nhân"
+        }
+
+        if(topic.workingStatus == "idle") {
+            holder.imvStatus.setImageResource(R.drawable.free_dot)
+        } else {
+            holder.imvStatus.setImageResource(R.drawable.busy_dot)
+        }
+
         if(topic.avatarUrl != null){
             Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
         }else {

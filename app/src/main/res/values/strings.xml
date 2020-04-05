@@ -8,6 +8,10 @@
     <string name="product_title_dashboard">Dashboard</string>
     <string name="product_title_notifications">Notifications</string>
 
+
+    <string name="google_maps_key">google_maps_key</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>

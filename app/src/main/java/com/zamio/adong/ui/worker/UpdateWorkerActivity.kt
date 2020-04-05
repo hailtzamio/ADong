@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +53,7 @@ class UpdateWorkerActivity : BaseActivity() {
         edtAddress.setText(productOb.address)
         edtBankAccount.setText(productOb.bankAccount)
         edtBankName.setText(productOb.bankName)
-        edtEmail.setText(productOb.email)
+        edtEmail.setText(productOb.lineId)
         cbLeader.isChecked = productOb.isTeamLeader
         isTeamLeader = productOb.isTeamLeader
 
@@ -60,15 +61,15 @@ class UpdateWorkerActivity : BaseActivity() {
 
         tvOk.setOnClickListener {
 
-            if(isEmpty(edtName) || isEmpty(edtPhone) || isEmpty(edtAddress)){
+            if(isEmpty(edtName) || isEmpty(edtPhone)){
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
 
-            if (!edtEmail.text.toString().isValidEmail()) {
-                showToast("Sai định dạng email")
-                return@setOnClickListener
-            }
+//            if (!edtEmail.text.toString().isValidEmail()) {
+//                showToast("Sai định dạng email")
+//                return@setOnClickListener
+//            }
 
             if (edtPhone.text.toString().length != 10) {
                 showToast("Sai định dạng số điện thoại")
@@ -80,8 +81,9 @@ class UpdateWorkerActivity : BaseActivity() {
             worker.addProperty("address",edtAddress.text.toString())
             worker.addProperty("bankAccount",edtBankAccount.text.toString())
             worker.addProperty("bankName",edtBankName.text.toString())
-            worker.addProperty("email",edtEmail.text.toString())
+            worker.addProperty("lineId",edtEmail.text.toString())
             worker.addProperty("avatarExtId",avatarExtId)
+            worker.addProperty("email",productOb.email)
             worker.addProperty("isTeamLeader", isTeamLeader)
             updateWorker(productOb.id,worker )
         }
@@ -115,10 +117,13 @@ class UpdateWorkerActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response!!.body().status == 1){
                     showToast("Cập nhật thành công")
                     setResult(100)
                     finish()
+                } else {
+                    val obj = JSONObject(response!!.errorBody().string())
+                    showToast(obj["message"].toString())
                 }
             }
         })

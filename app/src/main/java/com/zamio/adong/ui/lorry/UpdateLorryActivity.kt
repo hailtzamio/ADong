@@ -70,7 +70,7 @@ class UpdateLorryActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response!!.body().status == 1){
                     showToast("Cập nhật thành công")
                     onBackPressed()
                 }

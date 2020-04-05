@@ -46,5 +46,7 @@ data class Worker(
     @SerializedName("userId")
     val userId: Int,
     @SerializedName("isSelected")
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    @SerializedName("workingStatus")
+    var workingStatus: String
 ) : Serializable

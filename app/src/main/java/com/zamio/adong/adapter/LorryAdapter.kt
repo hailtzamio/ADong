@@ -2,14 +2,13 @@
 
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
-import com.zamio.adong.model.Product
 
 
 /**
@@ -22,7 +21,7 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
-
+        var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
 
         init {
             itemView.setOnClickListener {
@@ -45,6 +44,14 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
         holder.type.text = topic.model
         holder.unit.text = topic.plateNumber
         holder.quantity.text = topic.capacity
+        holder.imvStatus.visibility = View.GONE
+
+
+//        if(topic.workingStatus == "idle") {
+//            holder.imvStatus.setImageResource(R.drawable.free_dot)
+//        } else {
+//            holder.imvStatus.setImageResource(R.drawable.busy_dot)
+//        }
     }
 
     override fun getItemCount(): Int {

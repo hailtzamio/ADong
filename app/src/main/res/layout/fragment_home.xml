@@ -43,6 +43,7 @@
             android:textColorHint="@color/colorGray" />
 
         <ImageView
+            android:id="@+id/imvSearch"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"

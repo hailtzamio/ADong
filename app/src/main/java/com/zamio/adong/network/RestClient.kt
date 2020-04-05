@@ -38,6 +38,7 @@ class RestClient {
 
                 val request = original.newBuilder()
                         .addHeader("Authorization", ConstantsApp.BASE64_AUTH_TOKEN)
+                        .addHeader("Accept-Language", ConstantsApp.BASE64_HEADER_LANG)
                         .build()
 
                 chain.proceed(request)

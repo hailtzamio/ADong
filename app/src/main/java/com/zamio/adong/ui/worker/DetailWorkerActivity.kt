@@ -72,9 +72,11 @@ class DetailWorkerActivity : BaseActivity() {
             }
 
             cropImageView.setOnClickListener {
-                val intent = Intent(this, PreviewImageActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.avatarUrl)
-                startActivityForResult(intent, 1000)
+                if(product!!.avatarUrl != null) {
+                    val intent = Intent(this, PreviewImageActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.avatarUrl)
+                    startActivityForResult(intent, 1000)
+                }
             }
         }
 
@@ -96,12 +98,12 @@ class DetailWorkerActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<Worker>>?, response: Response<RestData<Worker>>?) {
                 dismisProgressDialog()
-                 if(response!!.body().status == 1){
+                 if(response!!.body() != null && response!!.body().status == 1){
                     product = response.body().data ?: return
                     tvName.text = product!!.fullName
                     tvPhone.text = product!!.phone
                     tvAddress.text = product!!.address
-                    tvEmail.text = product!!.email
+                    tvEmail.text = product!!.lineId
                     tvBankName.text = product!!.bankName
                     tvBankAccount.text = product!!.bankAccount
                      if (product!!.isTeamLeader){
@@ -127,7 +129,7 @@ class DetailWorkerActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null &&response.body() .status == 1){
                     showToast("Xóa thành công")
                     setResult(100)
                     finish()

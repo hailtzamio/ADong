@@ -17,7 +17,13 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_update_product.*
+import kotlinx.android.synthetic.main.activity_create_product.*
+import kotlinx.android.synthetic.main.activity_update_product.cropImageView
+import kotlinx.android.synthetic.main.activity_update_product.edtName
+import kotlinx.android.synthetic.main.activity_update_product.edtUnit
+import kotlinx.android.synthetic.main.activity_update_product.imvImage
+import kotlinx.android.synthetic.main.activity_update_product.spinType
+import kotlinx.android.synthetic.main.activity_update_product.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -46,6 +52,7 @@ class UpdateProductActivity : BaseActivity() {
         thumbnailExtId = productOb.thumbnailExtId
         edtName.setText(productOb.name)
         edtUnit.setText(productOb.unit)
+        edtCode.setText(productOb.code)
 
         Picasso.get().load(productOb.thumbnailUrl).into(cropImageView)
         setupChooseSpinner()
@@ -68,7 +75,8 @@ class UpdateProductActivity : BaseActivity() {
             product.addProperty("unit",edtUnit.text.toString())
             product.addProperty("type",type)
             product.addProperty("thumbnailExtId",thumbnailExtId)
-            updateProduct(productOb.id,product )
+            product.addProperty("code",edtCode.text.toString())
+            updateProduct(productOb.id, product )
         }
 
         cropImageView.setOnClickListener {

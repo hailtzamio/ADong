@@ -69,7 +69,7 @@ class MainLorryFragment : BaseFragment() {
 
             override fun onResponse(call: Call<RestData<List<Lorry>>>?, response: Response<RestData<List<Lorry>>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if(response!!.body() != null && response!!.body().status == 1){
                     setupRecyclerView(response.body().data!!)
                 }
             }

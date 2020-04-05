@@ -34,7 +34,7 @@ interface RestService {
     @GET("myPermissions")
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
-    @GET("product?size=1000")
+    @GET("product?size=1000&sort=id,desc")
     abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Product>>>
 
     @GET("product/{id}")
@@ -50,7 +50,7 @@ interface RestService {
     fun updateProduct(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
 
 
-    @GET("lorry?size=1000")
+    @GET("lorry?size=1000&sort=id,desc")
     abstract fun getLorries(): Call<RestData<List<Lorry>>>
 
     @GET("lorry/{id}")
@@ -71,7 +71,7 @@ interface RestService {
     fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
     /* Woker */
-    @GET("worker?size=1000")
+    @GET("worker?size=1000&sort=id,desc")
     fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
     @GET("worker?size=1000")
