@@ -2,14 +2,11 @@
 
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.Lorry
-import com.zamio.adong.model.Product
 import com.zamio.adong.model.Team
 
 
@@ -43,9 +40,9 @@ class TeamAdapter(private val topicDetails: List<Team>) : RecyclerView.Adapter<T
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.name
-        holder.type.text = topic.address
-        holder.unit.text = topic.phone
-        holder.quantity.text = topic.provinceName
+        holder.unit.text = topic.teamSize.toString() + " Công nhân"
+        holder.type.text = topic.phone
+        holder.quantity.text = topic.address + " - " + topic.districtName + " - " + topic.provinceName
     }
 
     override fun getItemCount(): Int {

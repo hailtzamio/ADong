@@ -55,6 +55,20 @@ class PermissionGridAdapter : BaseAdapter {
           imvAva.setImageResource(R.drawable.materials)
         }
 
+        if(topic.appEntityCode == "Driver"){
+            imvAva.setImageResource(R.drawable.steering)
+        }
+
+        if(topic.appEntityCode == "Team"){
+            imvAva.setImageResource(R.drawable.team)
+        }
+
+        if(topic.appEntityCode == "Contractor"){
+            imvAva.setImageResource(R.drawable.labor)
+        }
+
+
+
         return view
     }
 }

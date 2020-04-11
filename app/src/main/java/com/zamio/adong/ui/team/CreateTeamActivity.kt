@@ -1,9 +1,10 @@
 package com.zamio.adong.ui.team
 
-import LeaderHoriAdapter
+import MemberTeamAdapter
 import RestClient
 import android.content.Intent
 import android.view.View
+import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -12,6 +13,8 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
+import com.zamio.adong.adapter.CustomAdapter
+import com.zamio.adong.model.Province
 import com.zamio.adong.model.Worker2
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_create_team.*
@@ -25,9 +28,14 @@ import retrofit2.Response
 class CreateTeamActivity : BaseActivity() {
 
 
-    var mAdapter:LeaderHoriAdapter? = null
+    var mAdapter:MemberTeamAdapter? = null
     var leaderId = 0
     var workerIds = JsonArray()
+    var myList = ArrayList<Worker2>()
+    var provinces =ArrayList<Province>()
+    var districts =ArrayList<Province>()
+    var provinceId = 1
+    var districtId = 1
     override fun getLayout(): Int {
       return  R.layout.activity_create_team
     }
@@ -38,10 +46,12 @@ class CreateTeamActivity : BaseActivity() {
     }
 
     override fun initData() {
-        getTeamLeader()
+        getProvinces()
+        getDistricts(provinceId)
+        ConstantsApp.workers.clear()
         tvOk.setOnClickListener {
 
-            if(isEmpty(edtName) || isEmpty(edtAddress) || isEmpty(edtPhone) || isEmpty(edtPhone2)){
+            if(isEmpty(edtName) || isEmpty(edtAddress)){
                 showToast("Nhập thiếu thông tin")
                 return@setOnClickListener
             }
@@ -56,13 +66,18 @@ class CreateTeamActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+//            if(myList.count() == 0) {
+//                showToast("Chọn Công nhân")
+//                return@setOnClickListener
+//            }
+
             val product = JsonObject()
             product.addProperty("name",edtName.text.toString())
             product.addProperty("address",edtAddress.text.toString())
             product.addProperty("phone",edtPhone.text.toString())
             product.addProperty("phone2",edtPhone2.text.toString())
-            product.addProperty("provinceId",1)
-            product.addProperty("districtId",1)
+            product.addProperty("provinceId",provinceId)
+            product.addProperty("districtId",districtId)
             product.addProperty("leaderId",leaderId)
             product.add("memberIds",workerIds)
             createProduct(product)
@@ -122,29 +137,48 @@ class CreateTeamActivity : BaseActivity() {
         })
     }
 
-    var myList = ArrayList<Worker2>()
-    private fun getTeamLeader(){
+
+    private fun getProvinces(){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getWorkers2(0,"").enqueue(object :
-            Callback<RestData<ArrayList<Worker2>>> {
-            override fun onFailure(call: Call<RestData<ArrayList<Worker2>>>?, t: Throwable?) {
+        RestClient().getInstance().getRestService().getProvince().enqueue(object :
+            Callback<RestData<ArrayList<Province>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<Province>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<ArrayList<Worker2>>>?, response: Response<RestData<ArrayList<Worker2>>>?) {
+            override fun onResponse(call: Call<RestData<ArrayList<Province>>>?, response: Response<RestData<ArrayList<Province>>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
-                    myList = response.body().data!!
+                if(response!!.body() != null && response.body().status == 1){
+                    provinces = response.body().data!!
+                    setupProvinceSpinner()
+                }
+            }
+        })
+    }
 
+    private fun getDistricts(provinceId:Int){
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getDistricts(provinceId).enqueue(object :
+            Callback<RestData<ArrayList<Province>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<Province>>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<ArrayList<Province>>>?, response: Response<RestData<ArrayList<Province>>>?) {
+                dismisProgressDialog()
+                if(response!!.body() != null && response.body().status == 1){
+                    districts = response.body().data!!
+                    setupDistrictSpinner()
                 }
             }
         })
     }
 
     private fun setupRecyclerView(data:MutableList<Worker2>){
-        mAdapter = LeaderHoriAdapter(data)
-        recyclerViewTeamLeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        mAdapter = MemberTeamAdapter(data,true)
+        recyclerViewTeamLeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL ,false)
         recyclerViewTeamLeader.setHasFixedSize(false)
+        recyclerViewTeamLeader.isNestedScrollingEnabled = true
         recyclerViewTeamLeader.adapter = mAdapter
 
         mAdapter!!.onItemClick = { position ->
@@ -154,16 +188,71 @@ class CreateTeamActivity : BaseActivity() {
         }
     }
 
+    private fun setupProvinceSpinner(){
+
+        val mAdapter = CustomAdapter(this, R.layout.item_provice_spinner, R.id.tvName,provinces)
+
+//        val dataAdapter = ArrayAdapter(
+//            this,
+//            R.layout.support_simple_spinner_dropdown_item, provinces
+//        )
+        mAdapter.setDropDownViewResource(R.layout.item_provice_spinner)
+        spinProvince.adapter = mAdapter
+        spinProvince.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                provinceId = provinces[position].id
+                getDistricts(provinceId)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+    }
+
+    private fun setupDistrictSpinner() {
+
+        val mAdapter = CustomAdapter(this, R.layout.item_provice_spinner, R.id.tvName,districts)
+        mAdapter.setDropDownViewResource(R.layout.item_provice_spinner)
+        spinDistrict.adapter = mAdapter
+        spinDistrict.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                districtId = districts[position].id
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode ==  100){
+
+            if(data == null) return
             val avatarUrl = data!!.getStringExtra("avatarUrl")
             leaderId = data.getIntExtra("id", 0)
+            edtPhone.setText(data.getStringExtra("phone").toString())
+            tvLeaderName.text = data.getStringExtra("name").toString()
+
+
             if (avatarUrl != null) {
                 Picasso.get().load(avatarUrl).into(imvAva)
             } else {
                 imvAva.setImageResource(R.drawable.ava);
             }
+
         } else if (resultCode == 101){
 //            val arrayParents: ArrayList<Worker2> = intent.getParcelableArrayListExtra("workersChoose")
 //            val arrayParents = data!!.getParcelableArrayListExtra<Worker2>("workersChoose")
@@ -175,6 +264,10 @@ class CreateTeamActivity : BaseActivity() {
             setupRecyclerView(myList)
             myList.forEach {
                 workerIds.add(it.id)
+            }
+
+            if (myList.size == 0){
+                workerIds = JsonArray()
             }
         }
     }

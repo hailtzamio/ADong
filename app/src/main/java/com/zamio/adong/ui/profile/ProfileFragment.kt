@@ -3,6 +3,8 @@ package com.zamio.adong.ui.profile
 
 import RestClient
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,14 +48,26 @@ class ProfileFragment : BaseFragment() {
         getProfile()
 
         btnLogout.setOnClickListener {
+            val dialogClickListener =
+                DialogInterface.OnClickListener { dialog, which ->
+                    when (which) {
 
-            //            OneSignal.clearOneSignalNotifications()
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            PreferUtils().setToken(context!!, "")
+                            val intent = Intent(context, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            activity!!.finish()
+                        }
 
-            PreferUtils().setToken(context!!, "")
-            val intent = Intent(context, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            activity!!.finish()
+                        DialogInterface.BUTTON_NEGATIVE -> {
+                        }
+                    }
+                }
+
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setMessage("Đăng xuất").setPositiveButton("Đồng ý", dialogClickListener)
+                .setNegativeButton("Không", dialogClickListener).show()
         }
 
         lnUpdateProfile.setOnClickListener {

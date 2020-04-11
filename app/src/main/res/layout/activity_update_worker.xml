@@ -16,119 +16,123 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <ImageView
-            android:id="@+id/cropImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/ava" />
-
-        <TextView
-            android:id="@+id/imvImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:padding="3dp"
-            android:src="@drawable/photo"
-            android:text="Chọn ảnh" />
-
-        <EditText
-            android:id="@+id/edtName"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Tên *"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/edtPhone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Số điện thoại *"
-            android:inputType="phone"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/edtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Line "
-            android:inputType="textEmailAddress"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
-
-
-        <EditText
-            android:id="@+id/edtAddress"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Địa chỉ"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/edtBankName"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Ngân hàng"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/edtBankAccount"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Số tài khoản"
-            android:inputType="number"
-            android:paddingLeft="10dp"
-            android:singleLine="true" />
+        android:layout_below="@+id/header">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <CheckBox
-                android:id="@+id/cbLeader"
+            <ImageView
+                android:id="@+id/cropImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ava" />
+
+            <TextView
+                android:id="@+id/imvImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đội trưởng ?" />
+                android:layout_gravity="center_horizontal"
+                android:padding="3dp"
+                android:src="@drawable/photo"
+                android:text="Chọn ảnh" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Tên *"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Số điện thoại *"
+                android:inputType="phone"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Line ID"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Địa chỉ"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtBankName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Ngân hàng"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtBankAccount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Số tài khoản"
+                android:inputType="number"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbLeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đội trưởng ?" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvOk"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_radius_layout"
+                android:gravity="center"
+                android:text="ĐỒNG Ý"
+                android:textColor="@color/white" />
+
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvOk"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_radius_layout"
-            android:gravity="center"
-            android:text="ĐỒNG Ý"
-            android:textColor="@color/white" />
-
-
-    </LinearLayout>
-
-
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -8,10 +8,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MyApplication"
@@ -22,13 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".ui.contractor.MainContractorActivity"></activity>
+        <activity android:name=".ui.contractor.DetailContractorActivity"></activity>
+        <activity android:name=".ui.contractor.UpdateContractorActivity"></activity>
+        <activity android:name=".ui.contractor.CreateContractorActivity"></activity>
+        <activity android:name=".ui.driver.MainDriverActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.lorry.map.LorryLocationActivity"></activity>
+        <activity android:name=".ui.lorry.map.LorryLocationActivity" />
         <activity android:name=".ui.activity.PreviewImageActivity" />
         <activity android:name=".ui.team.ChooseTeamLeaderActivity" />
         <activity
@@ -39,6 +42,15 @@
         <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.driver.CreateDriverActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.driver.UpdateDriverActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.driver.DetailDriverActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.worker.DetailWorkerActivity"

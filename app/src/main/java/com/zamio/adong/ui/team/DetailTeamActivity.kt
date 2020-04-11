@@ -1,14 +1,18 @@
 package com.zamio.adong.ui.team
 
+import MemberTeamAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Team
+import com.zamio.adong.model.Worker2
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -21,6 +25,7 @@ class DetailTeamActivity : BaseActivity() {
 
     var teamId = 1
     var team:Team? = null
+    var mAdapter:MemberTeamAdapter? = null
     override fun getLayout(): Int {
         return R.layout.activity_detail_team
     }
@@ -61,20 +66,20 @@ class DetailTeamActivity : BaseActivity() {
             }
 
             rightButton.setOnClickListener {
-//                val intent = Intent(this, UpdateLorryActivity::class.java)
-//                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, team!!)
-//                startActivity(intent)
-//                this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                val intent = Intent(this, UpdateTeamActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, team!!)
+                startActivity(intent)
+                this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
     }
 
     override fun resumeData() {
         getLorry(teamId)
+        getWorkerFromTeamId(teamId)
     }
 
     private fun getLorry(id:Int){
-        showProgessDialog()
         RestClient().getInstance().getRestService().getTeam(id).enqueue(object :
             Callback<RestData<Team>> {
 
@@ -83,24 +88,51 @@ class DetailTeamActivity : BaseActivity() {
             }
 
             override fun onResponse(call: Call<RestData<Team>>?, response: Response<RestData<Team>>?) {
-                dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if( response!!.body() != null && response!!.body().status == 1){
                     team = response.body().data ?: return
                     if(team != null) {
                         tvName.text = team!!.name
                         tvLeaderName.text = team!!.leaderFullName
-                        tvSize.text = team!!.teamSize.toString()
+                        tvChooseWorker.text = "Danh sách công nhân" + " ( " +  team!!.teamSize.toString() + " )"
                         tvPhone.text = team!!.phone
                         tvPhone2.text = team!!.phone2
-                        tvAddress.text = team!!.address
+                        tvAddress.text = team!!.address + " - " + team!!.districtName + " - " + team!!.provinceName
                     }
                 }
             }
         })
     }
 
-    private fun removeLorry(){
+    private fun getWorkerFromTeamId(teamId:Int){
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getWorkerFromTeam(teamId).enqueue(object :
+            Callback<RestData<ArrayList<Worker2>>> {
 
+            override fun onFailure(call: Call<RestData<ArrayList<Worker2>>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<ArrayList<Worker2>>>?, response: Response<RestData<ArrayList<Worker2>>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response!!.body().status == 1){
+                    setupRecyclerView(response.body().data!!)
+                }
+            }
+        })
+    }
+
+    private fun setupRecyclerView(data:ArrayList<Worker2>){
+        mAdapter = MemberTeamAdapter(data,false)
+        recyclerViewTeamLeader.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL ,false)
+        recyclerViewTeamLeader.setHasFixedSize(false)
+        recyclerViewTeamLeader.isNestedScrollingEnabled = true
+        recyclerViewTeamLeader.adapter = mAdapter
+        mAdapter!!.onItemClick = { position ->
+
+        }
+    }
+
+    private fun removeLorry(){
         showProgessDialog()
         RestClient().getRestService().removeTeam(teamId).enqueue(object :
             Callback<RestData<JsonElement>> {

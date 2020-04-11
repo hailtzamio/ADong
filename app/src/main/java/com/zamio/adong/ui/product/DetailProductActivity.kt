@@ -46,8 +46,6 @@ class DetailProductActivity : BaseActivity() {
                 tvOk.visibility = View.GONE
             }
 
-
-
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateProductActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!)
@@ -68,7 +66,7 @@ class DetailProductActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("xóa vật tư này?").setPositiveButton("Đồng ý", dialogClickListener)
+                builder.setMessage("Xóa vật tư này?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
 

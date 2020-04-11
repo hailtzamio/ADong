@@ -33,6 +33,8 @@
 
 
     <LinearLayout
+        android:layout_above="@+id/tvOk"
+        android:id="@+id/lnRoot"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:layout_below="@+id/cropImageView"
@@ -52,7 +54,7 @@
 
             <TextView
                 android:textColor="@color/colorGray"
-                android:text="Hãng sản xuất"
+                android:text="Thương hiệu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -151,8 +153,39 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:text="Vị trí "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp" >
+
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/map"
+                tools:context=".MapsActivity"
+                android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
     <TextView
         android:layout_alignParentBottom="true"
         android:id="@+id/tvOk"

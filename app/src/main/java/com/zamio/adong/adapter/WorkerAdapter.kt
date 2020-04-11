@@ -36,7 +36,7 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_product_layout, parent, false)
+                .inflate(R.layout.item_worker_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -56,7 +56,7 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
         if(topic.workingStatus == "idle") {
             holder.imvStatus.setImageResource(R.drawable.free_dot)
         } else {
-            holder.imvStatus.setImageResource(R.drawable.busy_dot)
+            holder.imvStatus.setImageResource(R.drawable.green_dot)
         }
 
         if(topic.avatarUrl != null){

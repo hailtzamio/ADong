@@ -60,10 +60,10 @@ class CreateWorkerActivity : BaseActivity() {
             }
 
 
-            if (edtEmail.text.toString().trim() != "" && !edtEmail.text.toString().isValidEmail()) {
-                showToast("Sai định dạng email")
-                return@setOnClickListener
-            }
+//            if (edtEmail.text.toString().trim() != "" && !edtEmail.text.toString().isValidEmail()) {
+//                showToast("Sai định dạng email")
+//                return@setOnClickListener
+//            }
 
             product.addProperty("fullName", edtName.text.toString())
             product.addProperty("address", edtAddress.text.toString())
@@ -73,6 +73,7 @@ class CreateWorkerActivity : BaseActivity() {
             product.addProperty("bankAccount", edtBankAccount.text.toString())
             product.addProperty("avatarExtId", thumbnailExtId)
             product.addProperty("isTeamLeader", isTeamLeader)
+            product.addProperty("workingStatus", "idle")
             createProduct(product)
         }
 

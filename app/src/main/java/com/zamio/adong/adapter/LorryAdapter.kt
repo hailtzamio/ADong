@@ -33,7 +33,7 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_product_layout, parent, false)
+                .inflate(R.layout.item_worker_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -47,11 +47,13 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
         holder.imvStatus.visibility = View.GONE
 
 
-//        if(topic.workingStatus == "idle") {
-//            holder.imvStatus.setImageResource(R.drawable.free_dot)
-//        } else {
-//            holder.imvStatus.setImageResource(R.drawable.busy_dot)
-//        }
+        if(topic.status == "idle") {
+            holder.imvStatus.setImageResource(R.drawable.free_dot)
+        } else if (topic.status == "working") {
+            holder.imvStatus.setImageResource(R.drawable.green_dot)
+        } else {
+            holder.imvStatus.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {

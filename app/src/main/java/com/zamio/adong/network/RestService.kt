@@ -71,10 +71,11 @@ interface RestService {
     fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
     /* Woker */
+
     @GET("worker?size=1000&sort=id,desc")
     fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
-    @GET("worker?size=1000")
+    @GET("worker?inTeam=false&size=1000")
     fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker2>>>
 
     @GET("worker/{id}")
@@ -97,16 +98,65 @@ interface RestService {
     @GET("team/{id}")
     fun getTeam(@Path("id") teamId: Int): Call<RestData<Team>>
 
+    @GET("team/{teamId}/members")
+    fun getWorkerFromTeam(@Path("teamId") teamId: Int): Call<RestData<ArrayList<Worker2>>>
+
     @DELETE("team/{id}")
     fun removeTeam(@Path("id") lorryId: Int): Call<RestData<JsonElement>>
 
     @POST("team")
     fun createTeam(@Body product: JsonObject): Call<RestData<JsonElement>>
 
-    @GET("worker?isTeamLeader=true")
+    @PUT("team/{id}")
+    fun updateTeam(@Path("id") id: Int, @Body objectJs: JsonObject): Call<RestData<JsonElement>>
+
+    @GET("worker?inTeam=false&isTeamLeader=true")
     fun getTeamLeaders(@Query("page") page: Int,@Query("name") name: String): Call<RestData<List<Worker>>>
+
+    @GET("province?size=1000")
+    fun getProvince(): Call<RestData<ArrayList<Province>>>
+
+    @GET("province/{provinceId}/districts?size=1000")
+    fun getDistricts(@Path("provinceId") provinceId: Int): Call<RestData<ArrayList<Province>>>
+
     /* End Team */
 
+    /* Driver */
+
+    @GET("driver?size=1000&sort=id,desc")
+    fun getDrivers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Driver>>>
+
+    @POST("driver")
+    fun createDriver(@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @GET("driver/{id}")
+    fun getDriver(@Path("id") lorryId: Int): Call<RestData<Driver>>
+
+    @DELETE("driver/{id}")
+    fun removeDriver(@Path("id") productId: Int): Call<RestData<JsonElement>>
+
+    @PUT("driver/{id}")
+    fun updateDriver(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+    /* End Driver */
+
+    /* Contructor */
+    @GET("contractor?size=1000&sort=id,desc")
+    fun getContractors(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Contractor>>>
+
+    @POST("contractor")
+    fun createContractor(@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @GET("contractor/{id}")
+    fun getContractor(@Path("id") lorryId: Int): Call<RestData<Contractor>>
+
+    @DELETE("contractor/{id}")
+    fun removeContractor(@Path("id") productId: Int): Call<RestData<JsonElement>>
+
+    @PUT("contractor/{id}")
+    fun updateContractor(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+
+
+    /* End Contructor */
 
 //    // Topic Detail
 //    @GET("topic/view?")

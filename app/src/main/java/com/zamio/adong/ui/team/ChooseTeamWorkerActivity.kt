@@ -32,10 +32,13 @@ class ChooseTeamWorkerActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+        rightButton.setImageResource(R.drawable.tick)
     }
 
     override fun initData() {
+
+        workersChoose.addAll(ConstantsApp.workers)
+
         getProducts(0)
         imvBack.setOnClickListener {
             onBackPressed()
@@ -55,12 +58,30 @@ class ChooseTeamWorkerActivity : BaseActivity() {
 
         tvTitle.text = "Danh Sách Công Nhân"
         rightButton.setOnClickListener {
+
+            var count = workersChoose.size
+            for (i in 0 until count) {
+                var j = i + 1
+                while (j < count) {
+                    if (workersChoose[i].id == workersChoose[j].id) {
+                        workersChoose.removeAt(j--)
+                        count--
+                    }
+                    j++
+                }
+            }
+
             val returnIntent = Intent()
-            returnIntent.putParcelableArrayListExtra("workersChoose", workersChoose )
+            returnIntent.putParcelableArrayListExtra("workersChoose", workersChoose)
             ConstantsApp.workers = workersChoose
             setResult(101, returnIntent)
             finish()
         }
+    }
+
+    private fun setupSelectedCheck() {
+
+
     }
 
     override fun resumeData() {
@@ -88,11 +109,21 @@ class ChooseTeamWorkerActivity : BaseActivity() {
                     dismisProgressDialog()
                     if (response!!.body().status == 1) {
                         workers = response.body().data!!
-                        for (i in ( workers.size -1) downTo 0){
-                            if(workers[i].isTeamLeader){
+                        for (i in (workers.size - 1) downTo 0) {
+                            if (workers[i].isTeamLeader) {
                                 workers.removeAt(i)
                             }
                         }
+
+                        for (i in (workers.size - 1) downTo 0) {
+                            for (j in (workersChoose.size - 1) downTo 0) {
+                                if (workers[i].id == workersChoose[j].id) {
+                                    workers[i].isSelected = true
+                                }
+                            }
+                        }
+
+
                         setupRecyclerView()
                         totalPages = response.body().pagination!!.totalPages!!
                     }
@@ -110,6 +141,7 @@ class ChooseTeamWorkerActivity : BaseActivity() {
         mAdapter.onItemClick = { product ->
             val intent = Intent(this, DetailWorkerActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
+            intent.putExtra(ConstantsApp.ChooseTeamWorkerActivity, "")
             startActivityForResult(intent, 1000)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
@@ -118,17 +150,10 @@ class ChooseTeamWorkerActivity : BaseActivity() {
             workers[position].isSelected = isChecked
 
             if (isChecked) {
-                for (j in ( workersChoose.size -1) downTo 0){
-                        if(workersChoose[j].id == workers[position].id){
-//                            return
-                        }
-                }
-
-
                 workersChoose.add(workers[position])
             } else {
                 for (i in workersChoose.indices) {
-                    for (j in ( workersChoose.size -1) downTo 0){
+                    for (j in (workersChoose.size - 1) downTo 0) {
                         if (workers[position].id == workersChoose[j].id) {
                             workersChoose.removeAt(j)
                         }

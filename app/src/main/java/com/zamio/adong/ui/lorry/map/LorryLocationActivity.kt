@@ -1,37 +1,33 @@
 package com.zamio.adong.ui.lorry.map
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.zamio.adong.R
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    val SYDNEY = LatLng(10.762622, 106.660172)
+    val ZOOM_LEVEL = 5f
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_lorry_location)
+        val mapFragment : SupportMapFragment? =
+            supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    override fun onMapReady(googleMap: GoogleMap?) {
+        googleMap ?: return
+        with(googleMap) {
+            moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, ZOOM_LEVEL))
+            addMarker(MarkerOptions().position(SYDNEY))
+        }
     }
 }

@@ -13,6 +13,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -50,6 +51,12 @@ class MainLorryFragment : BaseFragment() {
             val intent = Intent(context, CreateLorryActivity::class.java)
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        imvMap.setOnClickListener {
+            val intent = Intent(context, LorryLocationActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, lorry!!)
+            startActivity(intent)
         }
     }
 

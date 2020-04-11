@@ -25,15 +25,15 @@
 
         <LinearLayout
             android:padding="20dp"
-
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
 
             <EditText
+                android:textColor="@color/colorName"
                 android:singleLine="true"
-                android:hint="Tên"
+                android:hint="Tên *"
                 android:paddingLeft="10dp"
                 android:id="@+id/edtName"
                 android:background="@drawable/button_normal_main_radius_layout"
@@ -41,19 +41,41 @@
                 android:layout_height="@dimen/edt_size" />
 
             <EditText
+                android:textColor="@color/colorName"
                 android:singleLine="true"
-                android:hint="Địa chỉ"
+                android:hint="Địa chỉ *"
                 android:paddingLeft="10dp"
                 android:id="@+id/edtAddress"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size" />
+            <Spinner
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="4dp"
+                android:id="@+id/spinProvince"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size" />
+            <Spinner
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:paddingLeft="4dp"
+                android:id="@+id/spinDistrict"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:singleLine="true"
                 android:inputType="phone"
-                android:hint="Số điện thoại"
+                android:hint="Số điện thoại ( Không nhập )"
                 android:paddingLeft="10dp"
                 android:id="@+id/edtPhone"
                 android:layout_marginTop="10dp"
@@ -62,6 +84,7 @@
                 android:layout_height="@dimen/edt_size" />
 
             <EditText
+                android:textColor="@color/colorName"
                 android:singleLine="true"
                 android:inputType="phone"
                 android:hint="Số điện thoại 2"
@@ -74,23 +97,37 @@
             <TextView
                 android:id="@+id/tvChooseLeader"
                 android:layout_marginTop="10dp"
-                android:text="Chọn Đội trưởng ( Ấn vào đây )"
+                android:text="Chọn Đội trưởng ( + )"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_marginTop="10dp"
-                android:padding="1dp"
-                android:id="@+id/imvAva"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ava"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@color/colorGray2"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_marginTop="10dp"
+                    android:padding="1dp"
+                    android:id="@+id/imvAva"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/plus"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/colorGray2"/>
+
+                <TextView
+                    android:id="@+id/tvLeaderName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imvAva"
+                    tools:text="1111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tvChooseWorker"
                 android:layout_marginTop="10dp"
-                android:text="Chọn Công nhân ( Ấn vào đây )"
+                android:text="Chọn Công nhân ( + )"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RelativeLayout
@@ -98,12 +135,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_marginTop="10dp"
                     android:padding="1dp"
                     android:id="@+id/imvAvaWorker"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ava"
+                    android:src="@drawable/plus"
                     app:civ_border_width="2dp"
                     app:civ_border_color="@color/colorGray2"/>
                 <androidx.recyclerview.widget.RecyclerView

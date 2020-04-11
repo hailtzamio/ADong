@@ -67,7 +67,7 @@ class DetailWorkerActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("xóa công nhân này?").setPositiveButton("Đồng ý", dialogClickListener)
+                builder.setMessage("Xóa công nhân này?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
 
@@ -78,6 +78,11 @@ class DetailWorkerActivity : BaseActivity() {
                     startActivityForResult(intent, 1000)
                 }
             }
+        }
+
+        if (intent.hasExtra(ConstantsApp.ChooseTeamWorkerActivity)) {
+            tvOk.visibility = View.GONE
+            rightButton.visibility = View.GONE
         }
 
         getProduct(productId)
@@ -110,6 +115,12 @@ class DetailWorkerActivity : BaseActivity() {
                          tvPosition.text = "Đội trưởng"
                      } else {
                          tvPosition.text = "Công nhân"
+                     }
+
+                     if(product!!.workingStatus == "idle"){
+                         tvStatus.text = "Đang rảnh"
+                     } else {
+                         tvStatus.text = "Đang bận"
                      }
 
                     Picasso.get().load(product!!.avatarUrl).into(cropImageView)

@@ -16,6 +16,8 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.contractor.MainContractorActivity
+import com.zamio.adong.ui.driver.MainDriverActivity
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
 import com.zamio.adong.ui.team.MainTeamActivity
@@ -46,8 +48,6 @@ class PermissionsFragment : BaseFragment() {
         rightButton.visibility = View.GONE
         tvTitle.text = "Trang Chủ"
         getPermission()
-
-
     }
 
     private fun getPermission(){
@@ -76,7 +76,7 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product"|| it.appEntityCode == "Team" )){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" || it.appEntityCode == "Team" || it.appEntityCode == "Driver" || it.appEntityCode == "Contractor"  )){
 
                 if (it.appEntityCode == "Worker" ){
                     it.name = "Công Nhân"
@@ -94,7 +94,28 @@ class PermissionsFragment : BaseFragment() {
                     it.name = "Đội Thi Công"
                 }
 
+                if (it.appEntityCode == "Driver" ){
+                    it.name = "Lái Xe"
+                }
+
+                if (it.appEntityCode == "Contractor" ){
+                    it.name = "Nhà Thấu Phụ"
+                }
+
                 permissions.add(it)
+
+            }
+        }
+
+        var count = permissions.size
+        for (i in 0 until count) {
+            var j = i + 1
+            while (j < count) {
+                if (permissions[i].appEntityCode == permissions[j].appEntityCode) {
+                    permissions.removeAt(j--)
+                    count--
+                }
+                j++
             }
         }
 
@@ -118,6 +139,8 @@ class PermissionsFragment : BaseFragment() {
                     "Lorry" -> intent = Intent(context, MainLorryActivity::class.java)
                     "Worker" -> intent = Intent(context, MainWorkerActivity::class.java)
                     "Team" -> intent = Intent(context, MainTeamActivity::class.java)
+                    "Driver" -> intent = Intent(context, MainDriverActivity::class.java)
+                    "Contractor" -> intent = Intent(context, MainContractorActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString
@@ -130,12 +153,26 @@ class PermissionsFragment : BaseFragment() {
             }
     }
 
+    private fun removeDuplicates(list: ArrayList<Permission>) {
+        var count = list.size
+        for (i in 0 until count) {
+            var j = i + 1
+            while (j < count) {
+                if (list[i].appEntityCode == list[j].appEntityCode) {
+                    list.removeAt(j--)
+                    count--
+                }
+                j++
+            }
+        }
+    }
+
     private fun setupRecyclerView(data:List<Permission>){
 
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" || it.appEntityCode == "Team")){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product")){
 
                 if (it.appEntityCode == "Worker" ){
                     it.name = "Công Nhân"

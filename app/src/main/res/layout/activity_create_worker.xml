@@ -37,7 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:padding="3dp"
             android:src="@drawable/photo"
-            android:text="Chọn ảnh" />
+            android:text="Chọn ảnh *" />
 
         <EditText
             android:id="@+id/edtName"
@@ -66,7 +66,7 @@
             android:layout_height="@dimen/edt_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:hint="Line "
+            android:hint="Line ID "
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp"
             android:singleLine="true" />

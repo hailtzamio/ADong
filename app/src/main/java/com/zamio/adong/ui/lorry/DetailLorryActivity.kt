@@ -7,6 +7,12 @@ import android.content.Intent
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
@@ -18,10 +24,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class DetailLorryActivity : BaseActivity() {
+class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
 
     var lorryId = 1
     var lorry:Lorry? = null
+    val SYDNEY = LatLng(10.762622, 106.660172)
+    val ZOOM_LEVEL = 5f
     override fun getLayout(): Int {
         return R.layout.activity_detail_lorry
     }
@@ -36,6 +44,18 @@ class DetailLorryActivity : BaseActivity() {
 
         if(!ConstantsApp.PERMISSION.contains("d")){
             tvOk.visibility = View.GONE
+        }
+
+        val mapFragment : SupportMapFragment? =
+            supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+        mapFragment?.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        googleMap ?: return
+        with(googleMap) {
+            moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, ZOOM_LEVEL))
+            addMarker(MarkerOptions().position(SYDNEY))
         }
     }
 
@@ -57,7 +77,7 @@ class DetailLorryActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("Chắc chắn sẽ xóa xe này?").setPositiveButton("Đồng ý", dialogClickListener)
+                builder.setMessage("Xóa xe này?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
 

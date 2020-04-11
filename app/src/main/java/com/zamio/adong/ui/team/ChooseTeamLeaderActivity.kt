@@ -74,6 +74,8 @@ class ChooseTeamLeaderActivity : BaseActivity() {
                         val returnIntent = Intent()
                         returnIntent.putExtra("id", worker.id)
                         returnIntent.putExtra("avatarUrl", worker.avatarUrl)
+                        returnIntent.putExtra("phone", worker.phone)
+                        returnIntent.putExtra("name", worker.fullName)
                         setResult(100, returnIntent)
                         finish()
                     }

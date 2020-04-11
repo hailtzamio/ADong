@@ -103,13 +103,40 @@
 
             <TextView
                 android:textColor="@color/colorGray"
-                android:text="Line "
+                android:text="Line ID "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
 
             <TextView
                 android:id="@+id/tvEmail"
+                android:textColor="@color/colorName"
+                android:layout_alignParentRight="true"
+                tools:text="Địa chỉ "
+                android:ellipsize="end"
+                android:layout_width="200dp"
+                android:gravity="end"
+                app:autoSizeTextType="uniform"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:text="Trạng thái "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tvStatus"
                 android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Địa chỉ "

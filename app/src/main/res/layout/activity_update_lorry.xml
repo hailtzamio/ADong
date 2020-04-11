@@ -27,7 +27,7 @@
 
         <EditText
             android:singleLine="true"
-            android:hint="Hãng *"
+            android:hint="Thương hiệu *"
             android:paddingLeft="10dp"
             android:id="@+id/edtBrand"
             android:background="@drawable/button_normal_main_radius_layout"
@@ -36,7 +36,7 @@
 
         <EditText
             android:singleLine="true"
-            android:hint="Tên *"
+            android:hint="Model *"
             android:paddingLeft="10dp"
             android:id="@+id/edtModel"
             android:layout_marginTop="10dp"

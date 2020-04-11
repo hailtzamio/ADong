@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
 
     <include layout="@layout/item_header_layout"
         android:id="@+id/view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/header_size"
         android:background="#2196F3"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
@@ -19,9 +19,10 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/view"
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="5dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,5 +30,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
+    <ImageView
+        android:id="@+id/imvMap"
+        android:padding="20dp"
+        android:src="@drawable/map_vew"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
