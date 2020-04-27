@@ -34,9 +34,9 @@ class DetailDriverActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)) {
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
-            modelId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+            modelId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
             if (!ConstantsApp.PERMISSION.contains("u")) {
                 rightButton.visibility = View.GONE
@@ -48,7 +48,7 @@ class DetailDriverActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateDriverActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, model!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -74,7 +74,7 @@ class DetailDriverActivity : BaseActivity() {
             cropImageView.setOnClickListener {
                 if (model!!.avatarUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_QUESTION_ID, model!!.avatarUrl)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!.avatarUrl)
                     startActivityForResult(intent, 1000)
                 }
             }

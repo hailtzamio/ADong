@@ -99,7 +99,6 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
             android:hint="Số tài khoản"
-            android:inputType="number"
             android:paddingLeft="10dp"
             android:singleLine="true" />
 

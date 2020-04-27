@@ -10,7 +10,7 @@ data class Worker(
     @SerializedName("avatarExtId")
     val avatarExtId: String,
     @SerializedName("avatarUrl")
-    val avatarUrl: String,
+    val avatarUrl: String?,
     @SerializedName("bankAccount")
     val bankAccount: String,
     @SerializedName("bankName")
@@ -48,5 +48,7 @@ data class Worker(
     @SerializedName("isSelected")
     var isSelected: Boolean = false,
     @SerializedName("workingStatus")
-    var workingStatus: String
+    var workingStatus: String,
+    @SerializedName("teamName")
+    var teamName: String
 ) : Serializable

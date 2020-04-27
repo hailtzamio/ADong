@@ -32,9 +32,9 @@ class DetailContractorActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)) {
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
-            productId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+            productId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
 
             if (!ConstantsApp.PERMISSION.contains("u")) {
@@ -47,7 +47,7 @@ class DetailContractorActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateContractorActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -102,10 +102,28 @@ class DetailContractorActivity : BaseActivity() {
                     product = response.body().data ?: return
                     tvName.text = product!!.name
                     tvPhone.text = product!!.phone
-                    tvAddress.text = product!!.address + " - " + product!!.districtName + " - " + product!!.provinceName
+
+                    var address = ""
+
+                    if(product!!.address != null && product!!.address != "") {
+                        address =  product!!.address.toString()
+                    }
+
+                    if(product!!.districtName != null) {
+                        address = address + " - " + product!!.districtName
+                    }
+
+                    if(product!!.provinceName != null) {
+                        address = address + " - " + product!!.provinceName
+                    }
+
+                    tvAddress.text = address
                     tvEmail.text = product!!.email
                     tvProjectName.text = product!!.projectName
-                    tvRating.text = product!!.rating.toString() + " *"
+
+                    if (product!!.rating != null) {
+                        rating.rating = product!!.rating
+                    }
 
                     if (product!!.workingStatus == "idle") {
                         tvStatus.text = "Đang rảnh"

@@ -46,6 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="11111" />
 
                 <TextView
@@ -55,6 +57,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvName"
                     android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="11111" />
 
                 <TextView
@@ -75,6 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUnit"
                     android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="11111" />
             </RelativeLayout>
 

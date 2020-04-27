@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Worker2(
     val address: String,
     val avatarExtId: String,
-    val avatarUrl: String,
+    val avatarUrl: String?,
     val bankAccount: String,
     val bankName: String,
     val createdByFullName: String,

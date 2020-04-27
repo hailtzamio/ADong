@@ -1,7 +1,6 @@
 package com.zamio.adong.ui.lorry
 
 import RestClient
-import android.util.Log
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -29,14 +28,11 @@ class UpdateLorryActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val lorryOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Lorry
-        Log.e("hailpt","lorry  " + lorryOb.address)
-
-            edtBrand.setText(lorryOb.brand)
-            edtModel.setText(lorryOb.model)
-            edtPlateNumber.setText(lorryOb.plateNumber)
-            edtCapacity.setText(lorryOb.capacity)
-
+        val dataOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Lorry
+            edtBrand.setText(dataOb.brand)
+            edtModel.setText(dataOb.model)
+            edtPlateNumber.setText(dataOb.plateNumber)
+            edtCapacity.setText(dataOb.capacity)
 
         tvOk.setOnClickListener {
 
@@ -45,12 +41,12 @@ class UpdateLorryActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            val lorry = JsonObject()
-            lorry.addProperty("brand",edtBrand.text.toString())
-            lorry.addProperty("model",edtModel.text.toString())
-            lorry.addProperty("plateNumber",edtPlateNumber.text.toString())
-            lorry.addProperty("capacity",edtCapacity.text.toString())
-            updateLorry(lorryOb.id,lorry )
+            val data = JsonObject()
+            data.addProperty("brand",edtBrand.text.toString())
+            data.addProperty("model",edtModel.text.toString())
+            data.addProperty("plateNumber",edtPlateNumber.text.toString())
+            data.addProperty("capacity",edtCapacity.text.toString())
+            update(dataOb.id,data )
         }
     }
 
@@ -58,10 +54,10 @@ class UpdateLorryActivity : BaseActivity() {
 
     }
 
-    private fun updateLorry(id:Int, lorry: JsonObject){
+    private fun update(id:Int, data: JsonObject){
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().updateLorry(id,lorry).enqueue(object :
+        RestClient().getInstance().getRestService().updateLorry(id,data).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

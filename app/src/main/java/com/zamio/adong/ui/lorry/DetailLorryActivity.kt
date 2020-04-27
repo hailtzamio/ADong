@@ -26,8 +26,8 @@ import retrofit2.Response
 
 class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
 
-    var lorryId = 1
-    var lorry:Lorry? = null
+    var id = 1
+    var model:Lorry? = null
     val SYDNEY = LatLng(10.762622, 106.660172)
     val ZOOM_LEVEL = 5f
     override fun getLayout(): Int {
@@ -60,9 +60,9 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)){
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
 
-             lorryId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
             tvOk.setOnClickListener {
                 val dialogClickListener =
@@ -83,7 +83,7 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateLorryActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, lorry!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
                 startActivity(intent)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -91,7 +91,7 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     override fun resumeData() {
-        getLorry(lorryId)
+        getLorry(id)
     }
 
     private fun getLorry(id:Int){
@@ -106,12 +106,12 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
             override fun onResponse(call: Call<RestData<Lorry>>?, response: Response<RestData<Lorry>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response!!.body().status == 1){
-                    lorry = response.body().data ?: return
-                    if(lorry != null) {
-                        tvName.text = lorry!!.brand
-                        tvModel.text = lorry!!.model
-                        tvPlateNumber.text = lorry!!.plateNumber
-                        tvCapacity.text = lorry!!.capacity
+                    model = response.body().data ?: return
+                    if(model != null) {
+                        tvName.text = model!!.brand
+                        tvModel.text = model!!.model
+                        tvPlateNumber.text = model!!.plateNumber
+                        tvCapacity.text = model!!.capacity
                     }
                 }
             }
@@ -121,7 +121,7 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
     private fun removeLorry(){
 
         showProgessDialog()
-        RestClient().getRestService().removeLorry(lorryId).enqueue(object :
+        RestClient().getRestService().removeLorry(id).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

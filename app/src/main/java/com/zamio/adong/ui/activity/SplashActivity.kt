@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.elcom.com.quizupapp.utils.PreferUtils
 import com.zamio.adong.MainActivity
 import com.zamio.adong.R
+import com.zamio.adong.network.ConstantsApp
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
         val token = preferUtils.getToken(this)
 
         if(token != "") {
+            ConstantsApp.BASE64_AUTH_TOKEN = token
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

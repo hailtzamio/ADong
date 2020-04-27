@@ -14,6 +14,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
+import com.zamio.adong.ui.project.tab.ui.main.PlaceholderFragment
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -92,7 +93,7 @@ class MainLorryFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             val intent = Intent(context, DetailLorryActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
             startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
@@ -102,6 +103,27 @@ class MainLorryFragment : BaseFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == 100){
 //            getProducts()
+        }
+    }
+
+    companion object {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private const val ARG_SECTION_NUMBER = "section_number"
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        @JvmStatic
+        fun newInstance(sectionNumber: Int): PlaceholderFragment {
+            return PlaceholderFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_SECTION_NUMBER, sectionNumber)
+                }
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class Contractor(
     @SerializedName("address")
-    val address: String,
+    var address: String? = null,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -16,7 +16,7 @@ data class Contractor(
     @SerializedName("districtId")
     val districtId: Int,
     @SerializedName("districtName")
-    val districtName: String,
+    var districtName: String?,
     @SerializedName("email")
     val email: String,
     @SerializedName("id")
@@ -32,9 +32,9 @@ data class Contractor(
     @SerializedName("provinceId")
     val provinceId: Int,
     @SerializedName("provinceName")
-    val provinceName: String,
+    var provinceName: String?,
     @SerializedName("rating")
-    val rating: Int,
+    val rating: Float,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")

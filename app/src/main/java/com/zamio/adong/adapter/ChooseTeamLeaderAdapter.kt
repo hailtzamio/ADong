@@ -29,7 +29,6 @@ class ChooseTeamLeaderAdapter(private val topicDetails: List<Worker>) : Recycler
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -43,8 +42,8 @@ class ChooseTeamLeaderAdapter(private val topicDetails: List<Worker>) : Recycler
         val topic = topicDetails[position]
         holder.name.text = topic.fullName
         holder.phone.text = topic.phone
-        holder.phone2.text = topic.email
-        holder.address.text = topic.address
+        holder.phone2.text = topic.address
+//        holder.address.text = topic.address
         if(topic.avatarUrl != null){
             Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
         }else {

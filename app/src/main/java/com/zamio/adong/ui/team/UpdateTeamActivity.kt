@@ -51,7 +51,7 @@ class UpdateTeamActivity : BaseActivity() {
     override fun initData() {
 
         ConstantsApp.workers.clear()
-        val team = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Team
+        val team = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Team
 
         edtName.setText(team.name)
         edtName.setTextColor(ContextCompat.getColor(this,R.color.colorName))
@@ -87,11 +87,11 @@ class UpdateTeamActivity : BaseActivity() {
                 showToast("Chọn Đội trưởng")
                 return@setOnClickListener
             }
-
-            if (workerIds.count() == 0) {
-                showToast("Chọn Công nhân")
-                return@setOnClickListener
-            }
+//
+//            if (workerIds.count() == 0) {
+//                showToast("Chọn Công nhân")
+//                return@setOnClickListener
+//            }
 
             val product = JsonObject()
             product.addProperty("name", edtName.text.toString())
@@ -100,7 +100,7 @@ class UpdateTeamActivity : BaseActivity() {
             product.addProperty("phone2", edtPhone2.text.toString())
             product.addProperty("provinceId", provinceId)
             product.addProperty("districtId", districtId)
-            product.addProperty("leaderId", leaderId)
+            product.addProperty("leaderId",leaderId)
             product.add("memberIds", workerIds)
             createProduct(product)
         }
@@ -216,9 +216,16 @@ class UpdateTeamActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<Worker>>?, response: Response<RestData<Worker>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response!!.body().status == 1){
-                    val product = response.body().data ?: return
-                    tvLeaderName.text = product.fullName
-                    Picasso.get().load(product.avatarUrl).into(imvAva)
+                    val team = response.body().data ?: return
+                    tvLeaderName.text = team.fullName
+                    Picasso.get().load(team.avatarUrl).into(imvAva)
+
+                    if(team.avatarUrl != null){
+                        Picasso.get().load(team.avatarUrl).error(R.drawable.ava).into(imvAva)
+                    } else {
+                        imvAva.setImageResource(R.drawable.ava);
+                    }
+
                 }
             }
         })
@@ -341,9 +348,10 @@ class UpdateTeamActivity : BaseActivity() {
             val avatarUrl = data!!.getStringExtra("avatarUrl")
             leaderId = data.getIntExtra("id", 0)
             edtPhone.setText(data.getStringExtra("phone").toString())
+            tvLeaderName.text = data.getStringExtra("name").toString()
 
             if (avatarUrl != null) {
-                Picasso.get().load(avatarUrl).into(imvAva)
+                Picasso.get().load(avatarUrl).error(R.drawable.ava).into(imvAva)
             } else {
                 imvAva.setImageResource(R.drawable.ava);
             }

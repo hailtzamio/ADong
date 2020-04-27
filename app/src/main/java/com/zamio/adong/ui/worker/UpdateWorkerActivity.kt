@@ -45,7 +45,7 @@ class UpdateWorkerActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Worker
+        val productOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Worker
         avatarExtId = productOb.avatarExtId
 
         edtName.setText(productOb.fullName)

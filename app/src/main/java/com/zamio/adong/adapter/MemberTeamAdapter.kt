@@ -50,8 +50,8 @@ class MemberTeamAdapter(private val topicDetails: List<Worker2>, private var isS
         holder.phone.text = topic.phone
 
         if(topic.avatarUrl != null){
-            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
-        }else {
+            Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
+        } else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }
 

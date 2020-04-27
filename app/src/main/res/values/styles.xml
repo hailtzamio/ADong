@@ -55,4 +55,19 @@
 
     <style name="BlueActivityTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomTextView" >
+        <item name="android:maxLength">50</item>
+        <item name="android:editable">true</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

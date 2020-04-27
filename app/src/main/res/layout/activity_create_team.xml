@@ -114,6 +114,7 @@
                     app:civ_border_color="@color/colorGray2"/>
 
                 <TextView
+                    android:singleLine="true"
                     android:id="@+id/tvLeaderName"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"

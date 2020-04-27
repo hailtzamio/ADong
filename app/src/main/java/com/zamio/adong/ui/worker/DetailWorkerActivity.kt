@@ -34,9 +34,9 @@ class DetailWorkerActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)){
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
 
-            productId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+            productId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
 
             if(!ConstantsApp.PERMISSION.contains("u")){
@@ -49,7 +49,7 @@ class DetailWorkerActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateWorkerActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -74,10 +74,18 @@ class DetailWorkerActivity : BaseActivity() {
             cropImageView.setOnClickListener {
                 if(product!!.avatarUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.avatarUrl)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.avatarUrl)
                     startActivityForResult(intent, 1000)
                 }
             }
+
+            tvTeam.setOnClickListener {
+//                val intent = Intent(this, DetailTeamActivity::class.java)
+//                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
+//                startActivity(intent)
+//               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+
         }
 
         if (intent.hasExtra(ConstantsApp.ChooseTeamWorkerActivity)) {
@@ -106,11 +114,13 @@ class DetailWorkerActivity : BaseActivity() {
                  if(response!!.body() != null && response!!.body().status == 1){
                     product = response.body().data ?: return
                     tvName.text = product!!.fullName
-                    tvPhone.text = product!!.phone
+                     tvPhone.text = product!!.phone
                     tvAddress.text = product!!.address
                     tvEmail.text = product!!.lineId
                     tvBankName.text = product!!.bankName
                     tvBankAccount.text = product!!.bankAccount
+                     tvTeam.text = product!!.teamName
+
                      if (product!!.isTeamLeader){
                          tvPosition.text = "Đội trưởng"
                      } else {

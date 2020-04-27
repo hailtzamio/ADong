@@ -53,7 +53,7 @@ class ProductAdapter(private val topicDetails: List<Product>) : RecyclerView.Ada
         }
 
         if(topic.thumbnailUrl != null){
-            Picasso.get().load(topic.thumbnailUrl).into(holder.imvAva)
+            Picasso.get().load(topic.thumbnailUrl).error(R.drawable.ava).into(holder.imvAva)
         }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

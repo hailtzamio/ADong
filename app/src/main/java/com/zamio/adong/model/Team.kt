@@ -8,7 +8,7 @@ data class Team (
 
 
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @SerializedName("addressFull")
     val addressFull: Any,
     @SerializedName("createdByFullName")
@@ -20,7 +20,7 @@ data class Team (
     @SerializedName("districtId")
     val districtId: Int,
     @SerializedName("districtName")
-    val districtName: String,
+    val districtName: String?,
     @SerializedName("futureProjectId")
     val futureProjectId: Any,
     @SerializedName("futureProjectName")
@@ -44,9 +44,9 @@ data class Team (
     @SerializedName("provinceId")
     val provinceId: Int,
     @SerializedName("provinceName")
-    val provinceName: String,
+    val provinceName: String?,
     @SerializedName("rating")
-    val rating: Int,
+    val rating: Float?,
     @SerializedName("teamSize")
     val teamSize: Int,
     @SerializedName("updatedByFullName")

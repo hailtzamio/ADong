@@ -60,7 +60,7 @@ class WorkerAdapter(private val topicDetails: List<Worker>) : RecyclerView.Adapt
         }
 
         if(topic.avatarUrl != null){
-            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
+            Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
         }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

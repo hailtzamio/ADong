@@ -44,9 +44,9 @@ class DetailTeamActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)){
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
 
-            teamId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+            teamId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
             tvOk.setOnClickListener {
                 val dialogClickListener =
@@ -67,7 +67,7 @@ class DetailTeamActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateTeamActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, team!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, team!!)
                 startActivity(intent)
                 this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -96,7 +96,31 @@ class DetailTeamActivity : BaseActivity() {
                         tvChooseWorker.text = "Danh sách công nhân" + " ( " +  team!!.teamSize.toString() + " )"
                         tvPhone.text = team!!.phone
                         tvPhone2.text = team!!.phone2
-                        tvAddress.text = team!!.address + " - " + team!!.districtName + " - " + team!!.provinceName
+                        var address = ""
+
+                        if(team!!.address != null) {
+                            address =  team!!.address.toString()
+                        }
+
+                        if(team!!.districtName != null) {
+                            address = address + " - " + team!!.districtName
+                        }
+
+                        if(team!!.provinceName != null) {
+                            address = address + " - " + team!!.provinceName
+                        }
+
+                        tvAddress.text = address
+
+                        if (team!!.workingStatus == "idle") {
+                            tvStatus.text = "Đang rảnh"
+                        } else {
+                            tvStatus.text = "Đang bận"
+                        }
+
+                        if( team!!.rating != null) {
+                            rating.rating = team!!.rating!!
+                        }
                     }
                 }
             }

@@ -71,7 +71,6 @@ interface RestService {
     fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
     /* Woker */
-
     @GET("worker?size=1000&sort=id,desc")
     fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
@@ -91,9 +90,32 @@ interface RestService {
     fun removeWorker(@Path("id") productId: Int): Call<RestData<JsonElement>>
     /* End Woker */
 
+    /* Criteria */
+
+    @GET("criteriaBundle?size=1000&sort=id,desc")
+    fun getCriterias(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Criteria>>>
+
+    @GET("criteriaBundle/{cbId}")
+    fun getCriteria(@Path("cbId") id: Int): Call<RestData<Criteria>>
+
+    @PUT("criteriaBundle/{cbId}")
+    fun updateCriteria(@Path("cbId") id: Int, @Body lorry: UpdateCriteria): Call<RestData<JsonElement>>
+
+    @POST("criteriaBundle")
+    fun createCriteria(@Body data: CriteriaValues): Call<RestData<JsonElement>>
+
+    @DELETE("criteriaBundle/{cbId}")
+    fun removeCriteria(@Path("cbId") id: Int): Call<RestData<JsonElement>>
+
+
+    @GET("criteriaBundle/{cbId}/criteria")
+    fun getSmallCriteria(@Path("cbId") id: Int): Call<RestData<ArrayList<CriteriaSmall>>>
+
+    /* End Criteria */
+
     /* Team */
-    @GET("team?size=1000")
-    fun getTeams(@Query("page") page: Int): Call<RestData<List<Team>>>
+    @GET("team?size=1000&sort=id,desc")
+    fun getTeams(@Query("page") page: Int, @Query("name") name: String): Call<RestData<List<Team>>>
 
     @GET("team/{id}")
     fun getTeam(@Path("id") teamId: Int): Call<RestData<Team>>
@@ -157,6 +179,58 @@ interface RestService {
 
 
     /* End Contructor */
+
+
+    /* Project */
+
+    @POST("project")
+    fun createProject(@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @DELETE("project/{id}")
+    fun removeProject(@Path("id") productId: Int): Call<RestData<JsonElement>>
+
+    @GET("project?size=1000&sort=id,desc")
+    fun getProjects(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Project>>>
+
+    @GET("project/{id}")
+    fun getProject(@Path("id") id: Int): Call<RestData<Project>>
+
+    @GET("user?size=1000&sort=id,desc&authorityCode=MANAGER")
+    fun getManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
+    @GET("user?size=1000&sort=id,desc&authorityCode=SECRETARY")
+    fun getSecretaries(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
+    @GET("user?size=1000&sort=id,desc&authorityCode=DEPUTY_MANAGER")
+    fun getDeputyManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
+
+
+    /* End Project */
+    /* WorkOutline  */
+
+
+
+    @GET("project/{projectId}/workOutlines?size=1000&sort=id,desc")
+    fun getProjectWorkOutlines(@Path("projectId") projectId: Int, @Query("page") page: Int): Call<RestData<List<WorkOutline>>>
+
+    @GET("project/{projectId}/productRequirements?size=1000&sort=id,desc")
+    fun getProductRequirement(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<ProductRequirement>>>
+
+    @GET("workOutline?size=1000&sort=id,desc")
+    fun getWorkOutlines(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<WorkOutline>>>
+
+    @GET("workOutline/{id}")
+    fun getWorkOutline(@Path("id") id: Int): Call<RestData<WorkOutline>>
+
+    @DELETE("workOutline/{id}")
+    fun removeWorkOutline(@Path("id") id: Int): Call<RestData<JsonElement>>
+
+    @PUT("workOutline/{id}")
+    fun updateWorkOutline(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
+
+    @POST("workOutline")
+    fun createWorkOutline(@Body data: JsonObject): Call<RestData<JsonElement>>
 
 //    // Topic Detail
 //    @GET("topic/view?")

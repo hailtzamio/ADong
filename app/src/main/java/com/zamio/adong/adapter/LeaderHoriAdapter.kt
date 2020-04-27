@@ -46,7 +46,7 @@ class LeaderHoriAdapter(private val topicDetails: MutableList<Worker2>) :
 //        holder.unit.text = topic.plateNumber
 //        holder.quantity.text = topic.capacity
         if (topic.avatarUrl != null) {
-            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
+            Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
         } else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

@@ -43,7 +43,7 @@ class UpdateContractorActivity : BaseActivity() {
 
     override fun initData() {
 
-        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Contractor
+        val productOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Contractor
         getProvinces()
         edtName.setText(productOb.name)
         edtPhone.setText(productOb.phone)

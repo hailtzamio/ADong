@@ -49,7 +49,7 @@ class UpdateDriverActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val model = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Driver
+        val model = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Driver
 
         avatarExtId = model.avatarExtId
         edtName.setText(model.fullName)

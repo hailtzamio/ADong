@@ -33,9 +33,9 @@ class DetailProductActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_QUESTION_ID)){
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
 
-            productId = intent.getIntExtra(ConstantsApp.KEY_QUESTION_ID, 1)
+            productId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
 
             if(!ConstantsApp.PERMISSION.contains("u")){
@@ -48,7 +48,7 @@ class DetailProductActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateProductActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -73,7 +73,7 @@ class DetailProductActivity : BaseActivity() {
             cropImageView.setOnClickListener {
                 if(product!!.thumbnailUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product!!.thumbnailUrl)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.thumbnailUrl)
                     startActivityForResult(intent, 1000)
                 }
             }

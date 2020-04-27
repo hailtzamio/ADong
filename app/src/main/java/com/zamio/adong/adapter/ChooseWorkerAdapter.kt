@@ -54,10 +54,10 @@ class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) : RecyclerVie
         val topic = topicDetails[position]
         holder.name.text = topic.fullName
         holder.type.text = topic.phone
-        holder.unit.text = topic.email
-        holder.quantity.text = topic.address
+        holder.unit.text = topic.address
+//        holder.quantity.text = topic.address
         if(topic.avatarUrl != null){
-            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
+            Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
         }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

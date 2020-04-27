@@ -12,7 +12,7 @@ class PreviewImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview_image)
-        val avatarUrl = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as String
+        val avatarUrl = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as String
         Picasso.get().load(avatarUrl).into(imvAva)
 
         imvClose.setOnClickListener {

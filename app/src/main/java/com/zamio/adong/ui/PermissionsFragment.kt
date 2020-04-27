@@ -17,11 +17,14 @@ import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.contractor.MainContractorActivity
+import com.zamio.adong.ui.criteria.MainCriteriaActivity
 import com.zamio.adong.ui.driver.MainDriverActivity
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
+import com.zamio.adong.ui.project.MainProjectActivity
 import com.zamio.adong.ui.team.MainTeamActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
+import com.zamio.adong.ui.workoutline.MainWorkOutlineActivity
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -76,30 +79,45 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product" || it.appEntityCode == "Team" || it.appEntityCode == "Driver" || it.appEntityCode == "Contractor"  )){
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"
+                        || it.appEntityCode == "Product"
+                        || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
+                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundle" || it.appEntityCode  == "Project"|| it.appEntityCode  == "WorkOutline" )) {
 
-                if (it.appEntityCode == "Worker" ){
+                if (it.appEntityCode == "Worker" ) {
                     it.name = "Công Nhân"
                 }
 
-                if (it.appEntityCode == "Product" ){
+                if (it.appEntityCode == "Product" ) {
                     it.name = "Vật Tư"
                 }
 
-                if (it.appEntityCode == "Lorry" ){
+                if (it.appEntityCode == "Lorry" ) {
                     it.name = "Xe"
                 }
 
-                if (it.appEntityCode == "Team" ){
+                if (it.appEntityCode == "Team" ) {
                     it.name = "Đội Thi Công"
                 }
 
-                if (it.appEntityCode == "Driver" ){
+                if (it.appEntityCode == "Driver" ) {
                     it.name = "Lái Xe"
                 }
 
-                if (it.appEntityCode == "Contractor" ){
-                    it.name = "Nhà Thấu Phụ"
+                if (it.appEntityCode == "Contractor" ) {
+                    it.name = "Nhà Thầu Phụ"
+                }
+
+                if (it.appEntityCode == "CriteriaBundle" ) {
+                    it.name = "Bộ Tiêu Chí"
+                }
+
+                if (it.appEntityCode == "Project" ) {
+                    it.name = "Công Trình"
+                }
+
+                if (it.appEntityCode == "WorkOutline" ) {
+                    it.name = "Hạng Mục"
                 }
 
                 permissions.add(it)
@@ -141,6 +159,9 @@ class PermissionsFragment : BaseFragment() {
                     "Team" -> intent = Intent(context, MainTeamActivity::class.java)
                     "Driver" -> intent = Intent(context, MainDriverActivity::class.java)
                     "Contractor" -> intent = Intent(context, MainContractorActivity::class.java)
+                    "CriteriaBundle" -> intent = Intent(context, MainCriteriaActivity::class.java)
+                    "Project" -> intent = Intent(context, MainProjectActivity::class.java)
+                    "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString

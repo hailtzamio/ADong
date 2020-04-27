@@ -45,7 +45,7 @@ class DriverAdapter(private val topicDetails: List<Driver>) : RecyclerView.Adapt
         holder.name.text = topic.fullName
         holder.type.text = topic.phone
         holder.unit.text = topic.email
-        holder.quantity.text = topic.email
+        holder.quantity.text = topic.tripName
 
         if(topic.workingStatus == "idle") {
             holder.imvStatus.setImageResource(R.drawable.free_dot)
@@ -56,7 +56,7 @@ class DriverAdapter(private val topicDetails: List<Driver>) : RecyclerView.Adapt
         }
 
         if(topic.avatarUrl != null){
-            Picasso.get().load(topic.avatarUrl).into(holder.imvAva)
+            Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
         }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }

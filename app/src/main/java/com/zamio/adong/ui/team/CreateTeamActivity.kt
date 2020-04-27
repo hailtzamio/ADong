@@ -60,13 +60,8 @@ class CreateTeamActivity : BaseActivity() {
                 showToast("Chọn Đội trưởng")
                 return@setOnClickListener
             }
-
-            if(workerIds.count() == 0) {
-                showToast("Chọn Công nhân")
-                return@setOnClickListener
-            }
-
-//            if(myList.count() == 0) {
+//
+//            if(workerIds.count() == 0) {
 //                showToast("Chọn Công nhân")
 //                return@setOnClickListener
 //            }
@@ -246,9 +241,8 @@ class CreateTeamActivity : BaseActivity() {
             edtPhone.setText(data.getStringExtra("phone").toString())
             tvLeaderName.text = data.getStringExtra("name").toString()
 
-
             if (avatarUrl != null) {
-                Picasso.get().load(avatarUrl).into(imvAva)
+                Picasso.get().load(avatarUrl).error(R.drawable.ava).into(imvAva)
             } else {
                 imvAva.setImageResource(R.drawable.ava);
             }

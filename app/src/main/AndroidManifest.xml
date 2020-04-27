@@ -21,25 +21,85 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.contractor.MainContractorActivity"></activity>
-        <activity android:name=".ui.contractor.DetailContractorActivity"></activity>
-        <activity android:name=".ui.contractor.UpdateContractorActivity"></activity>
-        <activity android:name=".ui.contractor.CreateContractorActivity"></activity>
-        <activity android:name=".ui.driver.MainDriverActivity" />
+        <activity android:name=".ui.workoutline.MainWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.workoutline.CreateWorkeOutlineActivity"  android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.workoutline.DetailWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.workoutline.UpdateWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".ui.project.tab.ProjectTabActivity"
+            android:label="@string/title_activity_project_tab"
+            android:theme="@style/BlueActivityTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.project.MainProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.CreateProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.ChooseContractorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.DetailProjectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.ChooseManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.ChooseTeamActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.criteria.MainCriteriaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.criteria.CreateCriteriaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.criteria.DetailCriteriaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.criteria.UpdateCriteriaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contractor.MainContractorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contractor.DetailContractorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contractor.UpdateContractorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.contractor.CreateContractorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.driver.MainDriverActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.lorry.map.LorryLocationActivity" />
-        <activity android:name=".ui.activity.PreviewImageActivity" />
-        <activity android:name=".ui.team.ChooseTeamLeaderActivity" />
+        <activity
+            android:name=".ui.lorry.map.LorryLocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PreviewImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.team.ChooseTeamLeaderActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".test.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
+            android:screenOrientation="portrait"
             android:theme="@style/BlueActivityTheme.NoActionBar" />
-        <activity android:name=".ui.team.ChooseTeamWorkerActivity" />
-        <activity android:name=".ui.activity.LoginActivity" />
+        <activity
+            android:name=".ui.team.ChooseTeamWorkerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

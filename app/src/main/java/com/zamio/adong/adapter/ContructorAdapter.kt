@@ -45,7 +45,21 @@ class ContructorAdapter(private val topicDetails: List<Contractor>) : RecyclerVi
         holder.name.text = topic.name
         holder.type.text = topic.phone
         holder.unit.text = topic.email
-        holder.quantity.text = topic!!.address + " - " + topic!!.districtName + " - " + topic!!.provinceName
+
+        var address = ""
+        if(topic.address != null) {
+            address =  topic.address.toString()
+        }
+
+        if(topic.districtName != null) {
+            address = address + " - " + topic!!.districtName
+        }
+
+        if(topic.provinceName != null) {
+            address = address + " - " + topic!!.provinceName
+        }
+
+        holder.quantity.text = address
 
         if(topic.workingStatus == "idle") {
             holder.imvStatus.setImageResource(R.drawable.free_dot)

@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -51,6 +53,18 @@ class MainTeamFragment : BaseFragment() {
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
+
+        edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                getProducts()
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        imvSearch.setOnClickListener {
+            getProducts()
+        }
     }
 
     override fun onResume() {
@@ -61,7 +75,7 @@ class MainTeamFragment : BaseFragment() {
 
     private fun getProducts(){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getTeams(0).enqueue(object :
+        RestClient().getInstance().getRestService().getTeams(0,edtSearch.text.toString()).enqueue(object :
             Callback<RestData<List<Team>>> {
             override fun onFailure(call: Call<RestData<List<Team>>>?, t: Throwable?) {
                 dismisProgressDialog()
@@ -85,7 +99,7 @@ class MainTeamFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             val intent = Intent(context, DetailTeamActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }

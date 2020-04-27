@@ -91,7 +91,7 @@ class MainDriverFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             val intent = Intent(context, DetailDriverActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
             startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }

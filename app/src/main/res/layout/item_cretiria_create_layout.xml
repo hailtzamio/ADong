@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+        android:layout_toLeftOf="@+id/edtFactor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <EditText
+            android:maxLength="50"
+            android:paddingRight="50dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/edtCriteria"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:hint="Tên tiêu chí"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
+
+
+
+        <ImageView
+            android:id="@+id/imvRemove"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/small_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+
+
+    <EditText
+        android:gravity="center"
+        android:inputType="number"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/imvAdd"
+        android:id="@+id/edtFactor"
+        android:layout_width="80dp"
+        android:layout_height="@dimen/edt_size"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_normal_main_radius_layout"
+        android:hint="Trọng số"
+        android:singleLine="true" />
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/plus_cri"
+        android:id="@+id/imvAdd"
+        android:layout_alignParentRight="true"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+</RelativeLayout>

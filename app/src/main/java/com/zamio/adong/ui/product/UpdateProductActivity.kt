@@ -48,7 +48,7 @@ class UpdateProductActivity : BaseActivity() {
     }
 
     override fun initData() {
-        val productOb = intent.extras!!.get(ConstantsApp.KEY_QUESTION_ID) as Product
+        val productOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Product
         thumbnailExtId = productOb.thumbnailExtId
         edtName.setText(productOb.name)
         edtUnit.setText(productOb.unit)

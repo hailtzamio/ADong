@@ -21,7 +21,6 @@ import retrofit2.Response
 
 class CreateContractorActivity : BaseActivity() {
 
-
     val product = JsonObject()
     var provinces =ArrayList<Province>()
     var districts =ArrayList<Province>()
