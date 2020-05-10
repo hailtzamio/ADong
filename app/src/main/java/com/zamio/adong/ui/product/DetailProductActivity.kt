@@ -77,6 +77,11 @@ class DetailProductActivity : BaseActivity() {
                     startActivityForResult(intent, 1000)
                 }
             }
+
+            if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
+                tvOk.visibility = View.GONE
+                rightButton.visibility = View.GONE
+            }
         }
 
         getProduct(productId)

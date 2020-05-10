@@ -80,12 +80,12 @@ class MainProductFragment : BaseFragment() {
     private fun getProducts(page:Int){
         showProgessDialog()
         RestClient().getInstance().getRestService().getProducts(page,edtSearch.text.toString()).enqueue(object :
-            Callback<RestData<List<Product>>> {
-            override fun onFailure(call: Call<RestData<List<Product>>>?, t: Throwable?) {
+            Callback<RestData<ArrayList<Product>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<Product>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<Product>>>?, response: Response<RestData<List<Product>>>?) {
+            override fun onResponse(call: Call<RestData<ArrayList<Product>>>?, response: Response<RestData<ArrayList<Product>>>?) {
                     dismisProgressDialog()
                     if(response!!.body() != null && response!!.body().status == 1){
                         products = response.body().data!!
@@ -98,7 +98,7 @@ class MainProductFragment : BaseFragment() {
 
     private fun setupRecyclerView(){
 
-        val mAdapter = ProductAdapter(products!!)
+        val mAdapter = ProductAdapter(products!!,false)
         val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)

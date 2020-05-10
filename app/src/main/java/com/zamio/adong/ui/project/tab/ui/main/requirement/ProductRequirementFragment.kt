@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.project.tab.ui.main
+package com.zamio.adong.ui.project.tab.ui.main.requirement
 
 import ProductRequirementAdapter
 import RestClient
@@ -15,7 +15,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.ProductRequirement
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import com.zamio.adong.ui.worker.DetailWorkerActivity
 import kotlinx.android.synthetic.main.fragment_main_worker.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,9 +35,6 @@ class ProductRequirementFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-
-    var currentPage = 0
-    var totalPages = 0
     var data:List<ProductRequirement>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +62,7 @@ class ProductRequirementFragment : BaseFragment() {
 
     }
 
-    private fun getData(page:Int){
+    fun getData(page:Int){
         showProgessDialog()
         RestClient().getInstance().getRestService().getProductRequirement((activity as ProjectTabActivity).getProjectId(),page).enqueue(object :
             Callback<RestData<List<ProductRequirement>>> {
@@ -93,8 +89,8 @@ class ProductRequirementFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailWorkerActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+            val intent = Intent(context, DetailProductRequrementActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product)
             startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
@@ -102,8 +98,8 @@ class ProductRequirementFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
-//            getProducts(0)
+        if(resultCode == 101){
+            getData(0)
         }
     }
 

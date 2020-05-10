@@ -102,5 +102,10 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
 
 }

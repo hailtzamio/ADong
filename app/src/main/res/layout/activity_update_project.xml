@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.product.CreateProductActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/item_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tvOk"
+        android:layout_below="@+id/header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText
+                android:maxLength="30"
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Tên *"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorName" />
+
+            <EditText
+                android:maxLength="50"
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Địa chỉ *"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorName" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Ngày bắt đầu" />
+
+                <TextView
+                    android:id="@+id/tvChooseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Chọn" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Ngày kết thúc" />
+
+                <TextView
+                    android:id="@+id/tvChooseEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Chọn" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Vị trí" />
+
+                <TextView
+                    android:id="@+id/tvChooseLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Chọn" />
+            </RelativeLayout>
+
+
+            <RadioGroup
+                android:id="@+id/rdGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rdAdong"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Đội Á đông" />
+
+                <RadioButton
+                    android:id="@+id/rdContractor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nhà thầu phụ" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvChooseLeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="false"
+                        android:text="Quản lý" />
+
+                    <TextView
+                        android:id="@+id/tvManagerName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="Chọn" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="false"
+                        android:text="Phó quản lý" />
+
+                    <TextView
+                        android:id="@+id/tvDeputyManagerName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="Chọn" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="false"
+                        android:text="Đội trưởng" />
+
+                    <TextView
+                        android:id="@+id/tvLeaderName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="Chọn" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="false"
+                        android:text="Thư ký" />
+
+                    <TextView
+                        android:id="@+id/tvSecretaryName"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="Chọn" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tvContractor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="false"
+                        android:text="Đội Á đông" />
+
+                    <TextView
+                        android:id="@+id/tvChooseTeamOrContractor"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="end"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="Chọn" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_size"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_no_radius_layout"
+        android:gravity="center"
+        android:text="ĐỒNG Ý"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

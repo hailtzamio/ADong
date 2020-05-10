@@ -14,7 +14,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
-import com.zamio.adong.ui.project.tab.ui.main.PlaceholderFragment
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -118,8 +117,8 @@ class MainLorryFragment : BaseFragment() {
          * number.
          */
         @JvmStatic
-        fun newInstance(sectionNumber: Int): PlaceholderFragment {
-            return PlaceholderFragment().apply {
+        fun newInstance(sectionNumber: Int): MainLorryFragment {
+            return MainLorryFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)
                 }

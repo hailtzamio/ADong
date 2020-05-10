@@ -70,6 +70,11 @@ class DetailWorkOutlineActivity : BaseActivity() {
                     .setNegativeButton("Không", dialogClickListener).show()
             }
 
+            if (intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
+                tvOk.visibility = View.GONE
+                rightButton.visibility = View.GONE
+            }
+
         }
 
         getData(id)

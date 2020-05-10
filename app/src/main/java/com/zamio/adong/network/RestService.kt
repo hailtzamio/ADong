@@ -35,7 +35,7 @@ interface RestService {
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
     @GET("product?size=1000&sort=id,desc")
-    abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Product>>>
+    abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Product>>>
 
     @GET("product/{id}")
     fun getProduct(@Path("id") productId: Int): Call<RestData<Product>>
@@ -73,6 +73,9 @@ interface RestService {
     /* Woker */
     @GET("worker?size=1000&sort=id,desc")
     fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
+
+    @GET("worker?isTeamLeader=false&size=1000&sort=id,desc")
+    fun getWorkersNotLeaders(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
     @GET("worker?inTeam=false&size=1000")
     fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker2>>>
@@ -186,11 +189,14 @@ interface RestService {
     @POST("project")
     fun createProject(@Body worker: JsonObject): Call<RestData<JsonElement>>
 
+    @PUT("project/{id}")
+    fun updateProjcet(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>
+
     @DELETE("project/{id}")
     fun removeProject(@Path("id") productId: Int): Call<RestData<JsonElement>>
 
     @GET("project?size=1000&sort=id,desc")
-    fun getProjects(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Project>>>
+    fun getProjects(@Query("page") page: Int,@Query("search") fullName: String): Call<RestData<List<Project>>>
 
     @GET("project/{id}")
     fun getProject(@Path("id") id: Int): Call<RestData<Project>>
@@ -217,6 +223,9 @@ interface RestService {
     @GET("project/{projectId}/productRequirements?size=1000&sort=id,desc")
     fun getProductRequirement(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<ProductRequirement>>>
 
+    @GET("project/{projectId}/workers?size=1000&sort=id,desc")
+    fun getProjectWorkers(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<Worker>>>
+
     @GET("workOutline?size=1000&sort=id,desc")
     fun getWorkOutlines(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<WorkOutline>>>
 
@@ -231,6 +240,16 @@ interface RestService {
 
     @POST("workOutline")
     fun createWorkOutline(@Body data: JsonObject): Call<RestData<JsonElement>>
+
+    @POST("project/{projectId}/productRequirement")
+    fun createProductRequirementForProject(@Body data: ProductRequirementRes,@Path("projectId") id: Int): Call<RestData<JsonElement>>
+
+
+    @GET("project/{projectId}/workers?size=1000&sort=id,desc")
+    fun getProjectWorker(@Path("projectId") id: Int,@Query("name") fullName: String): Call<RestData<List<Worker>>>
+
+    @POST("project/{projectId}/addWorker")
+    fun addWorkerToProject(@Path("projectId") id: Int, @Body data: JsonObject): Call<RestData<JsonElement>>
 
 //    // Topic Detail
 //    @GET("topic/view?")

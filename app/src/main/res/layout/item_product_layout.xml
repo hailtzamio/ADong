@@ -33,6 +33,7 @@
                 android:src="@drawable/ava" />
 
             <RelativeLayout
+                android:layout_toLeftOf="@+id/cbWorker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -77,6 +78,19 @@
                     android:singleLine="true"
                     android:text="11111" />
             </RelativeLayout>
+
+            <EditText
+                android:inputType="number"
+                android:gravity="center"
+                android:hint="Số lượng"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:visibility="visible"
+                android:id="@+id/cbWorker"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="80dp"
+                android:layout_height="40dp" />
         </RelativeLayout>
 
 

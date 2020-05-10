@@ -1,25 +1,43 @@
 package com.zamio.adong.ui.worker
 
-import com.elcom.com.quizupapp.ui.activity.BaseActivity
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.FragmentActivity
 import com.zamio.adong.R
+import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.item_header_layout.*
 
-class MainWorkerActivity : BaseActivity() {
+class MainWorkerActivity : FragmentActivity() {
 
-    override fun getLayout(): Int {
-      return R.layout.activity_main_worker
+    var id = 0
+    fun getLayout(): Int {
+        return R.layout.activity_main_worker
     }
 
-    override fun initView() {
+    fun initView() {
         tvTitle.text = "Công Nhân"
+        rightButton.visibility = View.GONE
     }
 
-    override fun initData() {
+    fun initData() {
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
+            id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        }
+    }
+
+    fun resumeData() {
 
     }
 
-    override fun resumeData() {
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(getLayout())
+//        initView()
+        initData()
+    }
 
+    public fun getProjectId(): Int {
+        return id
     }
 
 }

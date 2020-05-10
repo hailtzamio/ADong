@@ -1,7 +1,7 @@
-package com.zamio.adong.ui.project.tab.ui.main
+package com.zamio.adong.ui.project.tab.ui.main.workers
 
 import RestClient
-import WorkOutlineAdapter
+import WorkerAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
-import com.zamio.adong.model.WorkOutline
+import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.worker.DetailWorkerActivity
@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_main_worker.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,15 +32,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MainWorkerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainWorkOutlineFragment : BaseFragment() {
+class ProjectWorkersFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-
-    var currentPage = 0
-    var totalPages = 0
-    var products:List<WorkOutline>? = null
+    var data:List<Worker>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -59,25 +57,29 @@ class MainWorkOutlineFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData(0)
+//        pullToRefresh.setOnRefreshListener(OnRefreshListener {
+//            getData(0)
+//            pullToRefresh.isRefreshing = false
+//        })
+
     }
 
     override fun onResume() {
         super.onResume()
-
     }
 
-    private fun getData(page:Int){
+    fun getData(page:Int){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjectWorkOutlines((activity as ProjectTabActivity).getProjectId(),page).enqueue(object :
-            Callback<RestData<List<WorkOutline>>> {
-            override fun onFailure(call: Call<RestData<List<WorkOutline>>>?, t: Throwable?) {
+        RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),page).enqueue(object :
+            Callback<RestData<List<Worker>>> {
+            override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<WorkOutline>>>?, response: Response<RestData<List<WorkOutline>>>?) {
+            override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
-                    products = response.body().data!!
+                    data = response.body().data!!
                     setupRecyclerView()
                 }
             }
@@ -85,25 +87,27 @@ class MainWorkOutlineFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView(){
+        if( recyclerView != null) {
+            val mAdapter = WorkerAdapter(data!!)
+            val linearLayoutManager = LinearLayoutManager(context)
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = mAdapter
 
-        val mAdapter = WorkOutlineAdapter(products!!)
-        val linearLayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = mAdapter
-
-        mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailWorkerActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-            startActivityForResult(intent,1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            mAdapter.onItemClick = { product ->
+                val intent = Intent(context, DetailWorkerActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+                intent.putExtra(ConstantsApp.ChooseTeamWorkerActivity, "")
+                startActivityForResult(intent,1000)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
-//            getProducts(0)
+        if(resultCode == 101){
+            getData(0)
         }
     }
 
@@ -119,7 +123,7 @@ class MainWorkOutlineFragment : BaseFragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            MainWorkOutlineFragment().apply {
+            ProjectWorkersFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

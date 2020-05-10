@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/edt_size"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_normal_main_radius_layout"
-                android:hint="Số điện thoại *"
+                android:hint="Thứ Tự *"
                 android:inputType="phone"
                 android:paddingLeft="10dp"
                 android:singleLine="true" />

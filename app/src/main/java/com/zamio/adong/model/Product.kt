@@ -16,7 +16,7 @@ data class Product(
     @SerializedName("name")
     val name: String,
     @SerializedName("quantity")
-    val quantity: Int,
+    var quantity: Int,
     @SerializedName("type")
     val type: String,
     @SerializedName("unit")
@@ -30,5 +30,15 @@ data class Product(
     @SerializedName("thumbnailUrl")
     val thumbnailUrl: String?,
     @SerializedName("thumbnailExtId")
-    val thumbnailExtId: String
+    val thumbnailExtId: String,
+    @SerializedName("productName")
+    val productName: String,
+    @SerializedName("productUnit")
+    val productUnit: String,
+    @SerializedName("note")
+    val note: String = "test note",
+    @SerializedName("productId")
+    val productId: Int,
+    @SerializedName("isSelected")
+    var isSelected: Boolean = false
 ) : Serializable

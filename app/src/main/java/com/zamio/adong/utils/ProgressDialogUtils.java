@@ -46,9 +46,6 @@ public class ProgressDialogUtils {
     }
 
     public static void dismissProgressDialog() {
-
-
-
         try {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
@@ -58,6 +55,4 @@ public class ProgressDialogUtils {
             e.printStackTrace();
         }
     }
-
-
 }

@@ -8,8 +8,10 @@ import com.zamio.adong.R
 
 
 private val TAB_TITLES = arrayOf(
+    R.string.tab_text_0,
     R.string.tab_text_1,
-    R.string.tab_text_2
+    R.string.tab_text_2,
+    R.string.tab_text_3
 )
 
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :

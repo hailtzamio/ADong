@@ -1,6 +1,7 @@
 package com.zamio.adong.network;
 
 
+import com.zamio.adong.model.Product;
 import com.zamio.adong.model.Worker2;
 
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class ConstantsApp {
     public static String BASE64_AUTH_TOKEN = "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNpbXBsZS1jbGllbnQiLCJpc3MiOiJTaW1wbGVBUEkiLCJyb2xlcyI6WyJBZG1pbmlzdHJhdG9yIl0sInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbiJ9.YVk6B1qksEk9noTkV8ArurNVXhBOPKyNyHFM-Nu9oRCnmjg2dR7dnZJ8s8gk7xX_3dGPZAA2L3JjBz_48P0-hA";
     public static String BASE64_HEADER_LANG= "vi";
 //    public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
-//    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
-    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
+    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
+//    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
 
 
 
@@ -49,10 +50,13 @@ public class ConstantsApp {
     // SoloQuestionIntro
     public static String KEY_TYPE_OF_GAME= "KEY_TYPE_OF_GAME";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
+    public static String KEY_VALUES_HIDE = "KEY_VALUES_HIDE";
     public static String ChooseTeamWorkerActivity = "ChooseTeamWorkerActivity";
+    public static String ProjectWorkersFragment = "ProjectWorkersFragment";
     public static String KEY_PERMISSION= "KEY_PERMISSION";
     public static String PERMISSION= "c-r-u-d";
     public static  ArrayList<Worker2> workers = new ArrayList<Worker2>();
+    public static  ArrayList<Product> products = new ArrayList<Product>();
 
 
 

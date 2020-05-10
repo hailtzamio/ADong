@@ -1,6 +1,3 @@
-
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +14,11 @@ import com.zamio.adong.model.Worker2
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) : RecyclerView.Adapter<ChooseWorkerAdapter.MyViewHolder>() {
+class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) :
+    RecyclerView.Adapter<ChooseWorkerAdapter.MyViewHolder>() {
     var onItemClick: ((Worker2) -> Unit)? = null
-    var onItemSelected: ((Int , Boolean) -> Unit)? = null
+    var onItemSelected: ((Int, Boolean) -> Unit)? = null
+
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -35,7 +34,7 @@ class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) : RecyclerVie
             }
 
             cbWorker.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-                onItemSelected?.invoke(adapterPosition, isChecked )
+                onItemSelected?.invoke(adapterPosition, isChecked)
             }
             )
         }
@@ -44,7 +43,7 @@ class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) : RecyclerVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_choose_worker_layout, parent, false)
+            .inflate(R.layout.item_choose_worker_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -56,9 +55,9 @@ class ChooseWorkerAdapter(private val topicDetails: List<Worker2>) : RecyclerVie
         holder.type.text = topic.phone
         holder.unit.text = topic.address
 //        holder.quantity.text = topic.address
-        if(topic.avatarUrl != null){
+        if (topic.avatarUrl != null) {
             Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
-        }else {
+        } else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }
 

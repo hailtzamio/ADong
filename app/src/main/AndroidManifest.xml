@@ -21,15 +21,30 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.workoutline.MainWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.workoutline.CreateWorkeOutlineActivity"  android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.workoutline.DetailWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ui.workoutline.UpdateWorkOutlineActivity"  android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ui.project.tab.ui.main.information.UpdateProjectActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.checkinout.CheckInOutActivity" />
+        <activity
+            android:name=".ui.workoutline.MainWorkOutlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.workoutline.CreateWorkeOutlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.workoutline.DetailWorkOutlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.workoutline.UpdateWorkOutlineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.tab.ui.main.requirement.DetailProductRequrementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.project.tab.ui.main.requirement.CreateProductRequirementActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.project.tab.ProjectTabActivity"
             android:label="@string/title_activity_project_tab"
             android:theme="@style/BlueActivityTheme.NoActionBar" />
-
         <activity
             android:name=".ui.project.MainProjectActivity"
             android:screenOrientation="portrait" />

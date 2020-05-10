@@ -42,6 +42,8 @@ class WorkOutlineAdapter(private val topicDetails: List<WorkOutline>) : Recycler
         holder.name.text = topic.name
         holder.type.text = topic.sequence.toString()
         holder.unit.text = topic.createdByFullName
+        holder.quantity.text = topic.createdTime
+//        holder.quantity.text = Utils.convertDate(topic.createdTime)
     }
 
     override fun getItemCount(): Int {

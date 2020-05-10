@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
+import java.text.SimpleDateFormat
 
 
 /**
@@ -16,6 +17,8 @@ import com.zamio.adong.model.Project
  */
 class ProjectAdapter(private val topicDetails: List<Project>) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
     var onItemClick: ((Project) -> Unit)? = null
+    val formatToShow =
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -44,6 +47,10 @@ class ProjectAdapter(private val topicDetails: List<Project>) : RecyclerView.Ada
         val topic = topicDetails[position]
         holder.name.text = topic.name
         holder.type.text = topic.address
+//        val plannedStartDate = formatToShow.format(topic.plannedStartDate).toString()
+//        val plannedEndDate = formatToShow.format(topic.plannedEndDate).toString()
+
+
         holder.unit.text = topic.plannedStartDate
         holder.quantity.text = topic.plannedEndDate
     }

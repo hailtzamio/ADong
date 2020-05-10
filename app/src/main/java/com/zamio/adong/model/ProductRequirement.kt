@@ -2,6 +2,7 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ProductRequirement(
     @SerializedName("code")
@@ -33,5 +34,7 @@ data class ProductRequirement(
     @SerializedName("updatedById")
     val updatedById: Int,
     @SerializedName("updatedTime")
-    val updatedTime: String
-)
+    val updatedTime: String,
+    @SerializedName("lines")
+    val lines: List<Product>
+) : Serializable
