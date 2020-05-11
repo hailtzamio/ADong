@@ -71,7 +71,7 @@ class CreateProductRequirementActivity : BaseActivity() {
             showDateTimePicker()
         }
 
-        tvTitle.text = "Danh Sách Vật Tư"
+        tvTitle.text = "Thêm Vật Tư"
         rightButton.setOnClickListener {
 
             for (j in (workers.size - 1) downTo 0) {

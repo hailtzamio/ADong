@@ -53,7 +53,7 @@ class MainProjectFragment : BaseFragment() {
         if(!ConstantsApp.PERMISSION!!.contains("c")){
             rightButton.visibility = View.GONE
         }
-
+//        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateProjectActivity::class.java)
             startActivity(intent)
@@ -77,9 +77,10 @@ class MainProjectFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        data.clear()
+        page = 0
         getProducts()
     }
-
 
     private fun getProducts(){
         showProgessDialog()

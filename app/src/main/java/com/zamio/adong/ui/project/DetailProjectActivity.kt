@@ -75,8 +75,10 @@ class DetailProjectActivity : BaseActivity() {
                     tvSecretaryName.text = data!!.secretaryFullName
                     tvChooseTeamOrContractor.text = data!!.deputyManagerFullName
                     if (data!!.teamType == "ADONG") {
+                        rlLeader.visibility = View.GONE
                         tvContractorOrTeam.text = "Đội Á đông"
                     } else {
+                        rlLeader.visibility = View.VISIBLE
                         tvContractorOrTeam.text = data!!.contractorName
                         tvContractorOrTeamLabel.text = "Nhà thầu phụ"
                     }

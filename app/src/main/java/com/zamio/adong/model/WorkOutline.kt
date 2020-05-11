@@ -22,5 +22,13 @@ data class WorkOutline(
     @SerializedName("updatedById")
     val updatedById: Int,
     @SerializedName("updatedTime")
-    val updatedTime: String
+    val updatedTime: String,
+    @SerializedName("projectName")
+    val projectName: String,
+    @SerializedName("workOutlineName")
+    val workOutlineName: String,
+    @SerializedName("finishDatetime")
+    val finishDatetime: String,
+    @SerializedName("order")
+    val order: Int
 ) : Serializable

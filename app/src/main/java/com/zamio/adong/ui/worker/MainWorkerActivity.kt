@@ -40,4 +40,9 @@ class MainWorkerActivity : FragmentActivity() {
         return id
     }
 
+    override fun onBackPressed() {
+       setResult(102)
+       finish()
+    }
+
 }

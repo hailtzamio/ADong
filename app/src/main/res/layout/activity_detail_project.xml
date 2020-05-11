@@ -139,7 +139,31 @@
                     android:layout_alignParentRight="true"
                     android:text="" />
             </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
+                <TextView
+                    android:id="@+id/tvContractor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="false"
+                    android:text="Tên đội" />
+
+                <TextView
+                    android:id="@+id/tvChooseTeamOrContractor"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="end"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:text="" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -156,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Quản lý" />
+                        android:text="Trưởng bộ phận" />
 
                     <TextView
                         android:id="@+id/tvManagerName"
@@ -181,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Phó quản lý" />
+                        android:text="Phó bộ phận" />
 
                     <TextView
                         android:id="@+id/tvDeputyManagerName"
@@ -198,6 +222,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rlLeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
@@ -206,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Đội trưởng" />
+                        android:text="Giám sát" />
 
                     <TextView
                         android:id="@+id/tvLeaderName"
@@ -247,31 +272,7 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
 
-                    <TextView
-                        android:id="@+id/tvContractor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="false"
-                        android:text="Đội Á đông" />
-
-                    <TextView
-                        android:id="@+id/tvChooseTeamOrContractor"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="end"
-                        android:maxLength="20"
-                        android:singleLine="true"
-                        android:text="" />
-
-                </RelativeLayout>
 
             </LinearLayout>
 

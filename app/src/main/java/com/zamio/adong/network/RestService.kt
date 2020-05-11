@@ -135,7 +135,7 @@ interface RestService {
     @PUT("team/{id}")
     fun updateTeam(@Path("id") id: Int, @Body objectJs: JsonObject): Call<RestData<JsonElement>>
 
-    @GET("worker?inTeam=false&isTeamLeader=true")
+    @GET("worker?isTeamLeader=true")
     fun getTeamLeaders(@Query("page") page: Int,@Query("name") name: String): Call<RestData<List<Worker>>>
 
     @GET("province?size=1000")
@@ -223,7 +223,7 @@ interface RestService {
     @GET("project/{projectId}/productRequirements?size=1000&sort=id,desc")
     fun getProductRequirement(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<ProductRequirement>>>
 
-    @GET("project/{projectId}/workers?size=1000&sort=id,desc")
+    @GET("project/{projectId}/workers?size=100&sort=id,desc")
     fun getProjectWorkers(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<Worker>>>
 
     @GET("workOutline?size=1000&sort=id,desc")

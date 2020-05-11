@@ -16,6 +16,7 @@ import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.worker.DetailWorkerActivity
+import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_worker.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +38,10 @@ class ProjectWorkersFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    var data:List<Worker>? = null
+    var isLastPage: Boolean = false
+    var isLoading: Boolean = false
+    var page = 0
+    var data = ArrayList<Worker>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -50,27 +54,28 @@ class ProjectWorkersFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_main_workeoutline, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData(0)
+
 //        pullToRefresh.setOnRefreshListener(OnRefreshListener {
 //            getData(0)
 //            pullToRefresh.isRefreshing = false
 //        })
-
+        setupRecyclerView()
+        getData(page)
     }
 
     override fun onResume() {
         super.onResume()
     }
 
-    fun getData(page:Int){
+    fun getData(pPage:Int){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),page).enqueue(object :
+        RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()
@@ -79,18 +84,19 @@ class ProjectWorkersFragment : BaseFragment() {
             override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
-                    data = response.body().data!!
-                    setupRecyclerView()
+                    data.addAll(response.body().data!!)
+                    mAdapter.notifyDataSetChanged()
+                    page += 1
                 }
             }
         })
     }
 
+    val mAdapter = WorkerAdapter(data)
     private fun setupRecyclerView(){
+        val layoutManager = LinearLayoutManager(context)
         if( recyclerView != null) {
-            val mAdapter = WorkerAdapter(data!!)
-            val linearLayoutManager = LinearLayoutManager(context)
-            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.layoutManager = layoutManager
             recyclerView.setHasFixedSize(false)
             recyclerView.adapter = mAdapter
 
@@ -101,7 +107,27 @@ class ProjectWorkersFragment : BaseFragment() {
                 startActivityForResult(intent,1000)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
+
+            recyclerView?.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+                override fun isLastPage(): Boolean {
+                    return isLastPage
+                }
+
+                override fun isLoading(): Boolean {
+                    return isLoading
+                }
+
+                override fun loadMoreItems() {
+                    isLoading = true
+                    getMoreItems()
+                }
+            })
         }
+    }
+
+    fun getMoreItems() {
+        isLoading = false
+        getData(page)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

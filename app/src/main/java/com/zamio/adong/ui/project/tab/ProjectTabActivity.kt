@@ -46,6 +46,7 @@ class ProjectTabActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
         hideFabShowFloat()
+        imvCheckInOut.visibility = View.GONE
         imvCheckInOut.setOnClickListener {
             val intent = Intent(this, CheckInOutActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
@@ -68,7 +69,7 @@ class ProjectTabActivity : AppCompatActivity() {
                 when (position) {
                     0 -> hideFabShowFloat()
                     1 -> showFabHideFloat()
-                    2 -> showFabHideFloat()
+                    2 -> hideFabHideFloat()
                     3 -> showFabHideFloat()
                 }
             }
@@ -123,6 +124,11 @@ class ProjectTabActivity : AppCompatActivity() {
         viewFloat.visibility = View.GONE
     }
 
+    private fun hideFabHideFloat() {
+        fab.visibility = View.GONE
+        viewFloat.visibility = View.GONE
+    }
+
     private fun goToAddingWorkers() {
         val intent = Intent(this, MainWorkerActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
@@ -135,6 +141,11 @@ class ProjectTabActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == 99) {
+            informationPage.getData(id)
+        }
+
         if (resultCode == 101) {
             producPage.getData(0)
         }

@@ -2,6 +2,7 @@ package com.zamio.adong.ui.project.tab.ui.main.workoutline
 
 import RestClient
 import WorkOutlineAdapter
+import WorkOutlineProjectAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -85,19 +86,20 @@ class MainWorkOutlineFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView(){
+        if ( recyclerView != null ) {
+            val mAdapter = WorkOutlineProjectAdapter(products!!)
+            val linearLayoutManager = LinearLayoutManager(context)
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = mAdapter
 
-        val mAdapter = WorkOutlineAdapter(products!!)
-        val linearLayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = mAdapter
-
-        mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailWorkOutlineActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, "")
-            startActivityForResult(intent,1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            mAdapter.onItemClick = { product ->
+                //            val intent = Intent(context, DetailWorkOutlineActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, "")
+//            startActivityForResult(intent,1000)
+//            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
     }
 

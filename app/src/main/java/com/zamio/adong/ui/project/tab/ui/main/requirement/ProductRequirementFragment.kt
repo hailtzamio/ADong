@@ -81,18 +81,19 @@ class ProductRequirementFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView(){
+        if ( recyclerView != null ) {
+            val mAdapter = ProductRequirementAdapter(data!!)
+            val linearLayoutManager = LinearLayoutManager(context)
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = mAdapter
 
-        val mAdapter = ProductRequirementAdapter(data!!)
-        val linearLayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = mAdapter
-
-        mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailProductRequrementActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product)
-            startActivityForResult(intent,1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            mAdapter.onItemClick = { product ->
+                val intent = Intent(context, DetailProductRequrementActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product)
+                startActivityForResult(intent,1000)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
     }
 

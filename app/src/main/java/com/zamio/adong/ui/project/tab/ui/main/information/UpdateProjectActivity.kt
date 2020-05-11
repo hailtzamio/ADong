@@ -39,20 +39,21 @@ class UpdateProjectActivity: BaseActivity() {
     var managerId = 0
     var deputyManagerId = 0
     var secretaryId = 0
-    var leaderId = 0
     var teamId = 1
     var contractorId = 1
+    var supervisorId = 0
     var provinces = ArrayList<Province>()
     var plannedStartDate = ""
     var plannedEndDate = ""
     var teamType = "ADONG"
     var id = 0
+    var isChooseADong = true
     override fun getLayout(): Int {
         return R.layout.activity_update_project
     }
 
     override fun initView() {
-        tvTitle.text = "Tạo Công Trình"
+        tvTitle.text = "Sửa Công Trình"
         rightButton.visibility = View.GONE
 
 
@@ -83,6 +84,15 @@ class UpdateProjectActivity: BaseActivity() {
             } else {
                 "CONTRACTOR"
             }
+
+            if (checkedRadioButton.text.toString() == "Đội Á đông") {
+                isChooseADong = true
+                rlLeader.visibility = View.GONE
+            } else {
+                isChooseADong = false
+                rlLeader.visibility = View.VISIBLE
+            }
+
         })
     }
 
@@ -111,17 +121,23 @@ class UpdateProjectActivity: BaseActivity() {
                     tvDeputyManagerName.text = data!!.deputyManagerFullName
                     tvLeaderName.text = data!!.supervisorFullName
                     tvSecretaryName.text = data!!.secretaryFullName
-                    tvChooseTeamOrContractor.text = data!!.deputyManagerFullName
-//                    if (data!!.teamType == "ADONG") {
-//                        tvContractorOrTeam.text = "Đội Á đông"
-//                    } else {
-//                        tvContractorOrTeam.text = data!!.contractorName
-//                        tvContractorOrTeamLabel.text = "Nhà thầu phụ"
-//                    }
+
+                    if (data!!.teamType == "ADONG") {
+                        isChooseADong = true
+                        rlLeader.visibility = View.GONE
+                        rdGroup.check(R.id.rdAdong)
+                    } else {
+                        isChooseADong = false
+                        rlLeader.visibility = View.GONE
+                        rdGroup.check(R.id.rdContractor)
+                    }
+
+                    tvChooseTeamOrContractor.text = data!!.contractorName
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
                     teamId = data!!.teamId
                     secretaryId = data!!.secretaryId
+                    supervisorId = data!!.supervisorId
                     contractorId = data!!.contractorId
                     managerId = data!!.managerId
                     deputyManagerId = data!!.deputyManagerId
@@ -189,10 +205,22 @@ class UpdateProjectActivity: BaseActivity() {
                 return@setOnClickListener
             }
 
-            if(checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(tvManagerName)
-                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvLeaderName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(tvContractor) || checkChooseOrNot(tvChooseTeamOrContractor)) {
+            if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
+                    tvManagerName
+                )
+                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
+                    tvContractor
+                ) || checkChooseOrNot(tvChooseTeamOrContractor)
+            ) {
                 showToast("Chọn thiếu thông tin")
                 return@setOnClickListener
+            }
+
+            if (!isChooseADong) {
+                if (checkChooseOrNot(tvLeaderName)) {
+                    showToast("Chọn thiếu thông tin")
+                    return@setOnClickListener
+                }
             }
 
             val product = JsonObject()
@@ -204,7 +232,9 @@ class UpdateProjectActivity: BaseActivity() {
             product.addProperty("secretaryId", secretaryId)
             product.addProperty("teamId", teamId)
             product.addProperty("contractorId", contractorId)
-            product.addProperty("supervisorId", leaderId)
+            if (!isChooseADong) {
+                product.addProperty("supervisorId", supervisorId)
+            }
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
             product.addProperty("latitude", 0)
@@ -282,7 +312,7 @@ class UpdateProjectActivity: BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     showToast("Sửa thành công")
-                    setResult(100)
+                    setResult(99)
                     finish()
                 } else {
                     val obj = JSONObject(response.errorBody().string())
@@ -328,7 +358,7 @@ class UpdateProjectActivity: BaseActivity() {
             }
             3 -> {
                 tvLeaderName.text = name
-                leaderId = id
+                supervisorId = id
             }
 
             4 -> {

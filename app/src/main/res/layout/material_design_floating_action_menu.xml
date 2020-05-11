@@ -45,6 +45,7 @@
         fab:menu_showShadow="false">
 
         <com.github.clans.fab.FloatingActionButton
+            android:visibility="gone"
             android:id="@+id/floatingActionButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

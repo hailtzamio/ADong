@@ -55,7 +55,7 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProject((activity as ProjectTabActivity).getProjectId())
+        getData((activity as ProjectTabActivity).getProjectId())
         header.visibility = View.GONE
         tvOk.visibility = View.GONE
     }
@@ -84,21 +84,19 @@ class ProductInformationFragment : BaseFragment() {
     }
 
     var data: Project? = null
-    private fun getProject(id: Int) {
-        showProgessDialog()
+    fun getData(id: Int) {
         RestClient().getInstance().getRestService().getProject(id).enqueue(object :
             Callback<RestData<Project>> {
 
             override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
-                dismisProgressDialog()
+
             }
 
             override fun onResponse(
                 call: Call<RestData<Project>>?,
                 response: Response<RestData<Project>>?
             ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response!!.body().status == 1) {
+                if (response!!.body() != null && response!!.body().status == 1 && tvName != null) {
                     data = response.body().data ?: return
                     tvName.text = data!!.name
                     tvAddress.text = data!!.address
@@ -108,10 +106,12 @@ class ProductInformationFragment : BaseFragment() {
                     tvDeputyManagerName.text = data!!.deputyManagerFullName
                     tvLeaderName.text = data!!.supervisorFullName
                     tvSecretaryName.text = data!!.secretaryFullName
-                    tvChooseTeamOrContractor.text = data!!.deputyManagerFullName
+                    tvChooseTeamOrContractor.text = data!!.teamName
                     if (data!!.teamType == "ADONG") {
+                        rlLeader.visibility = View.GONE
                         tvContractorOrTeam.text = "Đội Á đông"
                     } else {
+                        rlLeader.visibility = View.VISIBLE
                         tvContractorOrTeam.text = data!!.contractorName
                         tvContractorOrTeamLabel.text = "Nhà thầu phụ"
                     }

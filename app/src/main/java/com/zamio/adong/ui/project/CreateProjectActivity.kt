@@ -43,6 +43,7 @@ class CreateProjectActivity : BaseActivity() {
     var plannedStartDate = ""
     var plannedEndDate = ""
     var teamType = "ADONG"
+    var isChooseADong = true
     override fun getLayout(): Int {
         return R.layout.activity_create_project
     }
@@ -70,15 +71,24 @@ class CreateProjectActivity : BaseActivity() {
             val checkedRadioButton = group.findViewById<View>(checkedId) as RadioButton
             val isChecked = checkedRadioButton.isChecked
             if (isChecked) {
-                tvContractor.text = checkedRadioButton.text.toString()
+//                tvContractor.text = checkedRadioButton.text.toString()
                 tvChooseTeamOrContractor.text = "Chọn"
             }
 
-            teamType = if(checkedRadioButton.text.toString() == "Đội Á đông") {
+            teamType = if (checkedRadioButton.text.toString() == "Đội Á đông") {
                 "ADONG"
             } else {
                 "CONTRACTOR"
             }
+
+            if (checkedRadioButton.text.toString() == "Đội Á đông") {
+                isChooseADong = true
+                rlLeader.visibility = View.GONE
+            } else {
+                isChooseADong = false
+                rlLeader.visibility = View.VISIBLE
+            }
+
         })
     }
 
@@ -95,6 +105,7 @@ class CreateProjectActivity : BaseActivity() {
                     OnTimeSetListener { view, hourOfDay, minute ->
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         date.set(Calendar.MINUTE, minute)
+
                         val format =
                             SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
 
@@ -132,10 +143,22 @@ class CreateProjectActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            if(checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(tvManagerName)
-                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvLeaderName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(tvContractor) || checkChooseOrNot(tvChooseTeamOrContractor)) {
+            if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
+                    tvManagerName
+                )
+                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
+                    tvContractor
+                ) || checkChooseOrNot(tvChooseTeamOrContractor)
+            ) {
                 showToast("Chọn thiếu thông tin")
                 return@setOnClickListener
+            }
+
+            if (!isChooseADong) {
+                if (checkChooseOrNot(tvLeaderName)) {
+                    showToast("Chọn thiếu thông tin")
+                    return@setOnClickListener
+                }
             }
 
             val product = JsonObject()
@@ -147,7 +170,9 @@ class CreateProjectActivity : BaseActivity() {
             product.addProperty("secretaryId", secretaryId)
             product.addProperty("teamId", teamId)
             product.addProperty("contractorId", contractorId)
-            product.addProperty("supervisorId", leaderId)
+            if (!isChooseADong) {
+                product.addProperty("supervisorId", leaderId)
+            }
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
             product.addProperty("latitude", 0)
@@ -198,8 +223,8 @@ class CreateProjectActivity : BaseActivity() {
 
     }
 
-    private fun checkChooseOrNot(tvTextView : TextView): Boolean {
-        if(tvTextView.text == "Chọn") {
+    private fun checkChooseOrNot(tvTextView: TextView): Boolean {
+        if (tvTextView.text == "Chọn") {
             return true
         }
         return false

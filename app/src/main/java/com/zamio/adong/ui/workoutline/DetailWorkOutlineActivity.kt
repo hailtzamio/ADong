@@ -13,6 +13,7 @@ import com.zamio.adong.model.WorkOutline
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_workeoutline.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -106,6 +107,9 @@ class DetailWorkOutlineActivity : BaseActivity() {
                     tvEditDate.text = data!!.updatedTime
                     tvEditer.text = data!!.updatedByFullName
                     tvSequence.text = data!!.sequence.toString()
+                }  else {
+                    val obj = JSONObject(response.errorBody().string())
+                    showToast(obj["message"].toString())
                 }
             }
         })

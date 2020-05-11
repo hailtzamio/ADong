@@ -59,7 +59,7 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
             val latitude = location.latitude
             val longitude = location.longitude
             val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
-            Toast.makeText(this@LorryLocationActivity, msg, Toast.LENGTH_LONG).show()
+//            Toast.makeText(this@LorryLocationActivity, msg, Toast.LENGTH_LONG).show()
         }
 
         override fun onStatusChanged(
@@ -83,11 +83,11 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
 
     override fun onLocationChanged(map: Location?) {
 
-        Toast.makeText(
-            this,
-            "Lat " + map!!.latitude.toString() + " " + "Long " + map!!.longitude.toString(),
-            Toast.LENGTH_LONG
-        ).show()
+//        Toast.makeText(
+//            this,
+//            "Lat " + map!!.latitude.toString() + " " + "Long " + map!!.longitude.toString(),
+//            Toast.LENGTH_LONG
+//        ).show()
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
