@@ -16,6 +16,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_team_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -29,6 +30,10 @@ import retrofit2.Response
  */
 class MainProjectFragment : BaseFragment() {
 
+    var isLastPage: Boolean = false
+    var isLoading: Boolean = false
+    var page = 0
+    var data = ArrayList<Project>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,6 +71,8 @@ class MainProjectFragment : BaseFragment() {
         imvSearch.setOnClickListener {
             getProducts()
         }
+
+        setupRecyclerView(data)
     }
 
     override fun onResume() {
@@ -76,7 +83,7 @@ class MainProjectFragment : BaseFragment() {
 
     private fun getProducts(){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjects(0,edtSearch.text.toString()).enqueue(object :
+        RestClient().getInstance().getRestService().getProjects(page,edtSearch.text.toString()).enqueue(object :
             Callback<RestData<List<Project>>> {
             override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
                 dismisProgressDialog()
@@ -85,15 +92,17 @@ class MainProjectFragment : BaseFragment() {
             override fun onResponse(call: Call<RestData<List<Project>>>?, response: Response<RestData<List<Project>>>?) {
                 dismisProgressDialog()
                 if( response!!.body() != null && response!!.body().status == 1){
-                    setupRecyclerView(response.body().data!!)
+                    data.addAll(response.body().data!!)
+                    mAdapter.notifyDataSetChanged()
                 }
             }
         })
     }
 
+    var layoutManager = LinearLayoutManager(context)
+    val mAdapter = ProjectAdapter(data)
     private fun setupRecyclerView(data:List<Project>){
-        val mAdapter = ProjectAdapter(data)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
 
@@ -103,6 +112,28 @@ class MainProjectFragment : BaseFragment() {
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
+
+        recyclerView?.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return isLoading
+            }
+
+            override fun loadMoreItems() {
+                isLoading = true
+                getMoreItems()
+            }
+        })
+    }
+
+
+    fun getMoreItems() {
+        isLoading = false
+        page += 1
+        getProducts()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

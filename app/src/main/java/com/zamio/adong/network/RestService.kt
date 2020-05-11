@@ -195,7 +195,7 @@ interface RestService {
     @DELETE("project/{id}")
     fun removeProject(@Path("id") productId: Int): Call<RestData<JsonElement>>
 
-    @GET("project?size=1000&sort=id,desc")
+    @GET("project?size=50&sort=id,desc")
     fun getProjects(@Query("page") page: Int,@Query("search") fullName: String): Call<RestData<List<Project>>>
 
     @GET("project/{id}")
