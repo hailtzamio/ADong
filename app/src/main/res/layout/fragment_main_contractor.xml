@@ -21,35 +21,15 @@
 
         />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <include
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        layout="@layout/item_search_layout"
         android:layout_height="wrap_content"
-        >
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_alignParentRight="true"
-            android:hint="Tìm kiếm"
-            android:textColorHint="@color/colorGray"
-            android:textColor="@color/colorName"
-            android:paddingLeft="10dp"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/button_normal_search_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
-
-        <ImageView
-            android:id="@+id/imvSearch"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/search"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />
-    </RelativeLayout>
+        android:layout_width="wrap_content"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

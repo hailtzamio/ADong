@@ -24,11 +24,12 @@ import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.fragment_main_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import kotlinx.android.synthetic.main.item_search_layout.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
