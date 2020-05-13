@@ -23,7 +23,7 @@ data class Project(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("deputyManagerFullName")
-    val deputyManagerFullName: String,
+    val deputyManagerFullName: String?,
     @SerializedName("deputyManagerId")
     val deputyManagerId: Int,
     @SerializedName("id")
@@ -61,7 +61,7 @@ data class Project(
     @SerializedName("status")
     val status: String,
     @SerializedName("supervisorFullName")
-    val supervisorFullName: String,
+    val supervisorFullName: String?,
     @SerializedName("supervisorId")
     val supervisorId: Int,
     @SerializedName("supplyChainCriteriaBundleId")

@@ -16,7 +16,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorName</item>
+        <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">14sp</item>
     </style>
 

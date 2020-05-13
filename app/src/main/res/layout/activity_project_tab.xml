@@ -82,4 +82,12 @@
         android:layout_width="wrap_content"
         layout="@layout/material_design_floating_action_menu"
         android:layout_height="wrap_content" />
+
+    <include
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="visible"
+        android:id="@+id/viewWorkerFloat"
+        android:layout_width="wrap_content"
+        layout="@layout/material_design_floating_worker_action_menu"
+        android:layout_height="wrap_content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

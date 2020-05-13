@@ -22,6 +22,7 @@ import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_project_tab.*
 import kotlinx.android.synthetic.main.item_header_layout.imvBack
 import kotlinx.android.synthetic.main.material_design_floating_action_menu.*
+import kotlinx.android.synthetic.main.material_design_floating_worker_action_menu.*
 
 
 class ProjectTabActivity : AppCompatActivity() {
@@ -70,7 +71,7 @@ class ProjectTabActivity : AppCompatActivity() {
                     0 -> hideFabShowFloat()
                     1 -> showFabHideFloat()
                     2 -> hideFabHideFloat()
-                    3 -> showFabHideFloat()
+                    3 -> hideFabHideFloatShowFlWorker()
                 }
             }
         })
@@ -102,6 +103,14 @@ class ProjectTabActivity : AppCompatActivity() {
         floatingActionButton3.setOnClickListener {
 
         }
+
+        flWorker1.setOnClickListener {
+            goToAddingWorkers()
+        }
+
+        flWorker2.setOnClickListener {
+            goToCheckInOut()
+        }
     }
 
     private fun goToCreateProductRequirement() {
@@ -117,20 +126,35 @@ class ProjectTabActivity : AppCompatActivity() {
     private fun hideFabShowFloat() {
         fab.visibility = View.GONE
         viewFloat.visibility = View.VISIBLE
+        viewWorkerFloat.visibility = View.GONE
     }
 
     private fun showFabHideFloat() {
         fab.visibility = View.VISIBLE
         viewFloat.visibility = View.GONE
+        viewWorkerFloat.visibility = View.GONE
+    }
+
+    private fun hideFabHideFloatShowFlWorker() {
+        fab.visibility = View.GONE
+        viewFloat.visibility = View.GONE
+        viewWorkerFloat.visibility = View.VISIBLE
     }
 
     private fun hideFabHideFloat() {
         fab.visibility = View.GONE
         viewFloat.visibility = View.GONE
+        viewWorkerFloat.visibility = View.GONE
     }
 
     private fun goToAddingWorkers() {
         val intent = Intent(this, MainWorkerActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToCheckInOut() {
+        val intent = Intent(this, CheckInOutActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
         startActivityForResult(intent, 1000)
     }
@@ -151,6 +175,7 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         if (resultCode == 102) {
+            workerPage.resetData()
             workerPage.getData(0)
         }
     }

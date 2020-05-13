@@ -22,8 +22,8 @@ public class ConstantsApp {
     public static String BASE64_AUTH_TOKEN = "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNpbXBsZS1jbGllbnQiLCJpc3MiOiJTaW1wbGVBUEkiLCJyb2xlcyI6WyJBZG1pbmlzdHJhdG9yIl0sInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbiJ9.YVk6B1qksEk9noTkV8ArurNVXhBOPKyNyHFM-Nu9oRCnmjg2dR7dnZJ8s8gk7xX_3dGPZAA2L3JjBz_48P0-hA";
     public static String BASE64_HEADER_LANG= "vi";
 //    public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
-//    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
-    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
+    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
+//    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
 
 
 
@@ -43,10 +43,6 @@ public class ConstantsApp {
     public static String KEY_LIVECHALLENGE_TOTAL = "KEY_LIVECHALLENGE_TOTAL";
     public static String TOAST = "Không lấy được dữ liệu";
 
-
-    public static String USER_AVATAR_ME = "USER_AVATAR_ME";
-
-
     // SoloQuestionIntro
     public static String KEY_TYPE_OF_GAME= "KEY_TYPE_OF_GAME";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
@@ -57,29 +53,4 @@ public class ConstantsApp {
     public static String PERMISSION= "c-r-u-d";
     public static  ArrayList<Worker2> workers = new ArrayList<Worker2>();
     public static  ArrayList<Product> products = new ArrayList<Product>();
-
-
-
-    public static String KEY_LIVE_CHALLENGE_VALUE= "KEY_LIVE_CHALLENGE_VALUE";
-    public static String KEY_LIVE_CHALLENGE_ID_VALUE= "KEY_LIVE_CHALLENGE_ID_VALUE";
-
-    public static String KEY_TOPIC_ID = "KEY_TOPIC_ID";
-    public static String KEY_CATEROGY_ID = "KEY_CATEROGY_ID";
-    public static String KEY_CATEROGY_VALUEKEY = "KEY_CATEROGY_VALUEKEY";
-    public static String KEY_CATEROGY_NAME = "KEY_CATEROGY_NAME";
-
-
-
-    public static String KEY_CORRECT_ANSWER = "1";
-    public static int PLAY_GAME_SOLO = 0;
-    public static int PLAY_GAME_CHALLENGE = 1;
-
-    public static String KEY_CHALLENGE_TOTAL_RIGHT_ANSWER_ME = "KEY_CHALLENGE_TOTAL_RIGHT_ANSWER_ME";
-
-
-    public static String CHALLENGE_TIME_COUNT_DOWN = "0";
-
-    public static int MP3_WRONG_ANSWER = 0;
-    public static int MP3_CORRECT_ANSWER = 1;
-
 }

@@ -28,6 +28,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,7 +48,8 @@ class MainWorkerFragment : BaseFragment() {
 
     var currentPage = 0
     var totalPages = 0
-    var products:List<Worker>? = null
+    var page = 0
+    var data = ArrayList<Worker>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -70,7 +72,7 @@ class MainWorkerFragment : BaseFragment() {
         rightButton.setOnClickListener {
             val intent = Intent(context, CreateWorkerActivity::class.java)
             intent.putExtra("EMAIL", "")
-            startActivityForResult(intent,1000)
+            startActivityForResult(intent, 1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
@@ -79,13 +81,13 @@ class MainWorkerFragment : BaseFragment() {
             activity!!.finish()
         }
 
-        if(!ConstantsApp.PERMISSION!!.contains("c")){
+        if (!ConstantsApp.PERMISSION!!.contains("c")) {
             rightButton.visibility = View.GONE
         }
 
         edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if((activity as MainWorkerActivity).getProjectId() != 0) {
+                if ((activity as MainWorkerActivity).getProjectId() != 0) {
                     getWorkersNotLeaders(0)
                 } else {
                     getProducts(0)
@@ -96,7 +98,7 @@ class MainWorkerFragment : BaseFragment() {
         })
 
         imvSearch.setOnClickListener {
-            if((activity as MainWorkerActivity).getProjectId() != 0) {
+            if ((activity as MainWorkerActivity).getProjectId() != 0) {
                 getWorkersNotLeaders(0)
             } else {
                 getProducts(0)
@@ -107,7 +109,7 @@ class MainWorkerFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        if((activity as MainWorkerActivity).getProjectId() != 0) {
+        if ((activity as MainWorkerActivity).getProjectId() != 0) {
             rightButton.visibility = View.GONE
             getWorkersNotLeaders(0)
         } else {
@@ -115,84 +117,106 @@ class MainWorkerFragment : BaseFragment() {
         }
     }
 
-    private fun getProducts(page:Int){
+    private fun getProducts(pPage: Int) {
         showProgessDialog()
-        RestClient().getInstance().getRestService().getWorkers(page,edtSearch.text.toString()).enqueue(object :
+        RestClient().getInstance().getRestService().getWorkers(pPage, edtSearch.text.toString())
+            .enqueue(object :
+                Callback<RestData<ArrayList<Worker>>> {
+                override fun onFailure(call: Call<RestData<ArrayList<Worker>>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<ArrayList<Worker>>>?,
+                    response: Response<RestData<ArrayList<Worker>>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        data.addAll(response.body().data!!)
+                        setupRecyclerView()
+                        totalPages = response.body().pagination!!.totalPages!!
+                        mAdapter.notifyDataSetChanged()
+                        page += 1
+                    }
+                }
+            })
+    }
+
+    private fun getWorkersNotLeaders(pPage: Int) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .getWorkersNotLeaders(pPage, edtSearch.text.toString()).enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
+            override fun onResponse(
+                call: Call<RestData<List<Worker>>>?,
+                response: Response<RestData<List<Worker>>>?
+            ) {
                 dismisProgressDialog()
-                if(response!!.body() != null && response!!.body().status == 1){
-                    products = response.body().data!!
+                if (response!!.body() != null && response!!.body().status == 1) {
+                    data!!.addAll(response.body().data!!)
                     setupRecyclerView()
                     totalPages = response.body().pagination!!.totalPages!!
+                    mAdapter.notifyDataSetChanged()
+                    page += 1
                 }
             }
         })
     }
 
-    private fun getWorkersNotLeaders(page:Int){
-        showProgessDialog()
-        RestClient().getInstance().getRestService().getWorkersNotLeaders(page,edtSearch.text.toString()).enqueue(object :
-            Callback<RestData<List<Worker>>> {
-            override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
-                dismisProgressDialog()
-                if(response!!.body() != null && response!!.body().status == 1){
-                    products = response.body().data!!
-                    setupRecyclerView()
-                    totalPages = response.body().pagination!!.totalPages!!
-                }
-            }
-        })
-    }
-
-    private fun addWorkerToProject(projectId:Int, workerId:Int) {
+    private fun addWorkerToProject(projectId: Int, workerId: Int) {
         val workerJs = JsonObject()
-        workerJs.addProperty("workerId",workerId)
+        workerJs.addProperty("workerId", workerId)
         showProgessDialog()
-        RestClient().getInstance().getRestService().addWorkerToProject(projectId,workerJs).enqueue(object :
-            Callback<RestData<JsonElement>> {
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
+        RestClient().getInstance().getRestService().addWorkerToProject(projectId, workerJs)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
 
-            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
-                dismisProgressDialog()
-                if(response!!.body() != null && response.body().status == 1){
-                    Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show()
 //                    activity!!.setResult(102)
 ////                    activity!!.finish()
-                } else {
-                    val obj = JSONObject(response!!.errorBody().string())
-                    Toast.makeText(context, obj["message"].toString(), Toast.LENGTH_SHORT).show()
+                    } else {
+                        val obj = JSONObject(response!!.errorBody().string())
+                        Toast.makeText(context, obj["message"].toString(), Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
-            }
-        })
+            })
     }
 
-    private fun setupRecyclerView(){
+    var mAdapter = WorkerAdapter(data!!)
+    var isLastPage: Boolean = false
+    var isLoading: Boolean = false
+    private fun setupRecyclerView() {
 
-        val mAdapter = WorkerAdapter(products!!)
         val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            if((activity as MainWorkerActivity).getProjectId() != 0) {
+            if ((activity as MainWorkerActivity).getProjectId() != 0) {
 
                 val dialogClickListener =
                     DialogInterface.OnClickListener { dialog, which ->
                         when (which) {
                             DialogInterface.BUTTON_POSITIVE -> {
-                                addWorkerToProject((activity as MainWorkerActivity).getProjectId(), product.id)
+                                addWorkerToProject(
+                                    (activity as MainWorkerActivity).getProjectId(),
+                                    product.id
+                                )
                             }
                             DialogInterface.BUTTON_NEGATIVE -> {
                             }
@@ -207,15 +231,12 @@ class MainWorkerFragment : BaseFragment() {
             } else {
                 val intent = Intent(context, DetailWorkerActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-                startActivityForResult(intent,1000)
+                startActivityForResult(intent, 1000)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
 
-        var isLastPage: Boolean = false
-        var isLoading: Boolean = false
-
-        recyclerView?.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager ) {
+        recyclerView?.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
                 return isLastPage
             }
@@ -226,17 +247,21 @@ class MainWorkerFragment : BaseFragment() {
 
             override fun loadMoreItems() {
                 isLoading = true
-//                if((currentPage + 1) < totalPages){
-//                    getProducts(currentPage++)
-//                }
-//                currentPage += 1
+                getMoreItems()
             }
         })
     }
 
+    fun getMoreItems() {
+        isLoading = false
+        if(page < totalPages) {
+            getWorkersNotLeaders(page)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
+        if (resultCode == 100) {
 //            getProducts(0)
         }
     }

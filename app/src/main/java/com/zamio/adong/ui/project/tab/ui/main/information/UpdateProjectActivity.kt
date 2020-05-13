@@ -118,8 +118,14 @@ class UpdateProjectActivity: BaseActivity() {
                     tvChooseDate.text = data!!.plannedStartDate
                     tvChooseEndDate.text = data!!.plannedEndDate
                     tvManagerName.text = data!!.managerFullName
-                    tvDeputyManagerName.text = data!!.deputyManagerFullName
-                    tvLeaderName.text = data!!.supervisorFullName
+
+                    if(data!!.deputyManagerFullName != null ) {
+                        tvDeputyManagerName.text = data!!.deputyManagerFullName
+                    }
+                    if(data!!.supervisorFullName != null ) {
+                        tvLeaderName.text = data!!.supervisorFullName
+                    }
+
                     tvSecretaryName.text = data!!.secretaryFullName
 
                     if (data!!.teamType == "ADONG") {
@@ -132,7 +138,7 @@ class UpdateProjectActivity: BaseActivity() {
                         rdGroup.check(R.id.rdContractor)
                     }
 
-                    tvChooseTeamOrContractor.text = data!!.contractorName
+                    tvChooseTeamOrContractor.text = data!!.teamName
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
                     teamId = data!!.teamId

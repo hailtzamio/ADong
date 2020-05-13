@@ -42,6 +42,7 @@ class ProjectWorkersFragment : BaseFragment() {
     var isLoading: Boolean = false
     var page = 0
     var data = ArrayList<Worker>()
+    var totalPage = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -65,12 +66,18 @@ class ProjectWorkersFragment : BaseFragment() {
 //            getData(0)
 //            pullToRefresh.isRefreshing = false
 //        })
+        resetData()
         setupRecyclerView()
         getData(page)
     }
 
     override fun onResume() {
         super.onResume()
+    }
+
+    fun resetData() {
+        data.clear()
+        page = 0
     }
 
     fun getData(pPage:Int){
@@ -126,13 +133,17 @@ class ProjectWorkersFragment : BaseFragment() {
     }
 
     fun getMoreItems() {
-        isLoading = false
-        getData(page)
+//        isLoading = false
+//        if(page < totalPage) {
+//            getData(page)
+//        }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data1)
         if(resultCode == 101){
+            data.clear()
+            page = 0
             getData(0)
         }
     }

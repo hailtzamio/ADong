@@ -71,10 +71,10 @@ interface RestService {
     fun updateProfile(@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
     /* Woker */
-    @GET("worker?size=1000&sort=id,desc")
-    fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
+    @GET("worker?size=100&sort=id,desc")
+    fun getWorkers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker>>>
 
-    @GET("worker?isTeamLeader=false&size=1000&sort=id,desc")
+    @GET("worker?isTeamLeader=false&size=100&sort=id,desc")
     fun getWorkersNotLeaders(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
     @GET("worker?inTeam=false&size=1000")
