@@ -8,10 +8,12 @@
     <color name="colorBg">#e4f1fd</color>
     <color name="colorGray2">#fafafa</color>
     <color name="colorGreen">#41CF5C</color>
+    <color name="colorRed">#FB5252</color>
+    <color name="colorView">#e8e8e8</color>
 
     <color name="colorGray">#90928E</color>
     <color name="colorName">#233364</color>
-    <color name="colorBlack">#000000</color>
+    <color name="colorBlack">#1e1e1e</color>
 <!--    <color name="colorHeader">#297fca</color>-->
     <color name="colorHeader">#115a8e</color>
 </resources>

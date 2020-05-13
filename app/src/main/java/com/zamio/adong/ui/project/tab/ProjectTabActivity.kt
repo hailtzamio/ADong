@@ -36,17 +36,18 @@ class ProjectTabActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_tab)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        sectionsPagerAdapter.addFragment(informationPage);
-        sectionsPagerAdapter.addFragment(producPage);
-        sectionsPagerAdapter.addFragment(MainWorkOutlineFragment());
-        sectionsPagerAdapter.addFragment(workerPage);
+        sectionsPagerAdapter.addFragment(workerPage)
+        sectionsPagerAdapter.addFragment(producPage)
+        sectionsPagerAdapter.addFragment(MainWorkOutlineFragment())
+        sectionsPagerAdapter.addFragment(informationPage)
+
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        hideFabShowFloat()
+        hideFabHideFloatShowFlWorker()
         imvCheckInOut.visibility = View.GONE
         imvCheckInOut.setOnClickListener {
             val intent = Intent(this, CheckInOutActivity::class.java)
@@ -68,10 +69,10 @@ class ProjectTabActivity : AppCompatActivity() {
                 position = tab.position
 
                 when (position) {
-                    0 -> hideFabShowFloat()
+                    3 -> hideFabShowFloat()
                     1 -> showFabHideFloat()
                     2 -> hideFabHideFloat()
-                    3 -> hideFabHideFloatShowFlWorker()
+                    0 -> hideFabHideFloatShowFlWorker()
                 }
             }
         })
@@ -159,7 +160,7 @@ class ProjectTabActivity : AppCompatActivity() {
         startActivityForResult(intent, 1000)
     }
 
-    public fun getProjectId(): Int {
+    fun getProjectId(): Int {
         return id
     }
 

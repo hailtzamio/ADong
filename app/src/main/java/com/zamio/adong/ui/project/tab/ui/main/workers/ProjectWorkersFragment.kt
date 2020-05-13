@@ -2,16 +2,22 @@ package com.zamio.adong.ui.project.tab.ui.main.workers
 
 import RestClient
 import WorkerAdapter
+import WorkerCheckinOutAdapter
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.google.gson.JsonElement
 import com.zamio.adong.R
+import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
@@ -37,12 +43,8 @@ class ProjectWorkersFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
-    var isLastPage: Boolean = false
-    var isLoading: Boolean = false
-    var page = 0
     var data = ArrayList<Worker>()
-    var totalPage = 0
+    var projectId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,14 +63,10 @@ class ProjectWorkersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        pullToRefresh.setOnRefreshListener(OnRefreshListener {
-//            getData(0)
-//            pullToRefresh.isRefreshing = false
-//        })
         resetData()
         setupRecyclerView()
-        getData(page)
+        getData(0)
+        projectId = (activity as ProjectTabActivity).getProjectId()
     }
 
     override fun onResume() {
@@ -77,10 +75,10 @@ class ProjectWorkersFragment : BaseFragment() {
 
     fun resetData() {
         data.clear()
-        page = 0
     }
 
     fun getData(pPage:Int){
+        data.clear()
         showProgessDialog()
         RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :
             Callback<RestData<List<Worker>>> {
@@ -93,13 +91,12 @@ class ProjectWorkersFragment : BaseFragment() {
                 if(response!!.body() != null && response.body().status == 1){
                     data.addAll(response.body().data!!)
                     mAdapter.notifyDataSetChanged()
-                    page += 1
                 }
             }
         })
     }
 
-    val mAdapter = WorkerAdapter(data)
+    val mAdapter = WorkerCheckinOutAdapter(data)
     private fun setupRecyclerView(){
         val layoutManager = LinearLayoutManager(context)
         if( recyclerView != null) {
@@ -108,42 +105,78 @@ class ProjectWorkersFragment : BaseFragment() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
-                val intent = Intent(context, DetailWorkerActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-                intent.putExtra(ConstantsApp.ChooseTeamWorkerActivity, "")
-                startActivityForResult(intent,1000)
-                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                val ids = ArrayList<Int>()
+                                ids.add(product.id)
+
+                                val check = CheckinOut(projectId, ids)
+                                if (product.workingStatus == "idle") {
+                                    checkin(check)
+                                } else {
+                                    checkout(check)
+                                }
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Điểm danh?")
+                    .setPositiveButton("Đồng ý", dialogClickListener)
+                    .setNegativeButton("Không", dialogClickListener).show()
             }
-
-            recyclerView?.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
-                override fun isLastPage(): Boolean {
-                    return isLastPage
-                }
-
-                override fun isLoading(): Boolean {
-                    return isLoading
-                }
-
-                override fun loadMoreItems() {
-                    isLoading = true
-                    getMoreItems()
-                }
-            })
         }
     }
+    private fun checkout(checkinOut: CheckinOut) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().checkout(checkinOut).enqueue(object :
+            Callback<RestData<JsonElement>> {
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
 
-    fun getMoreItems() {
-//        isLoading = false
-//        if(page < totalPage) {
-//            getData(page)
-//        }
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    Toast.makeText(context, "Chấm giờ ra thành công", Toast.LENGTH_SHORT).show()
+                    getData(0)
+                }
+            }
+        })
+    }
+
+    private fun checkin(checkinOut: CheckinOut) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().checkin(checkinOut).enqueue(object :
+            Callback<RestData<JsonElement>> {
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    Toast.makeText(context, "Chấm giờ vào thành công", Toast.LENGTH_SHORT).show()
+                    getData(0)
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
         super.onActivityResult(requestCode, resultCode, data1)
         if(resultCode == 101){
             data.clear()
-            page = 0
             getData(0)
         }
     }

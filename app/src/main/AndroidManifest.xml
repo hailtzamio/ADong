@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.project.tab.ui.main.information.UpdateProjectActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.checkinout.CheckinOutAlbumActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.information.UpdateProjectActivity" />
         <activity android:name=".ui.project.tab.ui.main.checkinout.CheckInOutActivity" />
         <activity
             android:name=".ui.workoutline.MainWorkOutlineActivity"

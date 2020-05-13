@@ -24,21 +24,19 @@ class ProjectAdapter(private val topicDetails: List<Project>) : RecyclerView.Ada
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
-        var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
+
 
 
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
-
-            imvStatus.visibility = View.GONE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_team_layout, parent, false)
+                .inflate(R.layout.item_project_layout, parent, false)
 
         return MyViewHolder(itemView)
     }

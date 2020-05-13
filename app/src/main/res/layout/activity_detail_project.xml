@@ -25,56 +25,92 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="CHUNG"
+                android:textColor="@color/colorName"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tên" />
+                    android:text="Tên"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
-                    android:gravity="end"
                     android:id="@+id/tvName"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:gravity="end"
                     android:text="" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Địa chỉ" />
+                    android:text="Địa chỉ"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
-                    android:gravity="end"
                     android:id="@+id/tvAddress"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:gravity="end"
                     android:text="" />
             </RelativeLayout>
 
-            <RelativeLayout     android:layout_marginTop="10dp"
+            <include
+                layout="@layout/view_line"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="THỜI GIAN"
+                android:textColor="@color/colorName"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/startDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Ngày bắt đầu"
 
-                    android:text="Ngày bắt đầu" />
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvChooseDate"
@@ -84,16 +120,20 @@
                     android:text="" />
             </RelativeLayout>
 
-            <RelativeLayout          android:layout_marginTop="10dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/endDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Ngày kết thúc"
 
-                    android:text="Ngày kết thúc" />
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvChooseEndDate"
@@ -103,15 +143,18 @@
                     android:text="" />
             </RelativeLayout>
 
-            <RelativeLayout    android:layout_marginTop="10dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="Vị trí" />
+                    android:text="Vị trí"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvChooseLocation"
@@ -121,16 +164,35 @@
                     android:text="" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_marginTop="10dp"
+            <include
+                layout="@layout/view_line"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="THÀNH VIÊN"
+                android:textColor="@color/colorName"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tvContractorOrTeamLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đội thi công" />
+                    android:text="Đội thi công"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvContractorOrTeam"
@@ -139,17 +201,21 @@
                     android:layout_alignParentRight="true"
                     android:text="" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:id="@+id/tvContractor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="false"
-                    android:text="Tên đội" />
+                    android:text="Tên đội"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvChooseTeamOrContractor"
@@ -168,7 +234,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -180,7 +248,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Trưởng bộ phận" />
+                        android:text="Trưởng bộ phận"
+                        android:textColor="@color/colorGray" />
 
                     <TextView
                         android:id="@+id/tvManagerName"
@@ -205,7 +274,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Phó bộ phận" />
+                        android:text="Phó bộ phận"
+                        android:textColor="@color/colorGray" />
 
                     <TextView
                         android:id="@+id/tvDeputyManagerName"
@@ -231,7 +301,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Giám sát" />
+                        android:text="Giám sát"
+                        android:textColor="@color/colorGray" />
 
                     <TextView
                         android:id="@+id/tvLeaderName"
@@ -256,7 +327,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Thư ký" />
+                        android:text="Thư ký"
+                        android:textColor="@color/colorGray" />
 
                     <TextView
                         android:id="@+id/tvSecretaryName"
@@ -271,7 +343,6 @@
                         android:text="" />
 
                 </RelativeLayout>
-
 
 
             </LinearLayout>

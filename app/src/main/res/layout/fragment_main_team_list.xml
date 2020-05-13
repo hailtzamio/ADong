@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
+    android:background="@color/white"
     tools:context=".ui.product.MainProductFragment">
 
     <include layout="@layout/item_header_layout"
@@ -34,9 +35,9 @@
             android:paddingLeft="10dp"
             android:inputType="text"
             android:imeOptions="actionSearch"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/button_normal_search_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp" />
@@ -52,10 +53,10 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

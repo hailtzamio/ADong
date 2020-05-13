@@ -34,6 +34,7 @@ class MainProjectFragment : BaseFragment() {
     var isLoading: Boolean = false
     var page = 0
     var data = ArrayList<Project>()
+    var totalPage = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -95,6 +96,7 @@ class MainProjectFragment : BaseFragment() {
                 if( response!!.body() != null && response!!.body().status == 1){
                     data.addAll(response.body().data!!)
                     mAdapter.notifyDataSetChanged()
+                    totalPage = response.body().pagination!!.totalPages!!
                 }
             }
         })
@@ -134,7 +136,9 @@ class MainProjectFragment : BaseFragment() {
     fun getMoreItems() {
         isLoading = false
         page += 1
-        getProducts()
+        if(page < totalPage) {
+            getProducts()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
