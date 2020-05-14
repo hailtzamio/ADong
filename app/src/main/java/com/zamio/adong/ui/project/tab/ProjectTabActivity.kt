@@ -12,6 +12,7 @@ import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ui.main.SectionsPagerAdapter
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckInOutActivity
+import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
 import com.zamio.adong.ui.project.tab.ui.main.information.ProductInformationFragment
 import com.zamio.adong.ui.project.tab.ui.main.information.UpdateProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.CreateProductRequirementActivity
@@ -110,8 +111,13 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         flWorker2.setOnClickListener {
-            goToCheckInOut()
+            goToUploadImage()
         }
+
+        flWorker3.setOnClickListener {
+            goToAlbum()
+        }
+
     }
 
     private fun goToCreateProductRequirement() {
@@ -154,8 +160,12 @@ class ProjectTabActivity : AppCompatActivity() {
         startActivityForResult(intent, 1000)
     }
 
-    private fun goToCheckInOut() {
-        val intent = Intent(this, CheckInOutActivity::class.java)
+    private fun goToUploadImage() {
+        workerPage.pickImageFromAlbum()
+    }
+
+    private fun goToAlbum() {
+        val intent = Intent(this, CheckinOutAlbumImage::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
         startActivityForResult(intent, 1000)
     }

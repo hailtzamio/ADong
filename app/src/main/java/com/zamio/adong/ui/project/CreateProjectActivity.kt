@@ -210,7 +210,7 @@ class CreateProjectActivity : BaseActivity() {
 
         tvChooseTeamOrContractor.setOnClickListener {
             var intent: Intent? = null
-            intent = if (tvContractor.text == "Đội Á đông") {
+            intent = if (isChooseADong) {
                 Intent(this, ChooseTeamActivity::class.java)
             } else {
                 Intent(this, ChooseContractorActivity::class.java)
@@ -307,7 +307,7 @@ class CreateProjectActivity : BaseActivity() {
         }
 
         if (resultCode == 100) {
-            if (tvContractor.text == "Đội Á đông") {
+            if (isChooseADong) {
                 teamId = id
             } else {
                 contractorId = id

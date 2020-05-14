@@ -45,6 +45,23 @@
         fab:menu_showShadow="false">
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/flWorker2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_add"
+            fab:fab_label="Gửi ảnh"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:visibility="visible"
+            android:id="@+id/flWorker3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_add"
+            fab:fab_label="Kho ảnh"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/flWorker1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,21 +69,6 @@
             fab:fab_label="Thêm Công nhân"
             fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/flWorker2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_add"
-            fab:fab_label="Chấm công"
-            fab:fab_size="mini" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:visibility="gone"
-            android:id="@+id/flWorker3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_add"
-            fab:fab_label="Menu Item 3"
-            fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

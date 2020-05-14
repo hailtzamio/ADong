@@ -255,6 +255,13 @@ interface RestService {
     @POST("project/{projectId}/addWorker")
     fun addWorkerToProject(@Path("projectId") id: Int, @Body data: JsonObject): Call<RestData<JsonElement>>
 
+    @Multipart
+    @POST("project/{projectId}/uploadCheckinPhoto")
+    fun updateImageCheckin(@Path("projectId") id: Int,@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    @GET("project/{projectId}/checkinPhotos")
+    fun getProjectImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
+
 //    // Topic Detail
 //    @GET("topic/view?")
 //    abstract fun getTopicDetail(@Query("topic_id") topic_id: String): Call<RestData<TopicDetail>>

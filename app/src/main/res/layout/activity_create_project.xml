@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Đội Á đông" />
+                        android:text="Tên đội" />
 
                     <TextView
                         android:id="@+id/tvChooseTeamOrContractor"

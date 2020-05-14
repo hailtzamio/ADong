@@ -1,11 +1,12 @@
 package com.zamio.adong.ui.project.tab.ui.main.workers
 
 import RestClient
-import WorkerAdapter
 import WorkerCheckinOutAdapter
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
-import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import com.zamio.adong.ui.worker.DetailWorkerActivity
-import com.zamio.adong.utils.PaginationScrollListener
-import kotlinx.android.synthetic.main.fragment_main_worker.*
+import kotlinx.android.synthetic.main.fragment_main_worker.recyclerView
+import kotlinx.android.synthetic.main.fragment_project_worker_checkin.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +51,7 @@ class ProjectWorkersFragment : BaseFragment() {
     private var param2: String? = null
     var data = ArrayList<Worker>()
     var projectId = 0
+    var thumbnailExtId = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -58,7 +65,7 @@ class ProjectWorkersFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_main_workeoutline, container, false)
+        return inflater.inflate(R.layout.fragment_project_worker_checkin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +74,13 @@ class ProjectWorkersFragment : BaseFragment() {
         setupRecyclerView()
         getData(0)
         projectId = (activity as ProjectTabActivity).getProjectId()
+    }
+
+    fun pickImageFromAlbum() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .start(activity!!,this)
     }
 
     override fun onResume() {
@@ -173,13 +187,58 @@ class ProjectWorkersFragment : BaseFragment() {
         })
     }
 
+    private fun uploadImage(file: File) {
+        val requestFile =
+            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val body =
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        showProgessDialog()
+        RestClient().getRestService().updateImageCheckin(projectId,body).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response?.body() != null && response.body().status == 1) {
+                    showToast("Đăng ảnh thành công")
+
+                } else {
+                    if (response!!.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
         super.onActivityResult(requestCode, resultCode, data1)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data1)
+            if (resultCode == Activity.RESULT_OK) {
+                val resultUri: Uri = result.uri
+                val file = File(resultUri.path!!)
+                uploadImage(file)
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+            }
+        }
+
         if(resultCode == 101){
             data.clear()
             getData(0)
         }
     }
+
 
     companion object {
         /**

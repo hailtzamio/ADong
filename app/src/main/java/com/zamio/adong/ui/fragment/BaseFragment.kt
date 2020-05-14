@@ -3,6 +3,7 @@ package com.elcom.com.quizupapp.ui.fragment
 import android.os.Bundle
 
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.zamio.adong.R
 import com.zamio.adong.utils.ProgressDialogUtils
@@ -47,6 +48,10 @@ abstract class BaseFragment : Fragment() {
 
     fun dismisProgressDialog() {
         ProgressDialogUtils.dismissProgressDialog()
+    }
+
+    fun showToast(content:String){
+        Toast.makeText(context, content, Toast.LENGTH_SHORT).show()
     }
 
 }

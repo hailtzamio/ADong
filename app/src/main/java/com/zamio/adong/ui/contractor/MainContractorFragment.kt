@@ -17,7 +17,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Contractor
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.fragment_main_worker.*
+import kotlinx.android.synthetic.main.fragment_main_contractor.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
