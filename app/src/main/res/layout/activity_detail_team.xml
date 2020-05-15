@@ -63,7 +63,6 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -90,7 +89,6 @@
 
             <TextView
                 android:id="@+id/tvLeaderName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -117,7 +115,6 @@
 
             <TextView
                 android:id="@+id/tvStatus"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -144,7 +141,6 @@
 
             <TextView
                 android:id="@+id/tvPhone"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -171,7 +167,6 @@
 
             <TextView
                 android:id="@+id/tvPhone2"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -197,7 +192,6 @@
 
             <TextView
                 android:id="@+id/tvAddress"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"

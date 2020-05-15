@@ -16,6 +16,7 @@ import com.zamio.adong.model.ProductRequirement
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import kotlinx.android.synthetic.main.fragment_main_worker.*
+import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +35,7 @@ class ProductRequirementFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    var idddd = 0
     var data:List<ProductRequirement>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +58,19 @@ class ProductRequirementFragment : BaseFragment() {
         getData(0)
     }
 
+
     override fun onResume() {
         super.onResume()
 
     }
 
+    fun setProjectId(id:Int) {
+        idddd = id
+    }
+
     fun getData(page:Int){
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProductRequirement((activity as ProjectTabActivity).getProjectId(),page).enqueue(object :
+        RestClient().getInstance().getRestService().getProductRequirement(idddd,page).enqueue(object :
             Callback<RestData<List<ProductRequirement>>> {
             override fun onFailure(call: Call<RestData<List<ProductRequirement>>>?, t: Throwable?) {
                 dismisProgressDialog()

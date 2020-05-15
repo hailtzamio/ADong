@@ -47,7 +47,6 @@
             <TextView
 
                 android:id="@+id/tvName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -74,7 +73,6 @@
 
             <TextView
                 android:id="@+id/tvPhone"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Đội trưởng "
                 android:ellipsize="end"
@@ -101,7 +99,6 @@
 
             <TextView
                 android:id="@+id/tvStatus"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Đội trưởng "
                 android:ellipsize="end"
@@ -128,7 +125,6 @@
 
             <TextView
                 android:id="@+id/tvEmail"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Địa chỉ "
                 android:ellipsize="end"
@@ -155,7 +151,6 @@
 
             <TextView
                 android:id="@+id/tvProjectName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Địa chỉ "
                 android:ellipsize="end"
@@ -188,7 +183,6 @@
                 android:id="@+id/tvAddress"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorName"
                 tools:text="Tên " />
 
         </RelativeLayout>

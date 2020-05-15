@@ -6,9 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginRight="10dp">
-
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -16,54 +15,59 @@
         android:layout_centerInParent="true"
         card_view:cardBackgroundColor="#E6E6E6"
         card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="8dp">
+        card_view:cardElevation="0dp">
 
         <RelativeLayout
-            android:padding="5dp"
             android:id="@+id/lnRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            card_view:cardElevation="0dp"
+            android:padding="5dp">
 
-            <ImageView
-                android:layout_centerVertical="true"
-                android:id="@+id/imvAva"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentLeft="true"
-                android:padding="5dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ava" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:id="@+id/imvAva"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ava" />
+
+            </androidx.cardview.widget.CardView>
 
             <RelativeLayout
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/imvAva"
+                android:layout_toRightOf="@+id/cvAva"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
-                    android:layout_marginRight="30dp"
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:layout_marginRight="30dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="11111" />
+                    android:singleLine="true"
+                    android:text="11111"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginRight="30dp"
                     android:id="@+id/tvType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvName"
-                    android:singleLine="true"
+                    android:layout_marginRight="30dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:text="11111" />
 
                 <TextView
@@ -78,31 +82,30 @@
                     android:text="11111" />
 
                 <TextView
-                    android:visibility="gone"
-                    android:layout_marginRight="30dp"
                     android:id="@+id/tvQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUnit"
-                    android:singleLine="true"
+                    android:layout_marginRight="30dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="11111" />
+                    android:singleLine="true"
+                    android:text="11111"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imvStatus"
-                android:src="@drawable/free_dot"
-                android:layout_marginRight="10dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/free_dot" />
         </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

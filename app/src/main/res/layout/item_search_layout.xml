@@ -25,4 +25,5 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:src="@drawable/search" />
+
     </RelativeLayout>

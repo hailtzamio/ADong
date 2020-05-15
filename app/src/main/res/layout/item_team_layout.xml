@@ -19,7 +19,7 @@
         card_view:cardElevation="8dp">
 
         <RelativeLayout
-            android:padding="5dp"
+            android:padding="10dp"
             android:id="@+id/lnRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -20,12 +20,10 @@ public class ConstantsApp {
 
     public static final String DB_NAME = "quizupelcom";
     public static String BASE64_AUTH_TOKEN = "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNpbXBsZS1jbGllbnQiLCJpc3MiOiJTaW1wbGVBUEkiLCJyb2xlcyI6WyJBZG1pbmlzdHJhdG9yIl0sInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbiJ9.YVk6B1qksEk9noTkV8ArurNVXhBOPKyNyHFM-Nu9oRCnmjg2dR7dnZJ8s8gk7xX_3dGPZAA2L3JjBz_48P0-hA";
-    public static String BASE64_HEADER_LANG= "vi";
-//    public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
+    public static String BASE64_HEADER_LANG = "vi";
+    //    public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
 //    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
     public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
-
-
 
     public static int REQUEST_CODE_START_ACTIVITY = 1000;
     public static int START_ACTIVITY_TO_PLAY_GAME_FROM_QUIZUPACTIVITY = 100;
@@ -35,7 +33,7 @@ public class ConstantsApp {
     public static int RESULT_CODE_TO_CONTINUE_TO_PLAY_GAME_FROM_QUIZUPACTIVITY = 9;
 
 
-    public static int REQUEST_CODE_START_FACEBOOK_LOGIN= 64206;
+    public static int REQUEST_CODE_START_FACEBOOK_LOGIN = 64206;
 
     public static int START_ACTIVITY_TO_MOVE_FROM_LIVECHALLENGE = 100;
     public static int START_ACTIVITY_TO_MOVE_FROM_LIVECHALLENGE_EXIT = 101;
@@ -44,13 +42,13 @@ public class ConstantsApp {
     public static String TOAST = "Không lấy được dữ liệu";
 
     // SoloQuestionIntro
-    public static String KEY_TYPE_OF_GAME= "KEY_TYPE_OF_GAME";
+    public static String KEY_TYPE_OF_GAME = "KEY_TYPE_OF_GAME";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
     public static String KEY_VALUES_HIDE = "KEY_VALUES_HIDE";
     public static String ChooseTeamWorkerActivity = "ChooseTeamWorkerActivity";
     public static String ProjectWorkersFragment = "ProjectWorkersFragment";
-    public static String KEY_PERMISSION= "KEY_PERMISSION";
-    public static String PERMISSION= "c-r-u-d";
-    public static  ArrayList<Worker2> workers = new ArrayList<Worker2>();
-    public static  ArrayList<Product> products = new ArrayList<Product>();
+    public static String KEY_PERMISSION = "KEY_PERMISSION";
+    public static String PERMISSION = "c-r-u-d";
+    public static ArrayList<Worker2> workers = new ArrayList<Worker2>();
+    public static ArrayList<Product> products = new ArrayList<Product>();
 }

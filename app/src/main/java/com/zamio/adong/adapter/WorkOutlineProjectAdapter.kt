@@ -4,6 +4,7 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
@@ -18,8 +19,8 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
-        var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
+        var imvCheck: ImageView = view.findViewById(R.id.icCheck)
 
 
 
@@ -34,7 +35,7 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_project_requirement_layout, parent, false)
+                .inflate(R.layout.item_project_workoutline_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -43,12 +44,14 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
         val topic = topicDetails[position]
         holder.name.text = topic.projectName
         holder.type.text = topic.workOutlineName.toString()
-        holder.unit.text = topic.order.toString() + " cái"
+
 
         if(topic.finishDatetime == null ) {
-            holder.quantity.text = "Đang làm"
+            holder.quantity.text = "Chưa hoàn thành"
+            holder.imvCheck.setImageResource(R.drawable.icon_check)
         } else {
             holder.quantity.text = topic.finishDatetime
+            holder.imvCheck.setImageResource(R.drawable.check_green)
         }
 
 //        holder.quantity.text = Utils.convertDate(topic.createdTime)

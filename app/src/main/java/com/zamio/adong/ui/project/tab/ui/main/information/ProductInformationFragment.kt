@@ -110,10 +110,15 @@ class ProductInformationFragment : BaseFragment() {
                     if (data!!.teamType == "ADONG") {
                         rlLeader.visibility = View.GONE
                         tvContractorOrTeam.text = "Đội Á đông"
+                        rlLeader.visibility = View.GONE
+                        tvLeaderNameAdong.text = data!!.teamLeaderFullName
+//                        rlLeaderAdong.visibility = View.GONE // ??
                     } else {
+                        rlLeaderAdong.visibility = View.GONE
                         rlLeader.visibility = View.VISIBLE
                         tvContractorOrTeam.text = data!!.contractorName
                         tvContractorOrTeamLabel.text = "Nhà thầu phụ"
+                        lnTeamName.visibility = View.GONE
                     }
                 }
             }
@@ -122,7 +127,8 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun removeProject() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().removeProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
+        RestClient().getInstance().getRestService()
+            .removeProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -148,7 +154,7 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 101){
+        if (resultCode == 101) {
 
         }
     }

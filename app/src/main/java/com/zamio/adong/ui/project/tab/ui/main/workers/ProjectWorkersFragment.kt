@@ -93,15 +93,15 @@ class ProjectWorkersFragment : BaseFragment() {
 
     fun getData(pPage:Int){
         data.clear()
-        showProgessDialog()
+//        showProgessDialog()
         RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
-                dismisProgressDialog()
+//                dismisProgressDialog()
             }
 
             override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
-                dismisProgressDialog()
+//                dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
                     data.addAll(response.body().data!!)
                     mAdapter.notifyDataSetChanged()
@@ -119,6 +119,13 @@ class ProjectWorkersFragment : BaseFragment() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
+                var note = ""
+                note = if(product.workingStatus == "idle") {
+                    "Điểm danh công nhân vào?"
+                } else {
+                    "Điểm danh công nhân ra?"
+                }
+
                 val dialogClickListener =
                     DialogInterface.OnClickListener { dialog, which ->
                         when (which) {
@@ -128,8 +135,10 @@ class ProjectWorkersFragment : BaseFragment() {
 
                                 val check = CheckinOut(projectId, ids)
                                 if (product.workingStatus == "idle") {
+
                                     checkin(check)
                                 } else {
+
                                     checkout(check)
                                 }
                             }
@@ -139,7 +148,7 @@ class ProjectWorkersFragment : BaseFragment() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder.setMessage("Điểm danh?")
+                builder.setMessage(note)
                     .setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }

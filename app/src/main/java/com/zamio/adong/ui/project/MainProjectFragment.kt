@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
@@ -20,6 +22,7 @@ import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_team_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
+import pl.kitek.rvswipetodelete.SwipeToDeleteCallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +55,7 @@ class MainProjectFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(!ConstantsApp.PERMISSION!!.contains("c")){
+        if (!ConstantsApp.PERMISSION!!.contains("c")) {
             rightButton.visibility = View.GONE
         }
 //        rightButton.visibility = View.GONE
@@ -64,6 +67,7 @@ class MainProjectFragment : BaseFragment() {
 
         edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                resetData()
                 getProducts()
                 return@OnEditorActionListener true
             }
@@ -71,6 +75,7 @@ class MainProjectFragment : BaseFragment() {
         })
 
         imvSearch.setOnClickListener {
+            resetData()
             getProducts()
         }
 
@@ -79,33 +84,64 @@ class MainProjectFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        data.clear()
-        page = 0
+        resetData()
         getProducts()
     }
 
-    private fun getProducts(){
-        showProgessDialog()
-        RestClient().getInstance().getRestService().getProjects(page,edtSearch.text.toString()).enqueue(object :
-            Callback<RestData<List<Project>>> {
-            override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
+    private fun resetData() {
+        data.clear()
+        page = 0
+    }
 
-            override fun onResponse(call: Call<RestData<List<Project>>>?, response: Response<RestData<List<Project>>>?) {
-                dismisProgressDialog()
-                if( response!!.body() != null && response!!.body().status == 1){
-                    data.addAll(response.body().data!!)
-                    mAdapter.notifyDataSetChanged()
-                    totalPage = response.body().pagination!!.totalPages!!
+    private fun getProducts() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getProjects(page, edtSearch.text.toString())
+            .enqueue(object :
+                Callback<RestData<List<Project>>> {
+                override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
+                    dismisProgressDialog()
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<RestData<List<Project>>>?,
+                    response: Response<RestData<List<Project>>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response!!.body().status == 1) {
+                        data.addAll(response.body().data!!)
+                        recyclerView.post {
+                            mAdapter.notifyDataSetChanged()
+                        }
+                        totalPage = response.body().pagination!!.totalPages!!
+
+                        val pagination = response.body().pagination!!
+
+                        if (pagination.totalRecords != null) {
+
+                            var count = pagination.totalRecords!!.toString()
+
+                            if (pagination.totalRecords!! > 1000) {
+                                count = "1000+"
+                            }
+
+                            if (pagination.totalRecords!! > 2000) {
+                                count = "2000+"
+                            }
+
+                            if (pagination.totalRecords!! > 3000) {
+                                count = "3000+"
+                            }
+
+                            edtSearch.hint = "Tìm kiếm trong $count công trình"
+                        }
+                    }
+                }
+            })
     }
 
     var layoutManager = LinearLayoutManager(context)
     val mAdapter = ProjectAdapter(data)
-    private fun setupRecyclerView(data:List<Project>){
+    private fun setupRecyclerView(data: List<Project>) {
         recyclerView.layoutManager = layoutManager
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
@@ -131,20 +167,30 @@ class MainProjectFragment : BaseFragment() {
                 getMoreItems()
             }
         })
+
+//        val swipeHandler = object : SwipeToDeleteCallback(context!!) {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                val adapter = recyclerView.adapter as ProjectAdapter
+//                adapter.removeAt(viewHolder.adapterPosition)
+//            }
+//        }
+//        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//        itemTouchHelper.attachToRecyclerView(recyclerView)
+
     }
 
 
     fun getMoreItems() {
         isLoading = false
         page += 1
-        if(page < totalPage) {
+        if (page < totalPage) {
             getProducts()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
+        if (resultCode == 100) {
 //            getProducts()
         }
     }

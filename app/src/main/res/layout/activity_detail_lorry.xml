@@ -61,7 +61,6 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -88,7 +87,6 @@
 
             <TextView
                 android:id="@+id/tvModel"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -115,7 +113,6 @@
 
             <TextView
                 android:id="@+id/tvPlateNumber"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -142,7 +139,6 @@
 
             <TextView
                 android:id="@+id/tvCapacity"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"

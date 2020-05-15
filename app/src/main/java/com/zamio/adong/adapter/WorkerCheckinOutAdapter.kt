@@ -23,8 +23,7 @@ class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
         var imvAva: ImageView = view.findViewById(R.id.imvAva)
-        var imvStatus: TextView = view.findViewById(R.id.imvStatus)
-        var imvStatusRed: TextView = view.findViewById(R.id.imvStatusRed)
+        var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
 
 
         init {
@@ -36,16 +35,13 @@ class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
 
-            imvStatusRed.setOnClickListener {
-                onItemClick?.invoke(topicDetails[adapterPosition])
-            }
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_worker_checkin_out_layout, parent, false)
+            .inflate(R.layout.item_worker_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -56,25 +52,21 @@ class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
         holder.unit.text = topic.phone
         holder.quantity.text = topic.address
 
-        if (topic.isTeamLeader) {
+        if (topic!!.isTeamLeader){
             holder.type.text = "Đội trưởng"
         } else {
             holder.type.text = "Công nhân"
         }
 
         if(topic.workingStatus == "idle") {
-            holder.imvStatus.text = "Giờ vào"
-            holder.imvStatus.visibility = View.VISIBLE
-            holder.imvStatusRed.visibility = View.GONE
+            holder.imvStatus.setImageResource(R.drawable.free_dot)
         } else {
-            holder.imvStatus.visibility = View.GONE
-            holder.imvStatusRed.visibility = View.VISIBLE
-            holder.imvStatus.text = "Giờ ra"
+            holder.imvStatus.setImageResource(R.drawable.green_dot)
         }
 
-        if (topic.avatarUrl != null) {
+        if(topic.avatarUrl != null){
             Picasso.get().load(topic.avatarUrl).error(R.drawable.ava).into(holder.imvAva)
-        } else {
+        }else {
             holder.imvAva.setImageResource(R.drawable.ava);
         }
     }

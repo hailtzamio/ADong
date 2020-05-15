@@ -22,6 +22,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.network.Pagination
 import kotlinx.android.synthetic.main.fragment_main_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
@@ -88,6 +89,7 @@ class MainWorkerFragment : BaseFragment() {
 
         edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                resetData()
                 if ((activity as MainWorkerActivity).getProjectId() != 0) {
                     getWorkersNotLeaders(0)
                 } else {
@@ -99,6 +101,7 @@ class MainWorkerFragment : BaseFragment() {
         })
 
         imvSearch.setOnClickListener {
+            resetData()
             if ((activity as MainWorkerActivity).getProjectId() != 0) {
                 getWorkersNotLeaders(0)
             } else {
@@ -106,16 +109,24 @@ class MainWorkerFragment : BaseFragment() {
             }
         }
 
+        setupRecyclerView()
+
     }
 
     override fun onResume() {
         super.onResume()
+        resetData()
         if ((activity as MainWorkerActivity).getProjectId() != 0) {
             rightButton.visibility = View.GONE
             getWorkersNotLeaders(0)
         } else {
             getProducts(0)
         }
+    }
+
+    private fun resetData() {
+        page = 0
+        data.clear()
     }
 
     private fun getProducts(pPage: Int) {
@@ -134,13 +145,39 @@ class MainWorkerFragment : BaseFragment() {
                     dismisProgressDialog()
                     if (response!!.body() != null && response.body().status == 1) {
                         data.addAll(response.body().data!!)
-                        setupRecyclerView()
                         totalPages = response.body().pagination!!.totalPages!!
                         mAdapter.notifyDataSetChanged()
                         page += 1
+
+                        val pagination = response.body().pagination!!
+                        if (pagination.totalRecords != null) {
+                            showHintText(pagination)
+                        }
                     }
                 }
             })
+    }
+
+    private fun showHintText(pagination: Pagination) {
+
+        if (pagination.totalRecords != null) {
+
+            var count = pagination.totalRecords!!.toString()
+
+            if (pagination.totalRecords!! > 1000) {
+                count = "1000+"
+            }
+
+            if (pagination.totalRecords!! > 2000) {
+                count = "2000+"
+            }
+
+            if (pagination.totalRecords!! > 3000) {
+                count = "3000+"
+            }
+
+            edtSearch.hint = "Tìm kiếm trong $count công nhân"
+        }
     }
 
     private fun getWorkersNotLeaders(pPage: Int) {
@@ -158,11 +195,15 @@ class MainWorkerFragment : BaseFragment() {
             ) {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
-                    data!!.addAll(response.body().data!!)
-                    setupRecyclerView()
+                    data.addAll(response.body().data!!)
                     totalPages = response.body().pagination!!.totalPages!!
                     mAdapter.notifyDataSetChanged()
                     page += 1
+
+                    val pagination = response.body().pagination!!
+                    if (pagination.totalRecords != null) {
+                        showHintText(pagination)
+                    }
                 }
             }
         })

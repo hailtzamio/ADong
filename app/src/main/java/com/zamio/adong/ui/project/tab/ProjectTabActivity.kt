@@ -13,9 +13,11 @@ import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ui.main.SectionsPagerAdapter
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckInOutActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
+import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.information.ProductInformationFragment
 import com.zamio.adong.ui.project.tab.ui.main.information.UpdateProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.CreateProductRequirementActivity
+import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementFragment
 import com.zamio.adong.ui.project.tab.ui.main.workers.ProjectWorkersFragment
 import com.zamio.adong.ui.project.tab.ui.main.workoutline.MainWorkOutlineFragment
@@ -29,7 +31,7 @@ import kotlinx.android.synthetic.main.material_design_floating_worker_action_men
 class ProjectTabActivity : AppCompatActivity() {
     var id = 0
     var position = 0
-    val producPage = ProductRequirementFragment()
+//    val producPage = ProductRequirementFragment()
     val workerPage = ProjectWorkersFragment()
     val informationPage = ProductInformationFragment()
 
@@ -38,7 +40,7 @@ class ProjectTabActivity : AppCompatActivity() {
         setContentView(R.layout.activity_project_tab)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         sectionsPagerAdapter.addFragment(workerPage)
-        sectionsPagerAdapter.addFragment(producPage)
+//        sectionsPagerAdapter.addFragment(producPage)
         sectionsPagerAdapter.addFragment(MainWorkOutlineFragment())
         sectionsPagerAdapter.addFragment(informationPage)
 
@@ -70,9 +72,8 @@ class ProjectTabActivity : AppCompatActivity() {
                 position = tab.position
 
                 when (position) {
-                    3 -> hideFabShowFloat()
-                    1 -> showFabHideFloat()
-                    2 -> hideFabHideFloat()
+                    2 -> hideFabShowFloat()
+                    1 -> hideFabHideFloat()
                     0 -> hideFabHideFloatShowFlWorker()
                 }
             }
@@ -80,9 +81,8 @@ class ProjectTabActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             when (position) {
-                1 -> goToCreateProductRequirement()
-                2 -> setupItemWorkOutLine()
-                3 -> goToAddingWorkers()
+                1 -> setupItemWorkOutLine()
+                2 -> goToAddingWorkers()
             }
         }
 
@@ -103,7 +103,9 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         floatingActionButton3.setOnClickListener {
-
+            val intent = Intent(this, ProductRequirementActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+            startActivityForResult(intent, 1000)
         }
 
         flWorker1.setOnClickListener {
@@ -116,6 +118,10 @@ class ProjectTabActivity : AppCompatActivity() {
 
         flWorker3.setOnClickListener {
             goToAlbum()
+        }
+
+        flWorker4.setOnClickListener {
+            goToCheckinHistory()
         }
 
     }
@@ -170,6 +176,12 @@ class ProjectTabActivity : AppCompatActivity() {
         startActivityForResult(intent, 1000)
     }
 
+    private fun goToCheckinHistory() {
+        val intent = Intent(this, CheckoutInWorkerListActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+        startActivityForResult(intent, 1000)
+    }
+
     fun getProjectId(): Int {
         return id
     }
@@ -182,7 +194,7 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         if (resultCode == 101) {
-            producPage.getData(0)
+//            producPage.getData(0)
         }
 
         if (resultCode == 102) {

@@ -62,12 +62,12 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/floatingActionButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_add"
-            fab:fab_label="Menu Item 3"
+            fab:fab_label="Vật tư"
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

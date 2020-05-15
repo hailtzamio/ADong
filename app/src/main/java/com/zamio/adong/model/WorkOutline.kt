@@ -28,7 +28,17 @@ data class WorkOutline(
     @SerializedName("workOutlineName")
     val workOutlineName: String,
     @SerializedName("finishDatetime")
-    val finishDatetime: String,
+    val finishDatetime: String?,
     @SerializedName("order")
-    val order: Int
+    val order: Int,
+    @SerializedName("photos")
+    val photos: List<WorkOutlineImage>?
+
 ) : Serializable
+
+data class WorkOutlineImage(
+    @SerializedName("fullSizeUrl")
+    val fullSizeUrl: String,
+    @SerializedName("thumbnailUrl")
+    val thumbnailUrl: String
+)

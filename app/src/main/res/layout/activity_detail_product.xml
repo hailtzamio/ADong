@@ -55,7 +55,6 @@
 
             <TextView
                 android:id="@+id/tvName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -81,7 +80,6 @@
 
             <TextView
                 android:id="@+id/tvCode"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -113,7 +111,6 @@
                 app:autoSizeTextType="uniform"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorName"
                 tools:text="Tên " />
 
         </RelativeLayout>
@@ -134,7 +131,6 @@
 
             <TextView
                 android:id="@+id/tvUnit"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -163,7 +159,6 @@
 
             <TextView
                 android:id="@+id/tvQuantity"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"

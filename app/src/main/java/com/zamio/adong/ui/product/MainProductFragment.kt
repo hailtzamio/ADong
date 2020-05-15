@@ -16,6 +16,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.network.Pagination
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
@@ -92,9 +93,36 @@ class MainProductFragment : BaseFragment() {
                         products = response.body().data!!
                         setupRecyclerView()
                         totalPages = response.body().pagination!!.totalPages!!
+
+                        val pagination = response.body().pagination!!
+                        if (pagination.totalRecords != null) {
+                            showHintText(pagination)
+                        }
                     }
             }
         })
+    }
+
+    private fun showHintText(pagination: Pagination) {
+
+        if (pagination.totalRecords != null) {
+
+            var count = pagination.totalRecords!!.toString()
+
+            if (pagination.totalRecords!! > 1000) {
+                count = "1000+"
+            }
+
+            if (pagination.totalRecords!! > 2000) {
+                count = "2000+"
+            }
+
+            if (pagination.totalRecords!! > 3000) {
+                count = "3000+"
+            }
+
+            edtSearch.hint = "Tìm kiếm trong $count công nhân"
+        }
     }
 
     private fun setupRecyclerView(){

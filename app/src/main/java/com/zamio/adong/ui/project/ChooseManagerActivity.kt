@@ -46,10 +46,10 @@ class ChooseManagerActivity : BaseActivity() {
             }
 
             when (key) {
-                1 -> tvTitle.text = "Danh Sách Quản Lý"
-                2 -> tvTitle.text = "Danh Sách Phó Quản Lý"
-                3 -> tvTitle.text = "Danh Sách Đội Trưởng"
-                4 -> tvTitle.text = "Danh Sách Thư Ký"
+                1 -> tvTitle.text = "Trưởng Bộ Phận"
+                2 -> tvTitle.text = "Phó Bộ Phận"
+                3 -> tvTitle.text = "Giám Sát"
+                4 -> tvTitle.text = "Thư Ký"
             }
 
         }
