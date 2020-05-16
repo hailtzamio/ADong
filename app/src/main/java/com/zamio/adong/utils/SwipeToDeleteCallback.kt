@@ -1,4 +1,3 @@
-package pl.kitek.rvswipetodelete
 
 import android.content.Context
 import android.graphics.Canvas

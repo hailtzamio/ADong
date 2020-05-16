@@ -149,6 +149,7 @@ class MainWorkOutlineFragment : BaseFragment() {
                 } else {
                     if (product.photos != null && product.photos.isNotEmpty()) {
                         val intent = Intent(context, PreviewImageActivity::class.java)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.id)
                         intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.photos[0].fullSizeUrl)
                         startActivityForResult(intent, 1000)
                     }
@@ -181,7 +182,7 @@ class MainWorkOutlineFragment : BaseFragment() {
 
     fun pickImageFromAlbum() {
         CropImage.activity()
-            .setAspectRatio(1, 1)
+            .setAspectRatio(4, 3)
             .setGuidelines(CropImageView.Guidelines.ON)
             .start(activity!!,this)
     }

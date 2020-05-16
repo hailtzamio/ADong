@@ -31,6 +31,11 @@ class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
 
+            itemView.setOnLongClickListener {
+                onItemClick?.invoke(topicDetails[adapterPosition])
+                return@setOnLongClickListener true
+            }
+
             imvStatus.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }

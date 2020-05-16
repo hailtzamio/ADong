@@ -22,7 +22,6 @@ import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_team_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
-import pl.kitek.rvswipetodelete.SwipeToDeleteCallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

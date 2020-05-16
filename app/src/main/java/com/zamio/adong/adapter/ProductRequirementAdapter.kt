@@ -13,7 +13,7 @@ import com.zamio.adong.model.ProductRequirement
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductRequirementAdapter(private val topicDetails: List<ProductRequirement>) : RecyclerView.Adapter<ProductRequirementAdapter.MyViewHolder>() {
+class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequirement>) : RecyclerView.Adapter<ProductRequirementAdapter.MyViewHolder>() {
     var onItemClick: ((ProductRequirement) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
@@ -27,6 +27,12 @@ class ProductRequirementAdapter(private val topicDetails: List<ProductRequiremen
             }
 
         }
+    }
+
+
+    fun removeAt(position: Int) {
+        topicDetails.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

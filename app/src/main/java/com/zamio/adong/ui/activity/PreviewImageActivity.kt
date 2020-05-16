@@ -13,7 +13,9 @@ class PreviewImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview_image)
         var avatarUrl = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as String
-        avatarUrl = avatarUrl + "&accessToken=" + ConstantsApp.BASE64_AUTH_TOKEN.removeRange(0,6)
+        if(intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
+            avatarUrl = avatarUrl + "&accessToken=" + ConstantsApp.BASE64_AUTH_TOKEN.removeRange(0,6)
+        }
         Picasso.get().load(avatarUrl).into(imvAva)
 
         imvClose.setOnClickListener {

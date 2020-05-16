@@ -2,13 +2,16 @@ package com.zamio.adong.ui.project.tab.ui.main.requirement
 
 import ProductRequirementAdapter
 import RestClient
+import SwipeToDeleteCallback
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
@@ -36,7 +39,7 @@ class ProductRequirementFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
     var idddd = 0
-    var data:List<ProductRequirement>? = null
+    var data:ArrayList<ProductRequirement>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -71,12 +74,12 @@ class ProductRequirementFragment : BaseFragment() {
     fun getData(page:Int){
         showProgessDialog()
         RestClient().getInstance().getRestService().getProductRequirement(idddd,page).enqueue(object :
-            Callback<RestData<List<ProductRequirement>>> {
-            override fun onFailure(call: Call<RestData<List<ProductRequirement>>>?, t: Throwable?) {
+            Callback<RestData<ArrayList<ProductRequirement>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<ProductRequirement>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<ProductRequirement>>>?, response: Response<RestData<List<ProductRequirement>>>?) {
+            override fun onResponse(call: Call<RestData<ArrayList<ProductRequirement>>>?, response: Response<RestData<ArrayList<ProductRequirement>>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
                     data = response.body().data!!
@@ -100,6 +103,16 @@ class ProductRequirementFragment : BaseFragment() {
                 startActivityForResult(intent,1000)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
+
+            val swipeHandler = object : SwipeToDeleteCallback(activity!!) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val adapter = recyclerView.adapter as ProductRequirementAdapter
+                    adapter.removeAt(viewHolder.adapterPosition)
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+            itemTouchHelper.attachToRecyclerView(recyclerView)
         }
     }
 
