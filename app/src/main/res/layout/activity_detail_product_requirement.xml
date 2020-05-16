@@ -22,13 +22,20 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:layout_below="@+id/view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
-
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/tvList"
+            android:textColor="@color/colorName"
+            android:textStyle="bold"
+            android:text="THÔNG TIN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <RelativeLayout
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -44,8 +51,8 @@
 
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/tvName"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -71,7 +78,6 @@
 
             <TextView
                 android:id="@+id/tvAddress"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -81,6 +87,7 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -103,7 +110,6 @@
                 app:autoSizeTextType="uniform"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorName"
                 tools:text="Tên " />
 
         </RelativeLayout>
@@ -124,7 +130,6 @@
 
             <TextView
                 android:id="@+id/tvNote"
-                android:textColor="@color/colorName"
                 android:layout_alignParentRight="true"
                 tools:text="Tên "
                 android:ellipsize="end"
@@ -134,7 +139,15 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+
+        <include
+            layout="@layout/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp" />
+
         <RelativeLayout
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:padding="5dp"
@@ -142,8 +155,9 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:textColor="@color/colorGray"
-                android:text="Danh sách"
+                android:textColor="@color/colorName"
+                android:textStyle="bold"
+                android:text="DANH SÁCH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

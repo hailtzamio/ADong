@@ -17,7 +17,6 @@ class WorkOutlineAdapter(private val topicDetails: List<WorkOutline>) : Recycler
     var onItemClick: ((WorkOutline) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
-        var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
 
@@ -32,7 +31,7 @@ class WorkOutlineAdapter(private val topicDetails: List<WorkOutline>) : Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_project_requirement_layout, parent, false)
+                .inflate(R.layout.item_work_outline_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -40,7 +39,6 @@ class WorkOutlineAdapter(private val topicDetails: List<WorkOutline>) : Recycler
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.name
-        holder.type.text = topic.sequence.toString()
         holder.unit.text = topic.createdByFullName
         holder.quantity.text = topic.createdTime
 //        holder.quantity.text = Utils.convertDate(topic.createdTime)

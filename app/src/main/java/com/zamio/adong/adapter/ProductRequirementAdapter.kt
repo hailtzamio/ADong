@@ -19,7 +19,6 @@ class ProductRequirementAdapter(private val topicDetails: List<ProductRequiremen
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
-        var quantity: TextView = view.findViewById(R.id.tvQuantity)
 
 
         init {
@@ -41,7 +40,6 @@ class ProductRequirementAdapter(private val topicDetails: List<ProductRequiremen
         holder.name.text = topic.code
         holder.type.text = topic.note
         holder.unit.text = topic.status
-        holder.quantity.text = topic.order.toString()
     }
 
     override fun getItemCount(): Int {

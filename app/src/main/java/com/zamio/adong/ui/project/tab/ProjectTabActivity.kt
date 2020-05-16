@@ -72,7 +72,7 @@ class ProjectTabActivity : AppCompatActivity() {
                 position = tab.position
 
                 when (position) {
-                    2 -> hideFabShowFloat()
+                    2 -> hideFabHideFloat()
                     1 -> hideFabHideFloat()
                     0 -> hideFabHideFloatShowFlWorker()
                 }
@@ -90,10 +90,6 @@ class ProjectTabActivity : AppCompatActivity() {
 
         imvBack.setOnClickListener {
             onBackPressed()
-        }
-
-        floatingActionButton1.setOnClickListener {
-            informationPage.removeProjectPopup()
         }
 
         floatingActionButton2.setOnClickListener {
@@ -188,10 +184,6 @@ class ProjectTabActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == 99) {
-            informationPage.getData(id)
-        }
 
         if (resultCode == 101) {
 //            producPage.getData(0)

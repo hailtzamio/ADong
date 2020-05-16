@@ -21,7 +21,6 @@ class CriteriaAdapter(private val topicDetails: List<Criteria>) : RecyclerView.A
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
-        var imvAva: ImageView = view.findViewById(R.id.imvAva)
 
         init {
             itemView.setOnClickListener {

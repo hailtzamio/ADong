@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.product.DetailProductActivity">
 
     <include layout="@layout/item_header_layout"
@@ -18,7 +19,7 @@
         />
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"

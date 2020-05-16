@@ -108,6 +108,17 @@ class MainCriteriaFragment : BaseFragment() {
                     data = response.body().data!!
                     setupRecyclerView()
                     totalPages = response.body().pagination!!.totalPages!!
+
+                    val pagination = response.body().pagination!!
+
+                    if (pagination.totalRecords != null) {
+
+                        var count = pagination.totalRecords!!.toString()
+                        if (pagination.totalRecords!! > 10000) {
+                            count = "10000+"
+                        }
+                        edtSearch.hint = "Tìm kiếm trong $count bộ tiêu chí"
+                    }
                 }
             }
         })

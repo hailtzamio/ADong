@@ -21,7 +21,6 @@ class ContructorAdapter(private val topicDetails: List<Contractor>) : RecyclerVi
         var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
-        var imvAva: ImageView = view.findViewById(R.id.imvAva)
         var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
 
 

@@ -119,17 +119,8 @@ class MainProjectFragment : BaseFragment() {
                         if (pagination.totalRecords != null) {
 
                             var count = pagination.totalRecords!!.toString()
-
-                            if (pagination.totalRecords!! > 1000) {
-                                count = "1000+"
-                            }
-
-                            if (pagination.totalRecords!! > 2000) {
-                                count = "2000+"
-                            }
-
-                            if (pagination.totalRecords!! > 3000) {
-                                count = "3000+"
+                            if (pagination.totalRecords!! > 10000) {
+                                count = "10000+"
                             }
 
                             edtSearch.hint = "Tìm kiếm trong $count công trình"

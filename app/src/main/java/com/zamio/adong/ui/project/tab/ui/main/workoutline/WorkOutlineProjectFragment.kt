@@ -24,8 +24,7 @@ import com.zamio.adong.model.WorkOutline
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import com.zamio.adong.ui.workoutline.DetailWorkOutlineActivity
-import kotlinx.android.synthetic.main.fragment_main_worker.*
+import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -99,6 +98,23 @@ class MainWorkOutlineFragment : BaseFragment() {
                     if (response!!.body() != null && response.body().status == 1) {
                         products = response.body().data!!
                         setupRecyclerView()
+
+                        var isShowTvOK = true
+                        if(products != null && products!!.isNotEmpty()) {
+                            products!!.forEach {
+                                   if (it.finishDatetime == null) {
+                                       isShowTvOK = false
+                                   }
+                            }
+
+                            if(isShowTvOK) {
+                                tvOk.visibility = View.VISIBLE
+                            } else {
+                                tvOk.visibility = View.GONE
+                            }
+                        }
+
+
                     }
                 }
             })

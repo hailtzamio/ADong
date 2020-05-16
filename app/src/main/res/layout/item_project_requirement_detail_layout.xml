@@ -27,7 +27,6 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:textStyle="bold"
                         android:textColor="@color/colorGray"
                         android:text="Tên"
                         android:layout_width="wrap_content"
@@ -35,8 +34,8 @@
 
 
                     <TextView
+                        android:textStyle="bold"
                         android:id="@+id/tvName"
-                        android:textColor="@color/colorName"
                         android:layout_alignParentRight="true"
                         tools:text="Tên "
                         android:ellipsize="end"
@@ -59,7 +58,6 @@
 
                     <TextView
                         android:id="@+id/tvUnit"
-                        android:textColor="@color/colorName"
                         android:layout_alignParentRight="true"
                         tools:text="Tên "
                         android:ellipsize="end"
@@ -88,7 +86,6 @@
                         app:autoSizeTextType="uniform"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="@color/colorName"
                         tools:text="Tên " />
 
                 </RelativeLayout>
@@ -107,7 +104,6 @@
 
                     <TextView
                         android:id="@+id/tvNote"
-                        android:textColor="@color/colorName"
                         android:layout_alignParentRight="true"
                         tools:text="Tên "
                         android:ellipsize="end"
@@ -119,7 +115,7 @@
                 </RelativeLayout>
 
                 <View
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="#E3E9ED"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp" />

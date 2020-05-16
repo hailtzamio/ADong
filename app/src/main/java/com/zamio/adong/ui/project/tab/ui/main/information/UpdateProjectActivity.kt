@@ -138,7 +138,13 @@ class UpdateProjectActivity: BaseActivity() {
                         rdGroup.check(R.id.rdContractor)
                     }
 
-                    tvChooseTeamOrContractor.text = data!!.teamName
+                    if (data!!.teamType == "ADONG") {
+                        tvChooseTeamOrContractor.text = data!!.teamName
+                    } else {
+                        tvChooseTeamOrContractor.text = data!!.contractorName
+                    }
+
+
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
                     teamId = data!!.teamId

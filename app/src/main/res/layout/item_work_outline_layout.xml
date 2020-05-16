@@ -5,45 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:layout_marginRight="10dp">
 
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        card_view:cardBackgroundColor="#E6E6E6"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="8dp">
 
         <RelativeLayout
             android:id="@+id/lnRoot"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:gravity="center_horizontal"
-                android:layout_centerVertical="true"
-                android:id="@+id/lnCheck"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp" >
-                <View
-                    android:background="@color/colorGray"
-                    android:layout_width="3dp"
-                    android:layout_height="25dp"/>
-                <ImageView
-                    android:id="@+id/icCheck"
-                    android:src="@drawable/check_green"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
-                <View
-                    android:background="@color/colorGray"
-                    android:layout_width="3dp"
-                    android:layout_height="25dp"/>
-            </LinearLayout>
-
-
             <RelativeLayout
-                android:layout_marginLeft="10dp"
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_toRightOf="@+id/lnCheck"
+                android:layout_toRightOf="@+id/imvAva"
                 android:orientation="vertical">
 
                 <TextView
@@ -53,29 +39,32 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="11" />
+                    android:text="" />
 
                 <TextView
-                    android:id="@+id/tvType"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvUnit"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvName"
-                    android:text="11" />
-
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="" />
 
                 <TextView
-                    android:textColor="@color/colorGray"
                     android:id="@+id/tvQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvType"
+                    android:layout_below="@+id/tvUnit"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="11" />
+                    android:text="" />
             </RelativeLayout>
 
         </RelativeLayout>
 
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

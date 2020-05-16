@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
@@ -23,6 +24,7 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
         var imvStatus: ImageView = view.findViewById(R.id.imvStatus)
 
+
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
@@ -33,7 +35,7 @@ class LorryAdapter(private val topicDetails: List<Lorry>) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_worker_layout, parent, false)
+                .inflate(R.layout.item_lorry_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
