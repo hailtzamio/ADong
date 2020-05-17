@@ -21,7 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.project.tab.ui.main.information.BasicInformationActivity"></activity>
+        <activity
+            android:name=".ui.notification.ReceiveNotificationActivity"
+            android:label="@string/title_activity_receive_notification"
+            android:theme="@style/BlueActivityTheme.NoActionBar"></activity>
+        <activity android:name=".ui.project.tab.ui.main.information.BasicInformationActivity" />
         <activity android:name=".ui.project.tab.ui.main.requirement.ProductRequirementActivity" />
         <activity android:name=".ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity" />
         <activity android:name=".ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage" />
@@ -213,6 +217,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".utils.onesignal.NotificationExtenderExample"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
 
         <receiver
             android:name=".utils.ConnectivityReceiver"

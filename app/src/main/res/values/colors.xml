@@ -18,4 +18,5 @@
 <!--    <color name="colorHeader">#297fca</color>-->
     <color name="colorHeader">#4C4C4C</color>
     <color name="colorLine">#e8e8e8</color>
+    <color name="colorIcon">#d0be94</color>
 </resources>
