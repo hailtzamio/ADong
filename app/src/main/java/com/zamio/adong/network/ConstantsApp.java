@@ -44,6 +44,7 @@ public class ConstantsApp {
     // SoloQuestionIntro
     public static String KEY_TYPE_OF_GAME = "KEY_TYPE_OF_GAME";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
+    public static String KEY_VALUES_TITLE = "KEY_VALUES_TITLE";
     public static String KEY_VALUES_HIDE = "KEY_VALUES_HIDE";
     public static String ChooseTeamWorkerActivity = "ChooseTeamWorkerActivity";
     public static String ProjectWorkersFragment = "ProjectWorkersFragment";

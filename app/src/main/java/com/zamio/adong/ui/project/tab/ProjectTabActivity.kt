@@ -87,6 +87,7 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
 
         imvBack.setOnClickListener {
             onBackPressed()
@@ -180,6 +181,9 @@ class ProjectTabActivity : AppCompatActivity() {
 
     fun getProjectId(): Int {
         return id
+    }
+    fun setTitle() {
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

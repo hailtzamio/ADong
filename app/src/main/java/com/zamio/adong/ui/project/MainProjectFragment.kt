@@ -139,6 +139,7 @@ class MainProjectFragment : BaseFragment() {
         mAdapter.onItemClick = { data ->
             val intent = Intent(context, ProjectTabActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
             startActivity(intent)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
