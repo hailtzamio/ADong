@@ -47,9 +47,9 @@ class PermissionsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        imvBack.visibility = View.GONE
-        rightButton.visibility = View.GONE
-        tvTitle.text = "Trang Chủ"
+//        imvBack.visibility = View.GONE
+//        rightButton.visibility = View.GONE
+//        tvTitle.text = "Trang Chủ"
         getPermission()
     }
 

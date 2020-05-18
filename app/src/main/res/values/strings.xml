@@ -117,7 +117,7 @@
     <string name="title_activity_project_tab">ProjectTabActivity</string>
     <string name="tab_text_0">Chấm Công</string>
     <string name="tab_text_1">Vật Tư</string>
-    <string name="tab_text_2">Hạng Mục</string>
+    <string name="tab_text_2">Tiến Độ</string>
     <string name="tab_text_3">Thông Tin</string>
     <string name="title_activity_receive_notification">ReceiveNotificationActivity</string>
     <!-- Strings used for fragments for navigation -->
