@@ -31,14 +31,9 @@ class DetailProductRequrementActivity : BaseActivity() {
             val productOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as ProductRequirement
             data = productOb.lines
             tvName.text = productOb.projectName
-            tvAddress.text = productOb.projectAddress
-            tvOrder.text = productOb.order.toString()
             tvNote.text = productOb.note
             setupRecyclerView()
         }
-
-
-
     }
 
     private fun setupRecyclerView(){

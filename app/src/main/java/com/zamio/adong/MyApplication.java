@@ -28,14 +28,14 @@ public class MyApplication extends Application {
         FontsOverride.setDefaultFont(this, "SANS_SERIF", font);
 
         // OneSignal Initialization
-        OneSignal.startInit(this)
-                .setNotificationReceivedHandler(new ExampleNotificationReceivedHandler())
-                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.WARN);
+//        OneSignal.startInit(this)
+//                .setNotificationReceivedHandler(new ExampleNotificationReceivedHandler())
+//                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+//                .unsubscribeWhenNotificationsAreDisabled(true)
+//                .init();
+//
+//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.WARN);
 //
 //        OneSignal.startInit(this)
 //                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())

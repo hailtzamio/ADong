@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zamio.adong">
 
+    <permission
+        android:name="com.zamio.adong.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.zamio.adong.permission.MAPS_RECEIVE" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -12,6 +18,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature android:name="android.hardware.location.gps" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -21,10 +29,11 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.map.MapActivity"></activity>
         <activity
             android:name=".ui.notification.ReceiveNotificationActivity"
             android:label="@string/title_activity_receive_notification"
-            android:theme="@style/BlueActivityTheme.NoActionBar"></activity>
+            android:theme="@style/BlueActivityTheme.NoActionBar" />
         <activity android:name=".ui.project.tab.ui.main.information.BasicInformationActivity" />
         <activity android:name=".ui.project.tab.ui.main.requirement.ProductRequirementActivity" />
         <activity android:name=".ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity" />

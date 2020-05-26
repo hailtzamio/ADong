@@ -14,6 +14,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Driver
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
+import com.zamio.adong.ui.map.MapActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -54,7 +55,7 @@ class MainDriverFragment : BaseFragment() {
         }
 
         imvMap.setOnClickListener {
-            val intent = Intent(context, LorryLocationActivity::class.java)
+            val intent = Intent(context, MapActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, lorry!!)
             startActivity(intent)
         }
