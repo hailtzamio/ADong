@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+>
+    <RelativeLayout
+        android:id="@+id/basicInfo"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_info_height" >
+        <ImageView
+            android:id="@+id/imvAva"
+            android:src="@drawable/burning"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/ava_info_height"
+            android:layout_height="@dimen/ava_info_height" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imvAva"
+            android:text="Thông tin cơ bản"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_marginLeft="@dimen/view_magin_left"
+            android:background="@color/colorLine"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_line_height" />
+
+        <ImageView
+            android:src="@drawable/next"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

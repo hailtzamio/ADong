@@ -1,11 +1,13 @@
 package com.zamio.adong.ui.project.tab.ui.main.information
 
+import TitleAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
@@ -46,23 +48,45 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+    }
 
+    private fun goToBaseInformation() {
+        val intent = Intent(context, BasicInformationActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
 
-        basicInfo.setOnClickListener {
-            val intent = Intent(context, BasicInformationActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
-            startActivityForResult(intent, 1000)
-        }
-
-        rlProduct.setOnClickListener {
-            val intent = Intent(context, ProductRequirementActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
-            startActivityForResult(intent, 1000)
-        }
+    private fun goToProductRequirement() {
+        val intent = Intent(context, ProductRequirementActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
     }
 
     override fun onResume() {
         super.onResume()
+    }
+
+
+    private fun setupRecyclerView() {
+
+        val data = ArrayList<String>()
+        data.add("Thông tin cơ bản")
+        data.add("Danh sách vật tư")
+        data.add("Đánh giá công trình")
+        data.add("An toàn lao động")
+
+        val mAdapter = TitleAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
+
+        mAdapter.onItemClick = { product ->
+            when(product) {
+                0 -> goToBaseInformation()
+                1 -> goToProductRequirement()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

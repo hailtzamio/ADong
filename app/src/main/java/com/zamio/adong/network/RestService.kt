@@ -414,7 +414,7 @@ interface RestService {
 //    @POST("profile/update")
 //    abstract fun updateProfile(
 //                                    @Part("description") description: RequestBody,
-//                                    @Part avatar: MultipartBody.Part,
+//                                    @Part ava: MultipartBody.Part,
 //                                    @Part cover: MultipartBody.Part,
 //                                    @Part("gender") gender: RequestBody,
 //                                    @Part("password") password: RequestBody,
@@ -423,7 +423,7 @@ interface RestService {
 //    @Multipart
 //    @POST("profile/update")
 //    abstract fun updateAvatar(
-//            @Part avatar: MultipartBody.Part): Call<RestData<Profile>>
+//            @Part ava: MultipartBody.Part): Call<RestData<Profile>>
 //
 //
 //
