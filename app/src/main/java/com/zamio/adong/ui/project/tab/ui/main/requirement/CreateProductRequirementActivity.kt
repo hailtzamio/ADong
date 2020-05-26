@@ -7,6 +7,7 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -71,7 +72,7 @@ class CreateProductRequirementActivity : BaseActivity() {
             getProducts(0)
         }
 
-        tvChooseDate.setOnClickListener {
+        rlDate.setOnClickListener {
             hideKeyboard()
             showDateTimePicker()
         }
@@ -79,18 +80,21 @@ class CreateProductRequirementActivity : BaseActivity() {
         tvTitle.text = "Thêm Vật Tư"
         rightButton.setOnClickListener {
 
+//            if(tvChooseDate.text == "Chọn") {
+//                showToast("Chọn ngày")
+//                return@setOnClickListener
+//            }
+
             for (j in (products.size - 1) downTo 0) {
                 if (products[j].quantityChoose != 0) {
+                    Log.e("hailpt~~", " Come ")
                     productChoose.add(products[j])
                 }
             }
 
+            Log.e("hailpt~~", " before "+productChoose.size)
+
             val addNew = ArrayList<LinesAddNew>()
-
-            productChoose.forEach {
-                addNew.add(LinesAddNew(it.id,it.quantityChoose))
-            }
-
 
             var count = productChoose.size
             for (i in 0 until count) {
@@ -102,6 +106,12 @@ class CreateProductRequirementActivity : BaseActivity() {
                     }
                     j++
                 }
+            }
+
+            Log.e("hailpt~~", " after "+productChoose.size)
+
+            productChoose.forEach {
+                addNew.add(LinesAddNew(it.id,it.quantityChoose))
             }
 
             val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())

@@ -8,6 +8,8 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,11 +56,14 @@ public class MapDetailActivity extends AppCompatActivity
     private GPSTracker gps;
     private LatLng curentpoint;
     private RelativeLayout rlAddress;
+    private ImageView imvGps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         Address = (TextView) findViewById(R.id.adressText);
+        imvGps = (ImageView) findViewById(R.id.imageView1);
+        imvGps.setVisibility(View.GONE);
         markerLayout = (LinearLayout) findViewById(R.id.locationMarker);
         rlAddress = (RelativeLayout) findViewById(R.id.rlAddress);
 

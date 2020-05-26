@@ -43,7 +43,7 @@ class WareTabActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        hideFabHideFloatShowFlWorker()
+        hideFabHideFloat()
 
         tabs.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -60,7 +60,7 @@ class WareTabActivity : AppCompatActivity() {
                 when (position) {
                     2 -> hideFabHideFloat()
                     1 -> hideFabHideFloat()
-                    0 -> hideFabHideFloatShowFlWorker()
+                    0 -> hideFabHideFloat()
                 }
             }
         })

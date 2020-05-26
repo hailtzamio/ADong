@@ -27,7 +27,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
         layout="@layout/item_search_layout"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -46,10 +45,14 @@
         android:layout_height="@dimen/edt_size" />
 
     <RelativeLayout
+        android:id="@+id/rlDate"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/button_normal_main_radius_layout"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_centerVertical="true"
@@ -57,20 +60,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Ngày bắt đầu" />
+            android:text="Ngày dự kiến" />
 
         <TextView
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:id="@+id/tvChooseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp"
             android:text="Chọn" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="5dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

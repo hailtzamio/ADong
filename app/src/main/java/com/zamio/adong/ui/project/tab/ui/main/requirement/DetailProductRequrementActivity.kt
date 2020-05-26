@@ -32,6 +32,7 @@ class DetailProductRequrementActivity : BaseActivity() {
             data = productOb.lines
             tvName.text = productOb.projectName
             tvNote.text = productOb.note
+            tvDate.text = productOb.expectedDatetime
             setupRecyclerView()
         }
     }
