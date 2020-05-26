@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp" >
                 <View
-                    android:background="@color/colorGray"
+                    android:background="@color/colorLineVer"
                     android:layout_width="3dp"
                     android:layout_height="25dp"/>
                 <ImageView
@@ -31,7 +31,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp" />
                 <View
-                    android:background="@color/colorGray"
+                    android:background="@color/colorLineVer"
                     android:layout_width="3dp"
                     android:layout_height="25dp"/>
             </LinearLayout>
