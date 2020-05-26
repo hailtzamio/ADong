@@ -18,7 +18,7 @@ import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Province
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.lorry.map.LorryLocationActivity
+import com.zamio.adong.ui.map.MapActivity
 import kotlinx.android.synthetic.main.activity_create_project.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -44,6 +44,8 @@ class CreateProjectActivity : BaseActivity() {
     var plannedEndDate = ""
     var teamType = "ADONG"
     var isChooseADong = true
+    var latitude = 0.0
+    var longitude = 0.0
     override fun getLayout(): Int {
         return R.layout.activity_create_project
     }
@@ -63,8 +65,8 @@ class CreateProjectActivity : BaseActivity() {
         }
 
         tvChooseLocation.setOnClickListener {
-            val intent = Intent(this, LorryLocationActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(this, MapActivity::class.java)
+            startActivityForResult(intent,1000)
         }
 
         rdGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
@@ -175,8 +177,8 @@ class CreateProjectActivity : BaseActivity() {
             }
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
-            product.addProperty("latitude", 0)
-            product.addProperty("longitude", 0)
+            product.addProperty("latitude", latitude)
+            product.addProperty("longitude", longitude)
             createProject(product)
         }
 
@@ -303,6 +305,13 @@ class CreateProjectActivity : BaseActivity() {
                 tvSecretaryName.text = name
                 secretaryId = id
             }
+
+            5 -> {
+                tvChooseLocation.text = name
+                latitude = data.getDoubleExtra("latitude",0.0)
+                longitude = data.getDoubleExtra("longitude",0.0)
+            }
+
             100 -> tvChooseTeamOrContractor.text = name
         }
 

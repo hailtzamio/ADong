@@ -40,5 +40,7 @@ data class Product(
     @SerializedName("productId")
     val productId: Int,
     @SerializedName("isSelected")
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    @SerializedName("quantityChoose")
+    var quantityChoose: Int
 ) : Serializable

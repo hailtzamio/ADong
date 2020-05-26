@@ -4,8 +4,6 @@ import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
@@ -14,8 +12,7 @@ import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
+import com.zamio.adong.ui.map.MapDetailActivity
 import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -45,6 +42,13 @@ class BasicInformationActivity : BaseActivity() {
                 val intent = Intent(this, UpdateProjectActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
                 startActivityForResult(intent, 1000)
+            }
+
+            imvMap.setOnClickListener {
+                val intent = Intent(this, MapDetailActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_LAT, data!!.latitude)
+                intent.putExtra(ConstantsApp.KEY_VALUES_LONG, data!!.longitude)
+                startActivity(intent)
             }
         }
     }
@@ -139,6 +143,11 @@ class BasicInformationActivity : BaseActivity() {
                     }
                 }
             })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        getData(id)
     }
 
 }

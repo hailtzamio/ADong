@@ -23,10 +23,10 @@ import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
 import com.zamio.adong.ui.project.MainProjectActivity
 import com.zamio.adong.ui.team.MainTeamActivity
+import com.zamio.adong.ui.ware.WareTabActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import com.zamio.adong.ui.workoutline.MainWorkOutlineActivity
 import kotlinx.android.synthetic.main.fragment_notifications.*
-import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,7 +79,7 @@ class PermissionsFragment : BaseFragment() {
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"
+            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"  || it.appEntityCode == "Warehouse"
                         || it.appEntityCode == "Product"
                         || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
                         || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundle" || it.appEntityCode  == "Project"|| it.appEntityCode  == "WorkOutline" )) {
@@ -118,6 +118,10 @@ class PermissionsFragment : BaseFragment() {
 
                 if (it.appEntityCode == "WorkOutline" ) {
                     it.name = "Hạng Mục"
+                }
+
+                if (it.appEntityCode == "Warehouse" ) {
+                    it.name = "Kho Xưởng"
                 }
 
                 permissions.add(it)
@@ -162,6 +166,7 @@ class PermissionsFragment : BaseFragment() {
                     "CriteriaBundle" -> intent = Intent(context, MainCriteriaActivity::class.java)
                     "Project" -> intent = Intent(context, MainProjectActivity::class.java)
                     "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
+                    "Warehouse" -> intent = Intent(context, WareTabActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString

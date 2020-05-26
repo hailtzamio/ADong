@@ -21,6 +21,7 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
         var type: TextView = view.findViewById(R.id.tvType)
         var quantity: TextView = view.findViewById(R.id.tvQuantity)
         var imvCheck: ImageView = view.findViewById(R.id.icCheck)
+        var imvNext: ImageView = view.findViewById(R.id.imvNext)
 
 
 
@@ -48,10 +49,12 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
 
         if(topic.finishDatetime == null ) {
             holder.quantity.text = "Chưa hoàn thành"
-            holder.imvCheck.setImageResource(R.drawable.rec)
+            holder.imvCheck.setImageResource(R.drawable.dot3)
+            holder.imvNext.visibility = View.GONE
         } else {
             holder.quantity.text = topic.finishDatetime
-            holder.imvCheck.setImageResource(R.drawable.check_green)
+            holder.imvCheck.setImageResource(R.drawable.tick2)
+            holder.imvNext.visibility = View.VISIBLE
         }
 
 //        holder.quantity.text = Utils.convertDate(topic.createdTime)

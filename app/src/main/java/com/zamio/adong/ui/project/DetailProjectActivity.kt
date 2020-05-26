@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.project
 
 import RestClient
+import android.content.Intent
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -8,6 +9,7 @@ import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import kotlinx.android.synthetic.main.activity_create_project.tvChooseDate
 import kotlinx.android.synthetic.main.activity_create_project.tvChooseEndDate
 import kotlinx.android.synthetic.main.activity_create_project.tvChooseTeamOrContractor
@@ -45,6 +47,13 @@ class DetailProjectActivity : BaseActivity() {
             if (id != 0) {
                 removeProject()
             }
+        }
+
+        imvMap.setOnClickListener {
+            val intent = Intent(this, LorryLocationActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_LAT, data!!.latitude)
+            intent.putExtra(ConstantsApp.KEY_VALUES_LONG, data!!.longitude)
+            startActivity(intent)
         }
     }
 

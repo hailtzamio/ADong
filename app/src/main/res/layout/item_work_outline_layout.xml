@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:layout_toLeftOf="@+id/icNext"
                 android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,8 +60,17 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="" />
-            </RelativeLayout>
 
+
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/icNext"
+                android:layout_margin="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/next"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
         </RelativeLayout>
 
 

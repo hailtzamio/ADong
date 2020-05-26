@@ -46,6 +46,8 @@ public class ConstantsApp {
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
     public static String KEY_VALUES_TITLE = "KEY_VALUES_TITLE";
     public static String KEY_VALUES_HIDE = "KEY_VALUES_HIDE";
+    public static String KEY_VALUES_LAT= "KEY_VALUES_LAT";
+    public static String KEY_VALUES_LONG= "KEY_VALUES_LONG";
     public static String ChooseTeamWorkerActivity = "ChooseTeamWorkerActivity";
     public static String ProjectWorkersFragment = "ProjectWorkersFragment";
     public static String KEY_PERMISSION = "KEY_PERMISSION";

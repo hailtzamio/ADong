@@ -22,6 +22,7 @@ import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.product.DetailProductActivity
 import kotlinx.android.synthetic.main.activity_create_product_requirement.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import kotlinx.android.synthetic.main.item_search_layout.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,8 +35,8 @@ class CreateProductRequirementActivity : BaseActivity() {
 
     var currentPage = 0
     var totalPages = 0
-    var workers = ArrayList<Product>()
-    var workersChoose = ArrayList<Product>()
+    var products = ArrayList<Product>()
+    var productChoose = ArrayList<Product>()
     var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_create_product_requirement
@@ -66,6 +67,10 @@ class CreateProductRequirementActivity : BaseActivity() {
             false
         })
 
+        imvSearch.setOnClickListener {
+            getProducts(0)
+        }
+
         tvChooseDate.setOnClickListener {
             hideKeyboard()
             showDateTimePicker()
@@ -74,16 +79,29 @@ class CreateProductRequirementActivity : BaseActivity() {
         tvTitle.text = "Thêm Vật Tư"
         rightButton.setOnClickListener {
 
-            for (j in (workers.size - 1) downTo 0) {
-                if (workers[j].quantity != 0) {
-                    workersChoose.add(workers[j])
+            for (j in (products.size - 1) downTo 0) {
+                if (products[j].quantityChoose != 0) {
+                    productChoose.add(products[j])
                 }
             }
 
             val addNew = ArrayList<LinesAddNew>()
 
-            workersChoose.forEach {
-                addNew.add(LinesAddNew(it.id,it.quantity))
+            productChoose.forEach {
+                addNew.add(LinesAddNew(it.id,it.quantityChoose))
+            }
+
+
+            var count = productChoose.size
+            for (i in 0 until count) {
+                var j = i + 1
+                while (j < count) {
+                    if (productChoose[i].id == productChoose[j].id) {
+                        productChoose.removeAt(j--)
+                        count--
+                    }
+                    j++
+                }
             }
 
             val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())
@@ -187,21 +205,21 @@ class CreateProductRequirementActivity : BaseActivity() {
 
                         totalPages = response.body().pagination!!.totalPages!!
 
-                        for (j in (workers.size - 1) downTo 0) {
-                            if (workers[j].quantity != 0) {
-                                workersChoose.add(workers[j])
+                        for (j in (products.size - 1) downTo 0) {
+                            if (products[j].quantityChoose != 0) {
+                                productChoose.add(products[j])
                             }
                         }
 
-                        for (i in workersChoose.indices) {
+                        for (i in productChoose.indices) {
                             for (j in (productRes.size - 1) downTo 0) {
-                                if (workersChoose[i].id == productRes[j].id) {
-                                    productRes[j].quantity = workersChoose[i].quantity
+                                if (productChoose[i].id == productRes[j].id) {
+                                    productRes[j].quantityChoose = productChoose[i].quantityChoose
                                 }
                             }
                         }
 
-                        workers = productRes
+                        products = productRes
 
                         setupRecyclerView()
                     }
@@ -210,7 +228,7 @@ class CreateProductRequirementActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        val mAdapter = ProductAdapter(workers, true)
+        val mAdapter = ProductAdapter(products, true)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)

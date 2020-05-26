@@ -19,7 +19,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.model.Province
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.lorry.map.LorryLocationActivity
+import com.zamio.adong.ui.map.MapActivity
 import com.zamio.adong.ui.project.ChooseContractorActivity
 import com.zamio.adong.ui.project.ChooseManagerActivity
 import com.zamio.adong.ui.project.ChooseTeamActivity
@@ -48,6 +48,8 @@ class UpdateProjectActivity: BaseActivity() {
     var teamType = "ADONG"
     var id = 0
     var isChooseADong = true
+    var latitude = 0.0
+    var longitude = 0.0
     override fun getLayout(): Int {
         return R.layout.activity_update_project
     }
@@ -67,8 +69,8 @@ class UpdateProjectActivity: BaseActivity() {
         }
 
         tvChooseLocation.setOnClickListener {
-            val intent = Intent(this, LorryLocationActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(this, MapActivity::class.java)
+            startActivityForResult(intent,1000)
         }
 
         rdGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
@@ -155,6 +157,11 @@ class UpdateProjectActivity: BaseActivity() {
                     deputyManagerId = data!!.deputyManagerId
                     teamId = data!!.teamId
                     teamType = data!!.teamType
+
+                    longitude = data!!.longitude
+                    latitude = data!!.latitude
+
+                    tvChooseLocation.text = data!!.latitude.toString() + " - " + data!!.longitude.toString()
 
                 }
             }
@@ -249,8 +256,8 @@ class UpdateProjectActivity: BaseActivity() {
             }
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
-            product.addProperty("latitude", 0)
-            product.addProperty("longitude", 0)
+            product.addProperty("latitude", latitude)
+            product.addProperty("longitude", longitude)
             update(product)
         }
 
@@ -377,6 +384,13 @@ class UpdateProjectActivity: BaseActivity() {
                 tvSecretaryName.text = name
                 secretaryId = id
             }
+
+            5 -> {
+                tvChooseLocation.text = name
+                latitude = data.getDoubleExtra("latitude",0.0)
+                longitude = data.getDoubleExtra("longitude",0.0)
+            }
+
             100 -> tvChooseTeamOrContractor.text = name
         }
 

@@ -1,7 +1,6 @@
 package com.zamio.adong.ui.map;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,7 +8,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.zamio.adong.R;
+import com.zamio.adong.network.ConstantsApp;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,20 +37,14 @@ import java.util.Locale;
 /**
  * Created by goutam on 29/2/16.
  */
-public class MapActivity extends AppCompatActivity
+public class MapDetailActivity extends AppCompatActivity
         implements LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
     // A request to connect to Location Services
     private LocationRequest mLocationRequest;
     GoogleMap mGoogleMap;
-
-    public static String ShopLat;
-    public static String ShopPlaceId;
-    public static String ShopLong;
-    // Stores the current instantiation of the location client in this object
     private GoogleApiClient mGoogleApiClient;
     boolean mUpdatesRequested = false;
-    private LatLng center;
     private LinearLayout markerLayout;
     private Geocoder geocoder;
     private List<Address> addresses;
@@ -128,43 +121,12 @@ public class MapActivity extends AppCompatActivity
                 return;
             }
 
-            mGoogleMap.setMyLocationEnabled(true);
+            mGoogleMap.setMyLocationEnabled(false);
             mGoogleMap.getUiSettings().setZoomControlsEnabled(false);
             mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
             mGoogleMap.getUiSettings().setCompassEnabled(true);
             mGoogleMap.getUiSettings().setRotateGesturesEnabled(true);
             mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
-
-//            PendingResult<Status> result = LocationServices.FusedLocationApi
-//                    .requestLocationUpdates(mGoogleApiClient, mLocationRequest,
-//                            new LocationListener() {
-//                                @Override
-//                                public void onLocationChanged(Location location) {
-//
-//                                }
-//                            });
-
-
-//            result.setResultCallback(new ResultCallback<Status>() {
-//
-//                @Override
-//                public void onResult(Status status) {
-//
-//                    if (status.isSuccess()) {
-//
-//                        Log.e("Result", "success");
-//
-//                    } else if (status.hasResolution()) {
-//                        // Google provides a way to fix the issue
-//                        try {
-//                            status.startResolutionForResult(MapActivity.this,
-//                                    100);
-//                        } catch (IntentSender.SendIntentException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            });
 
             gps = new GPSTracker(this);
 
@@ -184,85 +146,18 @@ public class MapActivity extends AppCompatActivity
             mGoogleMap.clear();
 
 
-            mGoogleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-                @Override
-                public void onCameraIdle() {
-                    Log.d("hailpt", "setOnCameraIdleListener");
-                    center = mGoogleMap.getCameraPosition().target;
-                    mGoogleMap.clear();
-                    markerLayout.setVisibility(View.VISIBLE);
 
-                    latitude = center.latitude;
-                    longitude = center.longitude;
-
-                    try {
-                        new GetLocationAsync(latitude, longitude).execute();
-
-                    } catch (Exception e) {
-
+            if (getIntent().hasExtra(ConstantsApp.KEY_VALUES_LAT)) {
+                latitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LAT, 0.0);
+                longitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LONG, 0.0);
+                if(mGoogleMap != null) {
+                    new GetLocationAsync(latitude, longitude).execute();
                     }
-                }
-            });
-
-            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-                @Override
-                public void onCameraMove() {
-                    Log.d("hailpt", "~~~");
-                }
-            });
-
-
-//            mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-//
-//                @Override
-//                public void onCameraChange(CameraPosition arg0) {
-//                    // TODO Auto-generated method stub
-//                    center = mGoogleMap.getCameraPosition().target;
-//                    mGoogleMap.clear();
-//                    markerLayout.setVisibility(View.VISIBLE);
-//                    Log.d("hailpt1111", "setOnCameraChangeListener");
-//                    try {
-//                        new GetLocationAsync(center.latitude, center.longitude).execute();
-//
-//                    } catch (Exception e) {
-//                    }
-//                }
-//            });
+            }
 
             rlAddress.setOnClickListener(view -> {
-                Intent  returnIntent = new Intent();
-                returnIntent.putExtra("latitude", latitude);
-                returnIntent.putExtra("longitude", longitude);
-                returnIntent.putExtra("name", Address.getText().toString());
-                setResult(5, returnIntent);
-                finish();
+               onBackPressed();
             });
-
-//            markerLayout.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    // TODO Auto-generated method stub
-//
-//                    try {
-//
-//                        LatLng latLng1 = new LatLng(center.latitude,
-//                                center.longitude);
-//
-//                        Marker m = mGoogleMap.addMarker(new MarkerOptions()
-//                                .position(latLng1)
-//                                .title(" Set your Location ")
-//                                .snippet("")
-//                                .icon(BitmapDescriptorFactory
-//                                        .fromResource(R.drawable.icon_check)));
-//                        m.setDraggable(true);
-//
-//                        markerLayout.setVisibility(View.GONE);
-//                    } catch (Exception e) {
-//                    }
-//
-//                }
-//            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -316,7 +211,7 @@ public class MapActivity extends AppCompatActivity
         protected String doInBackground(String... params) {
 
             try {
-                geocoder = new Geocoder(MapActivity.this, Locale.getDefault());
+                geocoder = new Geocoder(MapDetailActivity.this, Locale.getDefault());
                 addresses = geocoder.getFromLocation(x, y, 1);
 
                 str = new StringBuilder();

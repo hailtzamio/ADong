@@ -7,18 +7,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.ProductRequirement
+import com.zamio.adong.model.WareHouse
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequirement>) : RecyclerView.Adapter<ProductRequirementAdapter.MyViewHolder>() {
-    var onItemClick: ((ProductRequirement) -> Unit)? = null
+class WareHouseAdapter(private val topicDetails: List<WareHouse>) : RecyclerView.Adapter<WareHouseAdapter.MyViewHolder>() {
+    var onItemClick: ((WareHouse) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
-        var type: TextView = view.findViewById(R.id.tvType)
         var unit: TextView = view.findViewById(R.id.tvUnit)
+        var quantity: TextView = view.findViewById(R.id.tvQuantity)
+
 
 
         init {
@@ -26,28 +27,21 @@ class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequi
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
 
+            quantity.visibility = View.GONE
         }
-    }
-
-
-    fun removeAt(position: Int) {
-        topicDetails.removeAt(position)
-        notifyItemRemoved(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_project_requirement_layout, parent, false)
+                .inflate(R.layout.item_work_outline_layout, parent, false)
+
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.code
-
-        if(topic.status == "NEW") {
-            holder.unit.text = "Mới"
-        }
+        holder.name.text = topic.name
+        holder.unit.text = topic.address
     }
 
     override fun getItemCount(): Int {

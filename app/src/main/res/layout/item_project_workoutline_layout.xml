@@ -74,6 +74,15 @@
                     android:text="11" />
             </RelativeLayout>
 
+            <ImageView
+                android:id="@+id/imvNext"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/next"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
         </RelativeLayout>
 
 

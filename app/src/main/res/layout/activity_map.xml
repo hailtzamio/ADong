@@ -1,7 +1,7 @@
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -29,31 +29,51 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:gravity="center_vertical"
+            android:id="@+id/rlAddress"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="8dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:orientation="vertical" >
+            android:background="@drawable/button_normal_main_no_radius_layout"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Địa chỉ"
-                 />
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_below="@+id/textView1"
-                android:id="@+id/adressText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="1111111"
-                 />
+                <TextView
+                    android:textColor="@color/white"
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:text="Địa chỉ" />
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:id="@+id/adressText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next" />
         </RelativeLayout>
 
         <!--<ImageView

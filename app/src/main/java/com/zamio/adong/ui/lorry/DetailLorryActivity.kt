@@ -7,12 +7,10 @@ import android.content.Intent
 import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
@@ -28,8 +26,11 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
 
     var id = 1
     var model:Lorry? = null
-    val SYDNEY = LatLng(10.762622, 106.660172)
+
     val ZOOM_LEVEL = 5f
+    var lat = 0.0
+    var lg = 0.0
+    var mGoogleMap:GoogleMap? = null
     override fun getLayout(): Int {
         return R.layout.activity_detail_lorry
     }
@@ -53,10 +54,8 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap ?: return
-        with(googleMap) {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, ZOOM_LEVEL))
-            addMarker(MarkerOptions().position(SYDNEY))
-        }
+        mGoogleMap = googleMap
+
     }
 
     override fun initData() {
@@ -112,6 +111,16 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
                         tvModel.text = model!!.model
                         tvPlateNumber.text = model!!.plateNumber
                         tvCapacity.text = model!!.capacity
+                        lat = model!!.latitude
+                        lg = model!!.longitude
+
+                        if( mGoogleMap != null) {
+                            val location = LatLng(lat, lg)
+                            with(mGoogleMap!!) {
+                                moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
+                                addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
+                            }
+                        }
                     }
                 }
             }

@@ -104,8 +104,9 @@
                     android:text="Vị trí" />
 
                 <TextView
+                    android:gravity="end"
                     android:id="@+id/tvChooseLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:paddingTop="10dp"

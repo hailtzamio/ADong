@@ -24,9 +24,9 @@ data class Lorry (
     @SerializedName("id")
     val id: Int,
     @SerializedName("latitude")
-    val latitude: Int,
+    val latitude: Double,
     @SerializedName("longitude")
-    val longitude: Int,
+    val longitude: Double,
     @SerializedName("model")
     val model: String,
     @SerializedName("plateNumber")

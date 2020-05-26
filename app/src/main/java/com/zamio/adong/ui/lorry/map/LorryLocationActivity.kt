@@ -2,27 +2,36 @@ package com.zamio.adong.ui.lorry.map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+import android.location.*
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.zamio.adong.R
+import com.zamio.adong.network.ConstantsApp
 
 
 class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationListener {
 
-    val SYDNEY = LatLng(10.762622, 106.660172)
-    val ZOOM_LEVEL = 5f
+
+    val ZOOM_LEVEL = 19f
     var locationManager: LocationManager? = null
+    var latitude = 0.0
+    var longitude = 0.0
+    var mGoogleMap:GoogleMap? = null
+
+    private val center: LatLng? = null
+    private val markerLayout: LinearLayout? = null
+    private val geocoder: Geocoder? = null
+    private val addresses: List<Address>? = null
+    private val Address: TextView? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lorry_location)
@@ -50,6 +59,8 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
         }
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
 
+
+
     }
 
 
@@ -75,9 +86,18 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
 
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap ?: return
-        with(googleMap) {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(SYDNEY, ZOOM_LEVEL))
-            addMarker(MarkerOptions().position(SYDNEY))
+        mGoogleMap = googleMap
+
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_LAT)) {
+            latitude = intent.getDoubleExtra(ConstantsApp.KEY_VALUES_LAT, 0.0)
+            longitude = intent.getDoubleExtra(ConstantsApp.KEY_VALUES_LONG, 0.0)
+            if(mGoogleMap != null) {
+                val location = LatLng(latitude, longitude)
+                with(mGoogleMap!!) {
+                    moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
+                    addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
+                }
+            }
         }
     }
 

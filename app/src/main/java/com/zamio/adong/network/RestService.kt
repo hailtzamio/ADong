@@ -272,6 +272,15 @@ interface RestService {
     @POST("projectWorkOutline/{projectWorkOutlineId}/uploadCompletionPhoto")
     fun finishImageProjectWorkOutlines(@Path("projectWorkOutlineId") id: Int, @Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
+
+    // WareHouse
+
+    @GET("warehouse?type=STOCK")
+    fun getStocks(@Query("name") name: String): Call<RestData<List<WareHouse>>>
+
+    @GET("warehouse?type=FACTORY")
+    fun getFactories(@Query("name") name: String): Call<RestData<List<WareHouse>>>
+
 //    // Topic Detail
 //    @GET("topic/view?")
 //    abstract fun getTopicDetail(@Query("topic_id") topic_id: String): Call<RestData<TopicDetail>>

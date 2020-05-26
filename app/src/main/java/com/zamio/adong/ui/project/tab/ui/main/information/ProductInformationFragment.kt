@@ -1,29 +1,17 @@
 package com.zamio.adong.ui.project.tab.ui.main.information
 
-import RestClient
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
-import com.elcom.com.quizupapp.ui.network.RestData
-import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
-import kotlinx.android.synthetic.main.activity_detail_project.*
 import kotlinx.android.synthetic.main.activity_overview_project.*
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,8 +59,6 @@ class ProductInformationFragment : BaseFragment() {
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
             startActivityForResult(intent, 1000)
         }
-
-
     }
 
     override fun onResume() {

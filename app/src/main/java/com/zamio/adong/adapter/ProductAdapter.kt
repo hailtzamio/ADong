@@ -66,9 +66,9 @@ class ProductAdapter(private val topicDetails: List<Product>, val isShowCheckBox
                 ) {
                     if (topicDetails.size > adapterPosition) {
                         if (s.toString() != "") {
-                            topicDetails[adapterPosition].quantity = s.toString().toInt()
+                            topicDetails[adapterPosition].quantityChoose = s.toString().toInt()
                         } else {
-                            topicDetails[adapterPosition].quantity = 0
+                            topicDetails[adapterPosition].quantityChoose = 0
                         }
                     }
 
@@ -106,8 +106,8 @@ class ProductAdapter(private val topicDetails: List<Product>, val isShowCheckBox
             holder.imvAva.setImageResource(R.drawable.ava);
         }
 
-        if (topic.quantity != 0) {
-            holder.cbWorker.setText(topic.quantity.toString())
+        if (topic.quantityChoose != 0) {
+            holder.cbWorker.setText(topic.quantityChoose.toString())
         } else {
             holder.cbWorker.setText("")
         }
