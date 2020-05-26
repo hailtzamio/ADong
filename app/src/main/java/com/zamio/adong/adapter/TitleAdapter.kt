@@ -13,7 +13,7 @@ import com.zamio.adong.R
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.Adapter<TitleAdapter.MyViewHolder>() {
+class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
 
     val VIEW_TYPE_NORMAL = 1
@@ -21,6 +21,8 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
 
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
         var tvTitle: TextView = view.findViewById(R.id.tvTitle)
         var imvAva: ImageView = view.findViewById(R.id.imvAva)
 
@@ -32,35 +34,29 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    inner class MyViewHolderLine(view: View) : RecyclerView.ViewHolder(view) {
 
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(adapterPosition)
+            }
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var itemView:View? = null
         if (viewType == VIEW_TYPE_NORMAL) {
             itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_title_layout, parent, false)
+
+            return MyViewHolder(itemView)
         } else {
             itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.view_line, parent, false)
+            return MyViewHolderLine(itemView)
         }
-
-        return MyViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val topic = topicDetails[position]
-        holder.tvTitle.text = topic
-
-        when(position) {
-            1-> holder.imvAva.setImageResource(R.drawable.drawing)
-        }
-
-//        if(topic.status == "idle") {
-//            holder.imvStatus.setImageResource(R.drawable.free_dot)
-//        } else if (topic.status == "working") {
-//            holder.imvStatus.setImageResource(R.drawable.green_dot)
-//        } else {
-//            holder.imvStatus.visibility = View.GONE
-//        }
     }
 
     override fun getItemCount(): Int {
@@ -68,12 +64,31 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
     }
 
     override fun getItemViewType(position: Int): Int {
-
         when(position) {
             0 -> return VIEW_TYPE_NORMAL
             1 -> return VIEW_TYPE_LINE
+            4 -> return VIEW_TYPE_LINE
         }
-
         return VIEW_TYPE_NORMAL
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val topic = topicDetails[position]
+
+        when (getItemViewType(position)) {
+
+            VIEW_TYPE_NORMAL -> {
+                val cellViewHolder = holder as MyViewHolder
+                cellViewHolder.tvTitle.text = topic
+
+                when(position) {
+                    2-> holder.imvAva.setImageResource(R.drawable.print)
+                    3-> holder.imvAva.setImageResource(R.drawable.drawing)
+         
+                    5-> holder.imvAva.setImageResource(R.drawable.healthcare)
+                    6-> holder.imvAva.setImageResource(R.drawable.hospital)
+                }
+            }
+        }
     }
 }
