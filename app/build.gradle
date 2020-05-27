@@ -115,4 +115,7 @@ dependencies {
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
+
+//    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.3.1'
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.3.1'
 }
