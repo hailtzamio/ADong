@@ -53,7 +53,7 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
             holder.imvNext.visibility = View.GONE
         } else {
             holder.quantity.text = topic.finishDatetime
-            holder.imvCheck.setImageResource(R.drawable.correct_orange)
+            holder.imvCheck.setImageResource(R.drawable.check_green2)
             holder.imvNext.visibility = View.VISIBLE
         }
 

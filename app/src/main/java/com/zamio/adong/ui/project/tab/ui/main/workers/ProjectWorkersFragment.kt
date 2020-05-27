@@ -216,12 +216,12 @@ class ProjectWorkersFragment : BaseFragment() {
             ) {
                 dismisProgressDialog()
                 if (response?.body() != null && response.body().status == 1) {
-                    showToast("Đăng ảnh thành công")
+                    showToast("Thành công")
 
                 } else {
                     if (response!!.errorBody() != null) {
-                        val obj = JSONObject(response.errorBody().string())
-                        showToast(obj["message"].toString())
+//                        val obj = JSONObject(response.errorBody().string())
+                        showToast("Không thành công")
                     }
                 }
             }

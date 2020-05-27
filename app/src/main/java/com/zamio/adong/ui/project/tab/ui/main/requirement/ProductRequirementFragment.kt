@@ -83,7 +83,12 @@ class ProductRequirementFragment : BaseFragment() {
                 dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
                     data = response.body().data!!
-                    setupRecyclerView()
+
+                    if(data != null && data!!.size > 0) {
+                        setupRecyclerView()
+                    } else {
+                        showToast("Danh sách trống")
+                    }
                 }
             }
         })
