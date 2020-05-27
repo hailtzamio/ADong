@@ -1,6 +1,3 @@
-
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +10,8 @@ import com.zamio.adong.R
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TitleAdapter(private val topicDetails: ArrayList<String>, val type: Int) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
 
     val VIEW_TYPE_NORMAL = 1
@@ -46,7 +44,7 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var itemView:View? = null
+        var itemView: View? = null
         if (viewType == VIEW_TYPE_NORMAL) {
             itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_title_layout, parent, false)
@@ -64,7 +62,7 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(topicDetails[position] == "Line") {
+        return if (topicDetails[position] == "Line") {
             VIEW_TYPE_LINE
         } else {
             VIEW_TYPE_NORMAL
@@ -80,15 +78,22 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
             VIEW_TYPE_NORMAL -> {
                 val cellViewHolder = holder as MyViewHolder
                 cellViewHolder.tvTitle.text = topic
-
-                when(position) {
-                    2-> holder.imvAva.setImageResource(R.drawable.print)
-                    3-> holder.imvAva.setImageResource(R.drawable.drawing)
-                    5-> holder.imvAva.setImageResource(R.drawable.healthcare)
-                    6-> holder.imvAva.setImageResource(R.drawable.hospital)
-                    10-> holder.imvAva.setImageResource(R.drawable.history)
-                    8-> holder.imvAva.setImageResource(R.drawable.add_worker)
-                    9-> holder.imvAva.setImageResource(R.drawable.picture)
+                if (type == 1) {
+                    when (position) {
+                        2 -> holder.imvAva.setImageResource(R.drawable.print)
+                        3 -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        5 -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                        6 -> holder.imvAva.setImageResource(R.drawable.hospital)
+                        10 -> holder.imvAva.setImageResource(R.drawable.history)
+                        8 -> holder.imvAva.setImageResource(R.drawable.add_worker)
+                        9 -> holder.imvAva.setImageResource(R.drawable.picture)
+                    }
+                } else if (type == 2) {
+                    when (position) {
+                        2 -> holder.imvAva.setImageResource(R.drawable.print)
+                        3 -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        5 -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                    }
                 }
             }
         }

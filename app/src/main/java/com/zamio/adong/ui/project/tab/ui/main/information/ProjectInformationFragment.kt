@@ -104,7 +104,7 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Kho ảnh")
         data.add("Lịch sử điểm danh")
 
-        val mAdapter = TitleAdapter(data)
+        val mAdapter = TitleAdapter(data,1)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter

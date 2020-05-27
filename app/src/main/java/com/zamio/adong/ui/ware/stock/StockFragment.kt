@@ -1,7 +1,9 @@
 package com.zamio.adong.ui.ware.stock
 
 import RestClient
+import TitleAdapter
 import WareHouseAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +26,7 @@ class StockFragment : BaseFragment() {
     private var param2: String? = null
     var currentPage = 0
     var totalPages = 0
-    var mList: List<WareHouse>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,7 +45,8 @@ class StockFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
+//        getData()
+        setupRecyclerView()
     }
 
     override fun onResume() {
@@ -51,46 +54,36 @@ class StockFragment : BaseFragment() {
 
     }
 
-    private fun getData() {
-//        showProgessDialog()
-        RestClient().getInstance().getRestService()
-            .getStocks("")
-            .enqueue(object :
-                Callback<RestData<List<WareHouse>>> {
-                override fun onFailure(call: Call<RestData<List<WareHouse>>>?, t: Throwable?) {
-//                dismisProgressDialog()
-                }
+    private fun setupRecyclerView() {
 
-                override fun onResponse(
-                    call: Call<RestData<List<WareHouse>>>?,
-                    response: Response<RestData<List<WareHouse>>>?
-                ) {
-//                dismisProgressDialog()
-                    if (response!!.body() != null && response.body().status == 1) {
-                        mList = response.body().data!!
-                        setupRecyclerView()
+        val data = ArrayList<String>()
+        data.add("Danh sách kho")
+        data.add("Line")
+        data.add("Danh sách phiếu nhập kho")
+        data.add("Danh sách phiếu xuất kho")
+        data.add("Line")
+        data.add("Yêu cầu mua vật tư")
 
-                    }
-                }
-            })
+
+        val mAdapter = TitleAdapter(data, 2)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
+
+        mAdapter.onItemClick = { product ->
+            when(product) {
+                0 -> goToStockList()
+//                2 -> goToProductRequirement()
+//                8 -> goToAddingWorkers()
+//                9 -> goToAlbum()
+//                10 -> goToCheckinHistory()
+            }
+        }
     }
 
-    private fun setupRecyclerView() {
-        if (recyclerView != null) {
-            val mAdapter = WareHouseAdapter(mList!!)
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.setHasFixedSize(false)
-            recyclerView.adapter = mAdapter
-
-            mAdapter.onItemClick = { product ->
-//                val intent = Intent(context, DetailLorryActivity::class.java)
-////            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-//                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-//                startActivityForResult(intent,1000)
-//                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-
-            }
+    private fun goToStockList() {
+        val intent = Intent(context, StockListActivity::class.java)
+        startActivityForResult(intent, 1000)
     }
 
     companion object {

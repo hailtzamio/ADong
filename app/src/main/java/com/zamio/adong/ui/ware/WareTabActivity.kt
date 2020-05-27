@@ -18,8 +18,8 @@ import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActi
 import com.zamio.adong.ui.ware.stock.FactoryFragment
 import com.zamio.adong.ui.ware.stock.StockFragment
 import com.zamio.adong.ui.worker.MainWorkerActivity
-import kotlinx.android.synthetic.main.activity_project_tab.*
-import kotlinx.android.synthetic.main.item_header_layout.imvBack
+import kotlinx.android.synthetic.main.activity_warehouse_tab.*
+import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.material_design_floating_action_menu.*
 import kotlinx.android.synthetic.main.material_design_floating_worker_action_menu.*
 
@@ -71,9 +71,6 @@ class WareTabActivity : AppCompatActivity() {
                 2 -> goToAddingWorkers()
             }
         }
-
-        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
-        tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
 
         imvBack.setOnClickListener {
             onBackPressed()
