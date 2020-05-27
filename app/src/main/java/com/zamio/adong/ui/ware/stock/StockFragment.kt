@@ -63,7 +63,9 @@ class StockFragment : BaseFragment() {
         data.add("Danh sách phiếu xuất kho")
         data.add("Line")
         data.add("Yêu cầu mua vật tư")
-
+        data.add("Yêu cầu xuất kho")
+        data.add("Line")
+        data.add("Danh sách yêu cầu xuất kho")
 
         val mAdapter = TitleAdapter(data, 2)
         recyclerView.layoutManager = LinearLayoutManager(context)

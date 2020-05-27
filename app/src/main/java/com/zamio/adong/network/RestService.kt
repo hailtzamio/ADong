@@ -274,10 +274,13 @@ interface RestService {
 
     // WareHouse
     @GET("warehouse?type=STOCK")
-    fun getStocks(@Query("name") name: String): Call<RestData<List<WareHouse>>>
+    fun getStocks(@Query("name") name: String): Call<RestData<ArrayList<WareHouse>>>
 
     @GET("warehouse?type=FACTORY")
     fun getFactories(@Query("name") name: String): Call<RestData<List<WareHouse>>>
+
+    @POST("warehouse?size=100&sort=id,desc")
+    fun createWareHouse(@Body worker: JsonObject): Call<RestData<JsonElement>>
 
     @GET("warehouse/{id}")
     fun getWareHouse(@Query("id") id: Int): Call<RestData<WareHouse>>

@@ -234,6 +234,11 @@
         <activity
             android:name=".ui.ware.WareTabActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.CreateStockActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

@@ -93,6 +93,7 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: Int) :
                         2 -> holder.imvAva.setImageResource(R.drawable.print)
                         3 -> holder.imvAva.setImageResource(R.drawable.drawing)
                         5 -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                        6 -> holder.imvAva.setImageResource(R.drawable.hospital)
                     }
                 }
             }
