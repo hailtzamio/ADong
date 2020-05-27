@@ -13,6 +13,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.map.MapActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
@@ -44,7 +45,7 @@ class MainLorryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(!ConstantsApp.PERMISSION!!.contains("c")){
+        if (!ConstantsApp.PERMISSION!!.contains("c")) {
             rightButton.visibility = View.GONE
         }
 
@@ -55,7 +56,7 @@ class MainLorryFragment : BaseFragment() {
         }
 
         imvMap.setOnClickListener {
-            val intent = Intent(context, MapActivity::class.java)
+            val intent = Intent(context, LorryListLocationActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_QUESTION_ID, lorry!!)
             startActivity(intent)
         }
@@ -67,7 +68,7 @@ class MainLorryFragment : BaseFragment() {
     }
 
 
-    private fun getProducts(){
+    private fun getProducts() {
         showProgessDialog()
         RestClient().getInstance().getRestService().getLorries().enqueue(object :
             Callback<RestData<List<Lorry>>> {
@@ -75,16 +76,19 @@ class MainLorryFragment : BaseFragment() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<List<Lorry>>>?, response: Response<RestData<List<Lorry>>>?) {
+            override fun onResponse(
+                call: Call<RestData<List<Lorry>>>?,
+                response: Response<RestData<List<Lorry>>>?
+            ) {
                 dismisProgressDialog()
-                if(response!!.body() != null && response!!.body().status == 1){
+                if (response!!.body() != null && response!!.body().status == 1) {
                     setupRecyclerView(response.body().data!!)
                 }
             }
         })
     }
 
-    private fun setupRecyclerView(data:List<Lorry>){
+    private fun setupRecyclerView(data: List<Lorry>) {
         val mAdapter = LorryAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)
@@ -94,14 +98,14 @@ class MainLorryFragment : BaseFragment() {
             val intent = Intent(context, DetailLorryActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-            startActivityForResult(intent,1000)
+            startActivityForResult(intent, 1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
+        if (resultCode == 100) {
 //            getProducts()
         }
     }

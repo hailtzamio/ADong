@@ -50,5 +50,5 @@ data class Worker(
     @SerializedName("workingStatus")
     var workingStatus: String,
     @SerializedName("teamName")
-    var teamName: String
+    var teamName: String?
 ) : Serializable

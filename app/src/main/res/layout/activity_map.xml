@@ -29,9 +29,11 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:padding="5dp"
+            android:minHeight="60dp"
             android:id="@+id/rlAddress"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/button_normal_main_no_radius_layout"
             android:orientation="vertical">
@@ -45,23 +47,12 @@
 
                 <TextView
                     android:textColor="@color/white"
-                    android:id="@+id/textView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="30dp"
-                    android:text="Địa chỉ" />
-
-                <TextView
-                    android:textColor="@color/white"
                     android:id="@+id/adressText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView1"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="30dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="" />
 
             </LinearLayout>

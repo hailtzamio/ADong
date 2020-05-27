@@ -118,11 +118,17 @@ class DetailContractorActivity : BaseActivity() {
                     }
 
                     tvAddress.text = address
-                    tvEmail.text = product!!.email
-                    tvProjectName.text = product!!.projectName
+
+                    if(product!!.email != null) {
+                        tvEmail.text = product!!.email
+                    }
+
+                    if(product!!.projectName != null) {
+                        tvProjectName.text = product!!.projectName
+                    }
 
                     if (product!!.rating != null) {
-                        rating.rating = product!!.rating
+                        rating.rating = product!!.rating!!
                     }
 
                     if (product!!.workingStatus == "idle") {

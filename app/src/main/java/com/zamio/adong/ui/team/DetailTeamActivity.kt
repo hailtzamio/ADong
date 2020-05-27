@@ -95,7 +95,14 @@ class DetailTeamActivity : BaseActivity() {
                         tvLeaderName.text = team!!.leaderFullName
                         tvChooseWorker.text = "Danh sách công nhân" + " ( " +  team!!.teamSize.toString() + " )"
                         tvPhone.text = team!!.phone
-                        tvPhone2.text = team!!.phone2
+
+                        if(team!!.phone2 != null) {
+                            tvPhone2.text = team!!.phone2
+                        } else {
+                            tvPhone2.text = "---"
+                        }
+
+
                         var address = ""
 
                         if(team!!.address != null) {

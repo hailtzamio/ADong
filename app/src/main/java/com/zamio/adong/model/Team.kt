@@ -36,7 +36,7 @@ data class Team (
     @SerializedName("phone")
     val phone: String,
     @SerializedName("phone2")
-    val phone2: String,
+    val phone2: String?,
     @SerializedName("projectId")
     val projectId: Any,
     @SerializedName("projectName")

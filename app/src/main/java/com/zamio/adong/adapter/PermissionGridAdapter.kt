@@ -67,6 +67,14 @@ class PermissionGridAdapter : BaseAdapter {
             imvAva.setImageResource(R.drawable.labor)
         }
 
+        if(topic.appEntityCode == "Warehouse"){
+            imvAva.setImageResource(R.drawable.factory)
+        }
+
+        if(topic.appEntityCode == "Project"){
+            imvAva.setImageResource(R.drawable.contruction)
+        }
+
 
 
         return view

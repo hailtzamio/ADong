@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.lorry.map
 
+import RestClient
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Address
@@ -14,21 +15,26 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
+import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.zamio.adong.R
+import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_lorry_location.*
+import kotlinx.android.synthetic.main.activity_lorry_list_location.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.util.*
 
 
-class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationListener {
+class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationListener {
 
 
-    val ZOOM_LEVEL = 16f
+    val ZOOM_LEVEL = 5f
     var locationManager: LocationManager? = null
     var latitude = 18.787203
     var longitude = 105.605202
@@ -36,7 +42,7 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lorry_location)
+        setContentView(R.layout.activity_lorry_list_location)
         val mapFragment : SupportMapFragment? =
             supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
@@ -50,21 +56,38 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
 
+    }
 
-        rlAddress.setOnClickListener {
-            onBackPressed()
-        }
+    private fun getProducts() {
+
+        RestClient().getInstance().getRestService().getLorries().enqueue(object :
+            Callback<RestData<List<Lorry>>> {
+            override fun onFailure(call: Call<RestData<List<Lorry>>>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(
+                call: Call<RestData<List<Lorry>>>?,
+                response: Response<RestData<List<Lorry>>>?
+            ) {
+
+                if (response!!.body() != null && response.body().status == 1) {
+                        val mList = response.body().data
+                        if(mList != null) {
+                            mList.forEach {
+                                val location = LatLng(it.latitude, it.longitude)
+                                with(mGoogleMap!!) {
+                                    addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
+                                }
+                            }
+                        }
+                }
+            }
+        })
     }
 
 
@@ -91,40 +114,10 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
     override fun onMapReady(googleMap: GoogleMap?) {
         googleMap ?: return
         mGoogleMap = googleMap
-
-        if (intent.hasExtra(ConstantsApp.KEY_VALUES_LAT)) {
-            latitude = intent.getDoubleExtra(ConstantsApp.KEY_VALUES_LAT, 0.0)
-            longitude = intent.getDoubleExtra(ConstantsApp.KEY_VALUES_LONG, 0.0)
-            if(mGoogleMap != null) {
-                val location = LatLng(latitude, longitude)
-                with(mGoogleMap!!) {
-                    moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
-                    addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
-                }
-
-                val geocoder: Geocoder
-                val addresses: List<Address>
-                geocoder = Geocoder(this, Locale.getDefault())
-
-                addresses = geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    1
-                ) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-
-                val address = addresses[0]
-                    .getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-
-                val city = addresses[0].locality
-                val state = addresses[0].adminArea
-                val country = addresses[0].countryName
-                val postalCode = addresses[0].postalCode
-                val knownName = addresses[0].featureName
-
-                adressText.text = address
-
-            }
+        val location = LatLng(10.810583, 106.709145)
+        with(mGoogleMap!!) {
+            moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
+            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
         }
     }
 

@@ -105,8 +105,14 @@ class DetailDriverActivity : BaseActivity() {
                     model = response.body().data ?: return
                     tvName.text = model!!.fullName
                     tvPhone.text = model!!.phone
-                    tvPhone2.text = model!!.phone2
-                    tvEmail.text = model!!.email
+
+                    if(model!!.phone2 != null) {
+                        tvPhone2.text = model!!.phone2
+                    }
+
+                    if(model!!.email != null) {
+                        tvEmail.text = model!!.email
+                    }
 
                     if (model!!.workingStatus == "idle") {
                         tvStatus.text = "Đang rảnh"

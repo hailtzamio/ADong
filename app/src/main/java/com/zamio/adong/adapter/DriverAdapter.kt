@@ -29,6 +29,9 @@ class DriverAdapter(private val topicDetails: List<Driver>) : RecyclerView.Adapt
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
+
+            unit.visibility = View.GONE
+
         }
 
     }

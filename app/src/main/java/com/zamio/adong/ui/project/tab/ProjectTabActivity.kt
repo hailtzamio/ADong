@@ -3,9 +3,9 @@ package com.zamio.adong.ui.project.tab
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
@@ -18,7 +18,6 @@ import com.zamio.adong.ui.project.tab.ui.main.information.ProductInformationFrag
 import com.zamio.adong.ui.project.tab.ui.main.information.UpdateProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.CreateProductRequirementActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
-import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementFragment
 import com.zamio.adong.ui.project.tab.ui.main.workers.ProjectWorkersFragment
 import com.zamio.adong.ui.project.tab.ui.main.workoutline.MainWorkOutlineFragment
 import com.zamio.adong.ui.worker.MainWorkerActivity
@@ -49,8 +48,8 @@ class ProjectTabActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        hideFabHideFloatShowFlWorker()
+        val fab: ImageView = findViewById(R.id.fab)
+
         imvCheckInOut.visibility = View.GONE
         imvCheckInOut.setOnClickListener {
             val intent = Intent(this, CheckInOutActivity::class.java)
@@ -72,18 +71,15 @@ class ProjectTabActivity : AppCompatActivity() {
                 position = tab.position
 
                 when (position) {
-                    2 -> hideFabHideFloat()
-                    1 -> hideFabHideFloat()
-                    0 -> hideFabHideFloatShowFlWorker()
+                    2 -> fab.visibility = View.GONE
+                    1 -> fab.visibility = View.GONE
+                    0 -> fab.visibility = View.VISIBLE
                 }
             }
         })
 
         fab.setOnClickListener { view ->
-            when (position) {
-                1 -> setupItemWorkOutLine()
-                2 -> goToAddingWorkers()
-            }
+            goToUploadImage()
         }
 
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
@@ -151,7 +147,13 @@ class ProjectTabActivity : AppCompatActivity() {
         viewWorkerFloat.visibility = View.VISIBLE
     }
 
-    private fun hideFabHideFloat() {
+    private fun showCamera() {
+        fab.visibility = View.GONE
+        viewFloat.visibility = View.GONE
+        viewWorkerFloat.visibility = View.GONE
+    }
+
+    private fun hideCamera() {
         fab.visibility = View.GONE
         viewFloat.visibility = View.GONE
         viewWorkerFloat.visibility = View.GONE

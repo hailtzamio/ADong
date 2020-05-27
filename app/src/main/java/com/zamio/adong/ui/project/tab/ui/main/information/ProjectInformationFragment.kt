@@ -12,7 +12,10 @@ import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
+import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
+import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -63,6 +66,24 @@ class ProductInformationFragment : BaseFragment() {
         startActivityForResult(intent, 1000)
     }
 
+    private fun goToAddingWorkers() {
+        val intent = Intent(context, MainWorkerActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToCheckinHistory() {
+        val intent = Intent(context, CheckoutInWorkerListActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToAlbum() {
+        val intent = Intent(context, CheckinOutAlbumImage::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
     override fun onResume() {
         super.onResume()
     }
@@ -78,6 +99,10 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Line")
         data.add("Đánh giá công trình")
         data.add("An toàn lao động")
+        data.add("Line")
+        data.add("Thêm công nhân")
+        data.add("Kho ảnh")
+        data.add("Lịch sử điểm danh")
 
         val mAdapter = TitleAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -88,6 +113,9 @@ class ProductInformationFragment : BaseFragment() {
             when(product) {
                 0 -> goToBaseInformation()
                 2 -> goToProductRequirement()
+                8 -> goToAddingWorkers()
+                9 -> goToAlbum()
+                10 -> goToCheckinHistory()
             }
         }
     }

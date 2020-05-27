@@ -119,7 +119,10 @@ class DetailWorkerActivity : BaseActivity() {
                     tvEmail.text = product!!.lineId
                     tvBankName.text = product!!.bankName
                     tvBankAccount.text = product!!.bankAccount
-                     tvTeam.text = product!!.teamName
+
+                     if(product!!.teamName != null) {
+                         tvTeam.text = product!!.teamName
+                     }
 
                      if (product!!.isTeamLeader){
                          tvPosition.text = "Đội trưởng"

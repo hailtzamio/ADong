@@ -30,6 +30,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.zamio.adong.R;
+import com.zamio.adong.network.ConstantsApp;
 
 import java.io.IOException;
 import java.util.List;
@@ -56,11 +57,12 @@ public class MapActivity extends AppCompatActivity
     private Geocoder geocoder;
     private List<Address> addresses;
     private TextView Address;
-    double latitude;
-    double longitude;
+    double latitude = 10.762622;
+    double longitude = 106.660172;
     private GPSTracker gps;
     private LatLng curentpoint;
     private RelativeLayout rlAddress;
+    private int ZoomLevel = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,7 +125,7 @@ public class MapActivity extends AppCompatActivity
     private void stupMap() {
         try {
 
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
                 return;
             }
@@ -135,99 +137,50 @@ public class MapActivity extends AppCompatActivity
             mGoogleMap.getUiSettings().setRotateGesturesEnabled(true);
             mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
 
-//            PendingResult<Status> result = LocationServices.FusedLocationApi
-//                    .requestLocationUpdates(mGoogleApiClient, mLocationRequest,
-//                            new LocationListener() {
-//                                @Override
-//                                public void onLocationChanged(Location location) {
-//
-//                                }
-//                            });
-
-
-//            result.setResultCallback(new ResultCallback<Status>() {
-//
-//                @Override
-//                public void onResult(Status status) {
-//
-//                    if (status.isSuccess()) {
-//
-//                        Log.e("Result", "success");
-//
-//                    } else if (status.hasResolution()) {
-//                        // Google provides a way to fix the issue
-//                        try {
-//                            status.startResolutionForResult(MapActivity.this,
-//                                    100);
-//                        } catch (IntentSender.SendIntentException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            });
-
-            gps = new GPSTracker(this);
+            gps = new GPSTracker(this, getBaseContext());
 
             gps.canGetLocation();
 
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
+//            latitude = gps.getLatitude();
+//            longitude = gps.getLongitude();
+
+             latitude = 10.762622;
+             longitude = 106.660172;
+
+             if(getIntent().hasExtra(ConstantsApp.KEY_VALUES_LAT)) {
+                 latitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LAT, 0.0);
+                 longitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LONG, 0.0);
+                 ZoomLevel = 16;
+             }
+
             curentpoint = new LatLng(latitude, longitude);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(curentpoint).zoom(19).build();
+                    .target(curentpoint).zoom(ZoomLevel).build();
 
-            mGoogleMap.setMyLocationEnabled(true);
+
             mGoogleMap.animateCamera(CameraUpdateFactory
                     .newCameraPosition(cameraPosition));
             // Clears all the existing markers
             mGoogleMap.clear();
 
 
-            mGoogleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-                @Override
-                public void onCameraIdle() {
-                    Log.d("hailpt", "setOnCameraIdleListener");
-                    center = mGoogleMap.getCameraPosition().target;
-                    mGoogleMap.clear();
-                    markerLayout.setVisibility(View.VISIBLE);
+            mGoogleMap.setOnCameraIdleListener(() -> {
 
-                    latitude = center.latitude;
-                    longitude = center.longitude;
+                center = mGoogleMap.getCameraPosition().target;
+                mGoogleMap.clear();
+                markerLayout.setVisibility(View.VISIBLE);
 
-                    try {
-                        new GetLocationAsync(latitude, longitude).execute();
+                latitude = center.latitude;
+                longitude = center.longitude;
 
-                    } catch (Exception e) {
+                try {
+                    new GetLocationAsync(latitude, longitude).execute();
 
-                    }
+                } catch (Exception e) {
+
                 }
             });
-
-            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-                @Override
-                public void onCameraMove() {
-                    Log.d("hailpt", "~~~");
-                }
-            });
-
-
-//            mGoogleMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-//
-//                @Override
-//                public void onCameraChange(CameraPosition arg0) {
-//                    // TODO Auto-generated method stub
-//                    center = mGoogleMap.getCameraPosition().target;
-//                    mGoogleMap.clear();
-//                    markerLayout.setVisibility(View.VISIBLE);
-//                    Log.d("hailpt1111", "setOnCameraChangeListener");
-//                    try {
-//                        new GetLocationAsync(center.latitude, center.longitude).execute();
-//
-//                    } catch (Exception e) {
-//                    }
-//                }
-//            });
 
             rlAddress.setOnClickListener(view -> {
                 Intent  returnIntent = new Intent();
@@ -237,32 +190,6 @@ public class MapActivity extends AppCompatActivity
                 setResult(5, returnIntent);
                 finish();
             });
-
-//            markerLayout.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    // TODO Auto-generated method stub
-//
-//                    try {
-//
-//                        LatLng latLng1 = new LatLng(center.latitude,
-//                                center.longitude);
-//
-//                        Marker m = mGoogleMap.addMarker(new MarkerOptions()
-//                                .position(latLng1)
-//                                .title(" Set your Location ")
-//                                .snippet("")
-//                                .icon(BitmapDescriptorFactory
-//                                        .fromResource(R.drawable.icon_check)));
-//                        m.setDraggable(true);
-//
-//                        markerLayout.setVisibility(View.GONE);
-//                    } catch (Exception e) {
-//                    }
-//
-//                }
-//            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,7 +271,9 @@ public class MapActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(String result) {
             try {
-                Address.setText(addresses.get(0).getAddressLine(0));
+                if(addresses.size() > 0) {
+                    Address.setText(addresses.get(0).getAddressLine(0));
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

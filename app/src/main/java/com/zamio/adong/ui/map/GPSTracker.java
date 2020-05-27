@@ -30,6 +30,7 @@ import java.util.Locale;
  */
 public class GPSTracker extends Service implements LocationListener {
     private final FragmentActivity mActivity;
+    private final Context mContext;
 
     // flag for GPS Status
     boolean isGPSEnabled = false;
@@ -53,14 +54,15 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
-    public GPSTracker(FragmentActivity activity) {
+    public GPSTracker(FragmentActivity activity, Context mContext) {
         this.mActivity = activity;
+        this.mContext = mContext;
         getLocation();
     }
 
     public Location getLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 try {
                     locationManager = (LocationManager) mActivity
                             .getSystemService(LOCATION_SERVICE);

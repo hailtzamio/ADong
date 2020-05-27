@@ -82,7 +82,7 @@ class PermissionsFragment : BaseFragment() {
             if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"  || it.appEntityCode == "Warehouse"
                         || it.appEntityCode == "Product"
                         || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
-                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundle" || it.appEntityCode  == "Project"|| it.appEntityCode  == "WorkOutline" )) {
+                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project"|| it.appEntityCode  == "WorkOutlinee" )) {
 
                 if (it.appEntityCode == "Worker" ) {
                     it.name = "Công Nhân"

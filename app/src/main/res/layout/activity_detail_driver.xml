@@ -28,10 +28,10 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ava" />
+        tools:background="@drawable/ava" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/cropImageView"
         android:layout_marginTop="15dp"
@@ -41,7 +41,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -56,19 +57,17 @@
 
 
             <TextView
-
                 android:id="@+id/tvName"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
                 app:autoSizeTextType="uniform"
                 tools:text="Tên " />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -84,17 +83,16 @@
 
             <TextView
                 android:id="@+id/tvStatus"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
                 app:autoSizeTextType="uniform"
                 tools:text="Địa chỉ " />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -115,9 +113,10 @@
                 android:layout_alignParentRight="true"
                 tools:text="Địa chỉ " />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -136,14 +135,13 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
                 app:autoSizeTextType="uniform"
-                tools:text="Tên " />
+                android:text="---" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -159,15 +157,13 @@
 
             <TextView
                 android:id="@+id/tvEmail"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
                 app:autoSizeTextType="uniform"
-                tools:text="Tên " />
+                android:text="---" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

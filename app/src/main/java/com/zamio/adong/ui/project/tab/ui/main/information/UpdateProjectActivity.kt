@@ -70,6 +70,8 @@ class UpdateProjectActivity: BaseActivity() {
 
         tvChooseLocation.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_LAT, latitude)
+            intent.putExtra(ConstantsApp.KEY_VALUES_LONG, longitude)
             startActivityForResult(intent,1000)
         }
 
@@ -161,7 +163,7 @@ class UpdateProjectActivity: BaseActivity() {
                     longitude = data!!.longitude
                     latitude = data!!.latitude
 
-                    tvChooseLocation.text = data!!.latitude.toString() + " - " + data!!.longitude.toString()
+//                    tvChooseLocation.text = data!!.latitude.toString() + " - " + data!!.longitude.toString()
 
                 }
             }

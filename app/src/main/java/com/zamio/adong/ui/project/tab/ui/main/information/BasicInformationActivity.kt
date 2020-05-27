@@ -12,6 +12,7 @@ import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.map.MapDetailActivity
 import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -45,7 +46,7 @@ class BasicInformationActivity : BaseActivity() {
             }
 
             imvMap.setOnClickListener {
-                val intent = Intent(this, MapDetailActivity::class.java)
+                val intent = Intent(this, LorryLocationActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_LAT, data!!.latitude)
                 intent.putExtra(ConstantsApp.KEY_VALUES_LONG, data!!.longitude)
                 startActivity(intent)

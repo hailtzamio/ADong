@@ -64,12 +64,12 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
     }
 
     override fun getItemViewType(position: Int): Int {
-        when(position) {
-            0 -> return VIEW_TYPE_NORMAL
-            1 -> return VIEW_TYPE_LINE
-            4 -> return VIEW_TYPE_LINE
+        return if(topicDetails[position] == "Line") {
+            VIEW_TYPE_LINE
+        } else {
+            VIEW_TYPE_NORMAL
+
         }
-        return VIEW_TYPE_NORMAL
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -84,9 +84,11 @@ class TitleAdapter(private val topicDetails: ArrayList<String>) : RecyclerView.A
                 when(position) {
                     2-> holder.imvAva.setImageResource(R.drawable.print)
                     3-> holder.imvAva.setImageResource(R.drawable.drawing)
-
                     5-> holder.imvAva.setImageResource(R.drawable.healthcare)
                     6-> holder.imvAva.setImageResource(R.drawable.hospital)
+                    10-> holder.imvAva.setImageResource(R.drawable.history)
+                    8-> holder.imvAva.setImageResource(R.drawable.add_worker)
+                    9-> holder.imvAva.setImageResource(R.drawable.picture)
                 }
             }
         }

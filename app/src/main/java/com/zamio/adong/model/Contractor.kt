@@ -18,7 +18,7 @@ data class Contractor(
     @SerializedName("districtName")
     var districtName: String?,
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
@@ -28,13 +28,13 @@ data class Contractor(
     @SerializedName("projectId")
     val projectId: Int,
     @SerializedName("projectName")
-    val projectName: String,
+    val projectName: String?,
     @SerializedName("provinceId")
     val provinceId: Int,
     @SerializedName("provinceName")
     var provinceName: String?,
     @SerializedName("rating")
-    val rating: Float,
+    val rating: Float?,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")

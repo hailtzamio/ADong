@@ -119,6 +119,11 @@
         <activity
             android:name=".ui.lorry.map.LorryLocationActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.lorry.map.LorryListLocationActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.PreviewImageActivity"
             android:screenOrientation="portrait" />

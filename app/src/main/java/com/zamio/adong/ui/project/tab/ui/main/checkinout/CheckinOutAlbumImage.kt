@@ -76,7 +76,12 @@ class CheckinOutAlbumImage : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     itemList = response.body().data
-                    setupView()
+                    if(itemList!!.isNotEmpty()) {
+                        setupView()
+                    } else {
+                        showToast("Không có ảnh nào")
+                    }
+
                 }
             }
         })

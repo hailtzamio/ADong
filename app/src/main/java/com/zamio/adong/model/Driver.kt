@@ -24,7 +24,7 @@ data class Driver(
     @SerializedName("phone")
     val phone: String,
     @SerializedName("phone2")
-    val phone2: String,
+    val phone2: String?,
     @SerializedName("tripId")
     val tripId: Int,
     @SerializedName("tripName")
@@ -38,7 +38,7 @@ data class Driver(
     @SerializedName("workingStatus")
     val workingStatus: String,
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("avatarExtId")
     val avatarExtId: String
 ) : Serializable

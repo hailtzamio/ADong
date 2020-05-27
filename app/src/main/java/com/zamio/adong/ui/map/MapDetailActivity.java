@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.map;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -29,6 +30,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.zamio.adong.R;
 import com.zamio.adong.network.ConstantsApp;
 
@@ -57,6 +59,7 @@ public class MapDetailActivity extends AppCompatActivity
     private LatLng curentpoint;
     private RelativeLayout rlAddress;
     private ImageView imvGps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,11 +122,18 @@ public class MapDetailActivity extends AppCompatActivity
     }
 
     private void stupMap() {
+
         try {
 
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//
+//                return;
+//            }
 
-                return;
+            if (ActivityCompat.checkSelfPermission((Activity)this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity)this, new String[]{
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                }, 10);
             }
 
             mGoogleMap.setMyLocationEnabled(false);
@@ -133,35 +143,37 @@ public class MapDetailActivity extends AppCompatActivity
             mGoogleMap.getUiSettings().setRotateGesturesEnabled(true);
             mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
 
-            gps = new GPSTracker(this);
+            gps = new GPSTracker(this, getBaseContext());
 
             gps.canGetLocation();
-
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
-            curentpoint = new LatLng(latitude, longitude);
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(curentpoint).zoom(19).build();
-
-            mGoogleMap.setMyLocationEnabled(true);
-            mGoogleMap.animateCamera(CameraUpdateFactory
-                    .newCameraPosition(cameraPosition));
-            // Clears all the existing markers
-            mGoogleMap.clear();
-
-
 
             if (getIntent().hasExtra(ConstantsApp.KEY_VALUES_LAT)) {
                 latitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LAT, 0.0);
                 longitude = getIntent().getDoubleExtra(ConstantsApp.KEY_VALUES_LONG, 0.0);
-                if(mGoogleMap != null) {
+
+                MarkerOptions markerOptions = new MarkerOptions();
+
+                curentpoint = new LatLng(latitude, longitude);
+
+                markerOptions.position(curentpoint);
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(curentpoint).zoom(16).build();
+
+                mGoogleMap.animateCamera(CameraUpdateFactory
+                        .newCameraPosition(cameraPosition));
+                // Clears all the existing markers
+                mGoogleMap.clear();
+
+                mGoogleMap.addMarker(markerOptions);
+
+                if (mGoogleMap != null) {
                     new GetLocationAsync(latitude, longitude).execute();
-                    }
+                }
             }
 
             rlAddress.setOnClickListener(view -> {
-               onBackPressed();
+                onBackPressed();
             });
 
         } catch (Exception e) {
