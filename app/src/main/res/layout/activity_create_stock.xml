@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,57 +17,68 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:padding="20dp"
-        android:layout_below="@+id/header"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_below="@+id/header"
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <EditText
-            android:singleLine="true"
+            android:id="@+id/edtBrand"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
+            android:background="@drawable/button_normal_main_radius_layout"
             android:hint="Tên *"
             android:paddingLeft="10dp"
-            android:id="@+id/edtBrand"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:singleLine="true" />
 
         <EditText
-            android:singleLine="true"
+            android:id="@+id/edtModel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
             android:hint="Địa chỉ *"
             android:paddingLeft="10dp"
-            android:id="@+id/edtModel"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:singleLine="true" />
 
-        <EditText
-            android:singleLine="true"
-            android:hint="Quản lý kho *"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtCapacity"
+        <RelativeLayout
+            android:id="@+id/rlKeeper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/tvKeeper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Thủ kho *"
+                android:textColor="@color/colorGray" />
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/next"
+                android:layout_width="15dp"
+                android:layout_height="15dp" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvOk"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="ĐỒNG Ý"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_size"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size" />
-
-
+            android:gravity="center"
+            android:text="ĐỒNG Ý"
+            android:textColor="@color/white" />
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

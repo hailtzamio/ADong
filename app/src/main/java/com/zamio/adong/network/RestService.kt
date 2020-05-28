@@ -219,8 +219,6 @@ interface RestService {
     /* End Project */
     /* WorkOutline  */
 
-
-
     @GET("project/{projectId}/workOutlines?size=1000&sort=id,desc")
     fun getProjectWorkOutlines(@Path("projectId") projectId: Int, @Query("page") page: Int): Call<RestData<List<WorkOutline>>>
 
@@ -283,19 +281,19 @@ interface RestService {
     fun createWareHouse(@Body worker: JsonObject): Call<RestData<JsonElement>>
 
     @GET("warehouse/{id}")
-    fun getWareHouse(@Query("id") id: Int): Call<RestData<WareHouse>>
+    fun getWareHouse(@Path("id") id: Int): Call<RestData<WareHouse>>
 
-    @GET("goodsReceivedNote")
-    fun getGoodsReceivedNotes(@Query("id") id: Int): Call<RestData<List<GoodsNote>>>
+    @GET("goodsReceivedNote?size=100&sort=id,desc")
+    fun getGoodsReceivedNotes(@Query("page") page: Int): Call<RestData<ArrayList<GoodsNote>>>
 
     @POST("goodsReceivedNote")
-    fun createGoodsReceivedNote(@Body data: GoodsNote): Call<RestData<JsonElement>>
+    fun createGoodsReceivedNote(@Body data: GoodsNoteRq): Call<RestData<JsonElement>>
 
     @GET("goodsReceivedNote/{id}")
-    fun getGoodsReceivedNote(@Query("id") id: Int): Call<RestData<GoodsNote>>
+    fun getGoodsReceivedNote(@Path("id") id: Int): Call<RestData<GoodsNote>>
 
-    @PUT("goodsReceivedNote")
-    fun updateGoodsReceivedNote(@Body data: GoodsNote): Call<RestData<JsonElement>>
+    @PUT("goodsReceivedNote/{id}")
+    fun updateGoodsReceivedNote(@Path("id") id: Int,@Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
     @PUT("goodsReceivedNote/{id }/confirm")
     fun confirmGoodsReceivedNote(@Query("id") grnId: Int): Call<RestData<JsonElement>>
@@ -328,5 +326,6 @@ interface RestService {
     @PUT("goodsIssueRequest")
     fun updateGoodsIssueRequest(@Body data: GoodsIssueRequest): Call<RestData<JsonElement>>
 
-
+    @GET("user?size=1000&sort=id,desc&authorityCode=WAREHOUSE_KEEPER")
+    fun getkeepers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 }

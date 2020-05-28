@@ -1,6 +1,7 @@
 package com.zamio.adong.network;
 
 
+import com.zamio.adong.model.LinesAddNew;
 import com.zamio.adong.model.Product;
 import com.zamio.adong.model.Worker2;
 
@@ -54,4 +55,7 @@ public class ConstantsApp {
     public static String PERMISSION = "c-r-u-d";
     public static ArrayList<Worker2> workers = new ArrayList<Worker2>();
     public static ArrayList<Product> products = new ArrayList<Product>();
+    public static ArrayList<LinesAddNew> lines = new ArrayList<LinesAddNew>();
+    public static ArrayList<Product> productsToGooodReceied = new ArrayList<Product>();
+
 }

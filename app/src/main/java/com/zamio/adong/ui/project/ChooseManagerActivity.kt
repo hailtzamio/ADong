@@ -43,6 +43,7 @@ class ChooseManagerActivity : BaseActivity() {
                 2 -> getDeputyManagers()
                 3 -> getLeaders()
                 4 -> getSecretaries()
+                5 -> getKeepers()
             }
 
             when (key) {
@@ -50,6 +51,7 @@ class ChooseManagerActivity : BaseActivity() {
                 2 -> tvTitle.text = "Phó Bộ Phận"
                 3 -> tvTitle.text = "Giám Sát"
                 4 -> tvTitle.text = "Thư Ký"
+               5 -> tvTitle.text = "Thủ Kho"
             }
 
         }
@@ -122,6 +124,26 @@ class ChooseManagerActivity : BaseActivity() {
     private fun getSecretaries() {
         showProgessDialog()
         RestClient().getInstance().getRestService().getSecretaries(0, "").enqueue(object :
+            Callback<RestData<List<Worker>>> {
+            override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<List<Worker>>>?,
+                response: Response<RestData<List<Worker>>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body().status == 1) {
+                    setupRecyclerView(response.body().data!!)
+                }
+            }
+        })
+    }
+
+    private fun getKeepers() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getkeepers(0, "").enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()

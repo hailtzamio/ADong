@@ -240,6 +240,34 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.ware.stock.DetailStockActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.UpdateStockActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods.GoodsReceivedNoteListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods.CreateGoodsReceivedNoteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods.AddProductToGoodsReceiedActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods.DetailGoodsReveivedActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods.UpdateGoodsReceivedNoteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity

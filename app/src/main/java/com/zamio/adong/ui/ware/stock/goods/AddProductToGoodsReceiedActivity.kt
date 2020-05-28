@@ -1,11 +1,7 @@
-package com.zamio.adong.ui.project.tab.ui.main.requirement
+package com.zamio.adong.ui.ware.stock.goods
 
 import ProductAdapter
 import RestClient
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
 import android.util.Log
 import android.view.View
@@ -14,25 +10,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.LinesAddNew
 import com.zamio.adong.model.Product
-import com.zamio.adong.model.ProductRequirementRes
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.product.DetailProductActivity
-import kotlinx.android.synthetic.main.activity_create_product_requirement.*
+import kotlinx.android.synthetic.main.activity_create_goods_received.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
-class CreateProductRequirementActivity : BaseActivity() {
+class AddProductToGoodsReceiedActivity : BaseActivity() {
 
     var currentPage = 0
     var totalPages = 0
@@ -40,7 +31,7 @@ class CreateProductRequirementActivity : BaseActivity() {
     var productChoose = ArrayList<Product>()
     var id = 0
     override fun getLayout(): Int {
-        return R.layout.activity_create_product_requirement
+        return R.layout.activity_create_product_goods_receied
     }
 
     override fun initView() {
@@ -73,18 +64,8 @@ class CreateProductRequirementActivity : BaseActivity() {
             getProducts(0)
         }
 
-        rlDate.setOnClickListener {
-            hideKeyboard()
-            showDateTimePicker()
-        }
-
-        tvTitle.text = "Thêm Vật Tư"
+        tvTitle.text = "Chọn Vật Tư"
         rightButton.setOnClickListener {
-
-//            if(tvChooseDate.text == "Chọn") {
-//                showToast("Chọn ngày")
-//                return@setOnClickListener
-//            }
 
             for (j in (products.size - 1) downTo 0) {
                 if (products[j].quantityChoose != 0) {
@@ -93,9 +74,7 @@ class CreateProductRequirementActivity : BaseActivity() {
                 }
             }
 
-            Log.e("hailpt~~", " before "+productChoose.size)
-
-            val addNew = ArrayList<LinesAddNew>()
+            Log.e("hailpt~~", " before " + productChoose.size)
 
             var count = productChoose.size
             for (i in 0 until count) {
@@ -109,56 +88,16 @@ class CreateProductRequirementActivity : BaseActivity() {
                 }
             }
 
-            Log.e("hailpt~~", " after "+productChoose.size)
-
+            Log.e("hailpt~~", " after " + productChoose.size)
+            ConstantsApp.productsToGooodReceied = productChoose
             productChoose.forEach {
-                addNew.add(LinesAddNew(0,it.id,it.quantityChoose, ""))
+                val line = LinesAddNew(0,it.id, it.quantityChoose, "")
+                ConstantsApp.lines.add(line)
             }
-
-            val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())
-            create(productRequirementRes)
+            Log.e("hailpt~~", " line " + ConstantsApp.lines.size)
+            setResult(101)
+            finish()
         }
-    }
-
-    private lateinit var date: Calendar
-    var plannedStartDate = ""
-    private fun showDateTimePicker() {
-        val currentDate: Calendar = Calendar.getInstance()
-        date = Calendar.getInstance()
-        DatePickerDialog(
-            this,
-            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                date.set(year, monthOfYear, dayOfMonth)
-                TimePickerDialog(
-                    this,
-                    OnTimeSetListener { view, hourOfDay, minute ->
-                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                        date.set(Calendar.MINUTE, minute)
-                        val format =
-                            SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
-
-                        val formatToShow =
-                            SimpleDateFormat("dd/MM/yyyy hh:mm a")
-
-                        val dateTime = format.format(date.time).toString()
-                        val dateTimeToShow = formatToShow.format(date.time).toString()
-                        plannedStartDate = dateTime
-                        tvChooseDate.text = dateTimeToShow
-                    },
-                    currentDate.get(Calendar.HOUR_OF_DAY),
-                    currentDate.get(Calendar.MINUTE),
-                    false
-                ).show()
-            },
-            currentDate.get(Calendar.YEAR),
-            currentDate.get(Calendar.MONTH),
-            currentDate.get(Calendar.DATE)
-        ).show()
-    }
-
-    private fun setupSelectedCheck() {
-
-
     }
 
     override fun resumeData() {
@@ -167,33 +106,6 @@ class CreateProductRequirementActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
-    }
-
-    private fun create(jsonObject: ProductRequirementRes) {
-        showProgessDialog()
-        RestClient().getInstance().getRestService().createProductRequirementForProject(jsonObject,id).enqueue(object :
-            Callback<RestData<JsonElement>> {
-
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response.body().status == 1) {
-                    showToast("Tạo thành công")
-                    setResult(101)
-                    finish()
-                } else {
-                    val obj = JSONObject(response.errorBody().string())
-                    showToast(obj["message"].toString())
-                }
-            }
-        })
     }
 
     private fun getProducts(page: Int) {

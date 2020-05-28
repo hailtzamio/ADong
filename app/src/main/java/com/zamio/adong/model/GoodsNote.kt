@@ -2,10 +2,11 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class GoodsNote(
     @SerializedName("code")
-    val code: String,
+    val code: String?,
     @SerializedName("confirmationDate")
     val confirmationDate: String,
     @SerializedName("createdByFullName")
@@ -15,17 +16,17 @@ data class GoodsNote(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("deliveredBy")
-    val deliveredBy: String,
+    val deliveredBy: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("lines")
-    val lines: ArrayList<String>,
+    val lines: ArrayList<LinesAddNew>?,
     @SerializedName("note")
-    val note: String,
+    val note: String?,
     @SerializedName("ref")
-    val ref: String,
+    val ref: String?,
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")
@@ -35,5 +36,5 @@ data class GoodsNote(
     @SerializedName("warehouseId")
     val warehouseId: Int,
     @SerializedName("warehouseName")
-    val warehouseName: String
-)
+    val warehouseName: String?
+) : Serializable
