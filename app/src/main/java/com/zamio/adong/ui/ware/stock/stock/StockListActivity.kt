@@ -1,12 +1,10 @@
-package com.zamio.adong.ui.ware.stock
+package com.zamio.adong.ui.ware.stock.stock
 
 import RestClient
 import WareHouseAdapter
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData

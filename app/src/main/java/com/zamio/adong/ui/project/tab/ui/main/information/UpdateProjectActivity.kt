@@ -151,13 +151,12 @@ class UpdateProjectActivity: BaseActivity() {
 
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
-                    teamId = data!!.teamId
                     secretaryId = data!!.secretaryId
                     supervisorId = data!!.supervisorId
-                    contractorId = data!!.contractorId
+                    contractorId = data!!.contractorId!!
                     managerId = data!!.managerId
                     deputyManagerId = data!!.deputyManagerId
-                    teamId = data!!.teamId
+                    teamId = data!!.teamId!!
                     teamType = data!!.teamType
 
                     longitude = data!!.longitude

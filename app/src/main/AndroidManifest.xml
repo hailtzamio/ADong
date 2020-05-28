@@ -28,7 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ware.stock.StockListActivity"></activity>
+        <activity android:name=".ui.ware.stock.stock.StockListActivity"></activity>
         <activity
             android:name=".ui.map.MapActivity"
             android:screenOrientation="portrait" />
@@ -236,15 +236,15 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.CreateStockActivity"
+            android:name=".ui.ware.stock.stock.CreateStockActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.DetailStockActivity"
+            android:name=".ui.ware.stock.stock.DetailStockActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.UpdateStockActivity"
+            android:name=".ui.ware.stock.stock.UpdateStockActivity"
             android:screenOrientation="portrait" />
 
         <activity

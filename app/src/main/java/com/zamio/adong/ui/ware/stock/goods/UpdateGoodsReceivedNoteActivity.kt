@@ -8,11 +8,10 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.GoodsNote
-import com.zamio.adong.model.GoodsNoteRq
 import com.zamio.adong.model.GoodsNoteUpdateRq
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.network.ConstantsApp.*
-import com.zamio.adong.ui.ware.stock.StockListActivity
+import com.zamio.adong.ui.ware.stock.stock.StockListActivity
 import kotlinx.android.synthetic.main.activity_create_goods_received.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -34,10 +33,10 @@ class UpdateGoodsReceivedNoteActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Cập Nhật"
         rightButton.visibility = View.GONE
-        rlChooseProduct.visibility = View.GONE
         recyclerView.visibility = View.GONE
+        tvProduct.visibility = View.GONE
 
-        rlChooseProduct.setOnClickListener {
+        tvProduct.setOnClickListener {
             val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
             startActivityForResult(intent, 1000)

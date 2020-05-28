@@ -1,14 +1,17 @@
 package com.zamio.adong.ui.project.tab
 
+import RestClient
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
+import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ui.main.SectionsPagerAdapter
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckInOutActivity
@@ -25,15 +28,19 @@ import kotlinx.android.synthetic.main.activity_project_tab.*
 import kotlinx.android.synthetic.main.item_header_layout.imvBack
 import kotlinx.android.synthetic.main.material_design_floating_action_menu.*
 import kotlinx.android.synthetic.main.material_design_floating_worker_action_menu.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ProjectTabActivity : AppCompatActivity() {
     var id = 0
     var position = 0
+    var statusProject = ""
 //    val producPage = ProductRequirementFragment()
     val workerPage = ProjectWorkersFragment()
     val informationPage = ProductInformationFragment()
-
+    var data: Project? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_tab)
@@ -83,38 +90,15 @@ class ProjectTabActivity : AppCompatActivity() {
         }
 
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        data = intent.extras!!.get(ConstantsApp.KEY_VALUES_OBJECT) as Project
+
+//        getData()
+
+        statusProject = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS)
         tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
 
         imvBack.setOnClickListener {
             onBackPressed()
-        }
-
-        floatingActionButton2.setOnClickListener {
-            val intent = Intent(this, UpdateProjectActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-            startActivityForResult(intent, 1000)
-        }
-
-        floatingActionButton3.setOnClickListener {
-            val intent = Intent(this, ProductRequirementActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-            startActivityForResult(intent, 1000)
-        }
-
-        flWorker1.setOnClickListener {
-            goToAddingWorkers()
-        }
-
-        flWorker2.setOnClickListener {
-            goToUploadImage()
-        }
-
-        flWorker3.setOnClickListener {
-            goToAlbum()
-        }
-
-        flWorker4.setOnClickListener {
-            goToCheckinHistory()
         }
 
     }
@@ -125,67 +109,39 @@ class ProjectTabActivity : AppCompatActivity() {
         startActivityForResult(intent, 1000)
     }
 
-    private fun setupItemWorkOutLine() {
-        fab.visibility = View.GONE
-    }
 
-    private fun hideFabShowFloat() {
-        fab.visibility = View.GONE
-        viewFloat.visibility = View.VISIBLE
-        viewWorkerFloat.visibility = View.GONE
-    }
-
-    private fun showFabHideFloat() {
-        fab.visibility = View.VISIBLE
-        viewFloat.visibility = View.GONE
-        viewWorkerFloat.visibility = View.GONE
-    }
-
-    private fun hideFabHideFloatShowFlWorker() {
-        fab.visibility = View.GONE
-        viewFloat.visibility = View.GONE
-        viewWorkerFloat.visibility = View.VISIBLE
-    }
-
-    private fun showCamera() {
-        fab.visibility = View.GONE
-        viewFloat.visibility = View.GONE
-        viewWorkerFloat.visibility = View.GONE
-    }
-
-    private fun hideCamera() {
-        fab.visibility = View.GONE
-        viewFloat.visibility = View.GONE
-        viewWorkerFloat.visibility = View.GONE
-    }
-
-    private fun goToAddingWorkers() {
-        val intent = Intent(this, MainWorkerActivity::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-        startActivityForResult(intent, 1000)
-    }
 
     private fun goToUploadImage() {
         workerPage.pickImageFromAlbum()
     }
 
-    private fun goToAlbum() {
-        val intent = Intent(this, CheckinOutAlbumImage::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-        startActivityForResult(intent, 1000)
-    }
+    fun getData() {
+        RestClient().getInstance().getRestService().getProject(id).enqueue(object :
+            Callback<RestData<Project>> {
 
-    private fun goToCheckinHistory() {
-        val intent = Intent(this, CheckoutInWorkerListActivity::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-        startActivityForResult(intent, 1000)
+            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+
+            }
+            override fun onResponse(
+                call: Call<RestData<Project>>?,
+                response: Response<RestData<Project>>?
+            ) {
+                if (response!!.body() != null && response.body().status == 1) {
+                    data = response.body().data ?: return
+                }
+            }
+        })
     }
 
     fun getProjectId(): Int {
         return id
     }
-    fun setTitle() {
 
+    fun getStatus(): String {
+        return statusProject
+    }
+    fun getProject() : Project{
+        return data!!
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

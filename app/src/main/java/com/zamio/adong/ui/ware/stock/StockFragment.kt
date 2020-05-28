@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.zamio.adong.R
 import com.zamio.adong.ui.ware.stock.goods.GoodsReceivedNoteListActivity
+import com.zamio.adong.ui.ware.stock.stock.StockListActivity
 import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 
 private const val ARG_PARAM1 = "param1"

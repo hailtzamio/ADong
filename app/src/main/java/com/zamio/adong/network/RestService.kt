@@ -195,6 +195,12 @@ interface RestService {
     @DELETE("project/{id}")
     fun removeProject(@Path("id") productId: Int): Call<RestData<JsonElement>>
 
+    @PUT("project/{id}/pause")
+    fun pauseProject(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @PUT("project/{id}/resume")
+    fun pauseResume(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>
+
     @GET("project?size=50&sort=id,desc")
     fun getProjects(@Query("page") page: Int,@Query("search") fullName: String): Call<RestData<List<Project>>>
 

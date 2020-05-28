@@ -1,15 +1,23 @@
 package com.zamio.adong.ui.project.tab.ui.main.information
 
+import RestClient
 import TitleAdapter
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
+import com.elcom.com.quizupapp.ui.network.RestData
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.zamio.adong.R
+import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
@@ -17,6 +25,10 @@ import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListAct
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +45,8 @@ class ProductInformationFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+    var data: Project? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -51,7 +65,10 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+
+
+        getData()
+
     }
 
     private fun goToBaseInformation() {
@@ -84,11 +101,111 @@ class ProductInformationFragment : BaseFragment() {
         startActivityForResult(intent, 1000)
     }
 
+    private fun pauseProject() {
+        var title = ""
+        title = if(isPauseProject) {
+            "Phục hồi công trình?"
+        } else {
+            "Tạm dừng công trình?"
+        }
+
+        val dialogClickListener =
+            DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        if(isPauseProject) {
+                          doResumeProjectApi()
+                        } else {
+                            doPauseProjectApi()
+                        }
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                    }
+                }
+            }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setMessage(title).setPositiveButton("Đồng ý", dialogClickListener)
+            .setNegativeButton("Không", dialogClickListener).show()
+    }
+
+
+    private fun doPauseProjectApi() {
+
+       Log.e("hailpt", "getStatus "+ (activity as ProjectTabActivity).getStatus())
+        val reason = JsonObject()
+        reason.addProperty("note", "Need to Pause")
+
+
+        showProgessDialog()
+        RestClient().getRestService().pauseProject((activity as ProjectTabActivity).getProjectId(), reason).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response!!.body().status == 1){
+                    showToast("Thành công")
+                    getData()
+                } else {
+                    if(response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
+    }
+
+
+    private fun doResumeProjectApi() {
+
+        if(data == null) {
+            return
+        }
+
+        val reason = JsonObject()
+        reason.addProperty("teamType", data!!.teamType)
+        reason.addProperty("teamId", data!!.teamId)
+        if(data!!.contractorId != null) {
+            reason.addProperty("contractorId", data!!.contractorId)
+        } else {
+            reason.addProperty("teamId", data!!.teamId)
+        }
+
+        reason.addProperty("note", "Need to Pause")
+
+        showProgessDialog()
+        RestClient().getRestService().pauseResume((activity as ProjectTabActivity).getProjectId(), reason).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response!!.body().status == 1){
+                    showToast("Thành công")
+                    getData()
+                } else {
+                    if(response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
+    }
+
     override fun onResume() {
         super.onResume()
     }
 
-
+    var isPauseProject = false
     private fun setupRecyclerView() {
 
         val data = ArrayList<String>()
@@ -103,6 +220,13 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Thêm công nhân")
         data.add("Kho ảnh")
         data.add("Lịch sử điểm danh")
+        data.add("Line")
+
+        if(isPauseProject) {
+            data.add("Phục hồi công trình")
+        } else {
+            data.add("Tạm dừng công trình")
+        }
 
         val mAdapter = TitleAdapter(data,1)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -116,8 +240,31 @@ class ProductInformationFragment : BaseFragment() {
                 8 -> goToAddingWorkers()
                 9 -> goToAlbum()
                 10 -> goToCheckinHistory()
+                12 ->  pauseProject()
             }
         }
+    }
+
+    fun getData() {
+        RestClient().getInstance().getRestService().getProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
+            Callback<RestData<Project>> {
+
+            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+
+            }
+            override fun onResponse(
+                call: Call<RestData<Project>>?,
+                response: Response<RestData<Project>>?
+            ) {
+                if (response!!.body() != null && response.body().status == 1) {
+                    data = response.body().data ?: return
+                    if(data != null) {
+                        isPauseProject = data!!.status == "PAUSED"
+                        setupRecyclerView()
+                    }
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

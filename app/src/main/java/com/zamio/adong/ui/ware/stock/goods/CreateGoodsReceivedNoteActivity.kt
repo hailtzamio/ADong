@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.ware.stock.goods
 
+import GoodsLines2Adapter
 import ProductToAddGoodsReceivedAdapter
 import RestClient
 import android.content.Intent
@@ -12,7 +13,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.GoodsNoteRq
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.network.ConstantsApp.*
-import com.zamio.adong.ui.ware.stock.StockListActivity
+import com.zamio.adong.ui.ware.stock.stock.StockListActivity
 import kotlinx.android.synthetic.main.activity_create_goods_received.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -32,10 +33,10 @@ class CreateGoodsReceivedNoteActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Tạo Kho"
+        tvTitle.text = "Tạo Phiếu Nhập Kho"
         rightButton.visibility = View.GONE
 
-        rlChooseProduct.setOnClickListener {
+        tvProduct.setOnClickListener {
             val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
             startActivityForResult(intent, 1000)
@@ -76,7 +77,7 @@ class CreateGoodsReceivedNoteActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView(){
-        val mAdapter = ProductToAddGoodsReceivedAdapter(productsToGooodReceied!!)
+        val mAdapter = GoodsLines2Adapter(productsToGooodReceied!!)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)

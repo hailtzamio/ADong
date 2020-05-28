@@ -2,6 +2,7 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Project(
     @SerializedName("accountingStatus")
@@ -13,7 +14,7 @@ data class Project(
     @SerializedName("address")
     val address: String,
     @SerializedName("contractorId")
-    val contractorId: Int,
+    val contractorId: Int?,
     @SerializedName("contractorName")
     val contractorName: String,
     @SerializedName("createdByFullName")
@@ -69,7 +70,7 @@ data class Project(
     @SerializedName("supplyChainCriteriaBundleName")
     val supplyChainCriteriaBundleName: String,
     @SerializedName("teamId")
-    val teamId: Int,
+    val teamId: Int?,
     @SerializedName("teamLeaderFullName")
     val teamLeaderFullName: String,
     @SerializedName("teamLeaderId")
@@ -84,4 +85,4 @@ data class Project(
     val updatedById: Int,
     @SerializedName("updatedTime")
     val updatedTime: String
-)
+) : Serializable

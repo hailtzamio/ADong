@@ -25,73 +25,42 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <RelativeLayout
+        <EditText
+
+            android:id="@+id/edtDeliveredBy"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@color/colorView" />
-
-            <EditText
-                android:id="@+id/edtDeliveredBy"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="Người giao"
-                android:paddingLeft="10dp"
-                android:singleLine="true" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorView" />
-
-        </RelativeLayout>
+            android:layout_height="40dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:hint="Người giao"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
 
 
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/edtRef"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size"
-            android:background="@android:color/transparent"
+            android:background="@drawable/button_normal_main_radius_layout"
             android:hint="Mã chứng từ gốc"
             android:paddingLeft="10dp"
             android:singleLine="true" />
 
 
-        <RelativeLayout
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/edtNote"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@color/colorView" />
-
-            <EditText
-                android:id="@+id/edtNote"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="Ghi chú"
-                android:paddingLeft="10dp"
-                android:singleLine="true" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorView" />
-
-        </RelativeLayout>
+            android:layout_height="40dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:hint="Ghi chú"
+            android:paddingLeft="10dp"
+            android:singleLine="true" />
 
 
         <RelativeLayout
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_marginTop="10dp"
             android:id="@+id/rlChooseWareHouse"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size"
@@ -114,42 +83,22 @@
                 android:layout_marginRight="10dp"
                 android:src="@drawable/next" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorView" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlChooseProduct"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size"
-          >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:hint="Chọn vật tư"
-                android:paddingLeft="10dp" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/next" />
-
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvProduct"
+            android:textStyle="bold"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="DANH SÁCH VẬT TƯ ( + )"
+            android:paddingLeft="10dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:scrollbars="vertical" />
 
