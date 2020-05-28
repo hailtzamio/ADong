@@ -132,7 +132,7 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun doPauseProjectApi() {
 
-       Log.e("hailpt", "getStatus "+ (activity as ProjectTabActivity).getStatus())
+ 
         val reason = JsonObject()
         reason.addProperty("note", "Need to Pause")
 

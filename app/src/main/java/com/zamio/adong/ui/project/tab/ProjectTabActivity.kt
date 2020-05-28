@@ -36,8 +36,6 @@ import retrofit2.Response
 class ProjectTabActivity : AppCompatActivity() {
     var id = 0
     var position = 0
-    var statusProject = ""
-//    val producPage = ProductRequirementFragment()
     val workerPage = ProjectWorkersFragment()
     val informationPage = ProductInformationFragment()
     var data: Project? = null
@@ -46,7 +44,7 @@ class ProjectTabActivity : AppCompatActivity() {
         setContentView(R.layout.activity_project_tab)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         sectionsPagerAdapter.addFragment(workerPage)
-//        sectionsPagerAdapter.addFragment(producPage)
+
         sectionsPagerAdapter.addFragment(MainWorkOutlineFragment())
         sectionsPagerAdapter.addFragment(informationPage)
 
@@ -85,34 +83,13 @@ class ProjectTabActivity : AppCompatActivity() {
             }
         })
 
-        fab.setOnClickListener { view ->
-            goToUploadImage()
-        }
-
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
-        data = intent.extras!!.get(ConstantsApp.KEY_VALUES_OBJECT) as Project
-
-//        getData()
-
-        statusProject = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS)
         tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
 
         imvBack.setOnClickListener {
             onBackPressed()
         }
 
-    }
-
-    private fun goToCreateProductRequirement() {
-        val intent = Intent(this, CreateProductRequirementActivity::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-        startActivityForResult(intent, 1000)
-    }
-
-
-
-    private fun goToUploadImage() {
-        workerPage.pickImageFromAlbum()
     }
 
     fun getData() {
@@ -135,13 +112,6 @@ class ProjectTabActivity : AppCompatActivity() {
 
     fun getProjectId(): Int {
         return id
-    }
-
-    fun getStatus(): String {
-        return statusProject
-    }
-    fun getProject() : Project{
-        return data!!
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
