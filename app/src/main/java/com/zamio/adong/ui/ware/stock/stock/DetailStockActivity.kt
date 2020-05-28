@@ -74,9 +74,11 @@ class DetailStockActivity : BaseActivity() {
             ) {
                 if (response!!.body() != null && response.body().status == 1) {
                     val keeper = response.body().data
-                    mList.add(Information("Thủ kho",keeper!!.fullName, ""))
-                    mList.add(Information("Số điện thoại",keeper!!.phone, ""))
-                    setupRecyclerView(mList)
+                    if(keeper!!.fullName != null) {
+                        mList.add(Information("Thủ kho",keeper.fullName!!, ""))
+//                        mList.add(Information("Số điện thoại",keeper.phone!!, ""))
+                        setupRecyclerView(mList)
+                    }
                 }
             }
         })
@@ -106,7 +108,7 @@ class DetailStockActivity : BaseActivity() {
 
                     mList.add(Information("Tên",model!!.name, ""))
                     mList.add(Information("Địa chỉ",model!!.address, ""))
-                    mList.add(Information("THỦ KHO",model!!.address, "Profile"))
+//                    mList.add(Information("THỦ KHO",model!!.address, "Profile"))
                     getKeeperProfile()
 
                 }

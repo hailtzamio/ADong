@@ -23,7 +23,7 @@ data class Profile(
     @SerializedName("enabled")
     val enabled: Boolean,
     @SerializedName("fullName")
-    val fullName: String,
+    val fullName: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("lastUpdate")
@@ -31,7 +31,7 @@ data class Profile(
     @SerializedName("password")
     val password: Any,
     @SerializedName("phone")
-    val phone: String,
+    val phone: String?,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")
