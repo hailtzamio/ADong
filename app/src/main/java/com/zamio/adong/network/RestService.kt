@@ -207,6 +207,9 @@ interface RestService {
     @GET("project/{id}")
     fun getProject(@Path("id") id: Int): Call<RestData<Project>>
 
+    @GET("user/{id}")
+    fun getUer(@Path("id") id: Int): Call<RestData<Profile>>
+
     @GET("user?size=1000&sort=id,desc&authorityCode=MANAGER")
     fun getManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 

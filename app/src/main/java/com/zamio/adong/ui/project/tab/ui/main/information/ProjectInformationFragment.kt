@@ -132,7 +132,7 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun doPauseProjectApi() {
 
- 
+
         val reason = JsonObject()
         reason.addProperty("note", "Need to Pause")
 

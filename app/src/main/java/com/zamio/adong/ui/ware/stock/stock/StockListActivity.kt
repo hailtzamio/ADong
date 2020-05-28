@@ -103,6 +103,7 @@ class StockListActivity : BaseActivity() {
                 } else {
                     val intent = Intent(this, DetailStockActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, product.keeperId)
                     startActivityForResult(intent, 1000)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }

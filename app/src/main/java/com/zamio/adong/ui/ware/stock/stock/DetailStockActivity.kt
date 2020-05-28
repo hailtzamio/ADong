@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.ware.stock.stock
 
+import BaseInformationAdapter
 import InformationAdapter
 import RestClient
 import android.content.Intent
@@ -10,6 +11,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Information
+import com.zamio.adong.model.Profile
 import com.zamio.adong.model.WareHouse
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_driver.*
@@ -24,6 +26,7 @@ class DetailStockActivity : BaseActivity() {
 
     var model: WareHouse? = null
     var modelId = 1
+    var keeperId = 1
     override fun getLayout(): Int {
         return R.layout.activity_stock_detail
     }
@@ -37,6 +40,7 @@ class DetailStockActivity : BaseActivity() {
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
             modelId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
+            keeperId = intent.getIntExtra(ConstantsApp.KEY_VALUES_STATUS, 1)
 
             if (!ConstantsApp.PERMISSION.contains("u")) {
                 rightButton.visibility = View.GONE
@@ -57,10 +61,32 @@ class DetailStockActivity : BaseActivity() {
         getData(modelId)
     }
 
+    fun getKeeperProfile() {
+        RestClient().getInstance().getRestService().getUer(keeperId).enqueue(object :
+            Callback<RestData<Profile>> {
+
+            override fun onFailure(call: Call<RestData<Profile>>?, t: Throwable?) {
+
+            }
+            override fun onResponse(
+                call: Call<RestData<Profile>>?,
+                response: Response<RestData<Profile>>?
+            ) {
+                if (response!!.body() != null && response.body().status == 1) {
+                    val keeper = response.body().data
+                    mList.add(Information("Thủ kho",keeper!!.fullName, ""))
+                    mList.add(Information("Số điện thoại",keeper!!.phone, ""))
+                    setupRecyclerView(mList)
+                }
+            }
+        })
+    }
+
     override fun resumeData() {
 
     }
 
+    val mList = ArrayList<Information>()
     private fun getData(id: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().getWareHouse(id).enqueue(object :
@@ -77,10 +103,12 @@ class DetailStockActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     model = response.body().data ?: return
-                    val mList = ArrayList<Information>()
-                    mList.add(Information("Tên",model!!.name))
-                    mList.add(Information("Địa chỉ",model!!.address))
-                    setupRecyclerView(mList)
+
+                    mList.add(Information("Tên",model!!.name, ""))
+                    mList.add(Information("Địa chỉ",model!!.address, ""))
+                    mList.add(Information("THỦ KHO",model!!.address, "Profile"))
+                    getKeeperProfile()
+
                 }
             }
         })
