@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.zamio.adong.R
-import com.zamio.adong.ui.ware.stock.goods.GoodsReceivedNoteListActivity
+import com.zamio.adong.ui.ware.stock.goods_issue.GoodsIssueListActivity
+import com.zamio.adong.ui.ware.stock.goods_issue_request.GoodsIssueRequestListActivity
+import com.zamio.adong.ui.ware.stock.goods_received.GoodsReceivedNoteListActivity
 import com.zamio.adong.ui.ware.stock.stock.StockListActivity
 import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 
@@ -57,7 +59,6 @@ class StockFragment : BaseFragment() {
         data.add("Danh sách phiếu nhập kho")
         data.add("Danh sách phiếu xuất kho")
         data.add("Line")
-        data.add("Yêu cầu xuất kho")
         data.add("Danh sách yêu cầu xuất kho")
         data.add("Line")
         data.add("Yêu cầu mua vật tư")
@@ -71,7 +72,8 @@ class StockFragment : BaseFragment() {
             when(product) {
                 0 -> goToStockList()
                 2 -> GoodsReceivedNoteList()
-//                8 -> goToAddingWorkers()
+                3 -> GoodsIssueList()
+                5 -> GoodsIssueRequestList()
 //                9 -> goToAlbum()
 //                10 -> goToCheckinHistory()
             }
@@ -85,6 +87,16 @@ class StockFragment : BaseFragment() {
 
     private fun GoodsReceivedNoteList() {
         val intent = Intent(context, GoodsReceivedNoteListActivity::class.java)
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun GoodsIssueList() {
+        val intent = Intent(context, GoodsIssueListActivity::class.java)
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun GoodsIssueRequestList() {
+        val intent = Intent(context, GoodsIssueRequestListActivity::class.java)
         startActivityForResult(intent, 1000)
     }
 

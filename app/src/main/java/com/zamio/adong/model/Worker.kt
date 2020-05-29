@@ -12,9 +12,9 @@ data class Worker(
     @SerializedName("avatarUrl")
     val avatarUrl: String?,
     @SerializedName("bankAccount")
-    val bankAccount: String,
+    val bankAccount: String?,
     @SerializedName("bankName")
-    val bankName: String,
+    val bankName: String?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -30,7 +30,7 @@ data class Worker(
     @SerializedName("isTeamLeader")
     val isTeamLeader: Boolean = false,
     @SerializedName("lineId")
-    val lineId: String,
+    val lineId: String?,
     @SerializedName("phone")
     val phone: String,
     @SerializedName("phone2")

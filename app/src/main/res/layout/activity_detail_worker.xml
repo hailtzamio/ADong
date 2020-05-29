@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     app:autoSizeTextType="uniform"
-                    tools:text="Địa chỉ " />
+                    android:text="---" />
 
             </RelativeLayout>
 
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     app:autoSizeTextType="uniform"
-                    tools:text="Địa chỉ " />
+                    android:text="---" />
 
             </RelativeLayout>
 
@@ -168,8 +168,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    app:autoSizeTextType="uniform"
-                    android:text="---" />
+                    android:text="---"
+                    app:autoSizeTextType="uniform" />
 
             </RelativeLayout>
             <include
@@ -200,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     app:autoSizeTextType="uniform"
-                    tools:text="Tên " />
+                    android:text="---" />
 
             </RelativeLayout>
 
@@ -225,8 +225,8 @@
                     android:layout_alignParentRight="true"
                     android:ellipsize="end"
                     android:gravity="end"
-                    app:autoSizeTextType="uniform"
-                    tools:text="Tên " />
+                    android:text="---"
+                    app:autoSizeTextType="uniform" />
 
             </RelativeLayout>
 

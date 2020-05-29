@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.CriteriaSmall
+import com.zamio.adong.model.GoodsIssueLine
 import com.zamio.adong.model.LinesAddNew
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -15,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class GoodsLinesAdapter(private val topicDetails: ArrayList<LinesAddNew>) : RecyclerView.Adapter<GoodsLinesAdapter.MyViewHolder>() {
+class GoodsIssueLinesAdapter(private val topicDetails: ArrayList<GoodsIssueLine>) : RecyclerView.Adapter<GoodsIssueLinesAdapter.MyViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
     var onRemoveItem: ((Int) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,7 +34,7 @@ class GoodsLinesAdapter(private val topicDetails: ArrayList<LinesAddNew>) : Recy
 
     fun removeAt(position: Int) {
         if(topicDetails.size >  position) {
-            onRemoveItem?.invoke(topicDetails[position].id!!)
+            onRemoveItem?.invoke(topicDetails[position].docId!!)
             topicDetails.removeAt(position)
             notifyItemRemoved(position)
         }

@@ -135,15 +135,19 @@
         <activity
             android:name=".ui.lorry.map.LorryLocationActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.lorry.map.LorryListLocationActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.PreviewImageActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.team.ChooseTeamLeaderActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".test.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -248,23 +252,51 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.goods.GoodsReceivedNoteListActivity"
+            android:name=".ui.ware.stock.goods_received.GoodsReceivedNoteListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.goods.CreateGoodsReceivedNoteActivity"
+            android:name=".ui.ware.stock.goods_received.CreateGoodsReceivedNoteActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.goods.AddProductToGoodsReceiedActivity"
+            android:name=".ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.goods.DetailGoodsReveivedActivity"
+            android:name=".ui.ware.stock.goods_received.DetailGoodsReveivedActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.ware.stock.goods.UpdateGoodsReceivedNoteActivity"
+            android:name=".ui.ware.stock.goods_issue.GoodsIssueListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_received.UpdateGoodsReceivedNoteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue.DetailGoodsIssueActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue.UpdateGoodsIssueActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue.CreateGoodsIssueActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue_request.GoodsIssueRequestListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue_request.DetailGoodsIssueRequestActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.goods_issue_request.CreateGoodsIssueRequestActivity"
             android:screenOrientation="portrait" />
 
         <activity

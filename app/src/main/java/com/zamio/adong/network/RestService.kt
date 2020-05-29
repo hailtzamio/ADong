@@ -304,37 +304,46 @@ interface RestService {
     @PUT("goodsReceivedNote/{id}")
     fun updateGoodsReceivedNote(@Path("id") id: Int,@Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
-    @PUT("goodsReceivedNote/{id }/confirm")
-    fun confirmGoodsReceivedNote(@Query("id") grnId: Int): Call<RestData<JsonElement>>
+    @PUT("goodsReceivedNote/{id}/confirm")
+    fun confirmGoodsReceivedNote(@Path("id") id: Int): Call<RestData<JsonElement>>
 
-    @GET("goodsIssueDocument")
-    fun getGoodsIssueDocuments(@Query("id") id: Int): Call<RestData<List<GoodsNote>>>
+
+    // Good Issue
+    @GET("goodsIssueDocument?size=100&sort=id,desc")
+    fun getGoodsIssues(@Query("page") page: Int): Call<RestData<ArrayList<GoodsIssue>>>
 
     @POST("goodsIssueDocument")
-    fun createGoodsIssueDocument(@Body data: GoodsNote): Call<RestData<JsonElement>>
+    fun createGoodsIssueDocument(@Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
     @GET("goodsIssueDocument/{id}")
-    fun getGoodsIssueDocument(@Query("id") id: Int): Call<RestData<GoodsNote>>
+    fun getGoodsIssueDocument(@Path("id") id: Int): Call<RestData<GoodsIssue>>
 
-    @PUT("goodsIssueDocument")
-    fun updateGoodsIssueDocument(@Body data: GoodsNote): Call<RestData<JsonElement>>
+    @PUT("goodsIssueDocument/{id}")
+    fun updateGoodsIssueDocument(@Path("id") id: Int, @Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
-    @PUT("goodsIssueDocument/{id }/confirm")
-    fun confirmGoodsIssueDocument(@Query("id") grnId: Int): Call<RestData<JsonElement>>
+    @PUT("goodsIssueDocument/{id}/confirm")
+    fun confirmGoodsIssueDocument(@Path("id") grnId: Int): Call<RestData<JsonElement>>
 
 
+    // Goods Issue Request
     @GET("goodsIssueRequest")
-    fun getGoodsIssueRequests(@Query("id") id: Int): Call<RestData<List<GoodsIssueRequest>>>
+    fun getGoodsIssueRequests(@Query("page") page: Int): Call<RestData<ArrayList<GoodsIssueRequest>>>
+
 
     @POST("goodsIssueRequest")
-    fun createGoodsIssueRequest(@Body data: GoodsIssueRequest): Call<RestData<JsonElement>>
+    fun createGoodsIssueRequest(@Body data: GoodsNoteUpdateRq2): Call<RestData<JsonElement>>
 
-    @GET("goodsIssueRequest")
-    fun getGoodsIssueRequest(@Query("id") id: Int): Call<RestData<GoodsIssueRequest>>
+    @GET("goodsIssueRequest/{id}")
+    fun getGoodsIssueRequest(@Path("id") id: Int): Call<RestData<GoodsIssueRequest>>
 
-    @PUT("goodsIssueRequest")
-    fun updateGoodsIssueRequest(@Body data: GoodsIssueRequest): Call<RestData<JsonElement>>
+    @PUT("goodsIssueRequest/{id}")
+    fun updateGoodsIssueRequest(@Path("id") id: Int, @Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
+
+    @DELETE("goodsIssueRequest/{id}")
+    fun removeGoodsIssueRequest(@Path("id") id: Int): Call<RestData<JsonElement>>
 
     @GET("user?size=1000&sort=id,desc&authorityCode=WAREHOUSE_KEEPER")
     fun getkeepers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
+
 }

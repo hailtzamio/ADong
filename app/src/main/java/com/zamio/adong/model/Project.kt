@@ -26,17 +26,17 @@ data class Project(
     @SerializedName("deputyManagerFullName")
     val deputyManagerFullName: String?,
     @SerializedName("deputyManagerId")
-    val deputyManagerId: Int,
+    val deputyManagerId: Int?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("latitude")
-    val latitude: Double,
+    val latitude: Double?,
     @SerializedName("longitude")
-    val longitude: Double,
+    val longitude: Double?,
     @SerializedName("managerFullName")
     val managerFullName: String,
     @SerializedName("managerId")
-    val managerId: Int,
+    val managerId: Int?,
     @SerializedName("name")
     val name: String,
     @SerializedName("plannedEndDate")
@@ -58,7 +58,7 @@ data class Project(
     @SerializedName("secretaryFullName")
     val secretaryFullName: String,
     @SerializedName("secretaryId")
-    val secretaryId: Int,
+    val secretaryId: Int?,
     @SerializedName("status")
     val status: String,
     @SerializedName("supervisorFullName")
@@ -78,7 +78,7 @@ data class Project(
     @SerializedName("teamName")
     val teamName: String,
     @SerializedName("teamType")
-    val teamType: String,
+    val teamType: String?,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")

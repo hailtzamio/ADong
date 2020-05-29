@@ -148,22 +148,40 @@ class UpdateProjectActivity: BaseActivity() {
                         tvChooseTeamOrContractor.text = data!!.contractorName
                     }
 
-
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
-                    secretaryId = data!!.secretaryId
-                    supervisorId = data!!.supervisorId
-                    contractorId = data!!.contractorId!!
-                    managerId = data!!.managerId
-                    deputyManagerId = data!!.deputyManagerId
-                    teamId = data!!.teamId!!
-                    teamType = data!!.teamType
 
-                    longitude = data!!.longitude
-                    latitude = data!!.latitude
+                    if(data!!.secretaryId != null) {
+                        secretaryId = data!!.secretaryId!!
+                    }
 
-//                    tvChooseLocation.text = data!!.latitude.toString() + " - " + data!!.longitude.toString()
+                    if(data!!.contractorId != null) {
+                        contractorId = data!!.contractorId!!
+                    }
 
+                    if(data!!.managerId != null) {
+                        managerId = data!!.managerId!!
+                    }
+
+                    if(data!!.deputyManagerId != null) {
+                        deputyManagerId = data!!.deputyManagerId!!
+                    }
+
+                    if(data!!.teamId != null) {
+                        teamId = data!!.teamId!!
+                    }
+
+                    if(data!!.teamType != null) {
+                        teamType = data!!.teamType!!
+                    }
+
+                    if(data!!.longitude != null) {
+                        longitude = data!!.longitude!!
+                    }
+
+                    if(data!!.latitude != null) {
+                        latitude = data!!.latitude!!
+                    }
                 }
             }
         })

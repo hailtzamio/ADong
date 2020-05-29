@@ -1,5 +1,6 @@
-package com.zamio.adong.ui.ware.stock.goods
+package com.zamio.adong.ui.ware.stock.goods_issue
 
+import GoodsIssueAdapterr
 import GoodsReceivedNoteAdapter
 import RestClient
 import android.content.Intent
@@ -8,6 +9,7 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
+import com.zamio.adong.model.GoodsIssue
 import com.zamio.adong.model.GoodsNote
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_stock_list.*
@@ -16,17 +18,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GoodsReceivedNoteListActivity : BaseActivity() {
+class GoodsIssueListActivity : BaseActivity() {
 
-    var mList = ArrayList<GoodsNote>()
+    var mList = ArrayList<GoodsIssue>()
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
 
     override fun initView() {
-        tvTitle.text = "Phiếu Nhập Kho"
+        tvTitle.text = "Phiếu Xuất Kho"
         rightButton.setOnClickListener {
-            val intent = Intent(this, CreateGoodsReceivedNoteActivity::class.java)
+            val intent = Intent(this, CreateGoodsIssueActivity::class.java)
             startActivityForResult(intent, 1000)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
@@ -49,16 +51,16 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getGoodsReceivedNotes(page)
+            .getGoodsIssues(page)
             .enqueue(object :
-                Callback<RestData<ArrayList<GoodsNote>>> {
-                override fun onFailure(call: Call<RestData<ArrayList<GoodsNote>>>?, t: Throwable?) {
+                Callback<RestData<ArrayList<GoodsIssue>>> {
+                override fun onFailure(call: Call<RestData<ArrayList<GoodsIssue>>>?, t: Throwable?) {
                     dismisProgressDialog()
                 }
 
                 override fun onResponse(
-                    call: Call<RestData<ArrayList<GoodsNote>>>?,
-                    response: Response<RestData<ArrayList<GoodsNote>>>?
+                    call: Call<RestData<ArrayList<GoodsIssue>>>?,
+                    response: Response<RestData<ArrayList<GoodsIssue>>>?
                 ) {
                     dismisProgressDialog()
                     if (response!!.body() != null && response.body().status == 1) {
@@ -73,7 +75,7 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
     }
 
 
-    val mAdapter = GoodsReceivedNoteAdapter(mList, Type.GOODSRECEIEDNOTE)
+    val mAdapter = GoodsIssueAdapterr(mList)
     var isLastPage: Boolean = false
     var isLoading: Boolean = false
     var currentPage = 0
@@ -87,7 +89,7 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
-                val intent = Intent(this, DetailGoodsReveivedActivity::class.java)
+                val intent = Intent(this, DetailGoodsIssueActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
                 startActivityForResult(intent, 1000)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

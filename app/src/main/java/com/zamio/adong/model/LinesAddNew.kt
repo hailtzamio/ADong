@@ -6,11 +6,18 @@ import java.io.Serializable
 
 data class LinesAddNew(
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
+    @SerializedName("productReqLineId")
+    val productReqLineId: Int,
     @SerializedName("productId")
     val productId: Int,
     @SerializedName("quantity")
     val quantity: Int,
     @SerializedName("productName")
     val productName: String
+) : Serializable
+
+data class IssueRequestLine(
+    @SerializedName("productReqLineId")
+    val productReqLineId: Int
 ) : Serializable

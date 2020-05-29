@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.CriteriaSmall
-import com.zamio.adong.model.LinesAddNew
+import com.zamio.adong.model.*
 import de.hdodenhof.circleimageview.CircleImageView
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class GoodsLinesAdapter(private val topicDetails: ArrayList<LinesAddNew>) : RecyclerView.Adapter<GoodsLinesAdapter.MyViewHolder>() {
+class GoodsIssueRequestLinesAdapter(private val topicDetails: ArrayList<GoodsIssueRequestLine>) : RecyclerView.Adapter<GoodsIssueRequestLinesAdapter.MyViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
     var onRemoveItem: ((Int) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {

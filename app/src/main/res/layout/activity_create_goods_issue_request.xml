@@ -30,37 +30,32 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <EditText
-
-                android:id="@+id/edtDeliveredBy"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/button_normal_main_radius_layout"
-                android:hint="Người giao"
-                android:paddingLeft="10dp"
-                android:singleLine="true" />
-
-
-            <EditText
-                android:id="@+id/edtRef"
+            <RelativeLayout
+                android:id="@+id/rlPlanDate"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/button_normal_main_radius_layout"
-                android:hint="Mã chứng từ gốc"
-                android:paddingLeft="10dp"
-                android:singleLine="true" />
+                >
+
+                <TextView
+                    android:id="@+id/tvPlanDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="Thời gian dự kiến"
+                    android:paddingLeft="10dp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/next" />
+
+            </RelativeLayout>
 
 
-            <EditText
-                android:id="@+id/edtNote"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/button_normal_main_radius_layout"
-                android:hint="Ghi chú"
-                android:paddingLeft="10dp"
-                android:singleLine="true" />
 
 
             <RelativeLayout
@@ -77,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:hint="Chọn kho hàng"
+                    android:hint="Kho"
                     android:paddingLeft="10dp" />
 
                 <ImageView
@@ -90,6 +85,42 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rlChooseProduct"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:enabled="false"
+                android:singleLine="true">
+
+                <TextView
+                    android:id="@+id/tvChooseProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="Phiếu YCVT"
+                    android:paddingLeft="10dp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/next" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Ghi chú"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
             <TextView
                 android:id="@+id/tvProduct"
                 android:layout_width="wrap_content"

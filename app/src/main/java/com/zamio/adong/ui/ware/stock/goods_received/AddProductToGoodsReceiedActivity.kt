@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.ware.stock.goods
+package com.zamio.adong.ui.ware.stock.goods_received
 
 import ProductAdapter
 import RestClient
@@ -91,7 +91,7 @@ class AddProductToGoodsReceiedActivity : BaseActivity() {
             Log.e("hailpt~~", " after " + productChoose.size)
             ConstantsApp.productsToGooodReceied = productChoose
             productChoose.forEach {
-                val line = LinesAddNew(0,it.id, it.quantityChoose, "")
+                val line = LinesAddNew(0,0,it.id, it.quantityChoose, "")
                 ConstantsApp.lines.add(line)
             }
             Log.e("hailpt~~", " line " + ConstantsApp.lines.size)

@@ -15,6 +15,11 @@ class GoodsReceivedNoteAdapter(private val topicDetails: List<GoodsNote>, privat
     RecyclerView.Adapter<GoodsReceivedNoteAdapter.MyViewHolder>() {
     var onItemClick: ((GoodsNote) -> Unit)? = null
 
+    companion object {
+        private const val VIEW_TYPE_ONE = 0
+        private const val VIEW_TYPE_TWO = 1
+    }
+
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tv1: TextView = view.findViewById(R.id.tv1)
         var tv2: TextView = view.findViewById(R.id.tv2)
@@ -63,9 +68,9 @@ class GoodsReceivedNoteAdapter(private val topicDetails: List<GoodsNote>, privat
                 }
 
                 if (topic.status == "DONE") {
-                    holder.tv6.text = "Đã giao"
+                    holder.tv6.text = "Hoàn thành"
                 } else {
-                    holder.tv6.text = "Đang vận chuyển"
+                    holder.tv6.text = "Nháp"
                 }
             }
 
@@ -78,14 +83,17 @@ class GoodsReceivedNoteAdapter(private val topicDetails: List<GoodsNote>, privat
             }
 
         }
-
-
     }
 
     override fun getItemCount(): Int {
         return topicDetails.size
     }
 }
+
+sealed class Data
+
+data class DataOne(val list: List<Any>): Data()
+data class DataTwo(val list: List<Any>): Data()
 
 enum class Type(val value: Int) {
     GOODSRECEIEDNOTE(1),

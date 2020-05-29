@@ -1,5 +1,6 @@
-package com.zamio.adong.ui.ware.stock.goods
+package com.zamio.adong.ui.ware.stock.goods_issue
 
+import GoodsIssueLinesAdapter
 import GoodsLinesAdapter
 import RestClient
 import SwipeToDeleteCallback
@@ -15,10 +16,10 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.GoodsNote
-import com.zamio.adong.model.GoodsNoteUpdateRq
-import com.zamio.adong.model.LinesAddNew
+import com.zamio.adong.model.*
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity
+import com.zamio.adong.ui.ware.stock.goods_received.UpdateGoodsReceivedNoteActivity
 import kotlinx.android.synthetic.main.activity_detail_goods_received.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -26,19 +27,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailGoodsReveivedActivity : BaseActivity() {
+class DetailGoodsIssueActivity : BaseActivity() {
 
 
-    var data: GoodsNote? = null
+    var data: GoodsIssue? = null
     var id = 1
-    var deliveredBy:String = ""
-    var warehouseId:Int = 0
-    var note:String = ""
-    var ref:String = ""
+    var receiver: String = ""
+    var projectId: Int = 0
+    var note: String = ""
+    var reason: String = ""
     var status = ""
     val linesAddNew = ArrayList<LinesAddNew>()
     override fun getLayout(): Int {
-        return R.layout.activity_detail_goods_received
+        return R.layout.activity_detail_goods_issue
     }
 
     override fun initView() {
@@ -52,7 +53,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
         }
 
         rightButton.setOnClickListener {
-            val intent = Intent(this, UpdateGoodsReceivedNoteActivity::class.java)
+            val intent = Intent(this, UpdateGoodsIssueActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, data)
             startActivityForResult(intent, 1000)
 
@@ -74,12 +75,13 @@ class DetailGoodsReveivedActivity : BaseActivity() {
                 tvOk.visibility = View.GONE
             }
 
+            tvOk.text = "XÁC NHẬN XUẤT KHO"
             tvOk.setOnClickListener {
                 val dialogClickListener =
                     DialogInterface.OnClickListener { dialog, which ->
                         when (which) {
                             DialogInterface.BUTTON_POSITIVE -> {
-
+                                confirm()
                             }
                             DialogInterface.BUTTON_NEGATIVE -> {
                             }
@@ -107,16 +109,16 @@ class DetailGoodsReveivedActivity : BaseActivity() {
         lineList.clear()
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().getGoodsReceivedNote(id).enqueue(object :
-            Callback<RestData<GoodsNote>> {
+        RestClient().getInstance().getRestService().getGoodsIssueDocument(id).enqueue(object :
+            Callback<RestData<GoodsIssue>> {
 
-            override fun onFailure(call: Call<RestData<GoodsNote>>?, t: Throwable?) {
+            override fun onFailure(call: Call<RestData<GoodsIssue>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
             override fun onResponse(
-                call: Call<RestData<GoodsNote>>?,
-                response: Response<RestData<GoodsNote>>?
+                call: Call<RestData<GoodsIssue>>?,
+                response: Response<RestData<GoodsIssue>>?
             ) {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
@@ -124,21 +126,24 @@ class DetailGoodsReveivedActivity : BaseActivity() {
 
                     if (data != null) {
 
-                        deliveredBy = data!!.deliveredBy.toString()
-                        warehouseId = data!!.warehouseId
+                        receiver = data!!.receiver.toString()
+                        if (data!!.projectId != null) {
+                            projectId = data!!.projectId!!
+                        }
                         note = data!!.note.toString()
-                        ref = data!!.ref.toString()
+                        reason = data!!.reason.toString()
+
 
                         if (data!!.code != null && data!!.code != "") {
                             tvName.text = data!!.code
                         }
 
-                        if (data!!.deliveredBy != null && data!!.deliveredBy != "") {
-                            tvAuthor.text = data!!.deliveredBy
+                        if (data!!.receiver != null && data!!.receiver != "") {
+                            tvAuthor.text = data!!.receiver
                         }
 
-                        if (data!!.ref != null && data!!.ref != "") {
-                            tvDate.text = data!!.ref
+                        if (data!!.reason != null && data!!.reason != "") {
+                            tvDate.text = data!!.reason
                         }
 
                         if (data!!.note != null && data!!.note != "") {
@@ -150,8 +155,12 @@ class DetailGoodsReveivedActivity : BaseActivity() {
                         }
 
                         if (data!!.status != null && data!!.status != "") {
-                            if(data!!.status == "DONE") {
+                            if (data!!.status == "DONE") {
                                 tvStatus.text = "Hoàn thành"
+                                tvOk.visibility = View.GONE
+                                tvAddProduct.text = "DANH SÁCH VẬT TƯ"
+                                rlAddProduct.isEnabled = false
+                                rightButton.visibility = View.GONE
                             } else {
                                 tvStatus.text = "Nháp"
                             }
@@ -167,8 +176,9 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             }
         })
     }
-    var lineList =  ArrayList<LinesAddNew>()
-    val mAdapter = GoodsLinesAdapter(lineList)
+
+    var lineList = ArrayList<GoodsIssueLine>()
+    val mAdapter = GoodsIssueLinesAdapter(lineList)
     private fun setupRecyclerView() {
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -187,78 +197,109 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             removeProduct(it)
         }
 
-        val swipeHandler = object : SwipeToDeleteCallback(this!!) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = recyclerView.adapter as GoodsLinesAdapter
-                adapter.removeAt(viewHolder.adapterPosition)
+        if (status == "DRAFT") {
+            val swipeHandler = object : SwipeToDeleteCallback(this!!) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val adapter = recyclerView.adapter as GoodsIssueLinesAdapter
+                    adapter.removeAt(viewHolder.adapterPosition)
+                }
             }
-        }
 
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+            itemTouchHelper.attachToRecyclerView(recyclerView)
+        }
     }
 
-    private fun removeProduct(id:Int) {
+    private fun confirm() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().confirmGoodsIssueDocument(data!!.id)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
 
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
 
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        getData(id)
+                        showToast("Thành công")
+                    } else {
+                        if (response.errorBody() != null) {
+                            val obj = JSONObject(response.errorBody().string())
+                            showToast(obj["message"].toString())
+                        }
+                    }
+                }
+            })
+    }
+
+    private fun removeProduct(id: Int) {
 
         val removeReq = GoodsNoteUpdateRq("")
-        removeReq.deliveredBy = deliveredBy
-        removeReq.warehouseId = warehouseId
+        removeReq.receiver = receiver
+        removeReq.projectId = projectId
         removeReq.note = note
-        removeReq.ref = ref
+        removeReq.reason = reason
 
         val mRemoveList = ArrayList<Int>()
         mRemoveList.add(id)
 
         removeReq.linesDelete = mRemoveList
-
         doUpdateApi(removeReq)
+
     }
 
     private fun addProduct() {
 
         val addReq = GoodsNoteUpdateRq("")
-        addReq.deliveredBy = deliveredBy
-        addReq.warehouseId = warehouseId
+        addReq.receiver = receiver
+        addReq.projectId = projectId
         addReq.note = note
-        addReq.ref = ref
+        addReq.reason = reason
 
         addReq.linesAddNew.addAll(ConstantsApp.lines)
 
         doUpdateApi(addReq)
+
     }
 
-    private fun doUpdateApi(removeReq:GoodsNoteUpdateRq) {
+    private fun doUpdateApi(removeReq: GoodsNoteUpdateRq) {
 
-        if(status == "DONE") {
+        if (status == "DONE") {
             showToast("Không xóa được, trạng thái đã hoàn thành")
+            return
         }
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().updateGoodsReceivedNote(data!!.id,removeReq).enqueue(object :
-            Callback<RestData<JsonElement>> {
+        RestClient().getInstance().getRestService().updateGoodsIssueDocument(data!!.id, removeReq)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
 
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
 
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response.body().status == 1) {
-                    getData(id)
-                    showToast("Thành công")
-                } else {
-                    if(response.errorBody() != null) {
-                        val obj = JSONObject(response.errorBody().string())
-                        showToast(obj["message"].toString())
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        getData(id)
+                        showToast("Thành công")
+                    } else {
+                        if (response.errorBody() != null) {
+                            val obj = JSONObject(response.errorBody().string())
+                            showToast(obj["message"].toString())
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -267,7 +308,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             getData(id)
         }
 
-        if(resultCode == 101) {
+        if (resultCode == 101) {
 //            lineList.addAll(ConstantsApp.lines)
 //            mAdapter.notifyDataSetChanged()
             addProduct()

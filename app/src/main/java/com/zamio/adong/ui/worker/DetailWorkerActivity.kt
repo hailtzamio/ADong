@@ -22,7 +22,7 @@ import retrofit2.Response
 class DetailWorkerActivity : BaseActivity() {
 
 
-    var product:Worker? = null
+    var product: Worker? = null
     var productId = 1
     override fun getLayout(): Int {
         return R.layout.activity_detail_worker
@@ -34,16 +34,16 @@ class DetailWorkerActivity : BaseActivity() {
     }
 
     override fun initData() {
-        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
             productId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
 
-            if(!ConstantsApp.PERMISSION.contains("u")){
+            if (!ConstantsApp.PERMISSION.contains("u")) {
                 rightButton.visibility = View.GONE
             }
 
-            if(!ConstantsApp.PERMISSION.contains("d")){
+            if (!ConstantsApp.PERMISSION.contains("d")) {
                 tvOk.visibility = View.GONE
             }
 
@@ -67,12 +67,13 @@ class DetailWorkerActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("Xóa công nhân này?").setPositiveButton("Đồng ý", dialogClickListener)
+                builder.setMessage("Xóa công nhân này?")
+                    .setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
 
             cropImageView.setOnClickListener {
-                if(product!!.avatarUrl != null) {
+                if (product!!.avatarUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.avatarUrl)
                     startActivityForResult(intent, 1000)
@@ -80,7 +81,7 @@ class DetailWorkerActivity : BaseActivity() {
             }
 
             tvTeam.setOnClickListener {
-//                val intent = Intent(this, DetailTeamActivity::class.java)
+                //                val intent = Intent(this, DetailTeamActivity::class.java)
 //                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
 //                startActivity(intent)
 //               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -100,7 +101,7 @@ class DetailWorkerActivity : BaseActivity() {
 
     }
 
-    private fun getProduct(id:Int){
+    private fun getProduct(id: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().getWorker(id).enqueue(object :
             Callback<RestData<Worker>> {
@@ -109,40 +110,57 @@ class DetailWorkerActivity : BaseActivity() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<Worker>>?, response: Response<RestData<Worker>>?) {
+            override fun onResponse(
+                call: Call<RestData<Worker>>?,
+                response: Response<RestData<Worker>>?
+            ) {
                 dismisProgressDialog()
-                 if(response!!.body() != null && response!!.body().status == 1){
+                if (response!!.body() != null && response!!.body().status == 1) {
                     product = response.body().data ?: return
                     tvName.text = product!!.fullName
-                     tvPhone.text = product!!.phone
+                    tvPhone.text = product!!.phone
                     tvAddress.text = product!!.address
-                    tvEmail.text = product!!.lineId
-                    tvBankName.text = product!!.bankName
-                    tvBankAccount.text = product!!.bankAccount
 
-                     if(product!!.teamName != null) {
-                         tvTeam.text = product!!.teamName
-                     }
 
-                     if (product!!.isTeamLeader){
-                         tvPosition.text = "Đội trưởng"
-                     } else {
-                         tvPosition.text = "Công nhân"
-                     }
+                    if (product!!.lineId != null && product!!.lineId != "") {
+                        tvEmail.text = product!!.lineId
+                    }
 
-                     if(product!!.workingStatus == "idle"){
-                         tvStatus.text = "Đang rảnh"
-                     } else {
-                         tvStatus.text = "Đang bận"
-                     }
+                    if (product!!.bankName != null && product!!.bankName != "") {
+                        tvBankName.text = product!!.bankName
+                    }
 
-                    Picasso.get().load(product!!.avatarUrl).into(cropImageView)
+                    if (product!!.bankAccount != null && product!!.bankAccount != "") {
+                        tvBankAccount.text = product!!.bankAccount
+                    }
+
+                    if (product!!.teamName != null && product!!.teamName != "") {
+                        tvTeam.text = product!!.teamName
+                    }
+
+                    if (product!!.isTeamLeader) {
+                        tvPosition.text = "Đội trưởng"
+                    } else {
+                        tvPosition.text = "Công nhân"
+                    }
+
+                    if (product!!.workingStatus == "idle") {
+                        tvStatus.text = "Đang rảnh"
+                    } else {
+                        tvStatus.text = "Đang bận"
+                    }
+
+                    if (product!!.avatarUrl != null) {
+                        Picasso.get().load(product!!.avatarUrl).error(R.drawable.ava)
+                            .into(cropImageView)
+                    }
+
                 }
             }
         })
     }
 
-    private fun removeLorry(){
+    private fun removeLorry() {
         showProgessDialog()
         RestClient().getInstance().getRestService().removeWorker(product!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {
@@ -151,9 +169,12 @@ class DetailWorkerActivity : BaseActivity() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
                 dismisProgressDialog()
-                if(response!!.body() != null &&response.body() .status == 1){
+                if (response!!.body() != null && response.body().status == 1) {
                     showToast("Xóa thành công")
                     setResult(100)
                     finish()
@@ -164,7 +185,7 @@ class DetailWorkerActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
+        if (resultCode == 100) {
             getProduct(productId)
         }
     }

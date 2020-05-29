@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.ware.stock.goods
+package com.zamio.adong.ui.ware.stock.goods_received
 
 import RestClient
 import android.content.Intent

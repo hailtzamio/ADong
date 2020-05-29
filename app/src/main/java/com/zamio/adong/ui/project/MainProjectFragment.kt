@@ -2,6 +2,8 @@ package com.zamio.adong.ui.project
 
 import ProjectAdapter
 import RestClient
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -137,13 +139,36 @@ class MainProjectFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { data ->
-            val intent = Intent(context, ProjectTabActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
-            intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
-            intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
-            intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
-            startActivity(intent)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+            if((activity as MainProjectActivity).getIsChoooseProject()) {
+
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                val returnIntent = Intent()
+                                returnIntent.putExtra("projectId", data.id)
+                                returnIntent.putExtra("projectName", data.name)
+                                activity!!.setResult(102, returnIntent)
+                                activity!!.finish()
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Chọn "+data.name + " ?").setPositiveButton("Đồng ý", dialogClickListener)
+                    .setNegativeButton("Không", dialogClickListener).show()
+            } else {
+                val intent = Intent(context, ProjectTabActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+                intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+                intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+                intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+                startActivity(intent)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
 
         recyclerView?.addOnScrollListener(object : PaginationScrollListener(layoutManager) {

@@ -18,7 +18,7 @@ data class ProductRequirement(
     @SerializedName("id")
     val id: Int,
     @SerializedName("note")
-    val note: String,
+    val note: String?,
     @SerializedName("order")
     val order: Int,
     @SerializedName("projectAddress")
@@ -36,5 +36,5 @@ data class ProductRequirement(
     @SerializedName("updatedTime")
     val updatedTime: String,
     @SerializedName("lines")
-    val lines: List<Product>
+    val lines: ArrayList<Product>
 ) : Serializable

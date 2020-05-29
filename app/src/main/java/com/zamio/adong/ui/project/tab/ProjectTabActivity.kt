@@ -90,6 +90,16 @@ class ProjectTabActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        fab.setOnClickListener { view ->
+            goToUploadImage()
+        }
+
+    }
+
+
+
+    private fun goToUploadImage() {
+        workerPage.pickImageFromAlbum()
     }
 
     fun getData() {

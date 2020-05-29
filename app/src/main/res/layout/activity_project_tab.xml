@@ -76,19 +76,4 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/camera_ic" />
 
-    <include
-        android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        android:id="@+id/viewFloat"
-        android:layout_width="wrap_content"
-        layout="@layout/material_design_floating_action_menu"
-        android:layout_height="wrap_content" />
-
-    <include
-        android:layout_margin="@dimen/fab_margin"
-        android:visibility="gone"
-        android:id="@+id/viewWorkerFloat"
-        android:layout_width="wrap_content"
-        layout="@layout/material_design_floating_worker_action_menu"
-        android:layout_height="wrap_content" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

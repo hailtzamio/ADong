@@ -1,30 +1,39 @@
 package com.zamio.adong.model
 
-
-import com.google.gson.annotations.SerializedName
-
 data class GoodsIssueRequest(
-    @SerializedName("linesAddNew")
-    val linesAddNew: List<LinesAddNew>,
-    @SerializedName("note")
-    val note: String,
-    @SerializedName("plannedDatetime")
-    val plannedDatetime: String,
-    @SerializedName("productReqId")
-    val productReqId: Int,
-    @SerializedName("warehouseId")
-    val warehouseId: Int,
-    @SerializedName("code")
-    val code: String,
-    @SerializedName("status")
-    val status: String,
-    @SerializedName("warehouseName")
-    val warehouseName: String,
-    @SerializedName("productReqCode")
-    val productReqCode: String
-) {
-    data class LinesAddNew(
-        @SerializedName("productReqLineId")
-        val productReqLineId: Int
-    )
-}
+    var code: String?,
+    var createdByFullName: String?,
+    var createdById: Int?,
+    var createdTime: String?,
+    var id: Int?,
+    var lines: ArrayList<GoodsIssueRequestLine>?,
+    var note: String?,
+    var plannedDatetime: String?,
+    var productReqCode: String?,
+    var productReqId: Int?,
+    var status: Int?,
+    var updatedByFullName: String?,
+    var updatedById: Int?,
+    var updatedTime: String?,
+    var warehouseId: Int?,
+    var warehouseName: String?
+)
+
+data class GoodsIssueRequestLine(
+    var createdByCreatedTime: String?,
+    var createdById: Int?,
+    var createdTime: String?,
+    var id: Int?,
+    var productCode: String?,
+    var productId: Int?,
+    var productName: String?,
+    var productReqLineId: Int?,
+    var productReqLineProductName: String?,
+    var productUnit: String?,
+    var quantity: Int?,
+    var reqId: Int?,
+    var status: Int?,
+    var updatedByCreatedTime: String?,
+    var updatedById: Int?,
+    var updatedTime: String?
+)
