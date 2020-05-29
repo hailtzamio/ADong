@@ -8,7 +8,7 @@ data class LinesAddNew(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("productReqLineId")
-    val productReqLineId: Int,
+    var productReqLineId: Int,
     @SerializedName("productId")
     val productId: Int,
     @SerializedName("quantity")

@@ -45,10 +45,10 @@
 
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,19 +68,20 @@
             </LinearLayout>
 
             <View
-                android:layout_marginTop="10dp"
-                android:background="@color/colorView"
                 android:layout_width="match_parent"
-                android:layout_height="1dp" />
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorView" />
 
 
-            <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvPlanDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ngày dự kiến"
@@ -91,16 +92,27 @@
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvPlanDate"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tvEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Sửa"
+                    app:autoSizeTextType="uniform" />
+
+            </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,16 +132,16 @@
             </LinearLayout>
 
             <View
-                android:layout_marginTop="10dp"
-                android:background="@color/colorView"
                 android:layout_width="match_parent"
-                android:layout_height="1dp" />
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorView" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,10 +160,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -196,7 +208,6 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:visibility="visible"
         android:id="@+id/tvOk"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"
@@ -205,6 +216,7 @@
         android:background="@drawable/button_layout"
         android:gravity="center"
         android:text="XÁC NHẬN"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="visible" />
 
 </RelativeLayout>

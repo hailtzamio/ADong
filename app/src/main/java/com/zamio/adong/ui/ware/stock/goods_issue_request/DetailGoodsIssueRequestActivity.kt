@@ -4,6 +4,8 @@ import GoodsIssueRequestLinesAdapter
 import RestClient
 import SwipeToDeleteCallback
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
@@ -24,6 +26,11 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog.OnTimeSetListener
 
 class DetailGoodsIssueRequestActivity : BaseActivity() {
 
@@ -56,6 +63,10 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
 //            intent.putExtra(ConstantsApp.KEY_VALUES_ID, data)
 //            startActivityForResult(intent, 1000)
 
+        }
+
+        tvEdit.setOnClickListener {
+            showDateTimePicker()
         }
     }
 
@@ -186,7 +197,7 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = GoodsIssueRequestLinesAdapter(lineList)
+        recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
             showToast("onItemClick")
@@ -197,7 +208,7 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
         }
 
         if (status != 1) {
-            val swipeHandler = object : SwipeToDeleteCallback(this!!) {
+            val swipeHandler = object : SwipeToDeleteCallback(this) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val adapter = recyclerView.adapter as GoodsIssueRequestLinesAdapter
                     adapter.removeAt(viewHolder.adapterPosition)
@@ -225,6 +236,15 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
 
     }
 
+    private fun updatePlanDate() {
+        val addReq = GoodsNoteUpdateRq("")
+        addReq.plannedDatetime = plannedDatetime
+        addReq.productReqId = productReqId
+        addReq.warehouseId = warehouseId
+        addReq.note = note
+        doUpdateApi(addReq)
+    }
+
     private fun addProduct() {
 
         val addReq = GoodsNoteUpdateRq("")
@@ -232,6 +252,10 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
         addReq.productReqId = productReqId
         addReq.warehouseId = warehouseId
         addReq.note = note
+
+        ConstantsApp.lines.forEach {
+            it.productReqLineId = it.productId
+        }
 
         addReq.linesAddNew.addAll(ConstantsApp.lines)
         doUpdateApi(addReq)
@@ -306,6 +330,41 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
             })
     }
 
+    private lateinit var date: Calendar
+    private fun showDateTimePicker() {
+        val currentDate: Calendar = Calendar.getInstance()
+        date = Calendar.getInstance()
+        DatePickerDialog(
+            this,
+            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                date.set(year, monthOfYear, dayOfMonth)
+                TimePickerDialog(
+                    this,
+                    OnTimeSetListener { view, hourOfDay, minute ->
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        date.set(Calendar.MINUTE, minute)
+                        val format =
+                            SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+
+                        val formatToShow =
+                            SimpleDateFormat("dd/MM/yyyy hh:mm a")
+
+                        val dateTime = format.format(date.time).toString()
+                        val dateTimeToShow = formatToShow.format(date.time).toString()
+                        plannedDatetime = dateTime
+                        updatePlanDate()
+                    },
+                    currentDate.get(Calendar.HOUR_OF_DAY),
+                    currentDate.get(Calendar.MINUTE),
+                    false
+                ).show()
+            },
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DATE)
+        ).show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == 100) {
@@ -319,5 +378,4 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
 
         }
     }
-
 }

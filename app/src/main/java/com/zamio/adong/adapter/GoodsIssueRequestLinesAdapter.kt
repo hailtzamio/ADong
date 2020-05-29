@@ -27,7 +27,6 @@ class GoodsIssueRequestLinesAdapter(private val topicDetails: ArrayList<GoodsIss
                 onItemClick?.invoke(adapterPosition)
             }
         }
-
     }
 
     fun removeAt(position: Int) {

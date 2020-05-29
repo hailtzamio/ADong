@@ -172,6 +172,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             }
         })
     }
+
     var lineList =  ArrayList<LinesAddNew>()
     val mAdapter = GoodsLinesAdapter(lineList)
     private fun setupRecyclerView() {
