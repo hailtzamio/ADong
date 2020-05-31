@@ -23,7 +23,9 @@ data class GoodsNoteUpdateRq2(val name: String) {
 
     var plannedDatetime:String = ""
     var warehouseId:Int = 0
+    var assigneeId:Int = 0
     var productReqId:Int = 0
+    var productRequirementId:Int = 0
     var note:String = ""
     var linesAddNew =  ArrayList<IssueRequestLine>()
 }

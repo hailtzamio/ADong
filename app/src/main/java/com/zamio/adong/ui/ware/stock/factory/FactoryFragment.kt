@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.ware.stock
+package com.zamio.adong.ui.ware.stock.factory
 
 import TitleAdapter
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.zamio.adong.R
+import com.zamio.adong.model.WareHouse
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.ware.stock.goods_issue.GoodsIssueListActivity
 import com.zamio.adong.ui.ware.stock.goods_issue_request.GoodsIssueRequestListActivity
@@ -18,13 +19,13 @@ import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-class StockFragment : BaseFragment() {
+class FactoryFragment : BaseFragment() {
 
     private var param1: String? = null
     private var param2: String? = null
     var currentPage = 0
     var totalPages = 0
-
+    var mList: List<WareHouse>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,7 +44,6 @@ class StockFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        getData()
         setupRecyclerView()
     }
 
@@ -52,17 +52,14 @@ class StockFragment : BaseFragment() {
 
     }
 
+
     private fun setupRecyclerView() {
 
         val data = ArrayList<String>()
-        data.add("Danh sách kho")
+        data.add("Danh sách xưởng")
         data.add("Line")
-        data.add("Danh sách phiếu nhập kho")
+        data.add("Danh sách yêu cầu sản xuất")
         data.add("Danh sách phiếu xuất kho")
-        data.add("Line")
-        data.add("Danh sách yêu cầu xuất kho")
-        data.add("Line")
-        data.add("Yêu cầu mua vật tư")
 
         val mAdapter = TitleAdapter(data, 2)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -83,12 +80,12 @@ class StockFragment : BaseFragment() {
 
     private fun goToStockList() {
         val intent = Intent(context, StockListActivity::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, "STOCK")
+        intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, "FACTORY")
         startActivityForResult(intent, 1000)
     }
 
     private fun GoodsReceivedNoteList() {
-        val intent = Intent(context, GoodsReceivedNoteListActivity::class.java)
+        val intent = Intent(context, ManufactureRequestListActivity::class.java)
         startActivityForResult(intent, 1000)
     }
 
@@ -104,7 +101,7 @@ class StockFragment : BaseFragment() {
 
     companion object {
         fun newInstance(param1: String, param2: String) =
-            StockFragment().apply {
+            FactoryFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

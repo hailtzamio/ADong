@@ -255,7 +255,6 @@ interface RestService {
     @POST("project/{projectId}/productRequirement")
     fun createProductRequirementForProject(@Body data: ProductRequirementRes,@Path("projectId") id: Int): Call<RestData<JsonElement>>
 
-
     @GET("project/{projectId}/workers?size=1000&sort=id,desc")
     fun getProjectWorker(@Path("projectId") id: Int,@Query("name") fullName: String): Call<RestData<List<Worker>>>
 
@@ -280,8 +279,8 @@ interface RestService {
     fun finishImageProjectWorkOutlines(@Path("projectWorkOutlineId") id: Int, @Part image: MultipartBody.Part): Call<RestData<JsonElement>>
 
     // WareHouse
-    @GET("warehouse?type=STOCK")
-    fun getStocks(@Query("name") name: String): Call<RestData<ArrayList<WareHouse>>>
+    @GET("warehouse")
+    fun getStocks(@Query("name") name: String, @Query("type") page: String): Call<RestData<ArrayList<WareHouse>>>
 
     @GET("warehouse?type=FACTORY")
     fun getFactories(@Query("name") name: String): Call<RestData<List<WareHouse>>>
@@ -324,6 +323,15 @@ interface RestService {
     @PUT("goodsIssueDocument/{id}/confirm")
     fun confirmGoodsIssueDocument(@Path("id") grnId: Int): Call<RestData<JsonElement>>
 
+    // ManuFacture
+    @GET("manufactureRequest")
+    fun getManufactures(@Query("page") page: Int): Call<RestData<ArrayList<ManuFactureRes>>>
+
+    @GET("manufactureRequest/{id}")
+    fun getManufacture(@Path("id") id: Int): Call<RestData<ManuFactureRes>>
+
+    @PUT("manufactureRequest/{id}/confirm")
+    fun confirmManufacture(@Path("id") grnId: Int): Call<RestData<JsonElement>>
 
     // Goods Issue Request
     @GET("goodsIssueRequest")
@@ -332,6 +340,13 @@ interface RestService {
 
     @POST("goodsIssueRequest")
     fun createGoodsIssueRequest(@Body data: GoodsNoteUpdateRq2): Call<RestData<JsonElement>>
+
+    @POST("manufactureRequest")
+    fun createManufactureRequest(@Body data: GoodsNoteUpdateRq2): Call<RestData<JsonElement>>
+
+
+    @POST("purchaseRequest")
+    fun createPurchaseRequest(@Body data: GoodsNoteUpdateRq2): Call<RestData<JsonElement>>
 
     @GET("goodsIssueRequest/{id}")
     fun getGoodsIssueRequest(@Path("id") id: Int): Call<RestData<GoodsIssueRequest>>
@@ -342,8 +357,9 @@ interface RestService {
     @DELETE("goodsIssueRequest/{id}")
     fun removeGoodsIssueRequest(@Path("id") id: Int): Call<RestData<JsonElement>>
 
-    @GET("user?size=1000&sort=id,desc&authorityCode=WAREHOUSE_KEEPER")
+    @GET("user?size=100&sort=id,desc&authorityCode=WAREHOUSE_KEEPER")
     fun getkeepers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-
+    @GET("user?size=100&sort=id")
+    fun getBuyers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 }

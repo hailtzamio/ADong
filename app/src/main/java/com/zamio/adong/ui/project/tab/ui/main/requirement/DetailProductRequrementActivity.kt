@@ -28,6 +28,9 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.graphics.Color
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import com.zamio.adong.ui.project.ChooseManagerActivity
 
 class DetailProductRequrementActivity : BaseActivity() {
 
@@ -35,7 +38,9 @@ class DetailProductRequrementActivity : BaseActivity() {
     var projectChoose = ArrayList<Product>()
     var productRequirement: ProductRequirement? = null
     var warehouseId = 0
+    var assigneeId = 0
     var warehouseName = ""
+    var title = "Chọn người đi mua?"
     override fun getLayout(): Int {
         return R.layout.activity_detail_product_requirement
     }
@@ -60,6 +65,41 @@ class DetailProductRequrementActivity : BaseActivity() {
             builder.setMessage("Chọn thời gian ?")
                 .setPositiveButton("Đồng ý", dialogClickListener)
                 .setNegativeButton("Không", dialogClickListener).show()
+        }
+    }
+
+
+    var type = 0
+    private fun setupChooseSpinner() {
+        val list: MutableList<String> = ArrayList()
+        list.add("Mua tại công trình")
+        list.add("Sản xuất")
+        list.add("Kho")
+
+        val dataAdapter = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, list
+        )
+        dataAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinType.adapter = dataAdapter
+        spinType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                type = position
+                when(position) {
+                    0 -> title = "Chọn người đi mua?"
+                    1 -> title = "Chọn xưởng sản xuất?"
+                    2 -> title = "Chọn kho?"
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
     }
 
@@ -106,9 +146,11 @@ class DetailProductRequrementActivity : BaseActivity() {
             DialogInterface.OnClickListener { dialog, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
-                        val intent = Intent(this, StockListActivity::class.java)
-                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
-                        startActivityForResult(intent, 1000)
+                        if (type == 0) {
+                            chooseWorker()
+                        } else {
+                            chooseStock()
+                        }
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
 
@@ -117,9 +159,22 @@ class DetailProductRequrementActivity : BaseActivity() {
             }
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setMessage("Chọn Kho nhận phiếu yêu cầu?")
+        builder.setMessage(title)
             .setPositiveButton("Đồng ý", dialogClickListener)
             .setNegativeButton("Không", dialogClickListener).show()
+    }
+
+    private fun chooseStock() {
+        val intent = Intent(this, StockListActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun chooseWorker() {
+        val intent = Intent(this, ChooseManagerActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, 101)
+        startActivityForResult(intent, 1000)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun initData() {
@@ -131,7 +186,7 @@ class DetailProductRequrementActivity : BaseActivity() {
             if (productRequirement != null) {
                 data = productRequirement!!.lines
                 tvName.text = productRequirement!!.projectName
-                if(productRequirement!!.note != null && productRequirement!!.note != "") {
+                if (productRequirement!!.note != null && productRequirement!!.note != "") {
                     tvNote.text = productRequirement!!.note
                 } else {
                     rlNote.visibility = View.GONE
@@ -140,6 +195,8 @@ class DetailProductRequrementActivity : BaseActivity() {
                 tvDate.text = productRequirement!!.expectedDatetime
                 setupRecyclerView()
             }
+
+            setupChooseSpinner()
         }
     }
 
@@ -147,7 +204,7 @@ class DetailProductRequrementActivity : BaseActivity() {
         val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
         goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
 
-        if(productRequirement!!.note != null) {
+        if (productRequirement!!.note != null) {
             goodsNoteUpdateRq.note = productRequirement!!.note!!
         }
 
@@ -155,11 +212,96 @@ class DetailProductRequrementActivity : BaseActivity() {
         goodsNoteUpdateRq.productReqId = productRequirement!!.id
 
         projectChoose.forEach {
-            val linesAddNew = IssueRequestLine(it.id)
+            val linesAddNew = IssueRequestLine(it.id, null, null)
             goodsNoteUpdateRq.linesAddNew.add(linesAddNew)
         }
 
         create(goodsNoteUpdateRq)
+    }
+
+    private fun doBuy() {
+        val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
+        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
+
+        if (productRequirement!!.note != null) {
+            goodsNoteUpdateRq.note = productRequirement!!.note!!
+        }
+
+        goodsNoteUpdateRq.assigneeId = assigneeId
+        goodsNoteUpdateRq.productRequirementId = productRequirement!!.id
+
+        projectChoose.forEach {
+            val linesAddNew = IssueRequestLine(null, null, it.id)
+            goodsNoteUpdateRq.linesAddNew.add(linesAddNew)
+        }
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService().createPurchaseRequest(goodsNoteUpdateRq)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response!!.body().status == 1) {
+                        showToast("Thành công")
+                        setResult(100)
+                        finish()
+                    } else {
+                        val obj = JSONObject(response!!.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            })
+    }
+
+    private fun doManufactureRequest() {
+
+        val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
+        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
+
+        if (productRequirement!!.note != null) {
+            goodsNoteUpdateRq.note = productRequirement!!.note!!
+        }
+
+        goodsNoteUpdateRq.warehouseId = warehouseId
+        goodsNoteUpdateRq.productRequirementId = productRequirement!!.id
+
+        projectChoose.forEach {
+            val linesAddNew = IssueRequestLine(null, null, it.id)
+            goodsNoteUpdateRq.linesAddNew.add(linesAddNew)
+        }
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService().createManufactureRequest(goodsNoteUpdateRq)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response!!.body().status == 1) {
+                        showToast("Thành công")
+                        setResult(100)
+                        finish()
+                    } else {
+                        val obj = JSONObject(response!!.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            })
     }
 
     private fun create(dataOb: GoodsNoteUpdateRq2) {
@@ -219,7 +361,7 @@ class DetailProductRequrementActivity : BaseActivity() {
                 }
             }
 
-            if(projectChoose.size > 0) {
+            if (projectChoose.size > 0) {
                 rightButton.isEnabled = true
                 rightButton.setTextColor(Color.parseColor("#ffffff"));
             } else {
@@ -241,7 +383,16 @@ class DetailProductRequrementActivity : BaseActivity() {
         if (resultCode == 100) {
             warehouseId = data!!.getIntExtra("warehouseId", 0)
             warehouseName = data.getStringExtra("warehouseName")!!
-            doCreate()
+            when (type) {
+                1 -> doManufactureRequest()
+                2 -> doCreate()
+            }
         }
+
+        if (resultCode == 101) {
+            assigneeId = data!!.getIntExtra("id", 0)
+            doBuy()
+        }
+
     }
 }

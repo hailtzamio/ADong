@@ -15,7 +15,7 @@ import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.information.UpdateProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
-import com.zamio.adong.ui.ware.stock.FactoryFragment
+import com.zamio.adong.ui.ware.stock.factory.FactoryFragment
 import com.zamio.adong.ui.ware.stock.StockFragment
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_warehouse_tab.*

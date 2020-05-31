@@ -295,6 +295,15 @@
             android:name=".ui.ware.stock.goods_issue_request.DetailGoodsIssueRequestActivity"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name=".ui.ware.stock.factory.ManufactureRequestListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.ware.stock.factory.DetailManuFactureRequestActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.ware.stock.goods_issue_request.CreateGoodsIssueRequestActivity"
             android:screenOrientation="portrait" />

@@ -5,6 +5,7 @@ import WareHouseAdapter
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -21,6 +22,7 @@ class StockListActivity : BaseActivity() {
 
     var mList = ArrayList<WareHouse>()
     var isChooseStock = false // CreateGoodsReceivedNoteActivity
+    var type = "STOCK"
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
@@ -35,7 +37,10 @@ class StockListActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        if(intent.hasExtra(ConstantsApp.KEY_VALUES_STATUS)) {
+            type = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS)!!
+            tvTitle.text = "Danh Sách Xưởng"
+        }
     }
 
     override fun resumeData() {
@@ -46,7 +51,7 @@ class StockListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getStocks("")
+            .getStocks("",type)
             .enqueue(object :
                 Callback<RestData<ArrayList<WareHouse>>> {
                 override fun onFailure(call: Call<RestData<ArrayList<WareHouse>>>?, t: Throwable?) {
