@@ -112,7 +112,7 @@ class CreateProductRequirementActivity : BaseActivity() {
             Log.e("hailpt~~", " after "+productChoose.size)
 
             productChoose.forEach {
-                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, ""))
+                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, "", null))
             }
 
             val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())

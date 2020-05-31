@@ -14,7 +14,9 @@ data class LinesAddNew(
     @SerializedName("quantity")
     val quantity: Int,
     @SerializedName("productName")
-    val productName: String
+    val productName: String,
+    @SerializedName("productRequirementLineId")
+    var productRequirementLineId: Int?
 ) : Serializable
 
 data class IssueRequestLine(
