@@ -52,7 +52,7 @@ class ChooseManagerActivity : BaseActivity() {
                 2 -> tvTitle.text = "Phó Bộ Phận"
                 3 -> tvTitle.text = "Giám Sát"
                 4 -> tvTitle.text = "Thư Ký"
-                5 -> tvTitle.text = "Thủ Kho"
+                5 -> tvTitle.text = "Thủ Kho / Xưởng"
                 101 -> tvTitle.text = "Người đi mua"
             }
 

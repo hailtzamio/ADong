@@ -26,8 +26,19 @@ class CreateStockActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Tạo Kho"
+
         rightButton.visibility = View.GONE
+
+        if(intent.hasExtra(ConstantsApp.KEY_VALUES_STATUS)) {
+            type = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS)!!
+
+            if(type == "FACTORY") {
+                tvTitle.text = "Tạo Xưởng"
+                tvKeeper.text = "Thủ xưởng"
+            } else {
+                tvTitle.text = "Tạo Kho"
+            }
+        }
     }
 
     override fun initData() {

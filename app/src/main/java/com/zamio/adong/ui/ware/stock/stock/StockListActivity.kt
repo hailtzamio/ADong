@@ -28,9 +28,10 @@ class StockListActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Danh Sách Kho"
+
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateStockActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, type)
             startActivityForResult(intent, 1000)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
@@ -39,7 +40,11 @@ class StockListActivity : BaseActivity() {
     override fun initData() {
         if(intent.hasExtra(ConstantsApp.KEY_VALUES_STATUS)) {
             type = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS)!!
-            tvTitle.text = "Danh Sách Xưởng"
+            if(type == "FACTORY") {
+                tvTitle.text = "Danh Sách Xưởng"
+            } else {
+                tvTitle.text = "Danh Sách Kho"
+            }
         }
     }
 
