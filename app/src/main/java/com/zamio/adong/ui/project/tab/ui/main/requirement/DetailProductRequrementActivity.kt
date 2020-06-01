@@ -72,8 +72,8 @@ class DetailProductRequrementActivity : BaseActivity() {
     var type = 0
     private fun setupChooseSpinner() {
         val list: MutableList<String> = ArrayList()
-        list.add("Mua tại công trình")
-        list.add("Sản xuất")
+        list.add("Mua")
+        list.add("Xưởng")
         list.add("Kho")
 
         val dataAdapter = ArrayAdapter(
@@ -90,7 +90,7 @@ class DetailProductRequrementActivity : BaseActivity() {
                 id: Long
             ) {
                 type = position
-                when(position) {
+                when (position) {
                     0 -> title = "Chọn người đi mua?"
                     1 -> title = "Chọn xưởng sản xuất?"
                     2 -> title = "Chọn kho?"
@@ -167,6 +167,12 @@ class DetailProductRequrementActivity : BaseActivity() {
     private fun chooseStock() {
         val intent = Intent(this, StockListActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        if (type == 1) {
+            intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, "FACTORY")
+        } else {
+            intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, "STOCK")
+        }
+
         startActivityForResult(intent, 1000)
     }
 

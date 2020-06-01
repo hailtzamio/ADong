@@ -37,6 +37,7 @@ class WareTabActivity : AppCompatActivity() {
         sectionsPagerAdapter.addFragment(stockFrag)
         sectionsPagerAdapter.addFragment(factoryFrag)
         tvTitle.text = "Kho / Xưởng"
+        rightButton.visibility = View.GONE
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter

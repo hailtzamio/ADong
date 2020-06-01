@@ -34,6 +34,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
     var id = 1
     var receiver: String = ""
     var projectId: Int = 0
+    var warehouseId: Int = 0
     var note: String = ""
     var reason: String = ""
     var status = ""
@@ -89,7 +90,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("Xóa bộ tiêu chí này?")
+                builder.setMessage("Xác nhận?")
                     .setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
@@ -133,6 +134,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
                         note = data!!.note.toString()
                         reason = data!!.reason.toString()
 
+                        warehouseId = data!!.warehouseId!!
 
                         if (data!!.code != null && data!!.code != "") {
                             tvName.text = data!!.code
@@ -228,6 +230,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
                     if (response!!.body() != null && response.body().status == 1) {
                         getData(id)
                         showToast("Thành công")
+                        onBackPressed()
                     } else {
                         if (response.errorBody() != null) {
                             val obj = JSONObject(response.errorBody().string())
@@ -243,6 +246,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
         val removeReq = GoodsNoteUpdateRq("")
         removeReq.receiver = receiver
         removeReq.projectId = projectId
+        removeReq.warehouseId = warehouseId
         removeReq.note = note
         removeReq.reason = reason
 
@@ -259,6 +263,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
         val addReq = GoodsNoteUpdateRq("")
         addReq.receiver = receiver
         addReq.projectId = projectId
+
         addReq.note = note
         addReq.reason = reason
 

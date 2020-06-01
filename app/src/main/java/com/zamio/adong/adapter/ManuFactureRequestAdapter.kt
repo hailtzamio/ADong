@@ -29,7 +29,9 @@ class ManuFactureRequestAdapter(private val topicDetails: List<ManuFactureRes>) 
 
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(topicDetails[adapterPosition])
+                if(topicDetails.size > 0 ) {
+                    onItemClick?.invoke(topicDetails[adapterPosition])
+                }
             }
 
             tv6.visibility = View.GONE

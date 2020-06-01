@@ -69,6 +69,10 @@ class GoodsIssueListActivity : BaseActivity() {
                         mAdapter.notifyDataSetChanged()
                         page += 1
                         setupRecyclerVieww()
+
+                        if(mList.size == 0) {
+                            showToast("Danh sách trống !")
+                        }
                     }
                 }
             })

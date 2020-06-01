@@ -52,7 +52,7 @@ class DetailManuFactureRequestActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setImageResource(R.drawable.icon_update);
-
+        rightButton.visibility = View.GONE
         rlAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
@@ -207,7 +207,7 @@ class DetailManuFactureRequestActivity : BaseActivity() {
         if (status != 1) {
             val swipeHandler = object : SwipeToDeleteCallback(this) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = recyclerView.adapter as GoodsIssueRequestLinesAdapter
+                    val adapter = recyclerView.adapter as ManuFactureRequestLinesAdapter
                     adapter.removeAt(viewHolder.adapterPosition)
                 }
             }
@@ -221,7 +221,6 @@ class DetailManuFactureRequestActivity : BaseActivity() {
 
         val removeReq = GoodsNoteUpdateRq("")
         removeReq.plannedDatetime = plannedDatetime
-        removeReq.productReqId = productReqId
         removeReq.warehouseId = warehouseId
         removeReq.note = note
 
@@ -236,7 +235,6 @@ class DetailManuFactureRequestActivity : BaseActivity() {
     private fun updatePlanDate() {
         val addReq = GoodsNoteUpdateRq("")
         addReq.plannedDatetime = plannedDatetime
-        addReq.productReqId = productReqId
         addReq.warehouseId = warehouseId
         addReq.note = note
         doUpdateApi(addReq)
@@ -251,7 +249,7 @@ class DetailManuFactureRequestActivity : BaseActivity() {
         addReq.note = note
 
         ConstantsApp.lines.forEach {
-            it.productReqLineId = it.productId
+            it.productRequirementLineId = it.productId
         }
 
         addReq.linesAddNew.addAll(ConstantsApp.lines)
@@ -266,7 +264,7 @@ class DetailManuFactureRequestActivity : BaseActivity() {
         }
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().updateGoodsIssueRequest(id, removeReq)
+        RestClient().getInstance().getRestService().updateManufacture(id, removeReq)
             .enqueue(object :
                 Callback<RestData<JsonElement>> {
 

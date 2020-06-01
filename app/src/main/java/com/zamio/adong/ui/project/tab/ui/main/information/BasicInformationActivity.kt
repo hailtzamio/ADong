@@ -14,6 +14,7 @@ import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.map.MapDetailActivity
+import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -94,18 +95,33 @@ class BasicInformationActivity : BaseActivity() {
                     data = response.body().data ?: return
                     tvName.text = data!!.name
                     tvAddress.text = data!!.address
-                    tvChooseDate.text = data!!.plannedStartDate
-                    tvChooseEndDate.text = data!!.plannedEndDate
+
+                    if(data!!.plannedStartDate != null) {
+                        tvChooseDate.text =  Utils.convertDate(data!!.plannedStartDate)
+                    }
+
+                    if(data!!.plannedEndDate != null) {
+                        tvChooseEndDate.text =  Utils.convertDate(data!!.plannedEndDate)
+                    }
+
                     tvManagerName.text = data!!.managerFullName
                     tvDeputyManagerName.text = data!!.deputyManagerFullName
                     tvLeaderName.text = data!!.supervisorFullName
                     tvSecretaryName.text = data!!.secretaryFullName
                     tvChooseTeamOrContractor.text = data!!.teamName
                     if (data!!.teamType == "ADONG") {
+                        rlLeaderAdong.visibility = View.VISIBLE
+
                         rlLeader.visibility = View.GONE
                         tvContractorOrTeam.text = "Đội Á đông"
+                        tvContractorOrTeamLabel.text = "Đội thi công"
                         rlLeader.visibility = View.GONE
-                        tvLeaderNameAdong.text = data!!.teamLeaderFullName
+
+                        if(data!!.teamLeaderFullName != null && data!!.teamLeaderFullName != "") {
+                            tvLeaderNameAdong.text = data!!.teamLeaderFullName
+                        }
+
+
 //                        rlLeaderAdong.visibility = View.GONE // ??
                     } else {
                         rlLeaderAdong.visibility = View.GONE

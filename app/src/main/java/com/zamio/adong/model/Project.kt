@@ -40,9 +40,9 @@ data class Project(
     @SerializedName("name")
     val name: String,
     @SerializedName("plannedEndDate")
-    val plannedEndDate: String,
+    val plannedEndDate: String?,
     @SerializedName("plannedStartDate")
-    val plannedStartDate: String,
+    val plannedStartDate: String?,
     @SerializedName("qualityCriteriaBundleId")
     val qualityCriteriaBundleId: Int,
     @SerializedName("qualityCriteriaBundleName")
@@ -72,7 +72,7 @@ data class Project(
     @SerializedName("teamId")
     val teamId: Int?,
     @SerializedName("teamLeaderFullName")
-    val teamLeaderFullName: String,
+    val teamLeaderFullName: String?,
     @SerializedName("teamLeaderId")
     val teamLeaderId: Int,
     @SerializedName("teamName")

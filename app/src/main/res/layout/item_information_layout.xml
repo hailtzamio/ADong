@@ -12,8 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+
         <TextView
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thương hiệu"
+            android:textColor="@color/colorGray" />
+
+        <TextView
+            android:textSize="@dimen/text_size_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:id="@+id/tvName"
@@ -22,13 +32,6 @@
             android:ellipsize="end"
             android:text="Tên "
             app:autoSizeTextType="uniform" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thương hiệu"
-            android:textColor="@color/colorGray" />
 
         <View
             android:layout_width="match_parent"

@@ -33,4 +33,6 @@
 
     <dimen name="padding_big_view">20dp</dimen>
     <dimen name="margin_below_above">10dp</dimen>
+
+    <dimen name="text_size_content">15sp</dimen>
 </resources>

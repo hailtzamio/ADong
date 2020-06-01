@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.AttendanceCheckout
 import com.zamio.adong.model.Worker
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -42,10 +43,10 @@ class ProjectAttendenceAdapter(private val topicDetails: List<AttendanceCheckout
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.workerFullName
-        holder.unit.text = topic.checkinTime
+        holder.unit.text = Utils.convertDate2( topic.checkinTime)
 
         if(topic.checkoutTime != null) {
-            holder.quantity.text = topic.checkoutTime
+            holder.quantity.text = Utils.convertDate2( topic.checkoutTime)
         } else {
             holder.quantity.text = "Chưa điểm danh ra"
         }

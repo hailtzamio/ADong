@@ -301,6 +301,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.ware.stock.factory.CreateFactoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.ware.stock.factory.DetailManuFactureRequestActivity"
             android:screenOrientation="portrait" />
 

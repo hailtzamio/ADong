@@ -333,9 +333,13 @@ interface RestService {
     @PUT("manufactureRequest/{id}/confirm")
     fun confirmManufacture(@Path("id") grnId: Int): Call<RestData<JsonElement>>
 
+    @PUT("manufactureRequest/{id}")
+    fun updateManufacture(@Path("id") id: Int, @Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
+
     // Goods Issue Request
     @GET("goodsIssueRequest")
     fun getGoodsIssueRequests(@Query("page") page: Int): Call<RestData<ArrayList<GoodsIssueRequest>>>
+
 
 
     @POST("goodsIssueRequest")

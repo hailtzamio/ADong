@@ -58,6 +58,7 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
             startActivityForResult(intent, 1000)
         }
 
+        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             //            val intent = Intent(this, UpdateGoodsIssueActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_VALUES_ID, data)

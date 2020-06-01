@@ -87,7 +87,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("Bạn chắc chắn?")
+                builder.setMessage("Xác nhận?")
                     .setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
@@ -222,6 +222,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
                 if (response!!.body() != null && response.body().status == 1) {
                     getData(id)
                     showToast("Thành công")
+                    onBackPressed()
                 } else {
                     if(response.errorBody() != null) {
                         val obj = JSONObject(response.errorBody().string())

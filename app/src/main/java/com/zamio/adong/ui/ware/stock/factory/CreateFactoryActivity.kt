@@ -1,4 +1,4 @@
-package com.zamio.adong.ui.ware.stock.stock
+package com.zamio.adong.ui.ware.stock.factory
 
 import RestClient
 import android.content.Intent
@@ -17,16 +17,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreateStockActivity : BaseActivity() {
+class CreateFactoryActivity : BaseActivity() {
 
 
-    var type = "STOCK"
+    var type = "FACTORY"
     override fun getLayout(): Int {
       return  R.layout.activity_create_stock
     }
 
     override fun initView() {
-        tvTitle.text = "Tạo Kho"
+        tvTitle.text = "Tạo Xưởng"
         rightButton.visibility = View.GONE
     }
 
@@ -35,11 +35,6 @@ class CreateStockActivity : BaseActivity() {
 
             if(isEmpty(edtBrand) || isEmpty(edtModel)){
                 showToast("Nhập thiếu thông tin")
-                return@setOnClickListener
-            }
-
-            if(keeperId == 0){
-                showToast("Chọn thủ kho")
                 return@setOnClickListener
             }
 

@@ -90,7 +90,7 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: Int) :
                 } else if (type == 2) {
                     when (position) {
                         2 -> holder.imvAva.setImageResource(R.drawable.print)
-                        3 -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        3 -> holder.imvAva.setImageResource(R.drawable.history)
                         5 -> holder.imvAva.setImageResource(R.drawable.healthcare)
                         6 -> holder.imvAva.setImageResource(R.drawable.hospital)
                     }

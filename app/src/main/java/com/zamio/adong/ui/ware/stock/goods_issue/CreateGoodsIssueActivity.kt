@@ -69,10 +69,10 @@ class CreateGoodsIssueActivity : BaseActivity() {
 
         tvOk.setOnClickListener {
 
-            if (projectId == 0) {
-                showToast("Chọn công trình")
-                return@setOnClickListener
-            }
+//            if (projectId == 0) {
+//                showToast("Chọn công trình")
+//                return@setOnClickListener
+//            }
 
             if (warehouseId == 0) {
                 showToast("Chọn kho")

@@ -50,6 +50,7 @@ class DetailStockActivity : BaseActivity() {
                 tvOk.visibility = View.GONE
             }
 
+            rightButton.visibility = View.GONE
             rightButton.setOnClickListener {
 //                val intent = Intent(this, UpdateStockActivity::class.java)
 //                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)

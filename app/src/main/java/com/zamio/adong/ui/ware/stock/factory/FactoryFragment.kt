@@ -71,7 +71,7 @@ class FactoryFragment : BaseFragment() {
                 0 -> goToStockList()
                 2 -> GoodsReceivedNoteList()
                 3 -> GoodsIssueList()
-                5 -> GoodsIssueRequestList()
+//                5 -> GoodsIssueRequestList()
 //                9 -> goToAlbum()
 //                10 -> goToCheckinHistory()
             }

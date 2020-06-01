@@ -63,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="---"
+                    android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
             </LinearLayout>
@@ -94,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvPlanDate"
                     android:text="---"
+                    android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
                 <TextView
@@ -127,6 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="---"
+                    android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
             </LinearLayout>
@@ -155,6 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="---"
+                    android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
             </LinearLayout>
@@ -177,6 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="---"
+                    android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
             </LinearLayout>
