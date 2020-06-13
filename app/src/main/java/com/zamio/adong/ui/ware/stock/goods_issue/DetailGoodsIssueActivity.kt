@@ -46,7 +46,7 @@ class DetailGoodsIssueActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setImageResource(R.drawable.icon_update);
-
+        rightButton.visibility = View.GONE
         rlAddProduct.setOnClickListener {
             val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)

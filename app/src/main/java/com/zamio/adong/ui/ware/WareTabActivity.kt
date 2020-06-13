@@ -33,7 +33,7 @@ class WareTabActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_warehouse_tab)
-        val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager,1)
         sectionsPagerAdapter.addFragment(stockFrag)
         sectionsPagerAdapter.addFragment(factoryFrag)
         tvTitle.text = "Kho / Xưởng"

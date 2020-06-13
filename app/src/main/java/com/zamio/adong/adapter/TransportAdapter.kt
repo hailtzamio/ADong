@@ -6,17 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.GoodsIssue
 import com.zamio.adong.model.GoodsNote
+import com.zamio.adong.model.Transport
 import com.zamio.adong.model.WareHouse
 
 
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class GoodsIssueAdapterr(private val topicDetails: List<GoodsIssue>) :
-    RecyclerView.Adapter<GoodsIssueAdapterr.MyViewHolder>() {
+class TransportAdapter(private val topicDetails: List<Transport>) :
+    RecyclerView.Adapter<TransportAdapter.MyViewHolder>() {
 
 
-    var onItemClick: ((GoodsIssue) -> Unit)? = null
+    var onItemClick: ((Transport) -> Unit)? = null
 
     companion object {
         private const val VIEW_TYPE_ONE = 0
@@ -52,12 +53,12 @@ class GoodsIssueAdapterr(private val topicDetails: List<GoodsIssue>) :
             holder.tv1.text = topic.code
         }
 
-        if (topic.projectName != null && topic.projectName !== "") {
+        if (topic.warehouseName != null && topic.warehouseName !== "") {
             holder.tv2.text = topic.projectName
         }
 
-        if (topic.receiver != null && topic.receiver != "") {
-            holder.tv3.text = topic.receiver
+        if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
+            holder.tv3.text = topic.plannedDatetime
         }
 
         if (topic.note != null && topic.note != "") {
@@ -68,10 +69,14 @@ class GoodsIssueAdapterr(private val topicDetails: List<GoodsIssue>) :
             holder.tv5.text = topic.warehouseName
         }
 
-        if (topic.status != null && topic.status == "DONE") {
-            holder.tv6.text = "Hoàn thành"
-        } else {
-            holder.tv6.text = "Nháp"
+        if (topic.status != null) {
+            when(topic.status) {
+                1 ->  holder.tv6.text = "Mới"
+                2 ->  holder.tv6.text = "Đã hủy"
+                3 ->  holder.tv6.text = "Đã xong"
+                4 ->  holder.tv6.text = "Đã chọn xe"
+                5 ->  holder.tv6.text = "Đã nhận hàng"
+            }
         }
     }
 

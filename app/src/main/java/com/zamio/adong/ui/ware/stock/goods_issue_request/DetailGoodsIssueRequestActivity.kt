@@ -53,9 +53,9 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
         rightButton.setImageResource(R.drawable.icon_update);
 
         rlAddProduct.setOnClickListener {
-            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
-            startActivityForResult(intent, 1000)
+//            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
+//            startActivityForResult(intent, 1000)
         }
 
         rightButton.visibility = View.GONE

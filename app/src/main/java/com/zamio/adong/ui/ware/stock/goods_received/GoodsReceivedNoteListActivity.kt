@@ -3,6 +3,7 @@ package com.zamio.adong.ui.ware.stock.goods_received
 import GoodsReceivedNoteAdapter
 import RestClient
 import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -26,6 +27,7 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
 
     override fun initView() {
         tvTitle.text = "Phiếu Nhập Kho"
+        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateGoodsReceivedNoteActivity::class.java)
             startActivityForResult(intent, 1000)

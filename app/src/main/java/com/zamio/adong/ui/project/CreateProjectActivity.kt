@@ -37,8 +37,8 @@ class CreateProjectActivity : BaseActivity() {
     var deputyManagerId = 0
     var secretaryId = 0
     var leaderId = 0
-    var teamId = 1
-    var contractorId = 1
+    var teamId = 0
+    var contractorId = 0
     var provinces = ArrayList<Province>()
     var plannedStartDate = ""
     var plannedEndDate = ""
@@ -66,7 +66,7 @@ class CreateProjectActivity : BaseActivity() {
 
         tvChooseLocation.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
-            startActivityForResult(intent,1000)
+            startActivityForResult(intent, 1000)
         }
 
         rdGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
@@ -145,36 +145,58 @@ class CreateProjectActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
-                    tvManagerName
-                )
-                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
-                    tvContractor
-                ) || checkChooseOrNot(tvChooseTeamOrContractor)
-            ) {
-                showToast("Chọn thiếu thông tin")
-                return@setOnClickListener
-            }
-
-            if (!isChooseADong) {
-                if (checkChooseOrNot(tvLeaderName)) {
+            if (isChooseADong) {
+                if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
+                        tvManagerName
+                    )
+                    || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
+                        tvContractor
+                    ) || checkChooseOrNot(tvChooseTeamOrContractor)
+                ) {
                     showToast("Chọn thiếu thông tin")
                     return@setOnClickListener
                 }
             }
 
+            if( checkChooseOrNot(tvSecretaryName)) {
+                showToast("Chọn thiếu thông tin")
+                return@setOnClickListener
+            }
+
+//            if (!isChooseADong) {
+//                if (checkChooseOrNot(tvLeaderName)) {
+//                    showToast("Chọn thiếu thông tin")
+//                    return@setOnClickListener
+//                }
+//            }
+
             val product = JsonObject()
             product.addProperty("name", edtName.text.toString())
             product.addProperty("address", edtAddress.text.toString())
             product.addProperty("teamType", teamType)
-            product.addProperty("managerId", managerId)
-            product.addProperty("deputyManagerId", deputyManagerId)
-            product.addProperty("secretaryId", secretaryId)
-            product.addProperty("teamId", teamId)
-            product.addProperty("contractorId", contractorId)
-            if (!isChooseADong) {
+
+            if (managerId != 0) {
+                product.addProperty("managerId", managerId)
+            }
+
+            if (deputyManagerId != 0) {
+                product.addProperty("deputyManagerId", deputyManagerId)
+            }
+            if (secretaryId != 0) {
+                product.addProperty("secretaryId", secretaryId)
+            }
+
+            if (teamId != 0) {
+                product.addProperty("teamId", teamId)
+            }
+            if (contractorId != 0) {
+                product.addProperty("contractorId", contractorId)
+            }
+
+            if (!isChooseADong && leaderId != 0) {
                 product.addProperty("supervisorId", leaderId)
             }
+
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
             product.addProperty("latitude", latitude)
@@ -308,8 +330,8 @@ class CreateProjectActivity : BaseActivity() {
 
             5 -> {
                 tvChooseLocation.text = name
-                latitude = data.getDoubleExtra("latitude",0.0)
-                longitude = data.getDoubleExtra("longitude",0.0)
+                latitude = data.getDoubleExtra("latitude", 0.0)
+                longitude = data.getDoubleExtra("longitude", 0.0)
             }
 
             100 -> tvChooseTeamOrContractor.text = name

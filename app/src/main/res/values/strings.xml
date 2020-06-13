@@ -132,4 +132,7 @@
     <string name="ware_0">Kho</string>
     <string name="ware_1">Xưởng</string>
 
+    <string name="transport_1">Yêu cầu</string>
+    <string name="transport_2">Chuyến đi</string>
+
 </resources>

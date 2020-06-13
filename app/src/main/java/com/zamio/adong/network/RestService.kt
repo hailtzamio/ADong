@@ -366,4 +366,23 @@ interface RestService {
 
     @GET("user?size=100&sort=id")
     fun getBuyers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
+    @GET("transportRequest?size=1000&sort=id,desc")
+    abstract fun getTransports(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Transport>>>
+
+    @GET("transportRequest/{id}")
+    fun getTransport(@Path("id") id: Int): Call<RestData<Transport>>
+
+    @Multipart
+    @POST("transportRequest/{id}/uploadPhoto")
+    fun transportUpload(@Path("id") id: Int, @Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    @PUT("transportRequest/{id}/pickup")
+    fun transportPickUp(@Path("id") id: Int): Call<RestData<JsonElement>>
+
+    @PUT("transportRequest/{id}/unload")
+    fun transportUnload(@Path("id") id: Int): Call<RestData<JsonElement>>
+
+    @GET("trip?size=1000&sort=id,desc")
+    abstract fun getTrips(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
 }

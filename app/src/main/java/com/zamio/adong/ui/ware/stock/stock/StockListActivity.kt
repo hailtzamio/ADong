@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -28,7 +29,7 @@ class StockListActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateStockActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, type)

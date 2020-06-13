@@ -217,7 +217,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/tvOk"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"

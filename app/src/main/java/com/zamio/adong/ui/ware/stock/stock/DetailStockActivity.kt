@@ -14,7 +14,6 @@ import com.zamio.adong.model.Information
 import com.zamio.adong.model.Profile
 import com.zamio.adong.model.WareHouse
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_detail_driver.*
 import kotlinx.android.synthetic.main.activity_stock_detail.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -47,7 +46,7 @@ class DetailStockActivity : BaseActivity() {
             }
 
             if (!ConstantsApp.PERMISSION.contains("d")) {
-                tvOk.visibility = View.GONE
+//                tvOk.visibility = View.GONE
             }
 
             rightButton.visibility = View.GONE

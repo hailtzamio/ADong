@@ -211,6 +211,7 @@ class ProductInformationFragment : BaseFragment() {
         val data = ArrayList<String>()
         data.add("Thông tin cơ bản")
         data.add("Line")
+        data.add("Danh sách đăng ký thi công")
         data.add("Danh sách vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
@@ -236,11 +237,11 @@ class ProductInformationFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             when(product) {
                 0 -> goToBaseInformation()
-                2 -> goToProductRequirement()
-                8 -> goToAddingWorkers()
-                9 -> goToAlbum()
-                10 -> goToCheckinHistory()
-                12 ->  pauseProject()
+                3 -> goToProductRequirement()
+                9 -> goToAddingWorkers()
+                10 -> goToAlbum()
+                11 -> goToCheckinHistory()
+                13 ->  pauseProject()
             }
         }
     }

@@ -79,13 +79,13 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: Int) :
                 cellViewHolder.tvTitle.text = topic
                 if (type == 1) {
                     when (position) {
-                        2 -> holder.imvAva.setImageResource(R.drawable.print)
-                        3 -> holder.imvAva.setImageResource(R.drawable.drawing)
-                        5 -> holder.imvAva.setImageResource(R.drawable.healthcare)
-                        6 -> holder.imvAva.setImageResource(R.drawable.hospital)
-                        10 -> holder.imvAva.setImageResource(R.drawable.history)
-                        8 -> holder.imvAva.setImageResource(R.drawable.add_worker)
-                        9 -> holder.imvAva.setImageResource(R.drawable.picture)
+                        3 -> holder.imvAva.setImageResource(R.drawable.print)
+                        4 -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        6 -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                        7 -> holder.imvAva.setImageResource(R.drawable.hospital)
+                        11 -> holder.imvAva.setImageResource(R.drawable.history)
+                        9 -> holder.imvAva.setImageResource(R.drawable.add_worker)
+                        10 -> holder.imvAva.setImageResource(R.drawable.picture)
                     }
                 } else if (type == 2) {
                     when (position) {

@@ -23,6 +23,7 @@ import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
 import com.zamio.adong.ui.project.MainProjectActivity
 import com.zamio.adong.ui.team.MainTeamActivity
+import com.zamio.adong.ui.trip.TripTabActivity
 import com.zamio.adong.ui.ware.WareTabActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import com.zamio.adong.ui.workoutline.MainWorkOutlineActivity
@@ -64,9 +65,9 @@ class PermissionsFragment : BaseFragment() {
 
             override fun onResponse(call: Call<RestData<ArrayList<Permission>>>?, response: Response<RestData<ArrayList<Permission>>>?) {
                 dismisProgressDialog()
-                if( response!!.body() != null && response!!.body().status == 1){
+                if( response!!.body() != null && response.body().status == 1){
 //                    setupRecyclerView(response.body().data!!)
-                    setupGridView(response!!.body().data!!)
+                    setupGridView(response.body().data!!)
                 } else {
                     Toast.makeText(context, ConstantsApp.TOAST, Toast.LENGTH_SHORT).show()
                 }
@@ -82,7 +83,7 @@ class PermissionsFragment : BaseFragment() {
             if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"  || it.appEntityCode == "Warehouse"
                         || it.appEntityCode == "Product"
                         || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
-                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project"|| it.appEntityCode  == "WorkOutlinee" )) {
+                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project" || it.appEntityCode  == "WorkOutlinee" || it.appEntityCode  == "Trip"  )) {
 
                 if (it.appEntityCode == "Worker" ) {
                     it.name = "Công Nhân"
@@ -122,6 +123,10 @@ class PermissionsFragment : BaseFragment() {
 
                 if (it.appEntityCode == "Warehouse" ) {
                     it.name = "Kho Xưởng"
+                }
+
+                if (it.appEntityCode == "Trip" ) {
+                    it.name = "Chuyến Xe"
                 }
 
                 permissions.add(it)
@@ -167,6 +172,7 @@ class PermissionsFragment : BaseFragment() {
                     "Project" -> intent = Intent(context, MainProjectActivity::class.java)
                     "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
                     "Warehouse" -> intent = Intent(context, WareTabActivity::class.java)
+                    "Trip" -> intent = Intent(context, TripTabActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString

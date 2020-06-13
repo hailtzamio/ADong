@@ -21,6 +21,7 @@ class InformationAdapter(private val topicDetails: List<Information>) : Recycler
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tvName: TextView = view.findViewById(R.id.tvName)
         var tvTitle: TextView = view.findViewById(R.id.tvTitle)
+        var view: View = view.findViewById(R.id.view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,6 +34,10 @@ class InformationAdapter(private val topicDetails: List<Information>) : Recycler
         val topic = topicDetails[position]
         holder.tvName.text = topic.name
         holder.tvTitle.text = topic.title
+
+        if(position == topicDetails.size -1) {
+            holder.view.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {

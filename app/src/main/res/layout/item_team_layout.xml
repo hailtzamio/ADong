@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-   android:layout_marginBottom="5dp"
-   android:layout_marginTop="5dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp">
 
 
     <androidx.cardview.widget.CardView
@@ -19,11 +19,11 @@
         card_view:cardElevation="8dp">
 
         <RelativeLayout
-            android:padding="10dp"
             android:id="@+id/lnRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -57,12 +57,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:ellipsize="end"
-                    android:maxLines="1"
                     android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/lnName"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="" />
 
                 <TextView

@@ -51,6 +51,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             startActivityForResult(intent, 1000)
         }
 
+        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(this, UpdateGoodsReceivedNoteActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, data)
@@ -158,7 +159,7 @@ class DetailGoodsReveivedActivity : BaseActivity() {
                                 rightButton.visibility = View.GONE
                             } else {
                                 tvStatus.text = "Nháp"
-                                tvOk.visibility = View.VISIBLE
+                                tvOk.visibility = View.GONE
                             }
                             status = data!!.status!!
                         }
@@ -193,16 +194,16 @@ class DetailGoodsReveivedActivity : BaseActivity() {
             removeProduct(it)
         }
 
-        if(status == "DRAFT") {
-            val swipeHandler = object : SwipeToDeleteCallback(this) {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = recyclerView.adapter as GoodsLinesAdapter
-                    adapter.removeAt(viewHolder.adapterPosition)
-                }
-            }
-            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-            itemTouchHelper.attachToRecyclerView(recyclerView)
-        }
+//        if(status == "DRAFT") {
+//            val swipeHandler = object : SwipeToDeleteCallback(this) {
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val adapter = recyclerView.adapter as GoodsLinesAdapter
+//                    adapter.removeAt(viewHolder.adapterPosition)
+//                }
+//            }
+//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//            itemTouchHelper.attachToRecyclerView(recyclerView)
+//        }
     }
 
     private fun confirm() {

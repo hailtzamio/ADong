@@ -4,6 +4,7 @@ import GoodsIssueAdapterr
 import GoodsReceivedNoteAdapter
 import RestClient
 import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -27,6 +28,7 @@ class GoodsIssueListActivity : BaseActivity() {
 
     override fun initView() {
         tvTitle.text = "Phiếu Xuất Kho"
+        rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateGoodsIssueActivity::class.java)
             startActivityForResult(intent, 1000)

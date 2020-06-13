@@ -12,7 +12,12 @@ private val TAB_TITLES = arrayOf(
     R.string.ware_1
 )
 
-class WareHousePagerAdapter(private val context: Context, fm: FragmentManager) :
+private val TAB_TITLES_2 = arrayOf(
+    R.string.transport_1,
+    R.string.transport_2
+)
+
+class WareHousePagerAdapter(private val context: Context, fm: FragmentManager,private val type : Int) :
     FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val mFragmentList: ArrayList<Fragment> = ArrayList()
@@ -25,7 +30,12 @@ class WareHousePagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        if(type == 1) {
+            return context.resources.getString(TAB_TITLES[position])
+        } else {
+            return context.resources.getString(TAB_TITLES_2[position])
+        }
+
     }
 
     override fun getCount(): Int {
