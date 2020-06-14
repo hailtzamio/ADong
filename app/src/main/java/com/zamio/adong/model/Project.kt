@@ -6,23 +6,23 @@ import java.io.Serializable
 
 data class Project(
     @SerializedName("accountingStatus")
-    val accountingStatus: Int,
+    val accountingStatus: Int?,
     @SerializedName("actualEndDate")
-    val actualEndDate: String,
+    val actualEndDate: String?,
     @SerializedName("actualStartDate")
-    val actualStartDate: String,
+    val actualStartDate: String?,
     @SerializedName("address")
-    val address: String,
+    var address: String?,
     @SerializedName("contractorId")
     val contractorId: Int?,
     @SerializedName("contractorName")
-    val contractorName: String,
+    val contractorName: String?,
     @SerializedName("createdByFullName")
-    val createdByFullName: String,
+    val createdByFullName: String?,
     @SerializedName("createdById")
-    val createdById: Int,
+    val createdById: Int?,
     @SerializedName("createdTime")
-    val createdTime: String,
+    val createdTime: String?,
     @SerializedName("deputyManagerFullName")
     val deputyManagerFullName: String?,
     @SerializedName("deputyManagerId")
@@ -34,11 +34,15 @@ data class Project(
     @SerializedName("longitude")
     val longitude: Double?,
     @SerializedName("managerFullName")
-    val managerFullName: String,
+    val managerFullName: String?,
     @SerializedName("managerId")
     val managerId: Int?,
     @SerializedName("name")
-    val name: String,
+    var name: String?,
+    @SerializedName("projectName")
+    var projectName: String?,
+    @SerializedName("projectAddress")
+    val projectAddress: String?,
     @SerializedName("plannedEndDate")
     val plannedEndDate: String?,
     @SerializedName("plannedStartDate")
@@ -54,9 +58,9 @@ data class Project(
     @SerializedName("secretaryCriteriaBundleId")
     val secretaryCriteriaBundleId: Int,
     @SerializedName("secretaryCriteriaBundleName")
-    val secretaryCriteriaBundleName: String,
+    val secretaryCriteriaBundleName: String?,
     @SerializedName("secretaryFullName")
-    val secretaryFullName: String,
+    val secretaryFullName: String?,
     @SerializedName("secretaryId")
     val secretaryId: Int?,
     @SerializedName("status")
@@ -76,7 +80,7 @@ data class Project(
     @SerializedName("teamLeaderId")
     val teamLeaderId: Int,
     @SerializedName("teamName")
-    val teamName: String,
+    val teamName: String?,
     @SerializedName("teamType")
     val teamType: String?,
     @SerializedName("updatedByFullName")

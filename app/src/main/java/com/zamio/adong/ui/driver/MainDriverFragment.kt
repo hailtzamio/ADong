@@ -13,7 +13,6 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Driver
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.map.MapActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -90,11 +89,19 @@ class MainDriverFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailDriverActivity::class.java)
+            if(!(activity as MainDriverActivity).isGoToChooseDriver) {
+                val intent = Intent(context, DetailDriverActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-            startActivityForResult(intent,1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+                startActivityForResult(intent, 1000)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            } else {
+                val returnIntent = Intent()
+                returnIntent.putExtra("id", product.id)
+                returnIntent.putExtra("name", product.fullName)
+                activity!!.setResult(1, returnIntent)
+                activity!!.finish()
+            }
         }
     }
 

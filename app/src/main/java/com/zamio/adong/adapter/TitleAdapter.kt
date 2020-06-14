@@ -79,6 +79,7 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: Int) :
                 cellViewHolder.tvTitle.text = topic
                 if (type == 1) {
                     when (position) {
+                        2 -> holder.imvAva.setImageResource(R.drawable.regpro2)
                         3 -> holder.imvAva.setImageResource(R.drawable.print)
                         4 -> holder.imvAva.setImageResource(R.drawable.drawing)
                         6 -> holder.imvAva.setImageResource(R.drawable.healthcare)

@@ -2,15 +2,12 @@ package com.zamio.adong.ui.ware.stock.goods_received
 
 import GoodsLinesAdapter
 import RestClient
-import SwipeToDeleteCallback
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -46,9 +43,9 @@ class DetailGoodsReveivedActivity : BaseActivity() {
         rightButton.setImageResource(R.drawable.icon_update);
 
         rlAddProduct.setOnClickListener {
-            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
-            startActivityForResult(intent, 1000)
+//            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
+//            startActivityForResult(intent, 1000)
         }
 
         rightButton.visibility = View.GONE

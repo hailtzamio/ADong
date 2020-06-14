@@ -1,7 +1,6 @@
 package com.zamio.adong.ui.ware.stock.goods_issue
 
 import GoodsIssueLinesAdapter
-import GoodsLinesAdapter
 import RestClient
 import SwipeToDeleteCallback
 import android.app.AlertDialog
@@ -16,10 +15,11 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.GoodsIssue
+import com.zamio.adong.model.GoodsIssueLine
+import com.zamio.adong.model.GoodsNoteUpdateRq
+import com.zamio.adong.model.LinesAddNew
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity
-import com.zamio.adong.ui.ware.stock.goods_received.UpdateGoodsReceivedNoteActivity
 import kotlinx.android.synthetic.main.activity_detail_goods_received.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -48,9 +48,9 @@ class DetailGoodsIssueActivity : BaseActivity() {
         rightButton.setImageResource(R.drawable.icon_update);
         rightButton.visibility = View.GONE
         rlAddProduct.setOnClickListener {
-            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
-            startActivityForResult(intent, 1000)
+//            val intent = Intent(this, AddProductToGoodsReceiedActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 0)
+//            startActivityForResult(intent, 1000)
         }
 
         rightButton.setOnClickListener {

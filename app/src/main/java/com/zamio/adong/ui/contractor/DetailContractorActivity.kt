@@ -13,6 +13,7 @@ import com.zamio.adong.model.Contractor
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_contractor.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +22,9 @@ class DetailContractorActivity : BaseActivity() {
 
 
     var product: Contractor? = null
-    var productId = 1
+    var id = 0
+    var regId = 0
+    var isFromProjectRegister = false
     override fun getLayout(): Int {
         return R.layout.activity_detail_contractor
     }
@@ -34,7 +37,7 @@ class DetailContractorActivity : BaseActivity() {
     override fun initData() {
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
-            productId = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
+            id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
 
             if (!ConstantsApp.PERMISSION.contains("u")) {
@@ -52,12 +55,36 @@ class DetailContractorActivity : BaseActivity() {
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
 
+
+            var title = "Xóa Nhà thầu phụ này?"
+
+            if (intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
+
+                rightButton.visibility = View.GONE
+
+                regId = intent.getIntExtra(ConstantsApp.KEY_VALUES_HIDE, 1)
+                val status = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS) ?: ""
+
+                if(status == "APPROVED") {
+                    tvOk.visibility = View.GONE
+                }
+
+                isFromProjectRegister = true
+                title = "Chọn Nhà thầu phụ này?"
+                tvOk.text = "ĐÔNG Ý"
+            }
+
             tvOk.setOnClickListener {
                 val dialogClickListener =
                     DialogInterface.OnClickListener { dialog, which ->
                         when (which) {
                             DialogInterface.BUTTON_POSITIVE -> {
-                                removeLorry()
+                                if(isFromProjectRegister) {
+                                    approveRegisterProject()
+                                } else {
+                                    removeLorry()
+                                }
+
                             }
                             DialogInterface.BUTTON_NEGATIVE -> {
                             }
@@ -65,10 +92,11 @@ class DetailContractorActivity : BaseActivity() {
                     }
 
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage("Xóa Nhà thầu phụ này?")
+                builder.setMessage(title)
                     .setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             }
+
 
         }
 
@@ -77,7 +105,7 @@ class DetailContractorActivity : BaseActivity() {
             rightButton.visibility = View.GONE
         }
 
-        getProduct(productId)
+        getProduct(id)
     }
 
     override fun resumeData() {
@@ -141,6 +169,35 @@ class DetailContractorActivity : BaseActivity() {
         })
     }
 
+    private fun approveRegisterProject() {
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService().approveRegisterProject(regId)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        showToast("Thành công")
+                        onBackPressed()
+                    } else {
+                        if (response.errorBody() != null) {
+                            val obj = JSONObject(response.errorBody().string())
+                            showToast(obj["message"].toString())
+                        }
+                    }
+                }
+            })
+    }
+
     private fun removeLorry() {
         showProgessDialog()
         RestClient().getInstance().getRestService().removeContractor(product!!.id).enqueue(object :
@@ -167,7 +224,7 @@ class DetailContractorActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == 100) {
-            getProduct(productId)
+            getProduct(id)
         }
     }
 

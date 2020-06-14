@@ -385,4 +385,20 @@ interface RestService {
 
     @GET("trip?size=1000&sort=id,desc")
     abstract fun getTrips(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
+
+    @POST("trip")
+    fun createTrip(@Body data: TripRq): Call<RestData<JsonElement>>
+
+
+    @GET("project/registrable?size=1000&sort=id,desc")
+    abstract fun getProjectRegistrable(): Call<RestData<ArrayList<Project>>>
+
+    @GET("registration?size=1000&sort=id,desc")
+    abstract fun getProjectRegister(@Query("id") id: Int): Call<RestData<ArrayList<Contractor>>>
+
+    @POST("project/{id}/register")
+    fun registerProject(@Path("id") id: Int,@Body data: JsonObject): Call<RestData<JsonElement>>
+
+    @PUT("registration/{id}/approve")
+    fun approveRegisterProject(@Path("id") id: Int): Call<RestData<JsonElement>>
 }

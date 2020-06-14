@@ -43,6 +43,14 @@ class PermissionGridAdapter : BaseAdapter {
         val topic = topicDetails[position]
         name.text = topic.name
 
+        if(topic.appEntityCode == "ContractorProject"){
+            imvAva.setImageResource(R.drawable.law)
+        }
+
+        if(topic.appEntityCode == "Trip"){
+            imvAva.setImageResource(R.drawable.travel)
+        }
+
         if(topic.appEntityCode == "Lorry"){
           imvAva.setImageResource(R.drawable.truck)
         }

@@ -10,17 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/BlueActivityTheme.AppBarOverlay">
-        <include layout="@layout/item_header_layout"
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_size"
-            android:background="#2196F3"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+        <RelativeLayout
+           android:layout_width="match_parent"
+            android:background="@color/colorHeader"
+            android:layout_height="50dp">
+            <ImageView
+                android:padding="10dp"
 
-            />
+                android:id="@+id/imvBack"
+
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="#ffffff"
+                android:id="@+id/tvTitle"
+                android:text="Title"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="Tạo Chuyến"
+                android:layout_marginRight="5dp"
+                android:id="@+id/rightButton"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
 
 
 

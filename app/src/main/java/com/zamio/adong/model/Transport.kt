@@ -1,5 +1,7 @@
 package com.zamio.adong.model
 
+import java.io.Serializable
+
 data class Transport (
     var code: String?,
     var createdByFullName: String?,
@@ -20,5 +22,6 @@ data class Transport (
     var updatedTime: String?,
     var warehouseId: Int?,
     var warehouseName: String?,
+    var isSelected: Boolean?,
     var lines : ArrayList<Product>?
-)
+) : Serializable

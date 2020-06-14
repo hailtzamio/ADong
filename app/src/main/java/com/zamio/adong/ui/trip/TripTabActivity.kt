@@ -5,27 +5,28 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
 import com.zamio.adong.adapter.WareHousePagerAdapter
+import com.zamio.adong.model.Transport
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.item_header_layout.*
-
+import kotlinx.android.synthetic.main.activity_trip_tab.*
 
 
 class TripTabActivity : AppCompatActivity() {
     var id = 0
     var position = 0
     val stockFrag = TransportRequestFragment()
+    val transportRequestDoneFragment = TransportRequestDoneFragment()
     val factoryFrag = TripFragment()
-
+    var transports = ArrayList<Transport>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trip_tab)
         val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager, 2)
         sectionsPagerAdapter.addFragment(stockFrag)
+        sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
         sectionsPagerAdapter.addFragment(factoryFrag)
         tvTitle.text = "Vận Chuyển"
         rightButton.visibility = View.GONE
@@ -59,13 +60,39 @@ class TripTabActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        rightButton.setOnClickListener {
+            val intent = Intent(this, CreateTripActivity::class.java)
+            ConstantsApp.transportsChoose = transports
+
+            startActivity(intent)
+            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
     }
 
     fun getProjectId(): Int {
         return id
     }
+
     fun setTitle() {
 
+    }
+
+    fun setTrips(transports : ArrayList<Transport>) {
+        this.transports = transports
+
+        var isShow = false
+        transports.forEach {
+            if(it.isSelected == true) {
+                isShow = true
+            }
+        }
+
+        if(isShow) {
+            rightButton.visibility = View.VISIBLE
+        } else {
+            rightButton.visibility = View.GONE
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

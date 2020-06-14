@@ -20,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class TransportRequestFragment : BaseFragment() {
+class TransportRequestDoneFragment : BaseFragment() {
 
     var currentPage = 0
     var totalPages = 0
@@ -71,7 +71,7 @@ class TransportRequestFragment : BaseFragment() {
     private fun setupRecyclerView(){
 
         for(i in data.size - 1 downTo 0) {
-            if(data[i].status != 1) {
+            if(data[i].status == 1) {
                 data.removeAt(i)
             }
         }
@@ -87,17 +87,6 @@ class TransportRequestFragment : BaseFragment() {
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
             startActivityForResult(intent,1000)
             activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        }
-
-
-        mAdapter.onItemSelected = { position, isChecked ->
-            data[position].isSelected = isChecked
-            ( activity as TripTabActivity).setTrips(data)
-//            for (i in data.indices) {
-//                if(data[i].isSelected == true) {
-//                    Log.e("hailpt", "workersChoose  " + data[i].code)
-//                }
-//            }
         }
 
         var isLastPage: Boolean = false

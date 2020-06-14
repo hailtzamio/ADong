@@ -14,8 +14,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
-import com.zamio.adong.ui.lorry.map.LorryLocationActivity
-import com.zamio.adong.ui.map.MapActivity
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -95,11 +93,20 @@ class MainLorryFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            val intent = Intent(context, DetailLorryActivity::class.java)
-//            intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
-            startActivityForResult(intent, 1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+            if(!(activity as MainLorryActivity).isGoToChooseLorry) {
+                val intent = Intent(context, DetailLorryActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+                startActivityForResult(intent, 1000)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            } else {
+                val returnIntent = Intent()
+                returnIntent.putExtra("id", product.id)
+                returnIntent.putExtra("name", product.plateNumber)
+                activity!!.setResult(1, returnIntent)
+                activity!!.finish()
+            }
+
         }
     }
 

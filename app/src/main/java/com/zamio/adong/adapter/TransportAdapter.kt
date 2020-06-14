@@ -1,13 +1,13 @@
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.GoodsIssue
-import com.zamio.adong.model.GoodsNote
 import com.zamio.adong.model.Transport
-import com.zamio.adong.model.WareHouse
 
 
 /**
@@ -18,7 +18,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
 
 
     var onItemClick: ((Transport) -> Unit)? = null
-
+    var onItemSelected: ((Int, Boolean) -> Unit)? = null
     companion object {
         private const val VIEW_TYPE_ONE = 0
         private const val VIEW_TYPE_TWO = 1
@@ -31,17 +31,22 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
         var tv4: TextView = view.findViewById(R.id.tv4)
         var tv5: TextView = view.findViewById(R.id.tv5)
         var tv6: TextView = view.findViewById(R.id.tv6)
+        var cb: CheckBox = view.findViewById(R.id.cb)
 
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
+
+            cb.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+                onItemSelected?.invoke(adapterPosition, isChecked)
+            })
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_goods_received_note_layout, parent, false)
+            .inflate(R.layout.item_transport_request_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -73,11 +78,21 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             when(topic.status) {
                 1 ->  holder.tv6.text = "Mới"
                 2 ->  holder.tv6.text = "Đã hủy"
-                3 ->  holder.tv6.text = "Đã xong"
+                3 ->  holder.tv6.text = "Hoàn thành"
                 4 ->  holder.tv6.text = "Đã chọn xe"
                 5 ->  holder.tv6.text = "Đã nhận hàng"
             }
         }
+
+        if(topic.status == 1) {
+            holder.cb.visibility = View.VISIBLE
+        } else {
+            holder.cb.visibility = View.GONE
+        }
+
+
+
+        holder.cb.isSelected = topic.isSelected ?: false
     }
 
     override fun getItemCount(): Int {

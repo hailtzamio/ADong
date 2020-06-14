@@ -1,7 +1,6 @@
 package com.zamio.adong.ui.trip
 
 import RestClient
-import TransportAdapter
 import TripAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +12,7 @@ import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
-import com.zamio.adong.model.Transport
 import com.zamio.adong.model.Trip
-import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_overview_project.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,6 +58,9 @@ class TripFragment : BaseFragment() {
                     if(response!!.body() != null && response!!.body().status == 1){
                         data = response.body().data!!
                         setupRecyclerView()
+                        if(data!!.isEmpty()) {
+                            showToast("Danh sách trống")
+                        }
                     }
             }
         })

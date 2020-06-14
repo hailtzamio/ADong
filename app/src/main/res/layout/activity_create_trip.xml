@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.product.CreateProductActivity">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/item_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_below="@+id/header"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:gravity="center_vertical"
+            android:inputType="none"
+            android:singleLine="true"
+            android:hint="Xe *"
+            android:paddingLeft="10dp"
+            android:id="@+id/edt1"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:inputType="none"
+            android:singleLine="true"
+            android:hint="Tài xế *"
+            android:paddingLeft="10dp"
+            android:id="@+id/edt2"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:inputType="none"
+            android:singleLine="true"
+            android:hint="Thời gian *"
+            android:paddingLeft="10dp"
+            android:id="@+id/edt3"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+        <EditText
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:hint="Ghi chú"
+            android:paddingLeft="10dp"
+            android:id="@+id/edt4"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_normal_main_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_size" />
+
+        <TextView
+            android:id="@+id/tvOk"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="ĐỒNG Ý"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_radius_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_size" />
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -22,6 +22,7 @@ import com.zamio.adong.ui.driver.MainDriverActivity
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.product.MainProductActivity
 import com.zamio.adong.ui.project.MainProjectActivity
+import com.zamio.adong.ui.project.tab.ui.main.registration.ProjectRegistranleActivity
 import com.zamio.adong.ui.team.MainTeamActivity
 import com.zamio.adong.ui.trip.TripTabActivity
 import com.zamio.adong.ui.ware.WareTabActivity
@@ -77,13 +78,15 @@ class PermissionsFragment : BaseFragment() {
 
     private fun setupGridView(data:ArrayList<Permission>){
 
+        data.add(Permission("r", "ContractorProject", 1,1,1,"ContractorProject"))
+
         val permissions = ArrayList<Permission>()
 
         data.forEach {
             if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"  || it.appEntityCode == "Warehouse"
                         || it.appEntityCode == "Product"
                         || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
-                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project" || it.appEntityCode  == "WorkOutlinee" || it.appEntityCode  == "Trip"  )) {
+                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project" || it.appEntityCode  == "WorkOutlinee" || it.appEntityCode  == "Trip" || it.appEntityCode  == "ContractorProject"  )) {
 
                 if (it.appEntityCode == "Worker" ) {
                     it.name = "Công Nhân"
@@ -127,6 +130,10 @@ class PermissionsFragment : BaseFragment() {
 
                 if (it.appEntityCode == "Trip" ) {
                     it.name = "Chuyến Xe"
+                }
+
+                if (it.appEntityCode == "ContractorProject" ) {
+                    it.name = "Đấu Thầu"
                 }
 
                 permissions.add(it)
@@ -173,6 +180,7 @@ class PermissionsFragment : BaseFragment() {
                     "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
                     "Warehouse" -> intent = Intent(context, WareTabActivity::class.java)
                     "Trip" -> intent = Intent(context, TripTabActivity::class.java)
+                    "ContractorProject" -> intent = Intent(context, ProjectRegistranleActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString

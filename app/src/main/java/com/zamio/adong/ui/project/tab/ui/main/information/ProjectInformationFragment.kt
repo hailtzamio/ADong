@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,6 +96,12 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun goToAlbum() {
         val intent = Intent(context, CheckinOutAlbumImage::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToRegistration() {
+        val intent = Intent(context, ProjectRegisterActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -237,6 +242,7 @@ class ProductInformationFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             when(product) {
                 0 -> goToBaseInformation()
+                2 ->  goToRegistration()
                 3 -> goToProductRequirement()
                 9 -> goToAddingWorkers()
                 10 -> goToAlbum()

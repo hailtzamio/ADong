@@ -3,6 +3,7 @@ package com.zamio.adong.network;
 
 import com.zamio.adong.model.LinesAddNew;
 import com.zamio.adong.model.Product;
+import com.zamio.adong.model.Transport;
 import com.zamio.adong.model.Worker2;
 
 import java.util.ArrayList;
@@ -59,5 +60,5 @@ public class ConstantsApp {
     public static ArrayList<Product> products = new ArrayList<Product>();
     public static ArrayList<LinesAddNew> lines = new ArrayList<LinesAddNew>();
     public static ArrayList<Product> productsToGooodReceied = new ArrayList<Product>();
-
+    public static ArrayList<Transport> transportsChoose = new ArrayList<Transport>();
 }
