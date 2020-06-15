@@ -34,7 +34,7 @@ interface RestService {
     @GET("myPermissions")
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
-    @GET("product?size=1000&sort=id,desc")
+    @GET("product?size=100&sort=id,desc")
     abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Product>>>
 
     @GET("product/{id}")
@@ -50,7 +50,7 @@ interface RestService {
     fun updateProduct(@Path("id") id: Int, @Body lorry: JsonObject): Call<RestData<JsonElement>>
 
 
-    @GET("lorry?size=1000&sort=id,desc")
+    @GET("lorry?size=100&sort=id,desc")
     abstract fun getLorries(): Call<RestData<List<Lorry>>>
 
     @GET("lorry/{id}")
@@ -77,7 +77,7 @@ interface RestService {
     @GET("worker?isTeamLeader=false&size=100&sort=id,desc")
     fun getWorkersNotLeaders(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Worker>>>
 
-    @GET("worker?inTeam=false&size=1000")
+    @GET("worker?inTeam=false&size=100")
     fun getWorkers2(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<Worker2>>>
 
     @GET("worker/{id}")
@@ -95,7 +95,7 @@ interface RestService {
 
     /* Criteria */
 
-    @GET("criteriaBundle?size=1000&sort=id,desc")
+    @GET("criteriaBundle?size=100&sort=id,desc")
     fun getCriterias(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Criteria>>>
 
     @GET("criteriaBundle/{cbId}")
@@ -117,7 +117,7 @@ interface RestService {
     /* End Criteria */
 
     /* Team */
-    @GET("team?size=1000&sort=id,desc")
+    @GET("team?size=100&sort=id,desc")
     fun getTeams(@Query("page") page: Int, @Query("name") name: String): Call<RestData<List<Team>>>
 
     @GET("team/{id}")
@@ -138,17 +138,17 @@ interface RestService {
     @GET("worker?isTeamLeader=true")
     fun getTeamLeaders(@Query("page") page: Int,@Query("name") name: String): Call<RestData<List<Worker>>>
 
-    @GET("province?size=1000")
+    @GET("province?size=100")
     fun getProvince(): Call<RestData<ArrayList<Province>>>
 
-    @GET("province/{provinceId}/districts?size=1000")
+    @GET("province/{provinceId}/districts?size=100")
     fun getDistricts(@Path("provinceId") provinceId: Int): Call<RestData<ArrayList<Province>>>
 
     /* End Team */
 
     /* Driver */
 
-    @GET("driver?size=1000&sort=id,desc")
+    @GET("driver?size=100&sort=id,desc")
     fun getDrivers(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<List<Driver>>>
 
     @POST("driver")
@@ -165,7 +165,7 @@ interface RestService {
     /* End Driver */
 
     /* Contructor */
-    @GET("contractor?size=1000&sort=id,desc")
+    @GET("contractor?size=100&sort=id,desc")
     fun getContractors(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Contractor>>>
 
     @POST("contractor")
@@ -210,13 +210,13 @@ interface RestService {
     @GET("user/{id}")
     fun getUer(@Path("id") id: Int): Call<RestData<Profile>>
 
-    @GET("user?size=1000&sort=id,desc&authorityCode=MANAGER")
+    @GET("user?size=100&sort=id,desc&authorityCode=MANAGER")
     fun getManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-    @GET("user?size=1000&sort=id,desc&authorityCode=SECRETARY")
+    @GET("user?size=100&sort=id,desc&authorityCode=SECRETARY")
     fun getSecretaries(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-    @GET("user?size=1000&sort=id,desc&authorityCode=DEPUTY_MANAGER")
+    @GET("user?size=100&sort=id,desc&authorityCode=DEPUTY_MANAGER")
     fun getDeputyManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
     @POST("checkin")
@@ -228,16 +228,16 @@ interface RestService {
     /* End Project */
     /* WorkOutline  */
 
-    @GET("project/{projectId}/workOutlines?size=1000&sort=id,desc")
+    @GET("project/{projectId}/workOutlines?size=100&sort=id,desc")
     fun getProjectWorkOutlines(@Path("projectId") projectId: Int, @Query("page") page: Int): Call<RestData<List<WorkOutline>>>
 
-    @GET("project/{projectId}/productRequirements?size=1000&sort=id,desc")
+    @GET("project/{projectId}/productRequirements?size=100&sort=id,desc")
     fun getProductRequirement(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<ArrayList<ProductRequirement>>>
 
     @GET("project/{projectId}/workers?size=100&sort=id,desc")
     fun getProjectWorkers(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<Worker>>>
 
-    @GET("workOutline?size=1000&sort=id,desc")
+    @GET("workOutline?size=100&sort=id,desc")
     fun getWorkOutlines(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<WorkOutline>>>
 
     @GET("workOutline/{id}")
@@ -255,7 +255,7 @@ interface RestService {
     @POST("project/{projectId}/productRequirement")
     fun createProductRequirementForProject(@Body data: ProductRequirementRes,@Path("projectId") id: Int): Call<RestData<JsonElement>>
 
-    @GET("project/{projectId}/workers?size=1000&sort=id,desc")
+    @GET("project/{projectId}/workers?size=100&sort=id,desc")
     fun getProjectWorker(@Path("projectId") id: Int,@Query("name") fullName: String): Call<RestData<List<Worker>>>
 
     @POST("project/{projectId}/addWorker")
@@ -264,6 +264,10 @@ interface RestService {
     @Multipart
     @POST("project/{projectId}/uploadCheckinPhoto")
     fun updateImageCheckin(@Path("projectId") id: Int,@Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    @GET("project/{projectId}/uploadSessions")
+    fun getProjectFiles(@Path("projectId") id: Int): Call<RestData<List<Project>>>
+
 
     @GET("project/{projectId}/checkinPhotos")
     fun getProjectImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
@@ -367,7 +371,7 @@ interface RestService {
     @GET("user?size=100&sort=id")
     fun getBuyers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-    @GET("transportRequest?size=1000&sort=id,desc")
+    @GET("transportRequest?size=100&sort=id,desc")
     abstract fun getTransports(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Transport>>>
 
     @GET("transportRequest/{id}")
@@ -383,17 +387,20 @@ interface RestService {
     @PUT("transportRequest/{id}/unload")
     fun transportUnload(@Path("id") id: Int): Call<RestData<JsonElement>>
 
-    @GET("trip?size=1000&sort=id,desc")
+    @GET("trip?size=100&sort=id,desc")
     abstract fun getTrips(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
 
     @POST("trip")
     fun createTrip(@Body data: TripRq): Call<RestData<JsonElement>>
 
+    @GET("trip/{id}")
+    fun getTrip(@Path("id") id: Int): Call<RestData<Trip>>
 
-    @GET("project/registrable?size=1000&sort=id,desc")
+
+    @GET("project/registrable?size=100&sort=id,desc")
     abstract fun getProjectRegistrable(): Call<RestData<ArrayList<Project>>>
 
-    @GET("registration?size=1000&sort=id,desc")
+    @GET("registration?size=100&sort=id,desc")
     abstract fun getProjectRegister(@Query("id") id: Int): Call<RestData<ArrayList<Contractor>>>
 
     @POST("project/{id}/register")

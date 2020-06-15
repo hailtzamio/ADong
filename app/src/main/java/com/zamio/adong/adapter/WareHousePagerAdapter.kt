@@ -15,7 +15,8 @@ private val TAB_TITLES = arrayOf(
 private val TAB_TITLES_2 = arrayOf(
     R.string.transport_1,
     R.string.transport_2,
-    R.string.transport_3
+    R.string.transport_3,
+    R.string.transport_4
 )
 
 class WareHousePagerAdapter(private val context: Context, fm: FragmentManager,private val type : Int) :

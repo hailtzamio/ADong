@@ -88,5 +88,8 @@ data class Project(
     @SerializedName("updatedById")
     val updatedById: Int,
     @SerializedName("updatedTime")
-    val updatedTime: String
+    val updatedTime: String,
+    @SerializedName("designFiles")
+    val designFiles: ArrayList<FileProject>?
+
 ) : Serializable

@@ -1,4 +1,4 @@
-
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +19,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
 
     var onItemClick: ((Transport) -> Unit)? = null
     var onItemSelected: ((Int, Boolean) -> Unit)? = null
+
     companion object {
         private const val VIEW_TYPE_ONE = 0
         private const val VIEW_TYPE_TWO = 1
@@ -58,33 +59,39 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             holder.tv1.text = topic.code
         }
 
-        if (topic.warehouseName != null && topic.warehouseName !== "") {
-            holder.tv2.text = topic.projectName
-        }
-
-        if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
-            holder.tv3.text = topic.plannedDatetime
-        }
-
-        if (topic.note != null && topic.note != "") {
-            holder.tv4.text = topic.note
+        if (topic.tripName != null && topic.tripName !== "") {
+            holder.tv2.text = topic.tripName
         }
 
         if (topic.warehouseName != null && topic.warehouseName != "") {
-            holder.tv5.text = topic.warehouseName
+            holder.tv3.text = topic.warehouseName
+        }
+
+        if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
+            holder.tv4.text = topic.plannedDatetime
+        }
+
+        if (topic.note != null && topic.note != "") {
+            holder.tv5.text = topic.note
         }
 
         if (topic.status != null) {
-            when(topic.status) {
-                1 ->  holder.tv6.text = "Mới"
-                2 ->  holder.tv6.text = "Đã hủy"
-                3 ->  holder.tv6.text = "Hoàn thành"
-                4 ->  holder.tv6.text = "Đã chọn xe"
-                5 ->  holder.tv6.text = "Đã nhận hàng"
+            when (topic.status) {
+                1 -> holder.tv6.text = "Mới"
+                2 -> holder.tv6.text = "Đã hủy"
+                3 -> holder.tv6.text = "Hoàn thành"
+                4 -> {
+                    holder.tv6.text = "Đang đi"
+                    holder.tv6.setTextColor(Color.RED)
+                }
+                5 -> {
+                    holder.tv6.text = "Đã nhận hàng"
+                    holder.tv6.setTextColor(Color.GREEN)
+                }
             }
         }
 
-        if(topic.status == 1) {
+        if (topic.status == 1) {
             holder.cb.visibility = View.VISIBLE
         } else {
             holder.cb.visibility = View.GONE

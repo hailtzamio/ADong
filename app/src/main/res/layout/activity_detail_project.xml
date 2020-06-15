@@ -35,7 +35,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="CHUNG"
+                    android:text="THÔNG TIN CHUNG"
                     android:textColor="@color/colorName"
                     android:textStyle="bold" />
                 <ImageView
@@ -43,8 +43,8 @@
                     android:layout_alignParentRight="true"
                     android:paddingRight="10dp"
                     android:src="@drawable/map_vew"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
 
             </RelativeLayout>
 

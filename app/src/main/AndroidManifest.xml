@@ -332,6 +332,18 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.trip.TripActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.trip.DetailTripActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.project.tab.ui.main.file.ProjectFilesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity

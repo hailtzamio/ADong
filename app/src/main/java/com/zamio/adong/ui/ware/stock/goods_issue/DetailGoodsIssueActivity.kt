@@ -2,15 +2,12 @@ package com.zamio.adong.ui.ware.stock.goods_issue
 
 import GoodsIssueLinesAdapter
 import RestClient
-import SwipeToDeleteCallback
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -199,17 +196,17 @@ class DetailGoodsIssueActivity : BaseActivity() {
             removeProduct(it)
         }
 
-        if (status == "DRAFT") {
-            val swipeHandler = object : SwipeToDeleteCallback(this!!) {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = recyclerView.adapter as GoodsIssueLinesAdapter
-                    adapter.removeAt(viewHolder.adapterPosition)
-                }
-            }
-
-            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-            itemTouchHelper.attachToRecyclerView(recyclerView)
-        }
+//        if (status == "DRAFT") {
+//            val swipeHandler = object : SwipeToDeleteCallback(this!!) {
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val adapter = recyclerView.adapter as GoodsIssueLinesAdapter
+//                    adapter.removeAt(viewHolder.adapterPosition)
+//                }
+//            }
+//
+//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//            itemTouchHelper.attachToRecyclerView(recyclerView)
+//        }
     }
 
     private fun confirm() {

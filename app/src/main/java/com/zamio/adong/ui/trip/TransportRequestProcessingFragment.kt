@@ -20,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class TransportRequestDoneFragment : BaseFragment() {
+class TransportRequestProcessingFragment : BaseFragment() {
 
     var currentPage = 0
     var totalPages = 0
@@ -71,7 +71,7 @@ class TransportRequestDoneFragment : BaseFragment() {
     private fun setupRecyclerView(){
 
         for(i in data.size - 1 downTo 0) {
-            if(data[i].status != 3) {
+            if(data[i].status != 4 && data[i].status != 5) {
                 data.removeAt(i)
             }
         }

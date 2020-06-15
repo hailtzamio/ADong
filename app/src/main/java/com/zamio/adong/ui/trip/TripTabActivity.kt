@@ -11,6 +11,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.WareHousePagerAdapter
 import com.zamio.adong.model.Transport
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.popup.HoldSimDialog
 import kotlinx.android.synthetic.main.activity_trip_tab.*
 
 
@@ -19,6 +20,7 @@ class TripTabActivity : AppCompatActivity() {
     var position = 0
     val stockFrag = TransportRequestFragment()
     val transportRequestDoneFragment = TransportRequestDoneFragment()
+    val transportRequestProcessingFragment = TransportRequestProcessingFragment()
     val factoryFrag = TripFragment()
     var transports = ArrayList<Transport>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,7 @@ class TripTabActivity : AppCompatActivity() {
         setContentView(R.layout.activity_trip_tab)
         val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager, 2)
         sectionsPagerAdapter.addFragment(stockFrag)
+        sectionsPagerAdapter.addFragment(transportRequestProcessingFragment)
         sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
         sectionsPagerAdapter.addFragment(factoryFrag)
         tvTitle.text = "Vận Chuyển"
@@ -61,11 +64,24 @@ class TripTabActivity : AppCompatActivity() {
         }
 
         rightButton.setOnClickListener {
-            val intent = Intent(this, CreateTripActivity::class.java)
-            ConstantsApp.transportsChoose = transports
 
-            startActivity(intent)
-            this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            val dialog = HoldSimDialog(this)
+            dialog.show()
+
+            dialog.onItemClick = {
+                ConstantsApp.transportsChoose = transports
+                if(it == 1) {
+                    val intent = Intent(this, CreateTripActivity::class.java)
+                    startActivity(intent)
+                    this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else {
+                    val intent = Intent(this, TripActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID,1)
+                    startActivity(intent)
+                    this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }
+
+            }
         }
 
     }

@@ -21,6 +21,7 @@ import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
+import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
@@ -96,6 +97,12 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun goToAlbum() {
         val intent = Intent(context, CheckinOutAlbumImage::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToFile() {
+        val intent = Intent(context, ProjectFilesActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -244,6 +251,7 @@ class ProductInformationFragment : BaseFragment() {
                 0 -> goToBaseInformation()
                 2 ->  goToRegistration()
                 3 -> goToProductRequirement()
+                4 -> goToFile()
                 9 -> goToAddingWorkers()
                 10 -> goToAlbum()
                 11 -> goToCheckinHistory()

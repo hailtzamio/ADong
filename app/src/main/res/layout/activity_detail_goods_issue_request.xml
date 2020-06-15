@@ -99,6 +99,7 @@
                     app:autoSizeTextType="uniform" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tvEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -196,7 +197,7 @@
                     android:id="@+id/tvAddProduct"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DANH SÁCH VẬT TƯ ( + )"
+                    android:text="DANH SÁCH VẬT TƯ"
                     android:textColor="@color/colorName"
                     android:textStyle="bold" />
 

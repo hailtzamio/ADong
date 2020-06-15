@@ -10,7 +10,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.project.DetailProjectActivity
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity
 import kotlinx.android.synthetic.main.activity_choose_team_leader.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -50,12 +50,14 @@ class ProjectRegistranleActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<ArrayList<Project>>>?, response: Response<RestData<ArrayList<Project>>>?) {
                 dismisProgressDialog()
-                if( response!!.body().status == 1){
+                if( response!!.body() != null && response!!.body().status == 1){
                     setupRecyclerView(response.body().data!!)
 
                     if(response.body().data!!.size == 0) {
                         showToast("Danh sách trống")
                     }
+                } else {
+                    showToast("Không lấy được dữ liệu")
                 }
             }
         })
@@ -76,7 +78,7 @@ class ProjectRegistranleActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { it ->
-               val intent = Intent(this, DetailProjectActivity::class.java)
+               val intent = Intent(this, BasicInformationActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
             intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, it.id)
             startActivity(intent)

@@ -10,10 +10,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Trip
+import com.zamio.adong.model.TripRq
+import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_overview_project.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,11 +27,11 @@ class TripFragment : BaseFragment() {
 
     var currentPage = 0
     var totalPages = 0
-    var data:List<Trip>? = null
+    var data: List<Trip>? = null
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val root = inflater.inflate(R.layout.activity_overview_project, container, false)
@@ -45,7 +49,7 @@ class TripFragment : BaseFragment() {
         getData(0)
     }
 
-    private fun getData(page:Int){
+    private fun getData(page: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().getTrips(page, "").enqueue(object :
             Callback<RestData<ArrayList<Trip>>> {
@@ -53,20 +57,30 @@ class TripFragment : BaseFragment() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<ArrayList<Trip>>>?, response: Response<RestData<ArrayList<Trip>>>?) {
-                    dismisProgressDialog()
-                    if(response!!.body() != null && response!!.body().status == 1){
-                        data = response.body().data!!
-                        setupRecyclerView()
-                        if(data!!.isEmpty()) {
-                            showToast("Danh sách trống")
-                        }
+            override fun onResponse(
+                call: Call<RestData<ArrayList<Trip>>>?,
+                response: Response<RestData<ArrayList<Trip>>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response!!.body().status == 1) {
+                    data = response.body().data!!
+                    setupRecyclerView()
+                    if (data!!.isEmpty()) {
+                        showToast("Danh sách trống")
                     }
+
+                    totalPages = response.body().pagination!!.totalPages!!
+
+//                        val pagination = response.body().pagination!!
+//                        if (pagination.totalRecords != null) {
+//                            showHintText(pagination)
+//                        }
+                }
             }
         })
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
 
         val mAdapter = TripAdapter(data!!)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -75,16 +89,38 @@ class TripFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { it ->
-//            val intent = Intent(context, DetailTransportActivity::class.java)
-//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
-//            startActivityForResult(intent,1000)
-//            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+            val transportReqIds = ArrayList<Int>()
+
+            ConstantsApp.transportsChoose.forEach {
+                if (it.isSelected == true) {
+                    transportReqIds.add(it.id ?: 0)
+                }
+            }
+
+            if (activity is TripActivity) {
+                val tripRq = TripRq(
+                    it.plannedDatetime ?: "",
+                    it.driverId ?: 1,
+                    it.lorryId ?: 1,
+                    "",
+                    transportReqIds
+                )
+                createTrip(tripRq)
+            } else {
+                val intent = Intent(context, DetailTripActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
+                startActivityForResult(intent, 1000)
+                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+
+
         }
 
         var isLastPage: Boolean = false
         var isLoading: Boolean = false
 
-        recyclerView?.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager ) {
+        recyclerView?.addOnScrollListener(object : PaginationScrollListener(linearLayoutManager) {
             override fun isLastPage(): Boolean {
                 return isLastPage
             }
@@ -95,17 +131,43 @@ class TripFragment : BaseFragment() {
 
             override fun loadMoreItems() {
                 isLoading = true
-//                if((currentPage + 1) < totalPages){
-//                    getProducts(currentPage++)
-//                }
-//                currentPage += 1
+                if ((currentPage + 1) < totalPages) {
+                    getData(currentPage++)
+                }
+                currentPage += 1
+            }
+        })
+    }
+
+    private fun createTrip(tripRq: TripRq) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().createTrip(tripRq).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response!!.body().status == 1) {
+                    showToast("Thành công")
+                    activity!!.setResult(100)
+                    activity!!.finish()
+                } else {
+                    val obj = JSONObject(response!!.errorBody().string())
+                    showToast(obj["message"].toString())
+                }
             }
         })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == 100){
+        if (resultCode == 100) {
 //            getProducts(0)
         }
     }

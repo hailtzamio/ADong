@@ -25,7 +25,7 @@ tools:context=".ui.project.tab.ui.main.checkinout.CheckInOutActivity">
         android:layout_height="match_parent"
         android:gravity="center"
         android:horizontalSpacing="2.5dp"
-        android:numColumns="auto_fit"
+        android:numColumns="2"
         android:padding="5dp"
         android:verticalSpacing="5dp" />
 

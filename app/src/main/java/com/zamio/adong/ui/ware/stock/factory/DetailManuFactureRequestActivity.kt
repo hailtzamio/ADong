@@ -1,24 +1,25 @@
 package com.zamio.adong.ui.ware.stock.factory
 
-import GoodsIssueRequestLinesAdapter
 import ManuFactureRequestLinesAdapter
 import RestClient
-import SwipeToDeleteCallback
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.GoodsNoteUpdateRq
+import com.zamio.adong.model.LinesAddNew
+import com.zamio.adong.model.ManuFactureRes
+import com.zamio.adong.model.MenuFactureResLine
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity
 import kotlinx.android.synthetic.main.activity_detail_goods_issue_request.*
@@ -30,8 +31,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog.OnTimeSetListener
 
 class DetailManuFactureRequestActivity : BaseActivity() {
 
@@ -66,9 +65,9 @@ class DetailManuFactureRequestActivity : BaseActivity() {
 
         }
 
-        tvEdit.setOnClickListener {
-            showDateTimePicker()
-        }
+//        tvEdit.setOnClickListener {
+//            showDateTimePicker()
+//        }
     }
 
     override fun initData() {
@@ -204,17 +203,17 @@ class DetailManuFactureRequestActivity : BaseActivity() {
             removeProduct(it)
         }
 
-        if (status != 1) {
-            val swipeHandler = object : SwipeToDeleteCallback(this) {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val adapter = recyclerView.adapter as ManuFactureRequestLinesAdapter
-                    adapter.removeAt(viewHolder.adapterPosition)
-                }
-            }
-
-            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-            itemTouchHelper.attachToRecyclerView(recyclerView)
-        }
+//        if (status != 1) {
+//            val swipeHandler = object : SwipeToDeleteCallback(this) {
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    val adapter = recyclerView.adapter as ManuFactureRequestLinesAdapter
+//                    adapter.removeAt(viewHolder.adapterPosition)
+//                }
+//            }
+//
+//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//            itemTouchHelper.attachToRecyclerView(recyclerView)
+//        }
     }
 
     private fun removeProduct(id: Int) {

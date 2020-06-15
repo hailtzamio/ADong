@@ -9,11 +9,11 @@ import android.widget.Toast
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
-import com.zamio.adong.ui.map.MapDetailActivity
 import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -52,7 +52,70 @@ class BasicInformationActivity : BaseActivity() {
                 intent.putExtra(ConstantsApp.KEY_VALUES_LONG, data!!.longitude)
                 startActivity(intent)
             }
+
+            if(intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
+                // Chọn nhà thầu phụ đăng ký thi công
+                rightButton.visibility = View.GONE
+                tvOk.visibility = View.VISIBLE
+                tvOk.text = "ĐĂNG KÝ THI CÔNG"
+                tvOk.setOnClickListener {
+                    showPopupRegisterProject()
+                }
+            } else {
+                tvOk.setOnClickListener {
+                    if (id != 0) {
+                        removeProject()
+                    }
+                }
+            }
         }
+    }
+
+    private fun registerProject(id: Int) {
+
+        val data = JsonObject()
+        data.addProperty("note", "Đăng ký thi công")
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService().registerProject(id,data).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    showToast("Thành công")
+                } else {
+                    val obj = JSONObject(response.errorBody().string())
+                    showToast(obj["message"].toString())
+                }
+            }
+        })
+    }
+
+    private fun showPopupRegisterProject(){
+        val dialogClickListener =
+            DialogInterface.OnClickListener { dialog, which ->
+                when (which) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        if( data != null) {
+                            registerProject(data!!.id)
+                        }
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> {
+                    }
+                }
+            }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage("Đăng ký thi công?").setPositiveButton("Đồng ý", dialogClickListener)
+            .setNegativeButton("Không", dialogClickListener).show()
     }
 
     override fun resumeData() {
@@ -104,11 +167,11 @@ class BasicInformationActivity : BaseActivity() {
                         tvChooseEndDate.text =  Utils.convertDate(data!!.plannedEndDate)
                     }
 
-                    tvManagerName.text = data!!.managerFullName
-                    tvDeputyManagerName.text = data!!.deputyManagerFullName
-                    tvLeaderName.text = data!!.supervisorFullName
-                    tvSecretaryName.text = data!!.secretaryFullName
-                    tvChooseTeamOrContractor.text = data!!.teamName
+                    tvManagerName.text = data!!.managerFullName ?: "---"
+                    tvDeputyManagerName.text = data!!.deputyManagerFullName ?: "---"
+                    tvLeaderName.text = data!!.supervisorFullName ?: "---"
+                    tvSecretaryName.text = data!!.secretaryFullName ?: "---"
+                    tvChooseTeamOrContractor.text = data!!.teamName ?: "---"
                     if (data!!.teamType == "ADONG") {
                         rlLeaderAdong.visibility = View.VISIBLE
 
@@ -126,7 +189,7 @@ class BasicInformationActivity : BaseActivity() {
                     } else {
                         rlLeaderAdong.visibility = View.GONE
                         rlLeader.visibility = View.VISIBLE
-                        tvContractorOrTeam.text = data!!.contractorName
+                        tvContractorOrTeam.text = data!!.contractorName ?: "---"
                         tvContractorOrTeamLabel.text = "Nhà thầu phụ"
                         lnTeamName.visibility = View.GONE
                     }
