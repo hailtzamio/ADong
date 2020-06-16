@@ -1,19 +1,26 @@
 package com.zamio.adong.ui.product
 
+import InformationAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
+import com.zamio.adong.model.Information
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
+import kotlinx.android.synthetic.main.activity_detail_driver.*
 import kotlinx.android.synthetic.main.activity_detail_product.*
+import kotlinx.android.synthetic.main.activity_detail_product.cropImageView
+import kotlinx.android.synthetic.main.activity_detail_product.recyclerView
+import kotlinx.android.synthetic.main.activity_detail_product.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,8 +28,9 @@ import retrofit2.Response
 
 class DetailProductActivity : BaseActivity() {
 
-    var product:Product? = null
+    var model:Product? = null
     var productId = 1
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_product
     }
@@ -48,7 +56,7 @@ class DetailProductActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateProductActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -71,9 +79,9 @@ class DetailProductActivity : BaseActivity() {
             }
 
             cropImageView.setOnClickListener {
-                if(product!!.thumbnailUrl != null) {
+                if(model!!.thumbnailUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.thumbnailUrl)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!.thumbnailUrl)
                     startActivityForResult(intent, 1000)
                 }
             }
@@ -103,27 +111,38 @@ class DetailProductActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<Product>>?, response: Response<RestData<Product>>?) {
                 dismisProgressDialog()
                 if(response!!.body() != null && response!!.body().status == 1){
-                    product = response.body().data ?: return
-                    tvName.text = product!!.name
+                    model = response.body().data ?: return
 
-                    when (product!!.type) {
-                        "buy" ->  tvType.text = "Mua tại công trình"
-                        "manufacture" ->  tvType.text = "Sản xuất"
-                        "tool" ->  tvType.text = "Công cụ"
+                    var type = "Mua tại công trình"
+                    when (model!!.type) {
+                        "buy" -> type= "Mua tại công trình"
+                        "manufacture" ->  type = "Sản xuất"
+                        "tool" ->  type = "Công cụ"
                     }
 
-                    tvUnit.text = product!!.unit
-                    tvCode.text = product!!.code
-                    tvQuantity.text = product!!.quantity.toString()
-                    Picasso.get().load(product!!.thumbnailUrl).into(cropImageView)
+                    mList.add(Information("Tên",model!!.name ?: "---", ""))
+                    mList.add(Information("Mã",model!!.code ?: "---", ""))
+                    mList.add(Information("Loại",type, ""))
+                    mList.add(Information("Đơn vị tính",model!!.unit ?: "---", ""))
+
+                    Picasso.get().load(model!!.thumbnailUrl).into(cropImageView)
+
+                    setupRecyclerView(mList)
                 }
             }
         })
     }
 
+    private fun setupRecyclerView(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
+    }
+
     private fun removeLorry(){
         showProgessDialog()
-        RestClient().getRestService().removeProduct(product!!.id).enqueue(object :
+        RestClient().getRestService().removeProduct(model!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

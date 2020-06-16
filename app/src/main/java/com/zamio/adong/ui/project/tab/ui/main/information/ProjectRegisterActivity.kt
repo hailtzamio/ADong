@@ -68,7 +68,16 @@ class ProjectRegisterActivity : BaseActivity() {
 
         data.forEach {
             it.name = it.contractorName ?: "---"
-            it.address = it.address ?: "---"
+
+            it.phone = it.contractorPhone ?: "---"
+
+            if(it.status == "NEW") {
+                it.address =  "Mới"
+            } else if(it.status == "APPROVED") {
+                it.address =  "Đã duyệt"
+            } else {
+                it.address =  "Từ chối"
+            }
         }
 
         val mAdapter = ContructorAdapter(data)

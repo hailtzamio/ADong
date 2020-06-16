@@ -117,20 +117,20 @@ class UpdateProjectActivity: BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     data = response.body().data ?: return
-                    edtName.setText(data!!.name)
-                    edtAddress.setText(data!!.address)
-                    tvChooseDate.text = data!!.plannedStartDate
-                    tvChooseEndDate.text = data!!.plannedEndDate
-                    tvManagerName.text = data!!.managerFullName
+                    edtName.setText(data!!.name ?: "Chọn")
+                    edtAddress.setText(data!!.address ?: "Chọn")
+                    tvChooseDate.text = data!!.plannedStartDate ?: "Chọn"
+                    tvChooseEndDate.text = data!!.plannedEndDate ?: "Chọn"
+                    tvManagerName.text = data!!.managerFullName ?: "Chọn"
 
                     if(data!!.deputyManagerFullName != null ) {
-                        tvDeputyManagerName.text = data!!.deputyManagerFullName
+                        tvDeputyManagerName.text = data!!.deputyManagerFullName ?: "Chọn"
                     }
                     if(data!!.supervisorFullName != null ) {
-                        tvLeaderName.text = data!!.supervisorFullName
+                        tvLeaderName.text = data!!.supervisorFullName ?: "Chọn"
                     }
 
-                    tvSecretaryName.text = data!!.secretaryFullName
+                    tvSecretaryName.text = data!!.secretaryFullName ?: "Chọn"
 
                     if (data!!.teamType == "ADONG") {
                         isChooseADong = true
@@ -143,16 +143,22 @@ class UpdateProjectActivity: BaseActivity() {
                     }
 
                     if (data!!.teamType == "ADONG") {
-                        tvChooseTeamOrContractor.text = data!!.teamName
+                        tvChooseTeamOrContractor.text = data!!.teamName ?: "Chọn"
                     } else {
-                        tvChooseTeamOrContractor.text = data!!.contractorName
+                        tvChooseTeamOrContractor.text = data!!.contractorName ?: "Chọn"
                     }
 
                     plannedStartDate = tvChooseDate.text.toString()
                     plannedEndDate = tvChooseEndDate.text.toString()
 
+
+
                     if(data!!.secretaryId != null) {
                         secretaryId = data!!.secretaryId!!
+                    }
+
+                    if(data!!.supervisorId != null) {
+                        supervisorId = data!!.supervisorId!!
                     }
 
                     if(data!!.contractorId != null) {
@@ -243,36 +249,51 @@ class UpdateProjectActivity: BaseActivity() {
                 return@setOnClickListener
             }
 
-            if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
-                    tvManagerName
-                )
-                || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
-                    tvContractor
-                ) || checkChooseOrNot(tvChooseTeamOrContractor)
-            ) {
-                showToast("Chọn thiếu thông tin")
-                return@setOnClickListener
-            }
-
-            if (!isChooseADong) {
-                if (checkChooseOrNot(tvLeaderName)) {
+            if (isChooseADong) {
+                if (checkChooseOrNot(tvChooseDate) || checkChooseOrNot(tvChooseEndDate) || checkChooseOrNot(
+                        tvManagerName
+                    )
+                    || checkChooseOrNot(tvDeputyManagerName) || checkChooseOrNot(tvSecretaryName) || checkChooseOrNot(
+                        tvContractor
+                    ) || checkChooseOrNot(tvChooseTeamOrContractor)
+                ) {
                     showToast("Chọn thiếu thông tin")
                     return@setOnClickListener
                 }
+            }
+
+            if( checkChooseOrNot(tvSecretaryName)) {
+                showToast("Chọn Thư ký")
+                return@setOnClickListener
             }
 
             val product = JsonObject()
             product.addProperty("name", edtName.text.toString())
             product.addProperty("address", edtAddress.text.toString())
             product.addProperty("teamType", teamType)
-            product.addProperty("managerId", managerId)
-            product.addProperty("deputyManagerId", deputyManagerId)
-            product.addProperty("secretaryId", secretaryId)
-            product.addProperty("teamId", teamId)
-            product.addProperty("contractorId", contractorId)
-            if (!isChooseADong) {
+
+            if (managerId != 0) {
+                product.addProperty("managerId", managerId)
+            }
+
+            if (deputyManagerId != 0) {
+                product.addProperty("deputyManagerId", deputyManagerId)
+            }
+            if (secretaryId != 0) {
+                product.addProperty("secretaryId", secretaryId)
+            }
+
+            if (teamId != 0) {
+                product.addProperty("teamId", teamId)
+            }
+            if (contractorId != 0) {
+                product.addProperty("contractorId", contractorId)
+            }
+
+            if (!isChooseADong && supervisorId != 0) {
                 product.addProperty("supervisorId", supervisorId)
             }
+
             product.addProperty("plannedStartDate", plannedStartDate)
             product.addProperty("plannedEndDate", plannedEndDate)
             product.addProperty("latitude", latitude)

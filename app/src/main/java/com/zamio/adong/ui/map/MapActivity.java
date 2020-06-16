@@ -126,7 +126,7 @@ public class MapActivity extends AppCompatActivity
         try {
 
             if (ActivityCompat.checkSelfPermission(getBaseContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+                Log.d("stupMap", "Go To Return");
                 return;
             }
 
@@ -138,7 +138,6 @@ public class MapActivity extends AppCompatActivity
             mGoogleMap.getUiSettings().setZoomGesturesEnabled(true);
 
             gps = new GPSTracker(this, getBaseContext());
-
             gps.canGetLocation();
 
 //            latitude = gps.getLatitude();

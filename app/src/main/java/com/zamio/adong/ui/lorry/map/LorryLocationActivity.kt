@@ -112,18 +112,18 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
                     1
                 ) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
+                if(addresses.isNotEmpty()) {
+                    val address = addresses[0]
+                        .getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
-                val address = addresses[0]
-                    .getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    val city = addresses[0].locality
+                    val state = addresses[0].adminArea
+                    val country = addresses[0].countryName
+                    val postalCode = addresses[0].postalCode
+                    val knownName = addresses[0].featureName
 
-                val city = addresses[0].locality
-                val state = addresses[0].adminArea
-                val country = addresses[0].countryName
-                val postalCode = addresses[0].postalCode
-                val knownName = addresses[0].featureName
-
-                adressText.text = address
-
+                    adressText.text = address
+                }
             }
         }
     }

@@ -220,6 +220,10 @@ class ProductInformationFragment : BaseFragment() {
     var isPauseProject = false
     private fun setupRecyclerView() {
 
+        if(recyclerView == null) {
+            return
+        }
+
         val data = ArrayList<String>()
         data.add("Thông tin cơ bản")
         data.add("Line")

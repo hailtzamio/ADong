@@ -94,9 +94,10 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
 
     val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            val latitude = location.latitude
-            val longitude = location.longitude
-            val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
+//            val latitude = location.latitude
+//            val longitude = location.longitude
+//            val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
+//            Log.d("", "$msg")
 //            Toast.makeText(this@LorryLocationActivity, msg, Toast.LENGTH_LONG).show()
         }
 
@@ -117,12 +118,17 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
         val location = LatLng(10.810583, 106.709145)
         with(mGoogleMap!!) {
             moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
-            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
+//            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
         }
+
+        getProducts()
     }
 
     override fun onLocationChanged(map: Location?) {
-
+//        val latitude = map!!.latitude ?: 0.0
+//        val longitude = map!!.longitude
+//        val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
+//        Log.d("", "$msg")
 //        Toast.makeText(
 //            this,
 //            "Lat " + map!!.latitude.toString() + " " + "Long " + map!!.longitude.toString(),

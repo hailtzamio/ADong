@@ -65,13 +65,13 @@ class DetailContractorActivity : BaseActivity() {
                 regId = intent.getIntExtra(ConstantsApp.KEY_VALUES_HIDE, 1)
                 val status = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS) ?: ""
 
-                if(status == "APPROVED") {
+                if(status == "APPROVED" || status == "REJECTED") {
                     tvOk.visibility = View.GONE
                 }
 
                 isFromProjectRegister = true
                 title = "Chọn Nhà thầu phụ này?"
-                tvOk.text = "ĐÔNG Ý"
+                tvOk.text = "ĐỒNG Ý"
             }
 
             tvOk.setOnClickListener {
@@ -82,7 +82,7 @@ class DetailContractorActivity : BaseActivity() {
                                 if(isFromProjectRegister) {
                                     approveRegisterProject()
                                 } else {
-                                    removeLorry()
+                                    remove()
                                 }
 
                             }
@@ -198,7 +198,7 @@ class DetailContractorActivity : BaseActivity() {
             })
     }
 
-    private fun removeLorry() {
+    private fun remove() {
         showProgessDialog()
         RestClient().getInstance().getRestService().removeContractor(product!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {

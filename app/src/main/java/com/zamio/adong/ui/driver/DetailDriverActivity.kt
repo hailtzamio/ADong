@@ -1,19 +1,25 @@
 package com.zamio.adong.ui.driver
 
+import InformationAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.Driver
+import com.zamio.adong.model.Information
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
 import kotlinx.android.synthetic.main.activity_detail_driver.*
+import kotlinx.android.synthetic.main.activity_detail_driver.recyclerView
+import kotlinx.android.synthetic.main.activity_detail_driver.tvOk
+import kotlinx.android.synthetic.main.activity_transport_detail.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +30,7 @@ class DetailDriverActivity : BaseActivity() {
 
     var model: Driver? = null
     var modelId = 1
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_driver
     }
@@ -103,27 +110,32 @@ class DetailDriverActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     model = response.body().data ?: return
-                    tvName.text = model!!.fullName
-                    tvPhone.text = model!!.phone
 
-                    if(model!!.phone2 != null) {
-                        tvPhone2.text = model!!.phone2
-                    }
-
-                    if(model!!.email != null) {
-                        tvEmail.text = model!!.email
-                    }
-
+                    mList.add(Information("Tên",model!!.fullName ?: "---", ""))
                     if (model!!.workingStatus == "idle") {
-                        tvStatus.text = "Đang rảnh"
+                        mList.add(Information("Trạng thái","Đang rảnh", ""))
                     } else {
-                        tvStatus.text = "Đang bận"
+                        mList.add(Information("Trạng thái","Đang bận", ""))
                     }
+
+                    mList.add(Information("Số điện thoại",model!!.phone ?: "---", ""))
+                    mList.add(Information("Số điện thoại 2",model!!.phone2 ?: "---", ""))
+                    mList.add(Information("Email",model!!.email ?: "---", ""))
 
                     Picasso.get().load(model!!.avatarUrl).into(cropImageView)
+
+
+                    setupRecyclerView(mList)
                 }
             }
         })
+    }
+
+    private fun setupRecyclerView(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
     }
 
     private fun removeLorry() {

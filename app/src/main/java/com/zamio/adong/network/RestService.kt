@@ -401,7 +401,7 @@ interface RestService {
     abstract fun getProjectRegistrable(): Call<RestData<ArrayList<Project>>>
 
     @GET("registration?size=100&sort=id,desc")
-    abstract fun getProjectRegister(@Query("id") id: Int): Call<RestData<ArrayList<Contractor>>>
+    abstract fun getProjectRegister(@Query("projectId") id: Int): Call<RestData<ArrayList<Contractor>>>
 
     @POST("project/{id}/register")
     fun registerProject(@Path("id") id: Int,@Body data: JsonObject): Call<RestData<JsonElement>>

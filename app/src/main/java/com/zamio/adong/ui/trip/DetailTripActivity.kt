@@ -2,6 +2,7 @@ package com.zamio.adong.ui.trip
 
 import InformationAdapter
 import RestClient
+import TransportAdapter
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +15,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.Information
+import com.zamio.adong.model.Transport
 import com.zamio.adong.model.Trip
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_transport_detail.*
@@ -58,7 +60,7 @@ class DetailTripActivity : BaseActivity() {
 
             rightButton.visibility = View.GONE
             rightButton.setOnClickListener {
-//                val intent = Intent(this, UpdateStockActivity::class.java)
+                //                val intent = Intent(this, UpdateStockActivity::class.java)
 //                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
 //                startActivityForResult(intent, 1000)
 //                this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -100,17 +102,34 @@ class DetailTripActivity : BaseActivity() {
                 if (response!!.body() != null && response.body().status == 1) {
                     model = response.body().data ?: return
                     status = model!!.status ?: 1
-                    mList.add(Information("Code",model!!.code ?: "---", ""))
-                    mList.add(Information("Kho / Xưởng",model!!.driverFullName ?: "---", ""))
-                    mList.add(Information("Tên dự án",model!!.name ?: "---", ""))
+                    mList.add(Information("Code", model!!.code ?: "---", ""))
+                    mList.add(Information("Kho / Xưởng", model!!.driverFullName ?: "---", ""))
+                    mList.add(Information("Tên dự án", model!!.name ?: "---", ""))
 
                     setupRecyclerView(mList)
 
-                    if(status == 4) {
+
+
+                    if(model!!.transportRequests != null) {
+
+                        val transport = model!!.transportRequests
+
+                        transport!!.forEach {
+                            it.tripName = it.warehouseName
+                            it.warehouseName = it.warehouseAddress
+                            it.plannedDatetime = it.projectName
+                            it.note = it.projectAddress
+                        }
+
+                        setupRecyclerViewSmall(model!!.transportRequests!!)
+                    }
+
+
+                    if (status == 4) {
                         tvOk.visibility = View.VISIBLE
                     }
 
-                    if(status == 5) {
+                    if (status == 5) {
                         tvOk.visibility = View.VISIBLE
                         tvOk.text = "GIAO HÀNG"
                     }
@@ -126,8 +145,8 @@ class DetailTripActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
     }
 
-    private fun setupRecyclerViewSmall(data: List<Information>) {
-        val mAdapter = InformationAdapter(data)
+    private fun setupRecyclerViewSmall(data: List<Transport>) {
+        val mAdapter = TransportAdapter(data)
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView2.setHasFixedSize(false)
         recyclerView2.adapter = mAdapter
@@ -192,7 +211,7 @@ class DetailTripActivity : BaseActivity() {
             MultipartBody.Part.createFormData("image", file.name, requestFile)
 
         showProgessDialog()
-        RestClient().getRestService().transportUpload(id,body).enqueue(object :
+        RestClient().getRestService().transportUpload(id, body).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -205,7 +224,7 @@ class DetailTripActivity : BaseActivity() {
             ) {
                 dismisProgressDialog()
                 if (response?.body() != null && response.body().status == 1) {
-                    if(status == 4) {
+                    if (status == 4) {
                         pickup()
                     } else {
                         unload()

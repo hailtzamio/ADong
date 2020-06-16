@@ -79,7 +79,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             when (topic.status) {
                 1 -> holder.tv6.text = "Mới"
                 2 -> holder.tv6.text = "Đã hủy"
-                3 -> holder.tv6.text = "Hoàn thành"
+                3 -> holder.tv6.text = "Kết thúc"
                 4 -> {
                     holder.tv6.text = "Đang đi"
                     holder.tv6.setTextColor(Color.RED)

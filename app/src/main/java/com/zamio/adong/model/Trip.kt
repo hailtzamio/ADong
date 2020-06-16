@@ -15,7 +15,7 @@ data class Trip (
     var note: String?,
     var plannedDatetime: String?,
     var status: Int?,
-    var transportRequests: Int?,
+    var transportRequests: ArrayList<Transport>?,
     var updatedByFullName: String?,
     var updatedById: Int?,
     var updatedTime: String?

@@ -118,7 +118,7 @@ public class GPSTracker extends Service implements LocationListener {
                 }
             }
             return location;
-        }else {
+        } else {
 
             try {
                 locationManager = (LocationManager) mActivity
@@ -176,7 +176,6 @@ public class GPSTracker extends Service implements LocationListener {
             return location;
         }
     }
-
 
 
     public void updateGPSCoordinates() {

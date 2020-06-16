@@ -68,7 +68,7 @@ data class Project(
     @SerializedName("supervisorFullName")
     val supervisorFullName: String?,
     @SerializedName("supervisorId")
-    val supervisorId: Int,
+    val supervisorId: Int?,
     @SerializedName("supplyChainCriteriaBundleId")
     val supplyChainCriteriaBundleId: Int,
     @SerializedName("supplyChainCriteriaBundleName")

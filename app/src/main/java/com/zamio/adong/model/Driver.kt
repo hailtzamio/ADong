@@ -22,7 +22,7 @@ data class Driver(
     @SerializedName("lorryPlateNumber")
     val lorryPlateNumber: String,
     @SerializedName("phone")
-    val phone: String,
+    val phone: String?,
     @SerializedName("phone2")
     val phone2: String?,
     @SerializedName("tripId")

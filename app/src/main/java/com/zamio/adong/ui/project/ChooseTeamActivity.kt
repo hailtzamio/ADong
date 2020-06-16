@@ -25,7 +25,7 @@ class ChooseTeamActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Danh Sách Đội"
+        tvTitle.text = "Đội Á Đông"
         rightButton.visibility = View.GONE
 
     }

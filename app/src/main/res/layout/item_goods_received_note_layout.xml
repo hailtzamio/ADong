@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
     android:layout_marginLeft="10dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginRight="10dp"
     android:layout_marginBottom="5dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginTop="5dp"
+    android:background="@color/white"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="10dp">
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        card_view:cardBackgroundColor="#E6E6E6"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="8dp">
+
 
         <RelativeLayout
             android:id="@+id/lnRoot"
@@ -100,7 +99,5 @@
         </RelativeLayout>
 
 
-    </androidx.cardview.widget.CardView>
 
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
