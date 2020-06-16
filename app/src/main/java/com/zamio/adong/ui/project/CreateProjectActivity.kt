@@ -159,7 +159,7 @@ class CreateProjectActivity : BaseActivity() {
             }
 
             if( checkChooseOrNot(tvSecretaryName)) {
-                showToast("Chọn thiếu thông tin")
+                showToast("Chọn thư ký")
                 return@setOnClickListener
             }
 

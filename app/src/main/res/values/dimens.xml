@@ -31,8 +31,14 @@
     <dimen name="ava_info_height">20dp</dimen>
     <dimen name="view_magin_left">25dp</dimen>
 
-    <dimen name="padding_big_view">20dp</dimen>
+    <dimen name="padding_big_view">15dp</dimen>
     <dimen name="margin_below_above">10dp</dimen>
 
     <dimen name="text_size_content">15sp</dimen>
+
+
+
+
+    <dimen name="lat_long_text_size">16sp</dimen>
+
 </resources>

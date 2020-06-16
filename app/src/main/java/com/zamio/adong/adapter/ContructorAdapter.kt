@@ -45,7 +45,7 @@ class ContructorAdapter(private val topicDetails: List<Contractor>) : RecyclerVi
         holder.type.text = topic.phone
         holder.unit.text = topic.email
 
-        var address = ""
+        var address = "---"
         if(topic.address != null) {
             address =  topic.address.toString()
         }

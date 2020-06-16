@@ -19,7 +19,8 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_below="@+id/view"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

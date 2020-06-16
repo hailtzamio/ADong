@@ -121,7 +121,7 @@ class MainProductFragment : BaseFragment() {
                 count = "3000+"
             }
 
-            edtSearch.hint = "Tìm kiếm trong $count công nhân"
+            edtSearch.hint = "Tìm kiếm trong $count vật tư"
         }
     }
 
