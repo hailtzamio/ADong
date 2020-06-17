@@ -118,27 +118,25 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/colorGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên:" />
 
             <TextView
+                android:textColor="@color/colorGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Số điện thoại:" />
 
             <TextView
+                android:textColor="@color/colorGray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Email:" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Địa chỉ:" />
 
 
         </LinearLayout>
@@ -170,12 +168,7 @@
                 android:layout_marginTop="10dp"
                 android:text="" />
 
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="" />
+
 
 
         </LinearLayout>

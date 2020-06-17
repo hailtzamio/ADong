@@ -11,7 +11,7 @@ data class Profile(
     @SerializedName("avatarExtId")
     val avatarExtId: String,
     @SerializedName("avatarUrl")
-    val avatarUrl: String,
+    val avatarUrl: String?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -19,7 +19,7 @@ data class Profile(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("email")
-    val email: String,
+    val email: String?,
     @SerializedName("enabled")
     val enabled: Boolean,
     @SerializedName("fullName")

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.elcom.com.quizupapp.utils.PreferUtils
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.Profile
@@ -99,9 +101,10 @@ class ProfileFragment : BaseFragment() {
                     val profile = response.body()!!.data
 
                     if (profile != null) {
-                        tvName.text = profile.fullName
-                        tvEmail.text = profile.email
-                        tvPhone.text = profile.phone
+                        tvName.text = profile.fullName ?: "---"
+                        tvEmail.text = profile.email ?: "---"
+                        tvPhone.text = profile.phone ?: "---"
+
 
 
 //                        if(profile.province != null){
@@ -129,7 +132,15 @@ class ProfileFragment : BaseFragment() {
 //                            .placeholder(R.drawable.ava)
 //                            .centerCrop()
 //                            .into(imvAva)
-                        Picasso.get().load(profile.avatarUrl).into(imvAva)
+                        if(profile.avatarUrl != null && profile.avatarUrl != "") {
+//                            Picasso.get().load(profile.avatarUrl).into(imvAva)
+
+                            Picasso.get()
+                                .load(profile.avatarUrl)
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .into(imvAva);
+                        }
+
                     }
 
                 }
