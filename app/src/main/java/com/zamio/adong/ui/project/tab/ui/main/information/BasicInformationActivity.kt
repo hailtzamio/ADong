@@ -78,7 +78,7 @@ class BasicInformationActivity : BaseActivity() {
             // for  "REG_APPROVED"
             rightButton.visibility = View.GONE
             tvOk.visibility = View.GONE
-            val registrationId = intent.getIntExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, 1)
+            val registrationId = intent.getIntExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, 0)
             getRegistationDetail(registrationId)
         }
     }
@@ -164,7 +164,7 @@ class BasicInformationActivity : BaseActivity() {
 
 
                 } else {
-                    showToast("Không lấy được dữ liệu")
+//                    showToast("Không lấy được dữ liệu")
                 }
             }
         })

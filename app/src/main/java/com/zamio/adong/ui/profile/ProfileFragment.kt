@@ -135,10 +135,12 @@ class ProfileFragment : BaseFragment() {
                         if(profile.avatarUrl != null && profile.avatarUrl != "") {
 //                            Picasso.get().load(profile.avatarUrl).into(imvAva)
 
-                            Picasso.get()
-                                .load(profile.avatarUrl)
-                                .networkPolicy(NetworkPolicy.OFFLINE)
-                                .into(imvAva);
+//                            Picasso.get()
+//                                .load(profile.avatarUrl)
+//                                .error(R.drawable.ava)
+//                                .networkPolicy(NetworkPolicy.OFFLINE)
+//                                .into(imvAva);
+                            Picasso.get().load(profile.avatarUrl).error(R.drawable.ava).into(imvAva)
                         }
 
                     }

@@ -62,9 +62,6 @@ class ProjectRegistranleActivity : BaseActivity() {
                     } else {
                         viewNoData.visibility = View.GONE
                     }
-
-                } else {
-                    showToast("Không lấy được dữ liệu")
                 }
             }
         })
