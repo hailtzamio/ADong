@@ -13,17 +13,17 @@
             android:hint="Tìm kiếm"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:paddingLeft="10dp"
+            android:paddingLeft="35dp"
             android:textColor="@color/colorName"
             android:textColorHint="@color/colorGray" />
 
         <ImageView
+            android:layout_marginLeft="10dp"
             android:id="@+id/imvSearch"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/icon_glass" />
+            android:src="@drawable/search_ic" />
 
     </RelativeLayout>

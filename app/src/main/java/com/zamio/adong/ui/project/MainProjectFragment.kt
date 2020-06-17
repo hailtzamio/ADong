@@ -11,17 +11,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.popup.ProjectTypeDialog
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.PaginationScrollListener
-import kotlinx.android.synthetic.main.fragment_main_team_list.*
+import kotlinx.android.synthetic.main.fragment_main_project_list.*
+import kotlinx.android.synthetic.main.fragment_main_team_list.recyclerView
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
@@ -40,6 +40,7 @@ class MainProjectFragment : BaseFragment() {
     var page = 0
     var data = ArrayList<Project>()
     var totalPage = 0
+    var status = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,7 +50,7 @@ class MainProjectFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_main_team_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_main_project_list, container, false)
         return view
     }
 
@@ -69,7 +70,7 @@ class MainProjectFragment : BaseFragment() {
         edtSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 resetData()
-                getProducts()
+                getData()
                 return@OnEditorActionListener true
             }
             false
@@ -77,7 +78,20 @@ class MainProjectFragment : BaseFragment() {
 
         imvSearch.setOnClickListener {
             resetData()
-            getProducts()
+            getData()
+        }
+
+        val dialog = ProjectTypeDialog(activity!!)
+        dialog.onItemClick = {
+            status = it
+            resetData()
+            getData()
+            dialog.dismiss()
+        }
+
+        imvFilter.setOnClickListener {
+
+            dialog.show()
         }
 
         setupRecyclerView(data)
@@ -86,7 +100,7 @@ class MainProjectFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         resetData()
-        getProducts()
+        getData()
     }
 
     private fun resetData() {
@@ -94,9 +108,9 @@ class MainProjectFragment : BaseFragment() {
         page = 0
     }
 
-    private fun getProducts() {
+    private fun getData() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjects(page, edtSearch.text.toString())
+        RestClient().getInstance().getRestService().getProjects(page, edtSearch.text.toString(), status)
             .enqueue(object :
                 Callback<RestData<List<Project>>> {
                 override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
@@ -202,7 +216,7 @@ class MainProjectFragment : BaseFragment() {
         isLoading = false
         page += 1
         if (page < totalPage) {
-            getProducts()
+            getData()
         }
     }
 

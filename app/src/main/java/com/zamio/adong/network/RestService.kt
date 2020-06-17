@@ -202,7 +202,7 @@ interface RestService {
     fun pauseResume(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>
 
     @GET("project?size=50&sort=id,desc")
-    fun getProjects(@Query("page") page: Int,@Query("search") fullName: String): Call<RestData<List<Project>>>
+    fun getProjects(@Query("page") page: Int,@Query("search") fullName: String,@Query("status") status: String): Call<RestData<List<Project>>>
 
     @GET("project/{id}")
     fun getProject(@Path("id") id: Int): Call<RestData<Project>>
