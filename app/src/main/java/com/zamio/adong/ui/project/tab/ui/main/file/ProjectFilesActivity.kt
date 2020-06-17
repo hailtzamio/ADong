@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.project.tab.ui.main.file
 
 import RestClient
+import android.content.Intent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
@@ -27,7 +28,7 @@ class ProjectFilesActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "File"
+        tvTitle.text = "Danh sách"
         rightButton.visibility = View.GONE
     }
 
@@ -45,11 +46,11 @@ class ProjectFilesActivity : BaseActivity() {
 
         gridview.onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
 
-//            if (itemList!![position].fullSizeUrl != null) {
-//                val intent = Intent(this, PreviewImageActivity::class.java)
-//                intent.putExtra(ConstantsApp.KEY_VALUES_ID, itemList!!.get(position).fullSizeUrl)
-//                startActivityForResult(intent, 1000)
-//            }
+            if (itemList!![position].designFiles != null) {
+                val intent = Intent(this, ProjectFileDetailActivity::class.java)
+                val putExtra = intent.putExtra(ConstantsApp.KEY_VALUES_ID, itemList!![position])
+                startActivityForResult(intent, 1000)
+            }
         }
     }
 

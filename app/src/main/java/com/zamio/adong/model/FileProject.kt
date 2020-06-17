@@ -2,6 +2,7 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class FileProject(
     @SerializedName("createdByFullName")
@@ -30,4 +31,4 @@ data class FileProject(
     var updatedTime: String?,
     @SerializedName("uploadSessionId")
     var uploadSessionId: Int?
-)
+) : Serializable

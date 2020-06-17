@@ -18,6 +18,7 @@ android:layout_height="wrap_content">
         android:layout_height="match_parent">
 
         <ImageView
+            android:padding="15dp"
             android:src="@drawable/paper"
             android:id="@+id/icon"
             android:layout_width="match_parent"
@@ -33,7 +34,6 @@ android:layout_height="wrap_content">
             android:layout_below="@id/icon"
             android:paddingLeft="@dimen/album_title_padding"
             android:paddingRight="@dimen/album_title_padding"
-            android:paddingTop="@dimen/album_title_padding"
             android:textColor="@color/colorName"
             android:textSize="@dimen/album_title" />
 

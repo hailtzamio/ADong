@@ -348,7 +348,9 @@
         <activity
             android:name=".test.TestGpsActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.project.tab.ui.main.file.ProjectFileDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

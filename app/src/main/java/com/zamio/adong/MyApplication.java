@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
+import com.downloader.PRDownloader;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
@@ -30,6 +31,7 @@ public class MyApplication extends Application {
         FontsOverride.setDefaultFont(this, "SERIF", font);
         FontsOverride.setDefaultFont(this, "SANS_SERIF", font);
 
+        PRDownloader.initialize(getApplicationContext());
         // OneSignal Initialization
         OneSignal.startInit(this)
                 .setNotificationReceivedHandler(new ExampleNotificationReceivedHandler())
