@@ -51,15 +51,15 @@ class PreferUtils {
         return preferences.getString(PREFER_AVATAR_MYSELF, "")
     }
 
-    fun setUserId(context: Context, token: String) {
+    fun setUserId(context: Context, token: Int) {
         val editor = context.getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE).edit()
-        editor.putString(USER_ID, token)
+        editor.putInt(USER_ID, token)
         editor.commit()
     }
 
-    fun getUserId(context: Context): String? {
+    fun getUserId(context: Context): Int? {
         val preferences = context.getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE)
-        return preferences.getString(USER_ID, "")
+        return preferences.getInt(USER_ID, 0)
     }
 
 

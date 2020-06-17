@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
@@ -33,6 +34,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
         var tv5: TextView = view.findViewById(R.id.tv5)
         var tv6: TextView = view.findViewById(R.id.tv6)
         var cb: CheckBox = view.findViewById(R.id.cb)
+        var icNext: ImageView = view.findViewById(R.id.icNext)
 
         init {
             itemView.setOnClickListener {
@@ -93,8 +95,10 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
 
         if (topic.status == 1) {
             holder.cb.visibility = View.VISIBLE
+            holder.icNext.visibility = View.GONE
         } else {
             holder.cb.visibility = View.GONE
+            holder.icNext.visibility = View.VISIBLE
         }
 
 

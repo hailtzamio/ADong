@@ -20,8 +20,10 @@ import retrofit2.Response
 
 class ProjectRegistranleActivity : BaseActivity() {
 
-    // Dành cho nhà thầu phụ đăng ký thi công công trình
+    // Danh sách công trình để nhà thầu phụ đăng ký thi công
 
+
+    var data = ArrayList<Project>()
     override fun getLayout(): Int {
        return R.layout.activity_choose_team_leader
     }
@@ -33,11 +35,12 @@ class ProjectRegistranleActivity : BaseActivity() {
     }
 
     override fun initData() {
-        getData()
+
     }
 
     override fun resumeData() {
-
+        data.clear()
+        getData()
     }
 
     private fun getData(){
@@ -50,12 +53,16 @@ class ProjectRegistranleActivity : BaseActivity() {
 
             override fun onResponse(call: Call<RestData<ArrayList<Project>>>?, response: Response<RestData<ArrayList<Project>>>?) {
                 dismisProgressDialog()
-                if( response!!.body() != null && response!!.body().status == 1){
-                    setupRecyclerView(response.body().data!!)
+                if( response!!.body() != null && response.body().status == 1){
+                    data =  response.body().data ?: ArrayList<Project>()
+                    setupRecyclerView(data)
 
                     if(response.body().data!!.size == 0) {
-                        showToast("Danh sách trống")
+                        viewNoData.visibility = View.VISIBLE
+                    } else {
+                        viewNoData.visibility = View.GONE
                     }
+
                 } else {
                     showToast("Không lấy được dữ liệu")
                 }
@@ -80,7 +87,7 @@ class ProjectRegistranleActivity : BaseActivity() {
         mAdapter.onItemClick = { it ->
                val intent = Intent(this, BasicInformationActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
-            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, it.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, it.id)
             startActivity(intent)
 
 

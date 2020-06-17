@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/notification"
-        android:name="com.zamio.adong.ui.DashboardFragment"
+        android:name="com.zamio.adong.ui.NotificationFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_dashboard" />
 

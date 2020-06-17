@@ -408,4 +408,17 @@ interface RestService {
 
     @PUT("registration/{id}/approve")
     fun approveRegisterProject(@Path("id") id: Int): Call<RestData<JsonElement>>
+
+    @GET("registration/{id}")
+    abstract fun getRegistration(@Path("id") id: Int): Call<RestData<Project>>
+
+    @GET("myRoles")
+    abstract fun getMyRoles(): Call<RestData<ArrayList<User>>>
+
+    @GET("myNotifications?size=100&sort=id,desc")
+    fun getNotifications(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<NotificationOb>>>
+
+    @GET("isRegistered")
+    abstract fun checkHideShowRegistrationButton(@Query("contractorId") contractorId: Int,@Query("projectId") projectId: Int): Call<RestData<Contractor>>
+
 }

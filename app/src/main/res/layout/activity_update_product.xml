@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,86 +16,131 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:padding="20dp"
-        android:layout_below="@+id/header"
-        android:orientation="vertical"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/cropImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/ava"
-            />
-
-        <TextView
-            android:layout_gravity="center_horizontal"
-            android:text="Chọn ảnh"
-            android:id="@+id/imvImage"
-            android:padding="3dp"
-            android:src="@drawable/photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header">
 
 
-
-        <EditText   android:singleLine="true"
-            android:layout_marginTop="20dp"
-            android:hint="Tên *"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtName"
-            android:background="@drawable/button_normal_main_radius_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
 
-        <EditText  android:singleLine="true"
-            android:hint="Mã"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtCode"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <EditText  android:singleLine="true"
-            android:hint="Đơn vị tính *"
-            android:paddingLeft="10dp"
-            android:id="@+id/edtUnit"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
+            <ImageView
+                android:id="@+id/cropImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ava" />
 
-        <Spinner
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:paddingLeft="4dp"
-            android:id="@+id/spinType"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_normal_main_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edt_size" />
-
-        <TextView
-            android:id="@+id/tvOk"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="ĐỒNG Ý"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_radius_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size" />
+            <TextView
+                android:id="@+id/imvImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="3dp"
+                android:src="@drawable/photo"
+                android:text="Chọn ảnh" />
 
 
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Tên *"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtCode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Mã"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edtUnit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Đơn vị tính *"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Chiều dài"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Chiều rộng"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Chiều cao"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edt7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:hint="Cân nặng"
+                android:paddingLeft="10dp"
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/spinType"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edt_size"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:gravity="center_vertical"
+                android:paddingLeft="4dp"
+                android:singleLine="true" />
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvOk"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_size"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_radius_layout"
+                android:gravity="center"
+                android:text="ĐỒNG Ý"
+                android:textColor="@color/white" />
 
 
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

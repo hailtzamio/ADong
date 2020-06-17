@@ -15,6 +15,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
+import com.zamio.adong.model.User
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.contractor.MainContractorActivity
 import com.zamio.adong.ui.criteria.MainCriteriaActivity
@@ -52,7 +53,7 @@ class PermissionsFragment : BaseFragment() {
 //        imvBack.visibility = View.GONE
 //        rightButton.visibility = View.GONE
 //        tvTitle.text = "Trang Chủ"
-        getPermission()
+        getMyRoles()
     }
 
     private fun getPermission(){
@@ -76,9 +77,45 @@ class PermissionsFragment : BaseFragment() {
         })
     }
 
+    var isContractor = false
+    private fun getMyRoles(){
+        showProgessDialog()
+        RestClient().getRestService().getMyRoles().enqueue(object :
+            Callback<RestData<ArrayList<User>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<User>>>?, t: Throwable?) {
+                Toast.makeText(context, ConstantsApp.TOAST, Toast.LENGTH_SHORT).show()
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<ArrayList<User>>>?, response: Response<RestData<ArrayList<User>>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response.body().status == 1){
+
+                 val roles = response.body().data
+                    if(roles != null) {
+                        roles.forEach {
+                            if(it.code == "CONTRACTOR") {
+                                isContractor =  true
+                            }
+                        }
+                    }
+
+                    getPermission()
+
+                } else {
+                    Toast.makeText(context, ConstantsApp.TOAST, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+
+
     private fun setupGridView(data:ArrayList<Permission>){
 
-        data.add(Permission("r", "ContractorProject", 1,1,1,"ContractorProject"))
+        if( isContractor) {
+            data.add(Permission("r", "ContractorProject", 1,1,1,"ContractorProject"))
+        }
 
         val permissions = ArrayList<Permission>()
 
@@ -101,7 +138,7 @@ class PermissionsFragment : BaseFragment() {
                 }
 
                 if (it.appEntityCode == "Team" ) {
-                    it.name = "Đội Thi Công"
+                    it.name = "Đội Á Đông"
                 }
 
                 if (it.appEntityCode == "Driver" ) {

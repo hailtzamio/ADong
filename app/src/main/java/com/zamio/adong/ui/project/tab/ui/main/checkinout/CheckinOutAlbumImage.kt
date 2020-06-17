@@ -16,6 +16,7 @@ import com.zamio.adong.adapter.GridProjectImageAdapter
 import com.zamio.adong.model.ProjectImage
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
+import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,10 +77,11 @@ class CheckinOutAlbumImage : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     itemList = response.body().data
-                    if(itemList!!.isNotEmpty()) {
+                    if (itemList!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
                         setupView()
                     } else {
-                        showToast("Không có ảnh nào")
+                        viewNoData.visibility = View.VISIBLE
                     }
 
                 }

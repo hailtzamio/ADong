@@ -9,9 +9,13 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Contractor
+import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.contractor.DetailContractorActivity
+import kotlinx.android.synthetic.main.activity_checkout_in_worker_list.*
 import kotlinx.android.synthetic.main.activity_choose_team_leader.*
+import kotlinx.android.synthetic.main.activity_choose_team_leader.recyclerView
+import kotlinx.android.synthetic.main.activity_choose_team_leader.viewNoData
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +25,7 @@ import retrofit2.Response
 class ProjectRegisterActivity : BaseActivity() {
 
     // Danh sách các nhà thầu phụ đăng ký thi công cho công trình này
-
+    var data = ArrayList<Contractor>()
     var id = 0
     override fun getLayout(): Int {
        return R.layout.activity_choose_team_leader
@@ -42,7 +46,8 @@ class ProjectRegisterActivity : BaseActivity() {
     }
 
     override fun resumeData() {
-
+        data.clear()
+        getData()
     }
 
     private fun getData(){
@@ -56,13 +61,17 @@ class ProjectRegisterActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<ArrayList<Contractor>>>?, response: Response<RestData<ArrayList<Contractor>>>?) {
                 dismisProgressDialog()
                 if( response!!.body().status == 1){
-                    setupRecyclerView(response.body().data!!)
+                    data =  response.body().data ?: ArrayList<Contractor>()
+                    setupRecyclerView(data)
+                    if (response.body().data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
+                    }
                 }
             }
         })
     }
-
-
 
     private fun setupRecyclerView(data:ArrayList<Contractor>){
 

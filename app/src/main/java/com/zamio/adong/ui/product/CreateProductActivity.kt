@@ -60,6 +60,10 @@ class CreateProductActivity : BaseActivity() {
             product.addProperty("type",type)
             product.addProperty("unit",edtUnit.text.toString())
             product.addProperty("code",edtCode.text.toString())
+            product.addProperty("length",edt4.text.toString())
+            product.addProperty("width",edt5.text.toString())
+            product.addProperty("height",edt6.text.toString())
+            product.addProperty("weight",edt7.text.toString())
             if(thumbnailExtId != ""){
                 product.addProperty("thumbnailExtId",thumbnailExtId)
             }

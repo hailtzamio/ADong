@@ -28,7 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.ware.stock.stock.StockListActivity"></activity>
+        <activity
+            android:name=".ui.ware.stock.stock.StockListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.map.MapActivity"
             android:screenOrientation="portrait" />

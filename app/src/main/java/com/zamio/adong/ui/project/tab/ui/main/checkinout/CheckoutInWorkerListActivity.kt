@@ -13,7 +13,9 @@ import com.zamio.adong.R
 import com.zamio.adong.model.AttendanceCheckout
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.activity_checkout_in_worker_list.*
+import kotlinx.android.synthetic.main.activity_checkout_in_worker_list.viewNoData
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,8 +57,14 @@ class CheckoutInWorkerListActivity : BaseActivity() {
                 response: Response<RestData<List<AttendanceCheckout>>>?
             ) {
                 dismisProgressDialog()
-                if (response!!.body().status == 1) {
+                if (response!!.body() != null && response.body().status == 1) {
                     setupRecyclerView(response.body().data!!)
+
+                    if (response.body().data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
+                    }
                 }
             }
         })

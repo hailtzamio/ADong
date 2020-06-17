@@ -5,6 +5,7 @@ import android.content.Intent
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.utils.PreferUtils
 import com.google.gson.JsonObject
+import com.onesignal.OneSignal
 import com.zamio.adong.MainActivity
 import com.zamio.adong.R
 import com.zamio.adong.model.User
@@ -65,7 +66,10 @@ class LoginActivity : BaseActivity() {
                     val preferUtils = PreferUtils()
                     preferUtils.setToken(this@LoginActivity, ConstantsApp.BASE64_AUTH_TOKEN)
                     preferUtils.setPassword(this@LoginActivity,edtPassword.text.toString())
+                    preferUtils.setUserId(this@LoginActivity,response.body().userId)
 //                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    OneSignal.sendTag("user_id",response.body().userId.toString())
+
                 } else {
                     showToast("Sai tên đăng nhập hoặc mật khẩu")
                 }

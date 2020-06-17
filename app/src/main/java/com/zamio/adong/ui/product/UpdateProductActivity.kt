@@ -53,6 +53,10 @@ class UpdateProductActivity : BaseActivity() {
         edtName.setText(productOb.name)
         edtUnit.setText(productOb.unit)
         edtCode.setText(productOb.code)
+        edt4.setText(productOb.length.toString())
+        edt5.setText(productOb.width.toString())
+        edt6.setText(productOb.height.toString())
+        edt7.setText(productOb.width.toString())
 
         Picasso.get().load(productOb.thumbnailUrl).into(cropImageView)
         setupChooseSpinner()
@@ -76,6 +80,11 @@ class UpdateProductActivity : BaseActivity() {
             product.addProperty("type",type)
             product.addProperty("thumbnailExtId",thumbnailExtId)
             product.addProperty("code",edtCode.text.toString())
+            product.addProperty("length",edt4.text.toString())
+            product.addProperty("width",edt5.text.toString())
+            product.addProperty("height",edt6.text.toString())
+            product.addProperty("weight",edt7.text.toString())
+
             updateProduct(productOb.id, product )
         }
 

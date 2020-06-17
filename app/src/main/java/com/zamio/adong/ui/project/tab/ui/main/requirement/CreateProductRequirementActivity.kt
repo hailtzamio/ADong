@@ -248,6 +248,7 @@ class CreateProductRequirementActivity : BaseActivity() {
         mAdapter.onItemClick = { product ->
             val intent = Intent(this, DetailProductActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.id)
             intent.putExtra(ConstantsApp.ChooseTeamWorkerActivity, "")
             startActivityForResult(intent, 1000)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

@@ -8,9 +8,11 @@ import android.view.View
 import android.widget.Toast
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.utils.PreferUtils
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.zamio.adong.R
+import com.zamio.adong.model.Contractor
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
@@ -26,7 +28,7 @@ class BasicInformationActivity : BaseActivity() {
 
     var id = 0
     override fun getLayout(): Int {
-       return R.layout.activity_basic_information
+        return R.layout.activity_basic_information
     }
 
     override fun initView() {
@@ -38,6 +40,7 @@ class BasicInformationActivity : BaseActivity() {
     override fun initData() {
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
+
             getData(id)
 
             rightButton.setOnClickListener {
@@ -53,11 +56,12 @@ class BasicInformationActivity : BaseActivity() {
                 startActivity(intent)
             }
 
-            if(intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
-                // Chọn nhà thầu phụ đăng ký thi công
+            if (intent.hasExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT)) {
+                // Đăng ký thi công  "NEW_PROJECT"
                 rightButton.visibility = View.GONE
                 tvOk.visibility = View.VISIBLE
                 tvOk.text = "ĐĂNG KÝ THI CÔNG"
+                checkHideShowRegistrationButton(id)
                 tvOk.setOnClickListener {
                     showPopupRegisterProject()
                 }
@@ -69,6 +73,38 @@ class BasicInformationActivity : BaseActivity() {
                 }
             }
         }
+
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_REG_APPROVED)) {
+            // for  "REG_APPROVED"
+            rightButton.visibility = View.GONE
+            tvOk.visibility = View.GONE
+            val registrationId = intent.getIntExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, 1)
+            getRegistationDetail(registrationId)
+        }
+    }
+
+    private fun getRegistationDetail(registrationId: Int) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getRegistration(registrationId).enqueue(object :
+            Callback<RestData<Project>> {
+            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<Project>>?,
+                response: Response<RestData<Project>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    if (response.body().data == null) return
+                    id = response.body().data!!.projectId
+                    getData(id)
+                } else {
+                    showToast("Không lấy được dữ liệu")
+                }
+            }
+        })
     }
 
     private fun registerProject(id: Int) {
@@ -77,7 +113,7 @@ class BasicInformationActivity : BaseActivity() {
         data.addProperty("note", "Đăng ký thi công")
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().registerProject(id,data).enqueue(object :
+        RestClient().getInstance().getRestService().registerProject(id, data).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -91,6 +127,7 @@ class BasicInformationActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     showToast("Thành công")
+                    onBackPressed()
                 } else {
                     val obj = JSONObject(response.errorBody().string())
                     showToast(obj["message"].toString())
@@ -99,12 +136,46 @@ class BasicInformationActivity : BaseActivity() {
         })
     }
 
-    private fun showPopupRegisterProject(){
+    private fun checkHideShowRegistrationButton(projectId: Int) {
+
+        val preferUtils = PreferUtils()
+        val userId = preferUtils.getUserId(this) ?: 0
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .checkHideShowRegistrationButton(userId, projectId).enqueue(object :
+            Callback<RestData<Contractor>> {
+            override fun onFailure(call: Call<RestData<Contractor>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<Contractor>>?,
+                response: Response<RestData<Contractor>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    if (response.body().data == null) return
+                    if (response.body().data!!.isRegistered == true) {
+                        tvOk.visibility = View.GONE
+                    } else {
+                        tvOk.visibility = View.VISIBLE
+                    }
+
+
+                } else {
+                    showToast("Không lấy được dữ liệu")
+                }
+            }
+        })
+    }
+
+    private fun showPopupRegisterProject() {
         val dialogClickListener =
             DialogInterface.OnClickListener { dialog, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
-                        if( data != null) {
+                        if (data != null) {
                             registerProject(data!!.id)
                         }
                     }
@@ -117,6 +188,7 @@ class BasicInformationActivity : BaseActivity() {
         builder.setMessage("Đăng ký thi công?").setPositiveButton("Đồng ý", dialogClickListener)
             .setNegativeButton("Không", dialogClickListener).show()
     }
+
 
     override fun resumeData() {
 
@@ -159,12 +231,12 @@ class BasicInformationActivity : BaseActivity() {
                     tvName.text = data!!.name
                     tvAddress.text = data!!.address
 
-                    if(data!!.plannedStartDate != null) {
-                        tvChooseDate.text =  Utils.convertDate(data!!.plannedStartDate)
+                    if (data!!.plannedStartDate != null) {
+                        tvChooseDate.text = Utils.convertDate(data!!.plannedStartDate)
                     }
 
-                    if(data!!.plannedEndDate != null) {
-                        tvChooseEndDate.text =  Utils.convertDate(data!!.plannedEndDate)
+                    if (data!!.plannedEndDate != null) {
+                        tvChooseEndDate.text = Utils.convertDate(data!!.plannedEndDate)
                     }
 
                     tvManagerName.text = data!!.managerFullName ?: "---"
@@ -180,7 +252,7 @@ class BasicInformationActivity : BaseActivity() {
                         tvContractorOrTeamLabel.text = "Đội thi công"
                         rlLeader.visibility = View.GONE
 
-                        if(data!!.teamLeaderFullName != null && data!!.teamLeaderFullName != "") {
+                        if (data!!.teamLeaderFullName != null && data!!.teamLeaderFullName != "") {
                             tvLeaderNameAdong.text = data!!.teamLeaderFullName
                         }
 
@@ -219,7 +291,11 @@ class BasicInformationActivity : BaseActivity() {
                         finish()
                     } else {
                         val obj = JSONObject(response.errorBody().string())
-                        Toast.makeText(this@BasicInformationActivity, obj["message"].toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@BasicInformationActivity,
+                            obj["message"].toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })

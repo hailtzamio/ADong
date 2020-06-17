@@ -11,6 +11,7 @@ import com.zamio.adong.adapter.GridProjectFileAdapter
 import com.zamio.adong.model.FileProject
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +20,7 @@ import retrofit2.Response
 class ProjectFilesActivity : BaseActivity() {
 
     var id = 0
-    private var itemList:List<Project>? = null
+    private var itemList: List<Project>? = null
 
     override fun getLayout(): Int {
         return R.layout.activity_checkin_out_album_image
@@ -71,15 +72,14 @@ class ProjectFilesActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     itemList = response.body().data
-                    if(itemList!!.isNotEmpty()) {
+                    if (itemList!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
                         setupView()
                     } else {
-                        showToast("Không có File nào")
+                        viewNoData.visibility = View.VISIBLE
                     }
-
                 }
             }
         })
     }
-
 }

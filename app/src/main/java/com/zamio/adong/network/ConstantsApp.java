@@ -47,9 +47,11 @@ public class ConstantsApp {
     public static String KEY_TYPE_OF_GAME = "KEY_TYPE_OF_GAME";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
     public static String KEY_VALUES_OBJECT = "KEY_VALUES_OBJECT";
+    public static String KEY_VALUES_REG_APPROVED = "KEY_VALUES_REG_APPROVED";
     public static String KEY_VALUES_TITLE = "KEY_VALUES_TITLE";
     public static String KEY_VALUES_STATUS = "KEY_VALUES_STATUS";
     public static String KEY_VALUES_HIDE = "KEY_VALUES_HIDE";
+    public static String KEY_VALUES_NEW_PROJECT = "KEY_VALUES_NEW_PROJECT";
     public static String KEY_VALUES_LAT= "KEY_VALUES_LAT";
     public static String KEY_VALUES_LONG= "KEY_VALUES_LONG";
     public static String ChooseTeamWorkerActivity = "ChooseTeamWorkerActivity";

@@ -29,6 +29,8 @@ data class Project(
     val deputyManagerId: Int?,
     @SerializedName("id")
     val id: Int,
+    @SerializedName("projectId")
+    val projectId: Int,
     @SerializedName("latitude")
     val latitude: Double?,
     @SerializedName("longitude")

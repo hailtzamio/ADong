@@ -86,7 +86,7 @@ class DetailProductActivity : BaseActivity() {
                 }
             }
 
-            if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)){
+            if (intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)){
                 tvOk.visibility = View.GONE
                 rightButton.visibility = View.GONE
             }
@@ -124,6 +124,11 @@ class DetailProductActivity : BaseActivity() {
                     mList.add(Information("Mã",model!!.code ?: "---", ""))
                     mList.add(Information("Loại",type, ""))
                     mList.add(Information("Đơn vị tính",model!!.unit ?: "---", ""))
+                    mList.add(Information("Chiêu dài",model!!.length.toString() ?: "---", ""))
+                    mList.add(Information("Chiều rộng",model!!.width.toString() ?: "---", ""))
+                    mList.add(Information("Chiều cao",model!!.height.toString() ?: "---", ""))
+                    mList.add(Information("Cân nặng",model!!.weight.toString() ?: "---", ""))
+
 
                     Picasso.get().load(model!!.thumbnailUrl).into(cropImageView)
 

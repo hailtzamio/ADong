@@ -18,6 +18,10 @@ data class User(
     val message: String,
     @SerializedName("userId")
     val userId: Int,
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("username")
-    val username: String
+    val username: String,
+    @SerializedName("code")
+    val code: String
 )

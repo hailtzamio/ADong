@@ -8,8 +8,11 @@ import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
+import com.zamio.adong.network.ConstantsApp;
 import com.zamio.adong.ui.activity.LoginActivity;
 import com.zamio.adong.ui.notification.ReceiveNotificationActivity;
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity;
+import com.zamio.adong.ui.trip.DetailTripActivity;
 import com.zamio.adong.utils.ConnectivityReceiver;
 import com.zamio.adong.utils.FontsOverride;
 
@@ -28,12 +31,12 @@ public class MyApplication extends Application {
         FontsOverride.setDefaultFont(this, "SANS_SERIF", font);
 
         // OneSignal Initialization
-//        OneSignal.startInit(this)
-//                .setNotificationReceivedHandler(new ExampleNotificationReceivedHandler())
-//                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
-//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//                .unsubscribeWhenNotificationsAreDisabled(true)
-//                .init();
+        OneSignal.startInit(this)
+                .setNotificationReceivedHandler(new ExampleNotificationReceivedHandler())
+                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler())
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 //
 //        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.WARN);
 //
@@ -91,7 +94,6 @@ public class MyApplication extends Application {
         }
     }
 
-
     private class ExampleNotificationOpenedHandler implements OneSignal.NotificationOpenedHandler {
         // This fires when a notification is opened by tapping on it.
         @Override
@@ -101,22 +103,47 @@ public class MyApplication extends Application {
             String launchUrl = result.notification.payload.launchURL; // update docs launchUrl
 
             String customKey;
+            Integer id;
             String openURL = null;
             Object activityToLaunch = MainActivity.class;
 
-            Intent intent1 = new Intent(getApplicationContext(), ReceiveNotificationActivity.class);
-            intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent1);
+//            Intent intent1 = new Intent(getApplicationContext(), ReceiveNotificationActivity.class);
+//            intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent1);
 
             if (data != null) {
-                customKey = data.optString("customkey", null);
-                openURL = data.optString("openURL", null);
+                customKey = data.optString("type", "");
+                id = data.optInt("objectId", 0);
 
-                if (customKey != null)
-                    Log.i("OneSignalExample", "customkey set with value: " + customKey);
+                switch (customKey) {
 
-                if (openURL != null)
-                    Log.i("OneSignalExample", "openURL to webview with URL value: " + openURL);
+                    case "REG_APPROVED": {
+                        Intent intent = new Intent(getApplicationContext(), BasicInformationActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, id);
+                        startActivity(intent) ;
+                    }
+                     break;
+
+                    case "NEW_PROJECT": {
+                        Intent intent = new Intent(getApplicationContext(), BasicInformationActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id);
+                        intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, id);
+                        startActivity(intent) ;
+                    }
+                    break;
+
+                    case "NEW_TRIP" : {
+                        Intent intent = new Intent(getApplicationContext(), DetailTripActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, id);
+                        intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, id);
+                        startActivity(intent) ;
+                    }
+                    break;
+
+                }
             }
 
             if (actionType == OSNotificationAction.ActionType.ActionTaken) {
@@ -128,6 +155,7 @@ public class MyApplication extends Application {
                 } else
                     Log.i("OneSignalExample", "button id called: " + result.action.actionID);
             }
+
             // The following can be used to open an Activity of your choice.
             // Replace - getApplicationContext() - with any Android Context.
             // Intent intent = new Intent(getApplicationContext(), YourActivity.class);
@@ -148,5 +176,7 @@ public class MyApplication extends Application {
         */
         }
     }
+
+
 }
 
