@@ -131,27 +131,27 @@ class DetailContractorActivity : BaseActivity() {
                     tvName.text = product!!.name
                     tvPhone.text = product!!.phone
 
-                    var address = ""
+                    var address = "---"
 
                     if(product!!.address != null && product!!.address != "") {
                         address =  product!!.address.toString()
                     }
 
-                    if(product!!.districtName != null) {
+                    if(product!!.districtName != null && product!!.districtName == "") {
                         address = address + " - " + product!!.districtName
                     }
 
-                    if(product!!.provinceName != null) {
+                    if(product!!.provinceName != null && product!!.provinceName == "") {
                         address = address + " - " + product!!.provinceName
                     }
 
                     tvAddress.text = address
 
-                    if(product!!.email != null) {
+                    if(product!!.email != null && product!!.email != "") {
                         tvEmail.text = product!!.email
                     }
 
-                    if(product!!.projectName != null) {
+                    if(product!!.projectName != null && product!!.projectName != "") {
                         tvProjectName.text = product!!.projectName
                     }
 

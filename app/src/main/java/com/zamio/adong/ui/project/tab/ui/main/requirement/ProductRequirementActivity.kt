@@ -17,7 +17,7 @@ class ProductRequirementActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Vật tư"
+        tvTitle.text = "Yêu Cầu Vật Tư"
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateProductRequirementActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)

@@ -86,7 +86,6 @@
 
 
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/tvName"
                     android:layout_alignParentRight="true"
                     tools:text="Tên "
@@ -112,7 +111,6 @@
 
 
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/tvDate"
                     android:layout_alignParentRight="true"
                     tools:text="Tên "
@@ -200,7 +198,7 @@
                 <TextView
                     android:textColor="@color/colorName"
                     android:textStyle="bold"
-                    android:text="DANH SÁCH"
+                    android:text="DANH SÁCH VẬT TƯ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

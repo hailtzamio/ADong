@@ -227,7 +227,7 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Thông tin cơ bản")
         data.add("Line")
         data.add("Danh sách đăng ký thi công")
-        data.add("Danh sách vật tư")
+        data.add("Danh sách yêu cầu vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
         data.add("Đánh giá công trình")

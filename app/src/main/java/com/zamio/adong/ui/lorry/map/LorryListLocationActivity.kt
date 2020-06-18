@@ -32,8 +32,8 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
 
     val ZOOM_LEVEL = 5f
     var locationManager: LocationManager? = null
-    var latitude = 18.787203
-    var longitude = 105.605202
+    var latitude = 21.0278
+    var longitude = 105.8342
     var mGoogleMap:GoogleMap? = null
     override fun getLayout(): Int {
         return R.layout.activity_lorry_list_location
