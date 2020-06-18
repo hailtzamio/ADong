@@ -3,35 +3,31 @@ package com.zamio.adong.ui.lorry.map
 import RestClient
 import android.Manifest
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
+import androidx.core.content.res.ResourcesCompat
+import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
+import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_lorry_list_location.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
-import java.util.*
 
 
-class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationListener {
+class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationListener {
 
 
     val ZOOM_LEVEL = 5f
@@ -39,10 +35,15 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
     var latitude = 18.787203
     var longitude = 105.605202
     var mGoogleMap:GoogleMap? = null
+    override fun getLayout(): Int {
+        return R.layout.activity_lorry_list_location
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lorry_list_location)
+    override fun initView() {
+
+    }
+
+    override fun initData() {
         val mapFragment : SupportMapFragment? =
             supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync(this)
@@ -59,10 +60,13 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
             return
         }
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+    }
+
+    override fun resumeData() {
 
     }
 
-    private fun getProducts() {
+    private fun getLorries() {
 
         RestClient().getInstance().getRestService().getLorries().enqueue(object :
             Callback<RestData<List<Lorry>>> {
@@ -88,6 +92,52 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
                 }
             }
         })
+    }
+
+    private fun getBitmapIcon() : Bitmap {
+        val height = 100
+        val width = 100
+        val bitmapdraw =
+            ResourcesCompat.getDrawable(resources,R.drawable.marker_01, null) as BitmapDrawable
+        val b = bitmapdraw.bitmap
+        return Bitmap.createScaledBitmap(b, width, height, false)
+    }
+
+    private fun getProjects() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getProjects(0, "", "")
+            .enqueue(object :
+                Callback<RestData<List<Project>>> {
+                override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<List<Project>>>?,
+                    response: Response<RestData<List<Project>>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response!!.body().status == 1) {
+                        val mList = response.body().data
+                        if(mList != null) {
+                            mList.forEach {
+                                val location = LatLng(it.latitude ?: 0.0, it.longitude ?: 0.0)
+                                with(mGoogleMap!!) {
+                                    if (it.status == "PROCESSING") {
+                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(
+                                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    } else if(it.status == "NEW") {
+                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    } else {
+                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(BitmapDescriptorFactory.fromBitmap(getBitmapIcon())))
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            })
     }
 
 
@@ -120,8 +170,12 @@ class LorryListLocationActivity : FragmentActivity(), OnMapReadyCallback, Locati
             moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(location, ZOOM_LEVEL))
 //            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location))
         }
+        if(intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
+            getProjects()
+        } else {
+            getLorries()
+        }
 
-        getProducts()
     }
 
     override fun onLocationChanged(map: Location?) {

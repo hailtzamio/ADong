@@ -17,7 +17,10 @@ import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.network.Pagination
+import kotlinx.android.synthetic.main.activity_checkout_in_worker_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.recyclerView
+import kotlinx.android.synthetic.main.fragment_home.viewNoData
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
@@ -89,7 +92,7 @@ class MainProductFragment : BaseFragment() {
 
             override fun onResponse(call: Call<RestData<ArrayList<Product>>>?, response: Response<RestData<ArrayList<Product>>>?) {
                     dismisProgressDialog()
-                    if(response!!.body() != null && response!!.body().status == 1){
+                    if(response!!.body() != null && response.body().status == 1){
                         products = response.body().data!!
                         setupRecyclerView()
                         totalPages = response.body().pagination!!.totalPages!!
@@ -97,6 +100,12 @@ class MainProductFragment : BaseFragment() {
                         val pagination = response.body().pagination!!
                         if (pagination.totalRecords != null) {
                             showHintText(pagination)
+                        }
+
+                        if (products!!.isNotEmpty()) {
+                            viewNoData.visibility = View.GONE
+                        } else {
+                            viewNoData.visibility = View.VISIBLE
                         }
                     }
             }

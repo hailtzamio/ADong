@@ -18,6 +18,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
@@ -28,6 +29,7 @@ import com.google.gson.JsonElement
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
+import com.zamio.adong.model.Project
 import com.zamio.adong.model.WorkOutline
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
@@ -82,7 +84,7 @@ class MainWorkOutlineFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData(0)
-
+        getProject()
         tvOk.setOnClickListener {
             ImagePicker.create(this).multi()
                 .toolbarImageTitle("Chọn 8 ảnh")
@@ -116,14 +118,14 @@ class MainWorkOutlineFragment : BaseFragment() {
                         setupRecyclerView()
 
                         var isShowTvOK = true
-                        if(products != null && products!!.isNotEmpty()) {
+                        if (products != null && products!!.isNotEmpty()) {
                             products!!.forEach {
-                                   if (it.finishDatetime == null) {
-                                       isShowTvOK = false
-                                   }
+                                if (it.finishDatetime == null) {
+                                    isShowTvOK = false
+                                }
                             }
 
-                            if(isShowTvOK) {
+                            if (isShowTvOK) {
                                 tvOk.visibility = View.VISIBLE
                             } else {
                                 tvOk.visibility = View.GONE
@@ -145,7 +147,7 @@ class MainWorkOutlineFragment : BaseFragment() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
-                if(product.finishDatetime == null) {
+                if (product.finishDatetime == null) {
                     val dialogClickListener =
                         DialogInterface.OnClickListener { dialog, which ->
                             when (which) {
@@ -175,6 +177,30 @@ class MainWorkOutlineFragment : BaseFragment() {
         }
     }
 
+    fun getProject() {
+        RestClient().getInstance().getRestService().getProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
+            Callback<RestData<Project>> {
+
+            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+
+            }
+            override fun onResponse(
+                call: Call<RestData<Project>>?,
+                response: Response<RestData<Project>>?
+            ) {
+                if (response!!.body() != null && response.body().status == 1) {
+                   val data = response.body().data ?: return
+                    if(data.status == "DONE") {
+                        tvOk.text = "ĐÃ HOÀN THÀNH"
+                        tvOk.setTextColor(Color.WHITE)
+                        tvOk.background = ResourcesCompat.getDrawable(resources,R.drawable.button_normal_main_radius_green_layout, null)
+                        tvOk.isEnabled = false
+                    }
+                }
+            }
+        })
+    }
+
     private fun finishWorkOutline(id: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().finishProjectWorkOutlines(id).enqueue(object :
@@ -196,23 +222,10 @@ class MainWorkOutlineFragment : BaseFragment() {
         })
     }
 
-    fun pickImageFromAlbum() {
-        CropImage.activity()
-            .setAspectRatio(4, 3)
-            .setGuidelines(CropImageView.Guidelines.ON)
-            .start(activity!!,this)
-    }
-
-    private fun uploadImage(file: File) {
-        val requestFile =
-            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        val body =
-            MultipartBody.Part.createFormData("image", file.name, requestFile)
-
+    private fun finishProject(id: Int) {
         showProgessDialog()
-        RestClient().getRestService().finishImageProjectWorkOutlines(workOutlineId,body).enqueue(object :
+        RestClient().getInstance().getRestService().finishProject(id).enqueue(object :
             Callback<RestData<JsonElement>> {
-
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
@@ -222,16 +235,84 @@ class MainWorkOutlineFragment : BaseFragment() {
                 response: Response<RestData<JsonElement>>?
             ) {
                 dismisProgressDialog()
-                if (response?.body() != null && response.body().status == 1) {
-                    finishWorkOutline(workOutlineId)
-                } else {
-                    if (response!!.errorBody() != null) {
-                        val obj = JSONObject(response.errorBody().string())
-                        showToast(obj["message"].toString())
-                    }
+                if (response!!.body() != null && response.body().status == 1) {
+                    getProject()
                 }
             }
         })
+    }
+
+    fun pickImageFromAlbum() {
+        CropImage.activity()
+            .setAspectRatio(4, 3)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .start(activity!!, this)
+    }
+
+    private fun uploadImage(file: File) {
+        val requestFile =
+            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val body =
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        showProgessDialog()
+        RestClient().getRestService().finishImageProjectWorkOutlines(workOutlineId, body)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response?.body() != null && response.body().status == 1) {
+                        finishWorkOutline(workOutlineId)
+                    } else {
+                        if (response!!.errorBody() != null) {
+                            val obj = JSONObject(response.errorBody().string())
+                            showToast(obj["message"].toString())
+                        }
+                    }
+                }
+            })
+    }
+
+
+    private fun uploadProjectCompletion(file: File) {
+        val requestFile =
+            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val body =
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        showProgessDialog()
+        RestClient().getRestService()
+            .finishImageProjectConpletion((activity as ProjectTabActivity).getProjectId(), body)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response?.body() != null && response.body().status == 1) {
+
+                    } else {
+                        if (response!!.errorBody() != null) {
+                            val obj = JSONObject(response.errorBody().string())
+                            showToast(obj["message"].toString())
+                        }
+                    }
+                }
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
@@ -250,9 +331,16 @@ class MainWorkOutlineFragment : BaseFragment() {
 
         if (ImagePicker.shouldHandle(requestCode, resultCode, data1)) {
             // Get a list of picked images
-           val images = ImagePicker.getImages(data1)
+            val images = ImagePicker.getImages(data1)
+
+            images.forEach {
+                uploadProjectCompletion(File(it.path))
+            }
+
+            finishProject((activity as ProjectTabActivity).getProjectId())
+
             // or get a single image only
-            val image = ImagePicker.getFirstImageOrNull(data1)
+//            val image = ImagePicker.getFirstImageOrNull(data1)
         }
 
     }

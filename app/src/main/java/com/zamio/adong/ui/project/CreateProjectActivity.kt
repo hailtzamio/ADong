@@ -138,6 +138,11 @@ class CreateProjectActivity : BaseActivity() {
     override fun initData() {
         getProvinces()
         ConstantsApp.workers.clear()
+
+        if (!checkPermissions()) {
+            requestPermissions()
+        }
+
         tvOk.setOnClickListener {
 
             if (isEmpty(edtName) || isEmpty(edtAddress)) {

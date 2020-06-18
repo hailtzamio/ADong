@@ -272,6 +272,9 @@ interface RestService {
     @GET("project/{projectId}/checkinPhotos")
     fun getProjectImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
 
+    @GET("project/{projectId}/projectCompletionPhotos")
+    fun getProjectFinishImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
+
     @GET("project/{projectId}/attendances")
     fun getProjectAttendances(@Path("projectId") id: Int): Call<RestData<List<AttendanceCheckout>>>
 
@@ -281,6 +284,13 @@ interface RestService {
     @Multipart
     @POST("projectWorkOutline/{projectWorkOutlineId}/uploadCompletionPhoto")
     fun finishImageProjectWorkOutlines(@Path("projectWorkOutlineId") id: Int, @Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    @Multipart
+    @POST("project/{projectId}/uploadProjectCompletionPhoto")
+    fun finishImageProjectConpletion(@Path("projectId") id: Int, @Part image: MultipartBody.Part): Call<RestData<JsonElement>>
+
+    @PUT("project/{projectId}/finish")
+    fun finishProject(@Path("projectId") id: Int): Call<RestData<JsonElement>>
 
     // WareHouse
     @GET("warehouse")

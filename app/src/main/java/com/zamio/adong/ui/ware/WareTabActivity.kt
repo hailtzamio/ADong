@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
 import com.zamio.adong.adapter.WareHousePagerAdapter
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
+import com.zamio.adong.ui.project.tab.ui.main.album.CheckinOutAlbumImage
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.information.UpdateProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity

@@ -3,11 +3,13 @@ package com.elcom.com.quizupapp.ui.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.zamio.adong.MyApplication
@@ -29,7 +31,7 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
 
     protected abstract fun resumeData()
 
-
+    val PERMISSION_ID = 42
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
         Toast.makeText(this, "Internet Changed", Toast.LENGTH_SHORT).show()
     }
@@ -190,7 +192,30 @@ abstract class BaseActivity : FragmentActivity(), ConnectivityReceiver.Connectiv
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+     fun checkPermissions(): Boolean {
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            return true
+        }
+        return false
+    }
+
+     fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSION_ID
+        )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == PERMISSION_ID) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Granted. Start getting the location information
+            }
+        }
+    }
 
 
 }

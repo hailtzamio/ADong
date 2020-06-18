@@ -17,9 +17,8 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.ProductRequirement
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import kotlinx.android.synthetic.main.fragment_main_worker.*
-import kotlinx.android.synthetic.main.item_header_layout.*
+import kotlinx.android.synthetic.main.fragment_main_product.*
+import kotlinx.android.synthetic.main.fragment_main_worker.recyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,10 +83,11 @@ class ProductRequirementFragment : BaseFragment() {
                 if(response!!.body() != null && response.body().status == 1){
                     data = response.body().data!!
 
-                    if(data != null && data!!.size > 0) {
+                    if (data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
                         setupRecyclerView()
                     } else {
-                        showToast("Danh sách trống")
+                        viewNoData.visibility = View.VISIBLE
                     }
                 }
             }

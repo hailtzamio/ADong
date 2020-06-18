@@ -19,10 +19,10 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckinOutAlbumImage
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
+import com.zamio.adong.ui.project.tab.ui.main.album.AllAlbumProjectActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
 import org.json.JSONObject
@@ -65,10 +65,7 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         getData()
-
     }
 
     private fun goToBaseInformation() {
@@ -96,7 +93,7 @@ class ProductInformationFragment : BaseFragment() {
     }
 
     private fun goToAlbum() {
-        val intent = Intent(context, CheckinOutAlbumImage::class.java)
+        val intent = Intent(context, AllAlbumProjectActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -106,6 +103,8 @@ class ProductInformationFragment : BaseFragment() {
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
+
+
 
     private fun goToRegistration() {
         val intent = Intent(context, ProjectRegisterActivity::class.java)

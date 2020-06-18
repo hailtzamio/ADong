@@ -17,10 +17,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         />
-    <androidx.recyclerview.widget.RecyclerView
+    <ProgressBar
         android:layout_below="@+id/view"
+        android:visibility="gone"
+        android:id="@+id/progressBarOne"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/colorPrimaryDark" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/progressBarOne"
         android:layout_marginTop="5dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -31,5 +39,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
-
+    <include
+        android:id="@+id/viewNoData"
+        layout="@layout/no_data_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 </RelativeLayout>

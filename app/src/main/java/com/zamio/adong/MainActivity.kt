@@ -1,13 +1,26 @@
 package com.zamio.adong
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.RECORD_AUDIO
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.utils.PreferUtils
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity() {
+
+
+    lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun getLayout(): Int {
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -16,11 +29,7 @@ class MainActivity : BaseActivity() {
         val preferUtils = PreferUtils()
         val userId = preferUtils.getUserId(this)
 
-//        if(!userId.equals("product")){
-//            return R.layout.activity_main
-//        } else {
-//            return R.layout.activity_product
-//        }
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         return R.layout.activity_main
     }
@@ -32,7 +41,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        if (!checkPermissions()) {
+            requestPermissions()
+        }
+//        requestPermissions()
     }
 
     override fun resumeData() {
@@ -69,4 +81,11 @@ class MainActivity : BaseActivity() {
     }
 
 
+
+    private fun isLocationEnabled(): Boolean {
+        var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
 }

@@ -1,16 +1,12 @@
-package com.zamio.adong.ui.project.tab.ui.main.checkinout
+package com.zamio.adong.ui.project.tab.ui.main.album
 
 import RestClient
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
-import android.widget.Toast
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.adapter.GridProjectImageAdapter
 import com.zamio.adong.model.ProjectImage
@@ -22,7 +18,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CheckinOutAlbumImage : BaseActivity() {
+class FinishProjectAlbumActivity : BaseActivity() {
 
     var id = 0
     private var itemList:List<ProjectImage>? = null
@@ -64,7 +60,7 @@ class CheckinOutAlbumImage : BaseActivity() {
 
     private fun getData() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjectImages(id).enqueue(object :
+        RestClient().getInstance().getRestService().getProjectFinishImages(id).enqueue(object :
             Callback<RestData<List<ProjectImage>>> {
             override fun onFailure(call: Call<RestData<List<ProjectImage>>>?, t: Throwable?) {
                 dismisProgressDialog()

@@ -18,6 +18,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.ProjectTypeDialog
+import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_project_list.*
@@ -92,6 +93,13 @@ class MainProjectFragment : BaseFragment() {
         imvFilter.setOnClickListener {
 
             dialog.show()
+        }
+
+        imvMap.setOnClickListener {
+            val intent = Intent(context, LorryListLocationActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 1)
+            startActivity(intent)
+
         }
 
         setupRecyclerView(data)
