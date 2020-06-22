@@ -73,6 +73,12 @@ class ProjectAdapter(private val topicDetails: ArrayList<Project>) :
                 holder.tv6.text = "Tạm dừng"
             }
         }
+
+        if(topic.status == null) {
+            holder.tv6.text = "Đấu thầu"
+        }
+
+
     }
 
     override fun getItemCount(): Int {
