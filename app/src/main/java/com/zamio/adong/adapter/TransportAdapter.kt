@@ -1,4 +1,5 @@
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Transport
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -43,6 +45,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
 
             cb.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
                 onItemSelected?.invoke(adapterPosition, isChecked)
+                Log.e("hailpt", " setOnCheckedChangeListener")
             })
         }
     }
@@ -61,12 +64,12 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             holder.tv1.text = topic.code
         }
 
-        if (topic.tripName != null && topic.tripName !== "") {
-            holder.tv2.text = topic.tripName
+        if (topic.warehouseName != null && topic.warehouseName !== "") {
+            holder.tv2.text = topic.warehouseName
         }
 
-        if (topic.warehouseName != null && topic.warehouseName != "") {
-            holder.tv3.text = topic.warehouseName
+        if (topic.projectName != null && topic.projectName != "") {
+            holder.tv3.text = topic.projectName
         }
 
         if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
@@ -101,9 +104,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             holder.icNext.visibility = View.VISIBLE
         }
 
-
-
-        holder.cb.isSelected = topic.isSelected ?: false
+        holder.cb.isChecked = topic.isSelected
     }
 
     override fun getItemCount(): Int {

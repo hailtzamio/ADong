@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.project.tab.ui.main.requirement
 
+import InformationAdapter
 import ProductRequirementDetailAdapter
 import RestClient
 import android.app.AlertDialog
@@ -31,6 +32,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.zamio.adong.ui.project.ChooseManagerActivity
+import com.zamio.adong.utils.Utils
+import kotlin.collections.ArrayList
 
 class DetailProductRequrementActivity : BaseActivity() {
 
@@ -198,7 +201,7 @@ class DetailProductRequrementActivity : BaseActivity() {
                     rlNote.visibility = View.GONE
                 }
 
-                tvDate.text = productRequirement!!.expectedDatetime
+                tvDate.text = Utils.convertDate(productRequirement!!.expectedDatetime)
                 setupRecyclerView()
             }
 
@@ -338,44 +341,50 @@ class DetailProductRequrementActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
 
-        val mAdapter = ProductRequirementDetailAdapter(data!!)
+        val data2  = ArrayList<Information>()
+
+        data.forEach {
+            data2.add(Information(it.quantity.toString(), it.productName,""))
+        }
+
+        val mAdapter = InformationAdapter(data2)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            val intent = Intent(this, DetailProductActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.productId)
-            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.productId)
-            startActivityForResult(intent, 1000)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//            val intent = Intent(this, DetailProductActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.productId)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.productId)
+//            startActivityForResult(intent, 1000)
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
-        mAdapter.onItemSelected = { position, isChecked ->
-            data[position].isSelected = isChecked
-
-            if (isChecked) {
-                projectChoose.add(data[position])
-            } else {
-                for (i in projectChoose.indices) {
-                    for (j in (projectChoose.size - 1) downTo 0) {
-                        if (data[position].id == projectChoose[j].id) {
-                            projectChoose.removeAt(j)
-                        }
-                    }
-                }
-            }
-
-            if (projectChoose.size > 0) {
-                rightButton.isEnabled = true
-                rightButton.setTextColor(Color.parseColor("#ffffff"));
-            } else {
-                rightButton.isEnabled = false
-                rightButton.setTextColor(Color.parseColor("#90928E"));
-            }
-
-        }
+//        mAdapter.onItemSelected = { position, isChecked ->
+//            data[position].isSelected = isChecked
+//
+//            if (isChecked) {
+//                projectChoose.add(data[position])
+//            } else {
+//                for (i in projectChoose.indices) {
+//                    for (j in (projectChoose.size - 1) downTo 0) {
+//                        if (data[position].id == projectChoose[j].id) {
+//                            projectChoose.removeAt(j)
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if (projectChoose.size > 0) {
+//                rightButton.isEnabled = true
+//                rightButton.setTextColor(Color.parseColor("#ffffff"));
+//            } else {
+//                rightButton.isEnabled = false
+//                rightButton.setTextColor(Color.parseColor("#90928E"));
+//            }
+//
+//        }
     }
 
     override fun resumeData() {

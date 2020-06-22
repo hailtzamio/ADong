@@ -24,6 +24,8 @@ data class ProjectImage(
     val fullSizeFileId: Int,
     @SerializedName("fullSizeUrl")
     val fullSizeUrl: String?,
+    @SerializedName("fullSizeFileUrl")
+    val fullSizeFileUrl: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("latitude")

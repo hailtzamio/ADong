@@ -37,6 +37,7 @@ class ProjectTypeDialog(context: Context) : AlertDialog(context) {
                 "Mới" ->  onItemClick?.invoke("NEW")
                 "Đang thi công" ->  onItemClick?.invoke("PROCESSING")
                 "Hoàn thành" ->  onItemClick?.invoke("DONE")
+                "Tạm dừng" ->  onItemClick?.invoke("PAUSED")
             }
 
             Log.d("hailpt", checkedRadioButton.text.toString())

@@ -55,18 +55,7 @@ class DetailTransportActivity : BaseActivity() {
                 rightButton.visibility = View.GONE
             }
 
-//            if (!ConstantsApp.PERMISSION.contains("d")) {
-//                tvOk.visibility = View.GONE
-//            }
-
             rightButton.visibility = View.GONE
-            rightButton.setOnClickListener {
-//                val intent = Intent(this, UpdateStockActivity::class.java)
-//                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
-//                startActivityForResult(intent, 1000)
-//                this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-
             tvOk.setOnClickListener {
                 CropImage.activity()
                     .setAspectRatio(1, 1)

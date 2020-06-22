@@ -20,10 +20,12 @@ class ProjectAdapter(private val topicDetails: ArrayList<Project>) :
         SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var name: TextView = view.findViewById(R.id.tvName)
-        var type: TextView = view.findViewById(R.id.tvType)
-        var unit: TextView = view.findViewById(R.id.tvUnit)
-        var quantity: TextView = view.findViewById(R.id.tvQuantity)
+        var tv1: TextView = view.findViewById(R.id.tv1)
+        var tv2: TextView = view.findViewById(R.id.tv2)
+        var tv3: TextView = view.findViewById(R.id.tv3)
+        var tv4: TextView = view.findViewById(R.id.tv4)
+        var tv5: TextView = view.findViewById(R.id.tv5)
+        var tv6: TextView = view.findViewById(R.id.tv6)
 
 
         init {
@@ -42,13 +44,35 @@ class ProjectAdapter(private val topicDetails: ArrayList<Project>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.name
-        holder.type.text = topic.address
+        holder.tv1.text = topic.name
+        holder.tv2.text = topic.address
 //        val plannedStartDate = formatToShow.format(topic.plannedStartDate).toString()
 //        val plannedEndDate = formatToShow.format(topic.plannedEndDate).toString()
 
-        holder.unit.text = Utils.convertDate(topic.plannedStartDate)
-        holder.quantity.text = Utils.convertDate(topic.plannedEndDate)
+        holder.tv3.text = Utils.convertDate(topic.plannedStartDate)
+        holder.tv4.text = Utils.convertDate(topic.plannedEndDate)
+
+        if(topic.teamType == "ADONG") {
+//            holder.tv5.text = topic.teamName ?: "---"
+            holder.tv5.text = "Đội Á đông"
+        }    else {
+            holder.tv5.text = "Nhà thầu phụ"
+        }
+
+        when (topic.status) {
+            "NEW" -> {
+                holder.tv6.text = "Mới"
+            }
+            "PROCESSING" -> {
+                holder.tv6.text = "Đang thi công"
+            }
+            "DONE" -> {
+                holder.tv6.text = "Hoàn thành"
+            }
+            "PAUSED" -> {
+                holder.tv6.text = "Tạm dừng"
+            }
+        }
     }
 
     override fun getItemCount(): Int {

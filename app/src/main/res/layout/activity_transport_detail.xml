@@ -30,11 +30,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
-                android:textColor="@color/colorName"
+                android:id="@+id/topTitle"
+                android:textColor="@color/colorOrange"
                 android:textStyle="bold"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DANH SÁCH VẬT TƯ" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/recyclerView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:scrollbars="vertical" />
+            <TextView
+                android:textColor="@color/colorOrange"
+                android:textStyle="bold"
                 android:layout_marginLeft="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -51,24 +68,7 @@
                 android:layout_marginBottom="5dp"
                 android:scrollbars="vertical" />
 
-            <TextView
-                android:textColor="@color/colorName"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="YÊU CẦU VẬN CHUYỂN" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:id="@+id/recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:scrollbars="vertical" />
 
         </LinearLayout>
 

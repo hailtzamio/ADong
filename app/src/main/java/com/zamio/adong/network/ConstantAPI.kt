@@ -9,3 +9,8 @@ class ConstantAPI {
     }
 
 }
+
+enum class Team(val type: String) {
+    ADONG("ADONG"),
+    NHATHAUPHU("CONTRACTOR")
+}

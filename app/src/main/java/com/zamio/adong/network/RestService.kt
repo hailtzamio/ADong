@@ -406,6 +406,9 @@ interface RestService {
     @GET("trip/{id}")
     fun getTrip(@Path("id") id: Int): Call<RestData<Trip>>
 
+    @GET("trip/{id}/photos")
+    fun getTripImages(@Path("id") id: Int): Call<RestData<List<ProjectImage>>>
+
 
     @GET("project/registrable?size=100&sort=id,desc")
     abstract fun getProjectRegistrable(): Call<RestData<ArrayList<Project>>>

@@ -42,6 +42,7 @@ class DetailTripActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setImageResource(R.drawable.icon_update);
+        topTitle.text = "DANH SÁCH YCVC"
     }
 
     override fun initData() {
@@ -57,13 +58,12 @@ class DetailTripActivity : BaseActivity() {
 //            if (!ConstantsApp.PERMISSION.contains("d")) {
 //                tvOk.visibility = View.GONE
 //            }
-
-            rightButton.visibility = View.GONE
+            rightButton.setImageResource(R.drawable.ava);
             rightButton.setOnClickListener {
-                //                val intent = Intent(this, UpdateStockActivity::class.java)
-//                intent.putExtra(ConstantsApp.KEY_VALUES_ID, model!!)
-//                startActivityForResult(intent, 1000)
-//                this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                val intent = Intent(this, TripAlbumImage::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+                startActivityForResult(intent, 1000)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
 
             tvOk.setOnClickListener {
@@ -103,12 +103,13 @@ class DetailTripActivity : BaseActivity() {
                     model = response.body().data ?: return
                     status = model!!.status ?: 1
                     mList.add(Information("Code", model!!.code ?: "---", ""))
-                    mList.add(Information("Kho / Xưởng", model!!.driverFullName ?: "---", ""))
-                    mList.add(Information("Tên dự án", model!!.name ?: "---", ""))
+                    mList.add(Information("Trạng thái", model!!.status.toString() ?: "---", ""))
+                    mList.add(Information("Lái xe", model!!.driverFullName ?: "---", ""))
+                    mList.add(Information("Số điện thoại", model!!.driverPhone ?: "---", ""))
+                    mList.add(Information("Biến số xe", model!!.lorryPlateNumber ?: "---", ""))
+                    mList.add(Information("Ngày dự kiến", model!!.plannedDatetime ?: "---", ""))
 
                     setupRecyclerView(mList)
-
-
 
                     if(model!!.transportRequests != null) {
 
@@ -122,16 +123,6 @@ class DetailTripActivity : BaseActivity() {
                         }
 
                         setupRecyclerViewSmall(model!!.transportRequests!!)
-                    }
-
-
-                    if (status == 4) {
-                        tvOk.visibility = View.VISIBLE
-                    }
-
-                    if (status == 5) {
-                        tvOk.visibility = View.VISIBLE
-                        tvOk.text = "GIAO HÀNG"
                     }
                 }
             }
@@ -150,94 +141,13 @@ class DetailTripActivity : BaseActivity() {
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView2.setHasFixedSize(false)
         recyclerView2.adapter = mAdapter
-    }
 
-    private fun pickup() {
-        showProgessDialog()
-        RestClient().getInstance().getRestService().transportPickUp(id).enqueue(object :
-            Callback<RestData<JsonElement>> {
-
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response.body().status == 1) {
-                    showToast("Thành công")
-                    setResult(100)
-                    finish()
-                } else {
-                    val obj = JSONObject(response!!.errorBody().string())
-                    showToast(obj["message"].toString())
-                }
-            }
-        })
-    }
-
-    private fun unload() {
-        showProgessDialog()
-        RestClient().getInstance().getRestService().transportUnload(id).enqueue(object :
-            Callback<RestData<JsonElement>> {
-
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response.body().status == 1) {
-                    showToast("Thành công")
-                    setResult(100)
-                    finish()
-                } else {
-                    val obj = JSONObject(response!!.errorBody().string())
-                    showToast(obj["message"].toString())
-                }
-            }
-        })
-    }
-
-    private fun uploadImage(file: File) {
-        val requestFile =
-            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        val body =
-            MultipartBody.Part.createFormData("image", file.name, requestFile)
-
-        showProgessDialog()
-        RestClient().getRestService().transportUpload(id, body).enqueue(object :
-            Callback<RestData<JsonElement>> {
-
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response?.body() != null && response.body().status == 1) {
-                    if (status == 4) {
-                        pickup()
-                    } else {
-                        unload()
-                    }
-
-                } else {
-                    if (response!!.errorBody() != null) {
-                        val obj = JSONObject(response.errorBody().string())
-                        showToast(obj["message"].toString())
-                    }
-                }
-            }
-        })
+        mAdapter.onItemClick = {
+            val intent = Intent(this, DetailTransportActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
+            startActivityForResult(intent,1000)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -247,7 +157,7 @@ class DetailTripActivity : BaseActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val resultUri: Uri = result.uri
                 val file = File(resultUri.path!!)
-                uploadImage(file)
+
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error

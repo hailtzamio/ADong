@@ -37,7 +37,6 @@ class AllAlbumProjectActivity : BaseActivity() {
             }
 
             mList.add(Information("Chấm công", "Chấm công", ""))
-            mList.add(Information("Chấm công", "Tiến độ", ""))
             mList.add(Information("Chấm công", "Hoàn thành công trình", ""))
             setupRecyclerView(mList)
 

@@ -8,9 +8,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.Team
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
+import com.zamio.adong.model.Product
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ui.main.SectionsPagerAdapter
@@ -34,18 +36,26 @@ class ProjectTabActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_tab)
+
+        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
+        tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
+        data = intent.extras!!.get(ConstantsApp.KEY_VALUES_OBJECT) as Project
+
+        val fab: ImageView = findViewById(R.id.fab)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        sectionsPagerAdapter.addFragment(workerPage)
+        if(data!!.teamType == Team.ADONG.type) {
+            sectionsPagerAdapter.addFragment(workerPage)
+        } else {
+            fab.visibility = View.GONE
+        }
 
         sectionsPagerAdapter.addFragment(MainWorkOutlineFragment())
         sectionsPagerAdapter.addFragment(informationPage)
-
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: ImageView = findViewById(R.id.fab)
 
         imvCheckInOut.visibility = View.GONE
         imvCheckInOut.setOnClickListener {
@@ -67,16 +77,22 @@ class ProjectTabActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 position = tab.position
 
-                when (position) {
-                    2 -> fab.visibility = View.GONE
-                    1 -> fab.visibility = View.GONE
-                    0 -> fab.visibility = View.VISIBLE
+                if(data!!.teamType == Team.ADONG.type) {
+                    when (position) {
+                        2 -> fab.visibility = View.GONE
+                        1 -> fab.visibility = View.GONE
+                        0 -> fab.visibility = View.VISIBLE
+                    }
+                } else {
+                    when (position) {
+                        1 -> fab.visibility = View.GONE
+                        0 -> fab.visibility = View.GONE
+                    }
                 }
             }
         })
 
-        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
-        tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
+
 
         imvBack.setOnClickListener {
             onBackPressed()
@@ -107,6 +123,11 @@ class ProjectTabActivity : AppCompatActivity() {
             ) {
                 if (response!!.body() != null && response.body().status == 1) {
                     data = response.body().data ?: return
+
+
+
+
+
                 }
             }
         })

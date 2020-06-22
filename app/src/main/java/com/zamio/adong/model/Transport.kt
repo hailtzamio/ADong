@@ -23,6 +23,6 @@ data class Transport (
     var warehouseId: Int?,
     var warehouseName: String?,
     var warehouseAddress: String?,
-    var isSelected: Boolean?,
+    var isSelected: Boolean = false,
     var lines : ArrayList<Product>?
 ) : Serializable

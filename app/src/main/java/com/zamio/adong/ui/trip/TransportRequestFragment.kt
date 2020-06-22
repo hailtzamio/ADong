@@ -14,7 +14,9 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Transport
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.activity_overview_project.*
+import kotlinx.android.synthetic.main.activity_overview_project.viewNoData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,10 +60,19 @@ class TransportRequestFragment : BaseFragment() {
             override fun onResponse(call: Call<RestData<ArrayList<Transport>>>?, response: Response<RestData<ArrayList<Transport>>>?) {
                     dismisProgressDialog()
                     if(response!!.body() != null && response!!.body().status == 1){
-                        data = response.body().data!!
-                        setupRecyclerView()
-                        if(data.size == 0) {
-                            showToast("Danh sách trống")
+                        data = response.body().data ?: return
+
+                        for(i in data.size - 1 downTo 0) {
+                            if(data[i].status != 1) {
+                                data.removeAt(i)
+                            }
+                        }
+
+                        if (data.isNotEmpty()) {
+                            viewNoData.visibility = View.GONE
+                            setupRecyclerView()
+                        } else {
+                            viewNoData.visibility = View.VISIBLE
                         }
                     }
             }
@@ -70,12 +81,6 @@ class TransportRequestFragment : BaseFragment() {
 
     private fun setupRecyclerView(){
 
-        for(i in data.size - 1 downTo 0) {
-            if(data[i].status != 1) {
-                data.removeAt(i)
-            }
-        }
-
         val mAdapter = TransportAdapter(data!!)
         val linearLayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayoutManager
@@ -83,10 +88,10 @@ class TransportRequestFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { it ->
-            val intent = Intent(context, DetailTransportActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
-            startActivityForResult(intent,1000)
-            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//            val intent = Intent(context, DetailTransportActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
+//            startActivityForResult(intent,1000)
+//            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
 

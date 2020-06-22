@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.*
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -63,7 +64,7 @@ class TripAdapter(private val topicDetails: List<Trip>) :
         }
 
         if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
-            holder.tv5.text = topic.plannedDatetime
+            holder.tv5.text =  Utils.convertDate(topic.plannedDatetime)
         }
 
         if (topic.status != null) {

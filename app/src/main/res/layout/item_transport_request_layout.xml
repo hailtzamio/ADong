@@ -90,6 +90,7 @@
 
             </LinearLayout>
             <CheckBox
+                android:gravity="right"
                 android:id="@+id/cb"
                 android:layout_margin="10dp"
                 android:layout_centerVertical="true"

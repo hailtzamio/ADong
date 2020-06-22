@@ -356,7 +356,9 @@
         <activity
             android:name=".ui.project.tab.ui.main.album.FinishProjectAlbumActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.trip.TripAlbumImage"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.project.tab.ui.main.file.ChildFileListActivity"

@@ -87,8 +87,8 @@ class MainWorkOutlineFragment : BaseFragment() {
         getProject()
         tvOk.setOnClickListener {
             ImagePicker.create(this).multi()
-                .toolbarImageTitle("Chọn 8 ảnh")
-                .limit(3)
+                .toolbarImageTitle("Chọn tối đa 8 ảnh")
+                .limit(8)
                 .start()
         }
     }
@@ -178,22 +178,28 @@ class MainWorkOutlineFragment : BaseFragment() {
     }
 
     fun getProject() {
-        RestClient().getInstance().getRestService().getProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
+        RestClient().getInstance().getRestService()
+            .getProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
             Callback<RestData<Project>> {
 
             override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
 
             }
+
             override fun onResponse(
                 call: Call<RestData<Project>>?,
                 response: Response<RestData<Project>>?
             ) {
                 if (response!!.body() != null && response.body().status == 1) {
-                   val data = response.body().data ?: return
-                    if(data.status == "DONE") {
+                    val data = response.body().data ?: return
+                    if (data.status == "DONE") {
                         tvOk.text = "ĐÃ HOÀN THÀNH"
                         tvOk.setTextColor(Color.WHITE)
-                        tvOk.background = ResourcesCompat.getDrawable(resources,R.drawable.button_normal_main_radius_green_layout, null)
+                        tvOk.background = ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.button_normal_main_radius_green_layout,
+                            null
+                        )
                         tvOk.isEnabled = false
                     }
                 }
@@ -217,6 +223,11 @@ class MainWorkOutlineFragment : BaseFragment() {
                 if (response!!.body() != null && response.body().status == 1) {
                     showToast("Thành công")
                     getData(0)
+                } else {
+                    if (response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
                 }
             }
         })
@@ -237,6 +248,11 @@ class MainWorkOutlineFragment : BaseFragment() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     getProject()
+                } else {
+                    if (response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
                 }
             }
         })

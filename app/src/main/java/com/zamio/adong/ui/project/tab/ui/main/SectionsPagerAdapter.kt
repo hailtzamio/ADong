@@ -13,6 +13,11 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_text_3
 )
 
+private val TAB_TITLES_2 = arrayOf(
+    R.string.tab_text_2,
+    R.string.tab_text_3
+)
+
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -26,7 +31,12 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+
+        if(mFragmentList.size == 2) {
+            return context.resources.getString(TAB_TITLES_2[position])
+        } else {
+            return context.resources.getString(TAB_TITLES[position])
+        }
     }
 
     override fun getCount(): Int {

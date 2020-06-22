@@ -18,19 +18,19 @@ import kotlinx.android.synthetic.main.activity_trip_tab.*
 class TripTabActivity : AppCompatActivity() {
     var id = 0
     var position = 0
-    val stockFrag = TransportRequestFragment()
+    val transportRequestFragment = TransportRequestFragment()
     val transportRequestDoneFragment = TransportRequestDoneFragment()
     val transportRequestProcessingFragment = TransportRequestProcessingFragment()
-    val factoryFrag = TripFragment()
+    val tripFragment = TripFragment()
     var transports = ArrayList<Transport>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trip_tab)
         val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager, 2)
-        sectionsPagerAdapter.addFragment(stockFrag)
-        sectionsPagerAdapter.addFragment(transportRequestProcessingFragment)
-        sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
-        sectionsPagerAdapter.addFragment(factoryFrag)
+        sectionsPagerAdapter.addFragment(transportRequestFragment)
+//        sectionsPagerAdapter.addFragment(transportRequestProcessingFragment)
+//        sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
+        sectionsPagerAdapter.addFragment(tripFragment)
         tvTitle.text = "Vận Chuyển"
         rightButton.visibility = View.GONE
 

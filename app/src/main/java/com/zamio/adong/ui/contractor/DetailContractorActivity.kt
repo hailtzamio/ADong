@@ -1,17 +1,23 @@
 package com.zamio.adong.ui.contractor
 
+import InformationAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.Contractor
+import com.zamio.adong.model.Information
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_contractor.*
+import kotlinx.android.synthetic.main.activity_detail_contractor.recyclerView
+import kotlinx.android.synthetic.main.activity_detail_contractor.tvOk
+import kotlinx.android.synthetic.main.activity_detail_driver.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,6 +31,7 @@ class DetailContractorActivity : BaseActivity() {
     var id = 0
     var regId = 0
     var isFromProjectRegister = false
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_contractor
     }
@@ -128,8 +135,6 @@ class DetailContractorActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     product = response.body().data ?: return
-                    tvName.text = product!!.name
-                    tvPhone.text = product!!.phone
 
                     var address = "---"
 
@@ -145,28 +150,33 @@ class DetailContractorActivity : BaseActivity() {
                         address = address + " - " + product!!.provinceName
                     }
 
-                    tvAddress.text = address
-
-                    if(product!!.email != null && product!!.email != "") {
-                        tvEmail.text = product!!.email
+                    mList.add(Information("Tên",product!!.name ?: "---", ""))
+                    mList.add(Information("Số điện thoại",product!!.phone ?: "---", ""))
+                    mList.add(Information("Email",product!!.email ?: "---", ""))
+                    mList.add(Information("Địa chỉ",address, ""))
+                    if (product!!.workingStatus == "idle") {
+                        mList.add(Information("Trạng thái","Đang rảnh", ""))
+                    } else {
+                        mList.add(Information("Trạng thái","Đang bận", ""))
                     }
 
-                    if(product!!.projectName != null && product!!.projectName != "") {
-                        tvProjectName.text = product!!.projectName
-                    }
+                    mList.add(Information("Tên dự án",product!!.projectName ?: "---", ""))
 
                     if (product!!.rating != null) {
                         rating.rating = product!!.rating!!
                     }
 
-                    if (product!!.workingStatus == "idle") {
-                        tvStatus.text = "Đang rảnh"
-                    } else {
-                        tvStatus.text = "Đang bận"
-                    }
+                    setupRecyclerView(mList)
                 }
             }
         })
+    }
+
+    private fun setupRecyclerView(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
     }
 
     private fun approveRegisterProject() {

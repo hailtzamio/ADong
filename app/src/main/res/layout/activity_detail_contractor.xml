@@ -20,7 +20,6 @@
 
 
     <LinearLayout
-        android:layout_marginTop="15dp"
         android:orientation="vertical"
         android:layout_below="@+id/view"
         android:layout_width="match_parent"
@@ -30,185 +29,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorView" />
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-
-
-
-            <TextView
-
-                android:id="@+id/tvName"
-                tools:text="Tên "
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Tên "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/tvPhone"
-                android:layout_alignParentRight="true"
-                android:text="---"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Số điện thoại"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-
-
-
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_alignParentRight="true"
-                android:text="---"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:id="@+id/tvAddress"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                tools:text="Tên " />
-
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Địa chỉ "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="10dp" />
-
-
-
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_alignParentRight="true"
-                android:text="---"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Trạng thái"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <TextView
-
-                android:id="@+id/tvProjectName"
-                android:layout_alignParentRight="true"
-                android:text="---"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textSize="14sp"
-                android:textColor="@color/colorGray"
-                android:text="Tên dự án "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -230,10 +70,10 @@
 
 
         </LinearLayout>
-
-
-
     </LinearLayout>
+
+
+
     <TextView
         android:layout_alignParentBottom="true"
         android:id="@+id/tvOk"

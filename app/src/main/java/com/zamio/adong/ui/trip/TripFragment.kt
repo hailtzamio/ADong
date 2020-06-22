@@ -13,6 +13,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
+import com.zamio.adong.model.Transport
 import com.zamio.adong.model.Trip
 import com.zamio.adong.model.TripRq
 import com.zamio.adong.network.ConstantsApp
@@ -47,6 +48,9 @@ class TripFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getData(0)
+        if(activity is TripTabActivity) {
+            (activity as TripTabActivity).setTrips(ArrayList<Transport>())
+        }
     }
 
     private fun getData(page: Int) {
@@ -113,8 +117,6 @@ class TripFragment : BaseFragment() {
                 startActivityForResult(intent, 1000)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
-
-
         }
 
         var isLastPage: Boolean = false

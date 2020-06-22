@@ -80,10 +80,10 @@
         android:layout_height="@dimen/button_size"
         android:layout_below="@+id/rlPw"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_radius_bg_white_layout"
+        android:background="@drawable/button_radius_bg_black_layout"
         android:gravity="center"
         android:text="ĐĂNG NHẬP"
-        android:textColor="@color/colorHeader" />
+        android:textColor="@color/white" />
 
 
     <TextView
