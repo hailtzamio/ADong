@@ -44,16 +44,10 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Code"
-                    android:textColor="@color/colorGray" />
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -63,19 +57,18 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Người giao"
+                    android:text="Code"
                     android:textColor="@color/colorGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -86,26 +79,25 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_marginTop="10dp"
-                android:background="@color/colorView"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mã chứng từ gốc"
+                    android:text="Người giao"
                     android:textColor="@color/colorGray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorView" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -115,19 +107,18 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kho"
+                    android:text="Mã chứng từ gốc"
                     android:textColor="@color/colorGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -138,25 +129,24 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_marginTop="10dp"
-                android:background="@color/colorView"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ghi chú"
+                    android:text="Kho"
                     android:textColor="@color/colorGray" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -166,19 +156,18 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_below_above">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Trạng thái"
+                    android:text="Ghi chú"
                     android:textColor="@color/colorGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_below_above"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -188,6 +177,11 @@
                     android:text="---"
                     app:autoSizeTextType="uniform" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng thái"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <RelativeLayout
@@ -217,7 +211,6 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tvOk"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"
@@ -226,6 +219,7 @@
         android:background="@drawable/button_layout"
         android:gravity="center"
         android:text="XÁC NHẬN NHẬP KHO"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone" />
 
 </RelativeLayout>

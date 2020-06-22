@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.Team
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.zamio.adong.R
@@ -47,6 +48,7 @@ class ProductInformationFragment : BaseFragment() {
 
 
     var data: Project? = null
+    var teamType = Team.ADONG.type
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -65,7 +67,10 @@ class ProductInformationFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData()
+//        getData()
+
+        teamType = (activity as ProjectTabActivity).getProjectTeam()
+        setupRecyclerView()
     }
 
     private fun goToBaseInformation() {
@@ -226,25 +231,32 @@ class ProductInformationFragment : BaseFragment() {
         val data = ArrayList<String>()
         data.add("Thông tin cơ bản")
         data.add("Line")
-        data.add("Danh sách đăng ký thi công")
+
+        if (teamType == Team.ADONG.type) {
+            data.add("Thêm công nhân")
+        } else {
+            data.add("Danh sách đăng ký thi công")
+        }
+
         data.add("Danh sách yêu cầu vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
         data.add("Đánh giá công trình")
         data.add("An toàn lao động")
-        data.add("Line")
-        data.add("Thêm công nhân")
-        data.add("Kho ảnh")
-        data.add("Lịch sử điểm danh")
-        data.add("Line")
 
-        if(isPauseProject) {
-            data.add("Phục hồi công trình")
-        } else {
-            data.add("Tạm dừng công trình")
+        if (teamType == Team.ADONG.type) {
+            data.add("Line")
+            data.add("Kho ảnh")
+            data.add("Lịch sử điểm danh")
         }
 
-        val mAdapter = TitleAdapter(data,1)
+//        if(isPauseProject) {
+//            data.add("Phục hồi công trình")
+//        } else {
+//            data.add("Tạm dừng công trình")
+//        }
+
+        val mAdapter = TitleAdapter(data,teamType)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
@@ -252,13 +264,18 @@ class ProductInformationFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             when(product) {
                 0 -> goToBaseInformation()
-                2 ->  goToRegistration()
+                2 -> {
+                    if(teamType == Team.CONTRACTOR.type) {
+                        goToRegistration()
+                    } else {
+                        goToAddingWorkers()
+                    }
+                }
                 3 -> goToProductRequirement()
                 4 -> goToFile()
-                9 -> goToAddingWorkers()
-                10 -> goToAlbum()
-                11 -> goToCheckinHistory()
-                13 ->  pauseProject()
+                9 -> goToAlbum()
+                10 -> goToCheckinHistory()
+//                13 ->  pauseProject()
             }
         }
     }

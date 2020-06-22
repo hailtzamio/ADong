@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
+import com.elcom.com.quizupapp.ui.network.Team
 import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.ware.stock.goods_issue.GoodsIssueListActivity
@@ -64,7 +65,7 @@ class StockFragment : BaseFragment() {
 
 
 
-        val mAdapter = TitleAdapter(data, 2)
+        val mAdapter = TitleAdapter(data, Team.STOCK.type)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter

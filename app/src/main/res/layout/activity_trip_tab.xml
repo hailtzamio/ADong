@@ -36,7 +36,7 @@
 
 
             <TextView
-                android:textColor="@color/white"
+                android:textColor="@color/colorOrange"
                 android:text="Tạo Chuyến"
                 android:layout_marginRight="5dp"
                 android:id="@+id/rightButton"

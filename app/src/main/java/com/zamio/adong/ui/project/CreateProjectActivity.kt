@@ -86,9 +86,20 @@ class CreateProjectActivity : BaseActivity() {
             if (checkedRadioButton.text.toString() == "Đội Á đông") {
                 isChooseADong = true
                 rlLeader.visibility = View.GONE
+
+                tvContractor.text = "Tên đội *"
+                tvChooseLeader.text = "Trưởng bộ phận *"
+                tvDeputyName.text = "Phó bộ phận *"
+                tvSeName.text = "Thư ký *"
+
             } else {
                 isChooseADong = false
                 rlLeader.visibility = View.VISIBLE
+
+                tvContractor.text = "Tên đội"
+                tvChooseLeader.text = "Trưởng bộ phận"
+                tvDeputyName.text = "Phó bộ phận"
+                tvSeName.text = "Thư ký *"
             }
 
         })

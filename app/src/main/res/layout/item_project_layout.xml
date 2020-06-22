@@ -47,8 +47,7 @@
                     android:layout_marginLeft="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="1111"
-                    android:textStyle="bold" />
+                    android:text="1111" />
             </LinearLayout>
 
 
@@ -59,7 +58,8 @@
                 android:layout_below="@+id/lnName"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/colorGray" />
 
             <TextView
                 android:id="@+id/tv3"
@@ -69,7 +69,8 @@
                 android:layout_marginRight="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/colorGray" />
 
             <TextView
                 android:id="@+id/tv4"
@@ -78,7 +79,8 @@
                 android:layout_below="@+id/tv3"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/colorGray" />
 
             <TextView
                 android:id="@+id/tv5"
@@ -87,7 +89,8 @@
                 android:layout_below="@+id/tv4"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/colorGray" />
 
             <TextView
                 android:id="@+id/tv6"
@@ -96,7 +99,8 @@
                 android:layout_below="@+id/tv5"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="" />
+                android:text=""
+                android:textColor="@color/colorGray" />
         </RelativeLayout>
 
     </RelativeLayout>

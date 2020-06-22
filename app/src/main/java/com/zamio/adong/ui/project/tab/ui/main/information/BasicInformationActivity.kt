@@ -16,6 +16,7 @@ import com.zamio.adong.model.Contractor
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
+import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -58,6 +59,7 @@ class BasicInformationActivity : BaseActivity() {
 
             if (intent.hasExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT)) {
                 // Đăng ký thi công  "NEW_PROJECT"
+                tvPause.visibility = View.GONE
                 rightButton.visibility = View.GONE
                 tvOk.visibility = View.VISIBLE
                 tvOk.text = "ĐĂNG KÝ THI CÔNG"
@@ -72,6 +74,36 @@ class BasicInformationActivity : BaseActivity() {
                     }
                 }
             }
+
+            tvPause.setOnClickListener {
+
+
+                var title = ""
+                title = if(tvPause.text == "PHỤC HỒI") {
+                    "Phục hồi công trình?"
+                } else {
+                    "Tạm dừng công trình?"
+                }
+
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                if(tvPause.text == "PHỤC HỒI") {
+                                    doResumeProjectApi()
+                                } else {
+                                    doPauseProjectApi()
+                                }
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage(title).setPositiveButton("Đồng ý", dialogClickListener)
+                    .setNegativeButton("Không", dialogClickListener).show()
+            }
         }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_REG_APPROVED)) {
@@ -81,6 +113,74 @@ class BasicInformationActivity : BaseActivity() {
             val registrationId = intent.getIntExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, 0)
             getRegistationDetail(registrationId)
         }
+    }
+
+    private fun doPauseProjectApi() {
+
+        val reason = JsonObject()
+        reason.addProperty("note", "Need to Pause")
+
+        showProgessDialog()
+        RestClient().getRestService().pauseProject(id, reason).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response!!.body().status == 1){
+                    showToast("Thành công")
+                    getData(id)
+                } else {
+                    if(response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
+    }
+
+    private fun doResumeProjectApi() {
+
+        if(data == null) {
+            return
+        }
+
+        val reason = JsonObject()
+        reason.addProperty("teamType", data!!.teamType)
+        reason.addProperty("teamId", data!!.teamId)
+        if(data!!.contractorId != null) {
+            reason.addProperty("contractorId", data!!.contractorId)
+        } else {
+            reason.addProperty("teamId", data!!.teamId)
+        }
+
+        reason.addProperty("note", "Need to Pause")
+
+        showProgessDialog()
+        RestClient().getRestService().pauseResume(id, reason).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
+                dismisProgressDialog()
+                if( response!!.body() != null && response!!.body().status == 1){
+                    showToast("Thành công")
+                    getData(id)
+                } else {
+                    if(response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
     }
 
     private fun getRegistationDetail(registrationId: Int) {
@@ -264,6 +364,26 @@ class BasicInformationActivity : BaseActivity() {
                         tvContractorOrTeam.text = data!!.contractorName ?: "---"
                         tvContractorOrTeamLabel.text = "Nhà thầu phụ"
                         lnTeamName.visibility = View.GONE
+                    }
+
+
+                    when(data!!.status ?: "NEW") {
+                        "NEW" -> {
+                            tvStatus.text = "Mới"
+                        }
+                        "PROCESSING" -> {
+                            tvStatus.text = "Đang thi công"
+                            tvPause.text = "TẠM DỪNG"
+                        }
+                        "DONE" -> {
+                            rightButton.visibility = View.GONE
+                            tvStatus.text = "Hoàn thành"
+                            tvPause.visibility = View.GONE
+                        }
+                        "PAUSED" -> {
+                            tvStatus.text = "Tạm dừng"
+                            tvPause.text = "PHỤC HỒI"
+                        }
                     }
                 }
             }

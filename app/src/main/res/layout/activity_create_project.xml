@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Ngày bắt đầu" />
+                    android:text="Ngày bắt đầu *" />
 
                 <TextView
                     android:id="@+id/tvChooseDate"
@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Ngày kết thúc" />
+                    android:text="Ngày kết thúc *" />
 
                 <TextView
                     android:id="@+id/tvChooseEndDate"
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Tên đội" />
+                        android:text="Tên đội *" />
 
                     <TextView
                         android:id="@+id/tvChooseTeamOrContractor"
@@ -183,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Trưởng bộ phận"
+                        android:text="Trưởng bộ phận *"
                         android:textColor="@color/colorGray" />
 
                     <TextView
@@ -206,11 +206,12 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
+                        android:id="@+id/tvDeputyName"
                         android:textColor="@color/colorGray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Phó bộ phận" />
+                        android:text="Phó bộ phận *" />
 
                     <TextView
                         android:id="@+id/tvDeputyManagerName"
@@ -260,11 +261,12 @@
                     android:layout_marginTop="10dp">
 
                     <TextView
+                        android:id="@+id/tvSeName"
                         android:textColor="@color/colorGray"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Thư ký" />
+                        android:text="Thư ký *" />
 
                     <TextView
                         android:id="@+id/tvSecretaryName"

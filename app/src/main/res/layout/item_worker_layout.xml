@@ -22,14 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            card_view:cardElevation="0dp"
-            android:padding="5dp">
+            android:padding="5dp"
+            card_view:cardElevation="0dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvAva"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true">
+
                 <ImageView
                     android:id="@+id/imvAva"
                     android:layout_width="80dp"
@@ -56,8 +57,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="11111"
-                    android:textStyle="bold" />
+                    android:text="11111" />
 
                 <TextView
                     android:id="@+id/tvType"
@@ -68,7 +68,8 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="11111" />
+                    android:text="11111"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvUnit"
@@ -79,7 +80,8 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="11111" />
+                    android:text="11111"
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvQuantity"
@@ -91,6 +93,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="11111"
+                    android:textColor="@color/colorGray"
                     android:visibility="gone" />
             </RelativeLayout>
 

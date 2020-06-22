@@ -43,19 +43,11 @@
                 android:textColor="@color/colorName"
                 android:textStyle="bold" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Code"
-                    android:textColor="@color/colorGray" />
-
 
                 <TextView
                     android:id="@+id/tvName"
@@ -66,6 +58,11 @@
                     android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Code"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <View
@@ -82,24 +79,24 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvPlanDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày dự kiến"
-                    android:textColor="@color/colorGray" />
-
-
-                <TextView
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvPlanDate"
+
                     android:text="---"
                     android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
                 <TextView
-                    android:visibility="gone"
+                    android:id="@+id/tvPlanDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvDate"
+                    android:text="Ngày dự kiến"
+                    android:textColor="@color/colorGray" />
+
+
+                <TextView
                     android:id="@+id/tvEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,6 +104,7 @@
                     android:paddingLeft="10dp"
                     android:paddingBottom="10dp"
                     android:text="Sửa"
+                    android:visibility="gone"
                     app:autoSizeTextType="uniform" />
 
             </RelativeLayout>
@@ -116,12 +114,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kho"
-                    android:textColor="@color/colorGray" />
 
 
                 <TextView
@@ -133,6 +125,11 @@
                     android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kho"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <View
@@ -148,13 +145,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ghi chú"
-                    android:textColor="@color/colorGray" />
-
-
-                <TextView
                     android:id="@+id/tvEditDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,6 +152,11 @@
                     android:textSize="@dimen/text_size_content"
                     app:autoSizeTextType="uniform" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghi chú"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <LinearLayout
@@ -223,6 +218,6 @@
         android:gravity="center"
         android:text="XÁC NHẬN"
         android:textColor="@color/white"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </RelativeLayout>

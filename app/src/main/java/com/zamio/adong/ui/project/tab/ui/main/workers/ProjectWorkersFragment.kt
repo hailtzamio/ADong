@@ -92,6 +92,9 @@ class ProjectWorkersFragment : BaseFragment() {
     }
 
     fun getData(pPage:Int){
+        if(activity != null || activity is ProjectTabActivity) {
+            return
+        }
         data.clear()
 //        showProgessDialog()
         RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :

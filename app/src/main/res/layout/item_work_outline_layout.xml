@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp">
 
 
     <androidx.cardview.widget.CardView
@@ -25,12 +25,12 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_toLeftOf="@+id/icNext"
-                android:padding="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical">
+                android:layout_toLeftOf="@+id/icNext"
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/tvName"
@@ -41,7 +41,6 @@
                     android:text="" />
 
                 <TextView
-                    android:textColor="@color/colorGray"
                     android:id="@+id/tvUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,7 +48,8 @@
                     android:layout_marginRight="10dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="" />
+                    android:text=""
+                    android:textColor="@color/colorGray" />
 
                 <TextView
                     android:id="@+id/tvQuantity"
@@ -58,18 +58,20 @@
                     android:layout_below="@+id/tvUnit"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="" />
+                    android:text=""
+                    android:textColor="@color/colorGray" />
 
 
             </RelativeLayout>
+
             <ImageView
                 android:id="@+id/icNext"
-                android:layout_margin="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/next"
                 android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/next" />
         </RelativeLayout>
 
 

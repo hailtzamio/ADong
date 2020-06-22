@@ -12,5 +12,13 @@ class ConstantAPI {
 
 enum class Team(val type: String) {
     ADONG("ADONG"),
-    NHATHAUPHU("CONTRACTOR")
+    CONTRACTOR("CONTRACTOR"),
+    STOCK("STOCK"),
+}
+
+enum class PROJECTTYPE(val type: String) {
+    NEW("NEW"),
+    PRROCESSING("PRROCESSING"),
+    PAUSED("PAUSED"),
+    DONE("DONE")
 }

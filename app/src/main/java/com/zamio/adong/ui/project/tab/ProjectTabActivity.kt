@@ -12,7 +12,6 @@ import com.elcom.com.quizupapp.ui.network.Team
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
-import com.zamio.adong.model.Product
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.project.tab.ui.main.SectionsPagerAdapter
@@ -32,18 +31,18 @@ class ProjectTabActivity : AppCompatActivity() {
     var position = 0
     val workerPage = ProjectWorkersFragment()
     val informationPage = ProductInformationFragment()
-    var data: Project? = null
+    var project: Project? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_tab)
 
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
         tvTitle.text = intent.getStringExtra(ConstantsApp.KEY_VALUES_TITLE)
-        data = intent.extras!!.get(ConstantsApp.KEY_VALUES_OBJECT) as Project
+        project = intent.extras!!.get(ConstantsApp.KEY_VALUES_OBJECT) as Project
 
         val fab: ImageView = findViewById(R.id.fab)
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        if(data!!.teamType == Team.ADONG.type) {
+        if(project!!.teamType == Team.ADONG.type) {
             sectionsPagerAdapter.addFragment(workerPage)
         } else {
             fab.visibility = View.GONE
@@ -77,7 +76,7 @@ class ProjectTabActivity : AppCompatActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 position = tab.position
 
-                if(data!!.teamType == Team.ADONG.type) {
+                if(project!!.teamType == Team.ADONG.type) {
                     when (position) {
                         2 -> fab.visibility = View.GONE
                         1 -> fab.visibility = View.GONE
@@ -104,7 +103,9 @@ class ProjectTabActivity : AppCompatActivity() {
 
     }
 
-
+    fun getProjectTeam() : String {
+        return project!!.teamType ?: Team.ADONG.type
+    }
 
     private fun goToUploadImage() {
         workerPage.pickImageFromAlbum()
@@ -122,12 +123,7 @@ class ProjectTabActivity : AppCompatActivity() {
                 response: Response<RestData<Project>>?
             ) {
                 if (response!!.body() != null && response.body().status == 1) {
-                    data = response.body().data ?: return
-
-
-
-
-
+                    project = response.body().data ?: return
                 }
             }
         })
@@ -144,10 +140,11 @@ class ProjectTabActivity : AppCompatActivity() {
 //            producPage.getData(0)
         }
 
-        if (resultCode == 102) {
-            workerPage.resetData()
-            workerPage.getData(0)
+        if(project!!.teamType == Team.ADONG.type) {
+            if (resultCode == 102) {
+                workerPage.resetData()
+                workerPage.getData(0)
+            }
         }
     }
-
 }

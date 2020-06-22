@@ -49,11 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Code"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -62,7 +58,11 @@
                     android:layout_height="wrap_content"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Code"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <LinearLayout
@@ -71,11 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Người nhận"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -85,7 +81,11 @@
                     android:layout_alignParentRight="true"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Người nhận"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <View
@@ -101,11 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lý do"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -114,7 +110,11 @@
                     android:layout_height="wrap_content"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lý do"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <LinearLayout
@@ -123,11 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kho"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -137,7 +133,11 @@
                     android:layout_alignParentRight="true"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kho"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <View
@@ -152,11 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ghi chú"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -165,7 +161,11 @@
                     android:layout_height="wrap_content"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghi chú"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <LinearLayout
@@ -174,11 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_below_above">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Trạng thái"
-                    android:textColor="@color/colorGray" />
+
 
 
                 <TextView
@@ -187,7 +183,11 @@
                     android:layout_height="wrap_content"
                     android:text="---"
                     app:autoSizeTextType="uniform" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng thái"
+                    android:textColor="@color/colorGray" />
             </LinearLayout>
 
             <RelativeLayout
@@ -217,7 +217,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/tvOk"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"

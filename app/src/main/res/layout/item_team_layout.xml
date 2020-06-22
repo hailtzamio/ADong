@@ -53,10 +53,10 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="1111"
-                        android:textStyle="bold" />
+                     />
                 </LinearLayout>
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:id="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     android:maxLines="1"
                     android:text="" />
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:id="@+id/tvUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                     android:maxLines="1"
                     android:text="" />
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:id="@+id/tvQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

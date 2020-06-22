@@ -32,7 +32,7 @@ class ProjectRegisterActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Nhà Thầu Phụ"
+        tvTitle.text = "Đăng Ký Thi Công"
         rightButton.visibility = View.GONE
 
     }

@@ -45,14 +45,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
+
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="" />
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                     android:singleLine="true"
                     android:text="" />
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:id="@+id/tvPhone2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:maxLines="1"
                     android:text="" />
 
-                <TextView
+                <TextView  android:textColor="@color/colorGray"
                     android:visibility="gone"
                     android:id="@+id/tvAddress"
                     android:layout_width="wrap_content"

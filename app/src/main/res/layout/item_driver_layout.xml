@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginRight="10dp">
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp">
 
 
     <androidx.cardview.widget.CardView
@@ -20,17 +20,18 @@
         card_view:cardElevation="8dp">
 
         <RelativeLayout
-            android:padding="5dp"
             android:id="@+id/lnRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvAva"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true">
+
                 <ImageView
                     android:id="@+id/imvAva"
                     android:layout_width="80dp"
@@ -41,34 +42,34 @@
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/cvAva"
                 android:orientation="vertical">
 
                 <TextView
-                    android:textStyle="bold"
-                    android:layout_marginRight="30dp"
+
                     android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
                     android:singleLine="true"
                     tools:text="11111" />
 
                 <TextView
-                    android:layout_marginRight="30dp"
                     android:id="@+id/tvType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvName"
+                    android:layout_marginRight="30dp"
                     android:singleLine="true"
+                    android:textColor="@color/colorGray"
                     tools:text="11111" />
 
                 <TextView
-
                     android:id="@+id/tvUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,32 +78,33 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:textColor="@color/colorGray"
                     tools:text="11111" />
 
                 <TextView
-                    android:visibility="gone"
-                    android:layout_marginRight="30dp"
                     android:id="@+id/tvQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUnit"
+                    android:layout_marginRight="30dp"
                     android:singleLine="true"
+                    android:textColor="@color/colorGray"
+                    android:visibility="gone"
                     tools:text="1111d1" />
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/imvStatus"
-                android:src="@drawable/busy_dot"
-                android:layout_marginRight="10dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/busy_dot" />
         </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

@@ -1,103 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="5dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
     android:background="@color/white"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="10dp">
 
 
+    <RelativeLayout
+        android:id="@+id/lnRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <RelativeLayout
-            android:id="@+id/lnRoot"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/icNext"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <LinearLayout
-                android:layout_toLeftOf="@+id/icNext"
-                android:padding="10dp"
+            <TextView
+
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---" />
+
+            <TextView
+                android:id="@+id/tv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical">
+                android:layout_below="@+id/tvName"
+                android:layout_marginRight="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---"
+                android:textColor="@color/colorGray" />
 
-                <TextView
-                    android:textStyle="bold"
-                    android:id="@+id/tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUnit"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---"
+                android:textColor="@color/colorGray" />
 
-                <TextView
-                    android:id="@+id/tv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvName"
-                    android:layout_marginRight="10dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUnit"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---"
+                android:textColor="@color/colorGray" />
 
-                <TextView
-                    android:id="@+id/tv3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUnit"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUnit"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---"
+                android:textColor="@color/colorGray" />
 
-                <TextView
-                    android:id="@+id/tv4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUnit"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
-
-                <TextView
-                    android:id="@+id/tv5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUnit"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
-
-                <TextView
-                    android:id="@+id/tv6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUnit"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="---" />
+            <TextView
+                android:id="@+id/tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUnit"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="---"
+                android:textColor="@color/colorGray" />
 
 
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/icNext"
-                android:layout_margin="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/next"
-                android:layout_width="15dp"
-                android:layout_height="15dp" />
-        </RelativeLayout>
+        </LinearLayout>
 
+        <ImageView
+            android:id="@+id/icNext"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/next" />
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>
