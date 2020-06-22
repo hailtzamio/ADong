@@ -28,7 +28,7 @@ class CheckinOutAlbumImage : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Kho Ảnh"
+        tvTitle.text = "Ảnh Chấm Công"
         rightButton.visibility = View.GONE
     }
 
@@ -79,7 +79,6 @@ class CheckinOutAlbumImage : BaseActivity() {
                     } else {
                         viewNoData.visibility = View.VISIBLE
                     }
-
                 }
             }
         })

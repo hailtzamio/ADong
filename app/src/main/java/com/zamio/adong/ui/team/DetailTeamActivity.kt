@@ -1,5 +1,6 @@
 package com.zamio.adong.ui.team
 
+import InformationAdapter
 import MemberTeamAdapter
 import RestClient
 import android.app.AlertDialog
@@ -11,10 +12,15 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
+import com.zamio.adong.model.Information
 import com.zamio.adong.model.Team
 import com.zamio.adong.model.Worker2
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.activity_detail_contractor.*
 import kotlinx.android.synthetic.main.activity_detail_team.*
+import kotlinx.android.synthetic.main.activity_detail_team.rating
+import kotlinx.android.synthetic.main.activity_detail_team.recyclerView
+import kotlinx.android.synthetic.main.activity_detail_team.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +32,7 @@ class DetailTeamActivity : BaseActivity() {
     var teamId = 1
     var team:Team? = null
     var mAdapter:MemberTeamAdapter? = null
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_team
     }
@@ -91,19 +98,22 @@ class DetailTeamActivity : BaseActivity() {
                 if( response!!.body() != null && response!!.body().status == 1){
                     team = response.body().data ?: return
                     if(team != null) {
-                        tvName.text = team!!.name
-                        tvLeaderName.text = team!!.leaderFullName
-                        tvChooseWorker.text = "Danh sách công nhân" + " ( " +  team!!.teamSize.toString() + " )"
-                        tvPhone.text = team!!.phone
 
-                        if(team!!.phone2 != null) {
-                            tvPhone2.text = team!!.phone2
-                        } else {
-                            tvPhone2.text = "---"
+                        mList.clear()
+
+                        var address = "---"
+
+                        if(team!!.address != null && team!!.address != "") {
+                            address =  team!!.address.toString()
                         }
 
+                        if(team!!.districtName != null && team!!.districtName == "") {
+                            address = address + " - " + team!!.districtName
+                        }
 
-                        var address = ""
+                        if(team!!.provinceName != null && team!!.provinceName == "") {
+                            address = address + " - " + team!!.provinceName
+                        }
 
                         if(team!!.address != null) {
                             address =  team!!.address.toString()
@@ -117,17 +127,28 @@ class DetailTeamActivity : BaseActivity() {
                             address = address + " - " + team!!.provinceName
                         }
 
-                        tvAddress.text = address
+                        mList.add(Information("Tên",team!!.name ?: "---", ""))
+                        mList.add(Information("Đội trưởng",team!!.leaderFullName ?: "---", ""))
+                        mList.add(Information("Số điện thoại",team!!.phone ?: "---", ""))
+
+                        if(team!!.phone2 == "") {
+                            team!!.phone2 == null
+                        }
+
+                        mList.add(Information("Số điện thoại 2",team!!.phone2 ?: "---", ""))
+                        mList.add(Information("Địa chỉ",address, ""))
 
                         if (team!!.workingStatus == "idle") {
-                            tvStatus.text = "Đang rảnh"
+                            mList.add(Information("Trạng thái","Đang rảnh", ""))
                         } else {
-                            tvStatus.text = "Đang bận"
+                            mList.add(Information("Trạng thái","Đang bận", ""))
                         }
 
                         if( team!!.rating != null) {
                             rating.rating = team!!.rating!!
                         }
+
+                        setupRecyclerViewTop(mList)
                     }
                 }
             }
@@ -150,6 +171,13 @@ class DetailTeamActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun setupRecyclerViewTop(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
     }
 
     private fun setupRecyclerView(data:ArrayList<Worker2>){

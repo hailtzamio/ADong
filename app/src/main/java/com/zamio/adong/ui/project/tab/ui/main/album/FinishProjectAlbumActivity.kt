@@ -28,7 +28,7 @@ class FinishProjectAlbumActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Kho Ảnh"
+        tvTitle.text = "Ảnh Nghiệm Thu"
         rightButton.visibility = View.GONE
     }
 

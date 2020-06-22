@@ -10,7 +10,7 @@ class MainTeamActivity : BaseActivity() {
     }
 
     override fun initView() {
-        tvTitle.text = "Đội Thi Công"
+        tvTitle.text = "Đội Á Đông"
     }
 
     override fun initData() {

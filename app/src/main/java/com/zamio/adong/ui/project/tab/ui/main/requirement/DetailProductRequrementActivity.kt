@@ -33,6 +33,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.zamio.adong.ui.project.ChooseManagerActivity
 import com.zamio.adong.utils.Utils
+import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlin.collections.ArrayList
 
 class DetailProductRequrementActivity : BaseActivity() {
@@ -44,6 +45,7 @@ class DetailProductRequrementActivity : BaseActivity() {
     var assigneeId = 0
     var warehouseName = ""
     var title = "Chọn người đi mua?"
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_product_requirement
     }
@@ -194,19 +196,32 @@ class DetailProductRequrementActivity : BaseActivity() {
 
             if (productRequirement != null) {
                 data = productRequirement!!.lines
-                tvName.text = productRequirement!!.projectName
-                if (productRequirement!!.note != null && productRequirement!!.note != "") {
-                    tvNote.text = productRequirement!!.note
-                } else {
-                    rlNote.visibility = View.GONE
-                }
 
-                tvDate.text = Utils.convertDate(productRequirement!!.expectedDatetime)
+                mList.add(Information("Tên dự án", productRequirement!!.projectName ?: "---", ""))
+                mList.add(
+                    Information(
+                        "Ngày dự kiến",
+                        Utils.convertDate(productRequirement!!.expectedDatetime) ?: "---",
+                        ""
+                    )
+                )
+                mList.add(Information("Ghi chú", productRequirement!!.note ?: "---", ""))
+
+
                 setupRecyclerView()
             }
 
             setupChooseSpinner()
+
+            setupRecyclerViewTop(mList)
         }
+    }
+
+    private fun setupRecyclerViewTop(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView2.layoutManager = LinearLayoutManager(this)
+        recyclerView2.setHasFixedSize(false)
+        recyclerView2.adapter = mAdapter
     }
 
     private fun doCreate() {
@@ -341,10 +356,10 @@ class DetailProductRequrementActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
 
-        val data2  = ArrayList<Information>()
+        val data2 = ArrayList<Information>()
 
         data.forEach {
-            data2.add(Information(it.quantity.toString(), it.productName,""))
+            data2.add(Information(it.quantity.toString() + " ${it.unit}", it.productName, ""))
         }
 
         val mAdapter = InformationAdapter(data2)

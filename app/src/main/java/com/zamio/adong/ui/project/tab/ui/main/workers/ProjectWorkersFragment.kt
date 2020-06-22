@@ -23,8 +23,10 @@ import com.zamio.adong.R
 import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.fragment_main_worker.recyclerView
 import kotlinx.android.synthetic.main.fragment_project_worker_checkin.*
+import kotlinx.android.synthetic.main.fragment_project_worker_checkin.viewNoData
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -92,9 +94,7 @@ class ProjectWorkersFragment : BaseFragment() {
     }
 
     fun getData(pPage:Int){
-        if(activity != null || activity is ProjectTabActivity) {
-            return
-        }
+
         data.clear()
 //        showProgessDialog()
         RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :
@@ -107,7 +107,17 @@ class ProjectWorkersFragment : BaseFragment() {
 //                dismisProgressDialog()
                 if(response!!.body() != null && response.body().status == 1){
                     data.addAll(response.body().data!!)
-                    mAdapter.notifyDataSetChanged()
+
+                    if (data.isNotEmpty()) {
+                        if(viewNoData != null) {
+                            viewNoData.visibility = View.GONE
+                        }
+                        mAdapter.notifyDataSetChanged()
+                    } else {
+                        if(viewNoData != null) {
+                            viewNoData.visibility = View.VISIBLE
+                        }
+                    }
                 }
             }
         })

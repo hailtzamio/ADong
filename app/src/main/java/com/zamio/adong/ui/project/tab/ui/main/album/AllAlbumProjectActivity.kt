@@ -36,8 +36,8 @@ class AllAlbumProjectActivity : BaseActivity() {
                 rightButton.visibility = View.GONE
             }
 
-            mList.add(Information("Chấm công", "Chấm công", ""))
-            mList.add(Information("Chấm công", "Hoàn thành công trình", ""))
+            mList.add(Information("---", "Chấm công", ""))
+            mList.add(Information("---", "Hoàn thành công trình", ""))
             setupRecyclerView(mList)
 
             rightButton.visibility = View.GONE
@@ -63,7 +63,7 @@ class AllAlbumProjectActivity : BaseActivity() {
                     startActivityForResult(intent, 1000)
                 }
 
-                2 -> {
+                1 -> {
                     val intent = Intent(this, FinishProjectAlbumActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
                     startActivityForResult(intent, 1000)

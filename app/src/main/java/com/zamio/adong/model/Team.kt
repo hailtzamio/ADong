@@ -28,13 +28,13 @@ data class Team (
     @SerializedName("id")
     val id: Int,
     @SerializedName("leaderFullName")
-    val leaderFullName: String,
+    val leaderFullName: String?,
     @SerializedName("leaderId")
     val leaderId: Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("phone")
-    val phone: String,
+    val phone: String?,
     @SerializedName("phone2")
     val phone2: String?,
     @SerializedName("projectId")

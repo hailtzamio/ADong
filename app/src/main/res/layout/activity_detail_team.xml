@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".ui.product.DetailProductActivity">
+    android:background="@color/white">
 
-    <include layout="@layout/item_header_layout"
+    <include
         android:id="@+id/view"
+        layout="@layout/item_header_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#2196F3"
@@ -18,253 +18,94 @@
 
         />
 
-    <com.theartofdev.edmodo.cropper.CropImageView
-        android:visibility="gone"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/cropImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/view"
-        android:background="@drawable/ava"
-        />
-
 
     <androidx.core.widget.NestedScrollView
-        android:layout_above="@+id/tvOk"
-        android:layout_below="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/cropImageView"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:layout_above="@+id/tvOk"
+        android:layout_below="@+id/view">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên đội thi công"
-                android:textColor="@color/colorGray" />
+                android:layout_marginLeft="15dp"
+                android:text="THÔNG TIN CHUNG"
+                android:textColor="@color/colorOrange" />
 
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tên đội trưởng"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvLeaderName"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trạng thái"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:ellipsize="end"
-                android:layout_width="200dp"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:textColor="@color/colorGray"
-                android:text="Số điện thoại"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/tvPhone"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:ellipsize="end"
-                android:layout_width="200dp"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:textColor="@color/colorGray"
-                android:text="Số điện thoại 2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/tvPhone2"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:textColor="@color/colorGray"
-                android:text="Địa chỉ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_alignParentRight="true"
-                tools:text="Tên "
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                app:autoSizeTextType="uniform"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:textColor="@color/colorGray"
-                android:text="Xếp hạng"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:rating="3.5"
-                style="?android:attr/ratingBarStyleSmall"
-                android:id="@+id/rating"
-                android:numStars="5"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:textColor="@color/colorGray"
-                android:id="@+id/tvChooseWorker"
-                android:text="Danh sách Công nhân"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <RelativeLayout
-                android:layout_marginTop="5dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/recyclerViewTeamLeader"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp" />
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorView" />
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical">
 
-            </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xếp hạng"
+                    android:textColor="@color/colorGray" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:numStars="5"
+                    android:rating="3.5" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvChooseWorker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="DANH SÁCH CÔNG NHÂN"
+                android:textColor="@color/colorOrange" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTeamLeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
+
 
         </LinearLayout>
-
-
-    </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <TextView
-        android:layout_alignParentBottom="true"
         android:id="@+id/tvOk"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:text="XÓA"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_size"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size" />
+        android:gravity="center"
+        android:text="XÓA"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
