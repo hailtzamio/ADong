@@ -24,19 +24,19 @@
 
 
     <include
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/app_padding_layout"
+        android:layout_marginRight="@dimen/app_padding_layout"
+        android:layout_marginTop="@dimen/app_margin_top"
         layout="@layout/item_search_layout"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         />
 
     <EditText
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/app_padding_layout"
+        android:layout_marginRight="@dimen/app_padding_layout"
         android:singleLine="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/app_margin_top"
         android:hint="Ghi chú"
         android:paddingLeft="10dp"
         android:id="@+id/edtNote"
@@ -46,11 +46,11 @@
 
     <RelativeLayout
         android:id="@+id/rlDate"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/app_margin_top"
         android:paddingLeft="10dp"
         android:background="@drawable/button_normal_main_radius_layout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/app_padding_layout"
+        android:layout_marginRight="@dimen/app_padding_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
@@ -73,7 +73,7 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="5dp"
+        android:padding="5dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
