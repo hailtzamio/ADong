@@ -27,7 +27,7 @@
 
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/app_padding_layout">
 
             <ImageView
                 android:id="@+id/cropImageView"
@@ -50,7 +50,7 @@
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Tên *"
                 android:paddingLeft="10dp"
@@ -60,7 +60,7 @@
                 android:id="@+id/edtCode"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Mã"
                 android:paddingLeft="10dp"
@@ -70,47 +70,51 @@
                 android:id="@+id/edtUnit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Đơn vị tính *"
                 android:paddingLeft="10dp"
                 android:singleLine="true" />
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/edt4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Chiều dài"
                 android:paddingLeft="10dp"
                 android:singleLine="true" />
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/edt5"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Chiều rộng"
                 android:paddingLeft="10dp"
                 android:singleLine="true" />
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/edt6"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Chiều cao"
                 android:paddingLeft="10dp"
                 android:singleLine="true" />
 
             <EditText
+                android:inputType="number"
                 android:id="@+id/edt7"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Cân nặng"
                 android:paddingLeft="10dp"
@@ -121,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:gravity="center_vertical"
                 android:paddingLeft="4dp"
@@ -132,7 +136,7 @@
                 android:id="@+id/tvOk"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_radius_layout"
                 android:gravity="center"
                 android:text="ĐỒNG Ý"

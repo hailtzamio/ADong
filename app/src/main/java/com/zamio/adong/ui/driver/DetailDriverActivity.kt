@@ -17,9 +17,6 @@ import com.zamio.adong.model.Information
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
 import kotlinx.android.synthetic.main.activity_detail_driver.*
-import kotlinx.android.synthetic.main.activity_detail_driver.recyclerView
-import kotlinx.android.synthetic.main.activity_detail_driver.tvOk
-import kotlinx.android.synthetic.main.activity_transport_detail.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -110,7 +107,7 @@ class DetailDriverActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     model = response.body().data ?: return
-
+                    mList.clear()
                     mList.add(Information("Tên",model!!.fullName ?: "---", ""))
                     if (model!!.workingStatus == "idle") {
                         mList.add(Information("Trạng thái","Đang rảnh", ""))
@@ -122,7 +119,7 @@ class DetailDriverActivity : BaseActivity() {
                     mList.add(Information("Số điện thoại 2",model!!.phone2 ?: "---", ""))
                     mList.add(Information("Email",model!!.email ?: "---", ""))
 
-                    Picasso.get().load(model!!.avatarUrl).into(cropImageView)
+                    Picasso.get().load(model!!.avatarUrl).error(R.drawable.ava).into(cropImageView)
 
 
                     setupRecyclerView(mList)

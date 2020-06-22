@@ -21,7 +21,6 @@ import com.zamio.adong.model.Worker
 import com.zamio.adong.model.Worker2
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_create_team.*
-import kotlinx.android.synthetic.main.activity_update_lorry.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -40,7 +39,7 @@ class UpdateTeamActivity : BaseActivity() {
     var provinceId = 1
     var districtId = 1
     override fun getLayout(): Int {
-        return R.layout.activity_update_team
+        return R.layout.activity_create_team
     }
 
     override fun initView() {

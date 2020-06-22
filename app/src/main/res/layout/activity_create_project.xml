@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="@dimen/app_padding_layout">
 
             <EditText
                 android:maxLength="30"
@@ -44,7 +44,7 @@
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/edt_size"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/app_margin_top"
                 android:background="@drawable/button_normal_main_radius_layout"
                 android:hint="Địa chỉ *"
                 android:paddingLeft="10dp"

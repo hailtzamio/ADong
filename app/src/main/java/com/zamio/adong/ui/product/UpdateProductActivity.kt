@@ -18,12 +18,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_create_product.*
-import kotlinx.android.synthetic.main.activity_update_product.cropImageView
-import kotlinx.android.synthetic.main.activity_update_product.edtName
-import kotlinx.android.synthetic.main.activity_update_product.edtUnit
-import kotlinx.android.synthetic.main.activity_update_product.imvImage
-import kotlinx.android.synthetic.main.activity_update_product.spinType
-import kotlinx.android.synthetic.main.activity_update_product.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -39,7 +33,7 @@ class UpdateProductActivity : BaseActivity() {
     var thumbnailExtId = ""
     var type = "buy"
     override fun getLayout(): Int {
-       return R.layout.activity_update_product
+       return R.layout.activity_create_product
     }
 
     override fun initView() {

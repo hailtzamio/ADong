@@ -17,7 +17,8 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_update_worker.*
+import kotlinx.android.synthetic.main.activity_create_worker.*
+
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -36,7 +37,7 @@ class UpdateWorkerActivity : BaseActivity() {
     val worker = JsonObject()
     var isTeamLeader = false
     override fun getLayout(): Int {
-       return R.layout.activity_update_worker
+       return R.layout.activity_create_worker
     }
 
     override fun initView() {
@@ -47,7 +48,6 @@ class UpdateWorkerActivity : BaseActivity() {
     override fun initData() {
         val productOb = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as Worker
         avatarExtId = productOb.avatarExtId
-
         edtName.setText(productOb.fullName)
         edtPhone.setText(productOb.phone)
         edtAddress.setText(productOb.address)

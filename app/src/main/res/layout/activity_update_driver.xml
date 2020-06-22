@@ -23,12 +23,12 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cropImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/ava" />
+            tools:background="@drawable/ava" />
 
         <TextView
             android:id="@+id/imvImage"

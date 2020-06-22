@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:padding="20dp"
+        android:padding="@dimen/app_padding_layout"
         android:layout_below="@+id/header"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:hint="Model *"
             android:paddingLeft="10dp"
             android:id="@+id/edtModel"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/app_margin_top"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
@@ -49,7 +49,7 @@
             android:hint="Biển số xe *"
             android:paddingLeft="10dp"
             android:id="@+id/edtPlateNumber"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/app_margin_top"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
@@ -59,7 +59,7 @@
             android:hint="Trọng tải *"
             android:paddingLeft="10dp"
             android:id="@+id/edtCapacity"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/app_margin_top"
             android:background="@drawable/button_normal_main_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_size" />
@@ -69,7 +69,7 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:text="ĐỒNG Ý"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/app_margin_top"
             android:background="@drawable/button_radius_layout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_size" />

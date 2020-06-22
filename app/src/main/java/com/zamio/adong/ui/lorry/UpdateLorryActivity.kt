@@ -9,7 +9,7 @@ import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_update_lorry.*
+import kotlinx.android.synthetic.main.activity_create_lorry.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,7 +18,7 @@ import retrofit2.Response
 class UpdateLorryActivity : BaseActivity() {
 
     override fun getLayout(): Int {
-        return R.layout.activity_update_lorry
+        return R.layout.activity_create_lorry
     }
 
     override fun initView() {

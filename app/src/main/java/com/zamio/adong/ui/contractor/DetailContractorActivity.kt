@@ -15,9 +15,6 @@ import com.zamio.adong.model.Contractor
 import com.zamio.adong.model.Information
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_detail_contractor.*
-import kotlinx.android.synthetic.main.activity_detail_contractor.recyclerView
-import kotlinx.android.synthetic.main.activity_detail_contractor.tvOk
-import kotlinx.android.synthetic.main.activity_detail_driver.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -135,6 +132,8 @@ class DetailContractorActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     product = response.body().data ?: return
+
+                    mList.clear()
 
                     var address = "---"
 

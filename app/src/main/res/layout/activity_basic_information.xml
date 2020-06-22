@@ -38,7 +38,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:text="THÔNG TIN CHUNG"
-                    android:textColor="@color/colorName"
+                    android:textColor="@color/colorOrange"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -105,7 +105,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:text="THỜI GIAN"
-                    android:textColor="@color/colorName"
+                    android:textColor="@color/colorOrange"
                     android:textStyle="bold" />
 
                 <TextView
@@ -188,7 +188,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:text="THÀNH VIÊN"
-                android:textColor="@color/colorName"
+                android:textColor="@color/colorOrange"
                 android:textStyle="bold" />
 
             <LinearLayout

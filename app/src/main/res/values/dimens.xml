@@ -35,6 +35,8 @@
     <dimen name="margin_below_above">10dp</dimen>
 
     <dimen name="text_size_content">15sp</dimen>
+    <dimen name="app_padding_layout">15sp</dimen>
+    <dimen name="app_margin_top">15dp</dimen>
 
 
 

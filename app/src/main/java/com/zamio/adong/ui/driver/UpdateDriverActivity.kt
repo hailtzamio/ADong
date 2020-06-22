@@ -16,12 +16,8 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.Driver
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_update_driver.*
-import kotlinx.android.synthetic.main.activity_update_worker.cropImageView
-import kotlinx.android.synthetic.main.activity_update_worker.edtEmail
-import kotlinx.android.synthetic.main.activity_update_worker.edtName
-import kotlinx.android.synthetic.main.activity_update_worker.edtPhone
-import kotlinx.android.synthetic.main.activity_update_worker.tvOk
+import kotlinx.android.synthetic.main.activity_create_driver.*
+
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -40,7 +36,7 @@ class UpdateDriverActivity : BaseActivity() {
     val worker = JsonObject()
     var isTeamLeader = false
     override fun getLayout(): Int {
-       return R.layout.activity_update_driver
+       return R.layout.activity_create_driver
     }
 
     override fun initView() {
