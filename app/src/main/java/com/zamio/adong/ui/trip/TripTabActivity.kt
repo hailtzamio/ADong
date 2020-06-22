@@ -31,7 +31,7 @@ class TripTabActivity : AppCompatActivity() {
 //        sectionsPagerAdapter.addFragment(transportRequestProcessingFragment)
 //        sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
         sectionsPagerAdapter.addFragment(tripFragment)
-        tvTitle.text = "Vận Chuyển"
+        tvTitle.text = "Chuyến Đi"
         rightButton.visibility = View.GONE
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)

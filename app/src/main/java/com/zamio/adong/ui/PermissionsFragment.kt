@@ -166,7 +166,7 @@ class PermissionsFragment : BaseFragment() {
                 }
 
                 if (it.appEntityCode == "Trip" ) {
-                    it.name = "Chuyến Xe"
+                    it.name = "Chuyến Đi"
                 }
 
                 if (it.appEntityCode == "ContractorProject" ) {
