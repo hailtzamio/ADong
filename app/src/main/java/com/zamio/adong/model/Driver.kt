@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class Driver(
     @SerializedName("avatarUrl")
-    val avatarUrl: String? = null,
+    val avatarUrl: String?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")

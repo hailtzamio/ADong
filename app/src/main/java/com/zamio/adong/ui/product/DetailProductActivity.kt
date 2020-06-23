@@ -92,11 +92,11 @@ class DetailProductActivity : BaseActivity() {
             }
         }
 
-        getProduct(productId)
+
     }
 
     override fun resumeData() {
-
+        getProduct(productId)
     }
 
     private fun getProduct(id:Int){
@@ -112,7 +112,7 @@ class DetailProductActivity : BaseActivity() {
                 dismisProgressDialog()
                 if(response!!.body() != null && response!!.body().status == 1){
                     model = response.body().data ?: return
-
+                    mList.clear()
                     var type = "Mua tại công trình"
                     when (model!!.type) {
                         "buy" -> type= "Mua tại công trình"

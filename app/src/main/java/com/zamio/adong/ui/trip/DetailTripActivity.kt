@@ -73,14 +73,10 @@ class DetailTripActivity : BaseActivity() {
                     .start(this)
             }
         }
-
-
-
-        getData(id)
     }
 
     override fun resumeData() {
-
+        getData(id)
     }
 
     val mList = ArrayList<Information>()
@@ -102,6 +98,9 @@ class DetailTripActivity : BaseActivity() {
                 if (response!!.body() != null && response.body().status == 1) {
                     model = response.body().data ?: return
                     status = model!!.status ?: 1
+
+                    mList.clear()
+
                     mList.add(Information("Code", model!!.code ?: "---", ""))
                     mList.add(Information("Trạng thái", model!!.status.toString() ?: "---", ""))
                     mList.add(Information("Lái xe", model!!.driverFullName ?: "---", ""))
@@ -116,9 +115,8 @@ class DetailTripActivity : BaseActivity() {
                         val transport = model!!.transportRequests
 
                         transport!!.forEach {
-                            it.tripName = it.warehouseName
-                            it.warehouseName = it.warehouseAddress
                             it.plannedDatetime = it.projectName
+                            it.projectName = it.warehouseAddress
                             it.note = it.projectAddress
                         }
 

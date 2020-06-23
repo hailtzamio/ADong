@@ -83,15 +83,21 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
         if (topic.status != null) {
             when (topic.status) {
                 1 -> holder.tv6.text = "Mới"
-                2 -> holder.tv6.text = "Đã hủy"
-                3 -> holder.tv6.text = "Kết thúc"
+                2 -> {
+                    holder.tv6.text = "Đã hủy"
+                    holder.tv6.setTextColor(Color.parseColor("#962E34"))
+                }
+                3 -> {
+                    holder.tv6.text = "Hoàn thành"
+                    holder.tv6.setTextColor(Color.parseColor("#3ca150"))
+                }
                 4 -> {
-                    holder.tv6.text = "Đang đi"
-                    holder.tv6.setTextColor(Color.RED)
+                    holder.tv6.text = "Đã ghép xe"
+                    holder.tv6.setTextColor(Color.parseColor("#4C4C4C"))
                 }
                 5 -> {
                     holder.tv6.text = "Đã nhận hàng"
-                    holder.tv6.setTextColor(Color.GREEN)
+                    holder.tv6.setTextColor(Color.parseColor("#4C4C4C"))
                 }
             }
         }

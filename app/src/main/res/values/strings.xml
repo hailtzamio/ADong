@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ADong</string>
+    <string name="app_name">Á Đông</string>
     <string name="title_home">Thông báo</string>
     <string name="title_dashboard">Cài đặt</string>
     <string name="title_permissions">Trang chủ</string>
@@ -132,7 +132,7 @@
     <string name="ware_0">Kho</string>
     <string name="ware_1">Xưởng</string>
 
-    <string name="transport_1">Mới</string>
+    <string name="transport_1">YCVC</string>
     <string name="transport_2">Chuyến đi</string>
     <string name="transport_3">Kết thúc</string>
     <string name="transport_4">Chuyến đi</string>

@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.zamio.adong.R
-import com.zamio.adong.adapter.WareHousePagerAdapter
+import com.zamio.adong.adapter.TripPagerAdapter
 import com.zamio.adong.model.Transport
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.HoldSimDialog
 import kotlinx.android.synthetic.main.activity_trip_tab.*
 
+private val TAB_TITLES_2 = arrayOf(
+    R.string.transport_1,
+    R.string.transport_2
+)
 
 class TripTabActivity : AppCompatActivity() {
     var id = 0
@@ -21,17 +26,33 @@ class TripTabActivity : AppCompatActivity() {
     val transportRequestFragment = TransportRequestFragment()
     val transportRequestDoneFragment = TransportRequestDoneFragment()
     val transportRequestProcessingFragment = TransportRequestProcessingFragment()
+    var titles = ArrayList<String>()
     val tripFragment = TripFragment()
     var transports = ArrayList<Transport>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_trip_tab)
-        val sectionsPagerAdapter = WareHousePagerAdapter(this, supportFragmentManager, 2)
-        sectionsPagerAdapter.addFragment(transportRequestFragment)
-//        sectionsPagerAdapter.addFragment(transportRequestProcessingFragment)
-//        sectionsPagerAdapter.addFragment(transportRequestDoneFragment)
-        sectionsPagerAdapter.addFragment(tripFragment)
-        tvTitle.text = "Chuyến Đi"
+
+
+        if(ConstantsApp.USER_ROLES.contains(UserRoles.CarManagement.type)) {
+            titles.add("YCVC")
+        }
+
+        if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+            titles.add("Chuyến đi")
+        }
+
+        val sectionsPagerAdapter = TripPagerAdapter(this, supportFragmentManager, titles)
+
+        if(ConstantsApp.USER_ROLES.contains(UserRoles.CarManagement.type)) {
+            sectionsPagerAdapter.addFragment(transportRequestFragment)
+        }
+
+        if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+            sectionsPagerAdapter.addFragment(tripFragment)
+        }
+
+        tvTitle.text = "Vận Chuyển"
         rightButton.visibility = View.GONE
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
@@ -114,8 +135,8 @@ class TripTabActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == 101) {
-//            producPage.getData(0)
+        if (resultCode == 100) {
+            setTrips(ArrayList<Transport>())
         }
     }
 

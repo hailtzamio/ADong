@@ -119,8 +119,7 @@ class DetailDriverActivity : BaseActivity() {
                     mList.add(Information("Số điện thoại 2",model!!.phone2 ?: "---", ""))
                     mList.add(Information("Email",model!!.email ?: "---", ""))
 
-                    Picasso.get().load(model!!.avatarUrl).error(R.drawable.ava).into(cropImageView)
-
+                    Picasso.get().load(model!!.avatarUrl ?: "htt").error(R.drawable.ava).into(cropImageView)
 
                     setupRecyclerView(mList)
                 }

@@ -24,8 +24,12 @@ public class ConstantsApp {
     public static final String DB_NAME = "quizupelcom";
     public static String BASE64_AUTH_TOKEN = "Bearer eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJhZG1pbiIsImF1ZCI6InNpbXBsZS1jbGllbnQiLCJpc3MiOiJTaW1wbGVBUEkiLCJyb2xlcyI6WyJBZG1pbmlzdHJhdG9yIl0sInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbiJ9.YVk6B1qksEk9noTkV8ArurNVXhBOPKyNyHFM-Nu9oRCnmjg2dR7dnZJ8s8gk7xX_3dGPZAA2L3JjBz_48P0-hA";
     public static String BASE64_HEADER_LANG = "vi";
-        public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
-//    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
+
+    public static String USER_PERMISSIONS = "product";
+    public static String USER_ROLES = "product";
+
+//        public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
+    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
 //    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
 
     public static int REQUEST_CODE_START_ACTIVITY = 1000;

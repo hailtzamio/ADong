@@ -4,6 +4,7 @@ import PermissionAdapter
 import RestClient
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -92,14 +93,22 @@ class PermissionsFragment : BaseFragment() {
                 if( response!!.body() != null && response.body().status == 1){
 
                  val roles = response.body().data
+
+                    var rolesString = ""
+
                     if(roles != null) {
                         roles.forEach {
+
+                            rolesString = rolesString +  it.name + "-" + it.code + ","
+
                             if(it.code == "CONTRACTOR") {
                                 isContractor =  true
                             }
                         }
                     }
 
+                    Log.e("hailpt", " Role ~~~>>> " + rolesString)
+                   ConstantsApp.USER_ROLES = rolesString
                     getPermission()
 
                 } else {
@@ -112,6 +121,15 @@ class PermissionsFragment : BaseFragment() {
 
 
     private fun setupGridView(data:ArrayList<Permission>){
+
+        Log.e("hailpt", "count >> " + data.size)
+        var permissionString = ""
+        data.forEach {
+            permissionString = permissionString +  it.appEntityCode + "" + it.action + ","
+        }
+
+        Log.e("permissionString == ",permissionString )
+        ConstantsApp.USER_PERMISSIONS = permissionString
 
         if( isContractor) {
             data.add(Permission("r", "ContractorProject", 1,1,1,"ContractorProject"))
@@ -166,7 +184,7 @@ class PermissionsFragment : BaseFragment() {
                 }
 
                 if (it.appEntityCode == "Trip" ) {
-                    it.name = "Chuyến Đi"
+                    it.name = "Vận chuyển"
                 }
 
                 if (it.appEntityCode == "ContractorProject" ) {
@@ -189,6 +207,8 @@ class PermissionsFragment : BaseFragment() {
                 j++
             }
         }
+
+
 
         adapter = PermissionGridAdapter(context!!, permissions)
         gvFoods.adapter = adapter

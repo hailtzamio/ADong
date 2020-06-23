@@ -3,7 +3,9 @@ package com.zamio.adong.ui.project.tab.ui.main.requirement
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
+import com.elcom.com.quizupapp.ui.network.UserPermission
 import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -18,6 +20,12 @@ class ProductRequirementActivity : BaseActivity() {
 
     override fun initView() {
         tvTitle.text = "Yêu Cầu Vật Tư"
+
+
+        if(!ConstantsApp.USER_PERMISSIONS.contains(UserPermission.ProductRequirementc.type)) {
+            rightButton.visibility = View.GONE
+        }
+
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateProductRequirementActivity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
@@ -26,6 +34,9 @@ class ProductRequirementActivity : BaseActivity() {
     }
 
     override fun initData() {
+
+
+
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
             textFragment.setProjectId(id)

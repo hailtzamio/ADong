@@ -68,9 +68,12 @@ class TripFragment : BaseFragment() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     data = response.body().data!!
-                    setupRecyclerView()
-                    if (data!!.isEmpty()) {
-                        showToast("Danh sách trống")
+
+                    if (data != null && data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                        setupRecyclerView()
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
                     }
 
                     totalPages = response.body().pagination!!.totalPages!!

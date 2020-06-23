@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserPermission
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.LinesAddNew
@@ -56,8 +57,7 @@ class CreateProductRequirementActivity : BaseActivity() {
             onBackPressed()
         }
 
-
-        if (!ConstantsApp.PERMISSION!!.contains("c")) {
+        if(!ConstantsApp.USER_PERMISSIONS.contains(UserPermission.ProductRequirementc.type)) {
             rightButton.visibility = View.GONE
         }
 

@@ -17,6 +17,9 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Driver
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_create_driver.*
+import kotlinx.android.synthetic.main.activity_create_driver.cropImageView
+import kotlinx.android.synthetic.main.activity_create_driver.tvOk
+import kotlinx.android.synthetic.main.activity_detail_driver.*
 
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
@@ -52,7 +55,9 @@ class UpdateDriverActivity : BaseActivity() {
         edtPhone.setText(model.phone)
         edtPhone2.setText(model.phone2)
         edtEmail.setText(model.email)
-        Picasso.get().load(model.avatarUrl).into(cropImageView)
+
+        Picasso.get().load(model.avatarUrl ?: "htt").error(R.drawable.ava).into(cropImageView)
+
         tvOk.setOnClickListener {
 
             if(isEmpty(edtName) || isEmpty(edtPhone)){

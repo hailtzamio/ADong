@@ -22,3 +22,15 @@ enum class PROJECTTYPE(val type: String) {
     PAUSED("PAUSED"),
     DONE("DONE")
 }
+
+enum class UserPermission(val type: String) {
+    ProductRequirementr("ProductRequirementr"),
+    ProductRequirementc("ProductRequirementc"),
+    ProductRequirementu("ProductRequirementu")
+}
+
+enum class UserRoles(val type: String) {
+    CarManagement("Quản lý đội xe"),
+    Driver("Tài xế")
+
+}

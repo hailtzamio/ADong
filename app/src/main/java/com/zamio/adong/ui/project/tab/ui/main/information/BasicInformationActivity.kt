@@ -39,6 +39,12 @@ class BasicInformationActivity : BaseActivity() {
     }
 
     override fun initData() {
+
+        if(!ConstantsApp.PERMISSION.contains("u")){
+            rightButton.visibility = View.GONE
+        }
+
+
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 

@@ -10,10 +10,11 @@
     tools:context=".ui.PermissionsFragment">
 
     <ImageView
+        android:layout_gravity="start"
         android:layout_margin="10dp"
-        android:src="@drawable/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp" />
+        android:src="@drawable/adong_logo"
+        android:layout_width="120dp"
+        android:layout_height="60dp" />
 
     <GridView
         android:padding="10dp"

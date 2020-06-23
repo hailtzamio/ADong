@@ -19,6 +19,7 @@ import com.zamio.adong.model.Profile
 import com.zamio.adong.model.Transport
 import com.zamio.adong.model.WareHouse
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_transport_detail.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
@@ -93,8 +94,11 @@ class DetailTransportActivity : BaseActivity() {
                     model = response.body().data ?: return
                     status = model!!.status ?: 1
                     mList.add(Information("Code",model!!.code ?: "---", ""))
+                    mList.add(Information("Ngày dự kiến",Utils.convertDate(model!!.plannedDatetime) ?: "---", ""))
                     mList.add(Information("Kho / Xưởng",model!!.warehouseName ?: "---", ""))
+                    mList.add(Information("Địa chỉ Kho / Xưởng",model!!.warehouseAddress ?: "---", ""))
                     mList.add(Information("Tên dự án",model!!.projectName ?: "---", ""))
+                    mList.add(Information("Địa chỉ dựa án",model!!.projectAddress ?: "---", ""))
 
                     setupRecyclerView(mList)
 

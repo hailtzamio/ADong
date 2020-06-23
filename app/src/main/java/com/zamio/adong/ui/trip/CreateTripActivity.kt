@@ -121,7 +121,7 @@ class CreateTripActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<JsonElement>>?, response: Response<RestData<JsonElement>>?) {
                 dismisProgressDialog()
                 if( response!!.body() != null && response!!.body().status == 1){
-                    showToast("Tạo xe thành công")
+                    showToast("Thành công")
                     setResult(100)
                     finish()
                 } else {

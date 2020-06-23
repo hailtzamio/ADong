@@ -22,6 +22,8 @@ data class User(
     val id: Int,
     @SerializedName("username")
     val username: String,
+    @SerializedName("name")
+    val name: String,
     @SerializedName("code")
     val code: String
 )

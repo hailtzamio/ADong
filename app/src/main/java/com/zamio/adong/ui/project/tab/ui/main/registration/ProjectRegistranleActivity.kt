@@ -67,8 +67,6 @@ class ProjectRegistranleActivity : BaseActivity() {
         })
     }
 
-
-
     private fun setupRecyclerView(data:ArrayList<Project>){
 
         data.forEach {
