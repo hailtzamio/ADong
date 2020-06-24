@@ -25,9 +25,9 @@ class AreaProfileDialog(context: Context, var data: AreaManager) :
         setContentView(R.layout.area_manager_profile_popup_layout)
         setCancelable(true)
 
-//        edt1.setText(mData.name)
-//        edt2.setText(mData.phone)
-//        edt3.setText(mData.email)
+        edt1.setText(mData.name ?: "")
+        edt2.setText(mData.phone ?: "")
+        edt3.setText(mData.email ?: "")
 
         btnOk.setOnClickListener {
 

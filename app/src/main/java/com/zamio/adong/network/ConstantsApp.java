@@ -29,8 +29,8 @@ public class ConstantsApp {
     public static String USER_ROLES = "product";
 
 //        public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
-    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
-//    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
+//    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
+    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
 
     public static int REQUEST_CODE_START_ACTIVITY = 1000;
     public static int START_ACTIVITY_TO_PLAY_GAME_FROM_QUIZUPACTIVITY = 100;
