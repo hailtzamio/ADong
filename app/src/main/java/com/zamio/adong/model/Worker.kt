@@ -22,9 +22,9 @@ data class Worker(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("email")
-    val email: String,
+    var email: String,
     @SerializedName("fullName")
-    val fullName: String?,
+    var fullName: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("isTeamLeader")

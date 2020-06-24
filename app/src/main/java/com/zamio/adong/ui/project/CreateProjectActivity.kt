@@ -16,9 +16,15 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.zamio.adong.R
+import com.zamio.adong.model.AreaManager
 import com.zamio.adong.model.Province
+import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.popup.AreaProfileDialog
+import com.zamio.adong.popup.HoldSimDialog
 import com.zamio.adong.ui.map.MapActivity
+import com.zamio.adong.ui.trip.CreateTripActivity
+import com.zamio.adong.ui.trip.TripActivity
 import kotlinx.android.synthetic.main.activity_create_project.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -46,6 +52,13 @@ class CreateProjectActivity : BaseActivity() {
     var isChooseADong = true
     var latitude = 0.0
     var longitude = 0.0
+
+    var investorManager = AreaManager("","","")
+    var investorDeputyManager = AreaManager("","","")
+
+    var dialog:AreaProfileDialog? = null
+    var dialog2:AreaProfileDialog? = null
+
     override fun getLayout(): Int {
         return R.layout.activity_create_project
     }
@@ -54,6 +67,8 @@ class CreateProjectActivity : BaseActivity() {
         tvTitle.text = "Tạo Công Trình"
         rightButton.visibility = View.GONE
 
+         dialog = AreaProfileDialog(this, investorManager)
+         dialog2 = AreaProfileDialog(this, investorDeputyManager)
 
         tvChooseDate.setOnClickListener {
             hideKeyboard()
@@ -174,7 +189,7 @@ class CreateProjectActivity : BaseActivity() {
                 }
             }
 
-            if( checkChooseOrNot(tvSecretaryName)) {
+            if (checkChooseOrNot(tvSecretaryName)) {
                 showToast("Chọn thư ký")
                 return@setOnClickListener
             }
@@ -191,13 +206,24 @@ class CreateProjectActivity : BaseActivity() {
             product.addProperty("address", edtAddress.text.toString())
             product.addProperty("teamType", teamType)
 
-            if (managerId != 0) {
-                product.addProperty("managerId", managerId)
+            if (investorManager.name != "" && investorManager.phone != "") {
+                product.addProperty("investorManagerName", investorManager.name)
+                product.addProperty("investorManagerPhone", investorManager.phone)
+                product.addProperty("investorManagerEmail", investorManager.email)
+            } else {
+                showToast("Chọn Trưởng bộ phận")
+                return@setOnClickListener
             }
 
-            if (deputyManagerId != 0) {
-                product.addProperty("deputyManagerId", deputyManagerId)
+            if (investorDeputyManager.name != "" && investorDeputyManager.phone != "") {
+                product.addProperty("investorDeputyManagerName", investorDeputyManager.name)
+                product.addProperty("investorDeputyManagerPhone", investorDeputyManager.phone)
+                product.addProperty("investorDeputyManagerEmail", investorDeputyManager.email)
+            } else {
+                showToast("Chọn Phó bộ phận")
+                return@setOnClickListener
             }
+
             if (secretaryId != 0) {
                 product.addProperty("secretaryId", secretaryId)
             }
@@ -221,17 +247,41 @@ class CreateProjectActivity : BaseActivity() {
         }
 
         tvManagerName.setOnClickListener {
-            val intent = Intent(this, ChooseManagerActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 1)
-            startActivityForResult(intent, 1000)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+
+//            val intent = Intent(this, ChooseManagerActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 1)
+//            startActivityForResult(intent, 1000)
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            investorManager.type = 1
+
+            dialog!!.show()
+            dialog!!.onItemClick = {
+                if (it.type == 1) {
+                    investorManager = it
+                    tvManagerName.text = it.name
+                } else {
+                    investorDeputyManager = it
+                    tvDeputyManagerName.text = it.name
+                }
+            }
         }
 
         tvDeputyManagerName.setOnClickListener {
-            val intent = Intent(this, ChooseManagerActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 2)
-            startActivityForResult(intent, 1000)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//            val intent = Intent(this, ChooseManagerActivity::class.java)
+//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, 2)
+//            startActivityForResult(intent, 1000)
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+            investorDeputyManager.type = 2
+
+            dialog2!!.show()
+            dialog2!!.onItemClick = {
+                if (it.type == 2)  {
+                    investorDeputyManager = it
+                    tvDeputyManagerName.text = it.name
+                }
+            }
         }
 
         tvLeaderName.setOnClickListener {

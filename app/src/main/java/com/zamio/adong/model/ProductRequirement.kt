@@ -18,7 +18,7 @@ data class ProductRequirement(
     @SerializedName("id")
     val id: Int,
     @SerializedName("note")
-    val note: String?,
+    var note: String?,
     @SerializedName("order")
     val order: Int,
     @SerializedName("projectAddress")

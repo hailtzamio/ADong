@@ -219,6 +219,9 @@ interface RestService {
     @GET("user?size=100&sort=id,desc&authorityCode=DEPUTY_MANAGER")
     fun getDeputyManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
+    @GET("user?size=100&sort=id,desc&authorityCode=AREA_MANAGER")
+    fun geAreaManagers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
+
     @POST("checkin")
     fun checkin(@Body worker: CheckinOut): Call<RestData<JsonElement>>
 

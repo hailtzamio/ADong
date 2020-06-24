@@ -205,6 +205,11 @@ class DetailProductRequrementActivity : BaseActivity() {
                         ""
                     )
                 )
+
+                if(productRequirement!!.note == "") {
+                    productRequirement!!.note = null
+                }
+
                 mList.add(Information("Ghi chú", productRequirement!!.note ?: "---", ""))
 
 

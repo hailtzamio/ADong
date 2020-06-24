@@ -92,6 +92,13 @@ data class Project(
     @SerializedName("updatedTime")
     val updatedTime: String,
     @SerializedName("designFiles")
-    val designFiles: ArrayList<FileProject>?
+    val designFiles: ArrayList<FileProject>?,
+    @SerializedName("investorContacts")
+    val investorContacts: investorContacts?
 
 ) : Serializable
+
+data class investorContacts(
+    var manager: AreaManager,
+    var deputyManager: AreaManager
+): Serializable

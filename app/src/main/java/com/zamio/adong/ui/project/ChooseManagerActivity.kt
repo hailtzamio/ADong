@@ -50,7 +50,7 @@ class ChooseManagerActivity : BaseActivity() {
             when (key) {
                 1 -> tvTitle.text = "Trưởng Bộ Phận"
                 2 -> tvTitle.text = "Phó Bộ Phận"
-                3 -> tvTitle.text = "Giám Sát"
+                3 -> tvTitle.text = "Quản Lý Vùng"
                 4 -> tvTitle.text = "Thư Ký"
                 5 -> tvTitle.text = "Thủ Kho / Xưởng"
                 101 -> tvTitle.text = "Người đi mua"
@@ -105,7 +105,7 @@ class ChooseManagerActivity : BaseActivity() {
 
     private fun getLeaders() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().getTeamLeaders(0, "").enqueue(object :
+        RestClient().getInstance().getRestService().geAreaManagers(0, "").enqueue(object :
             Callback<RestData<List<Worker>>> {
             override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
                 dismisProgressDialog()

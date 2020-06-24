@@ -239,7 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Giám sát" />
+                        android:text="Quản lý vùng" />
 
                     <TextView
                         android:id="@+id/tvLeaderName"

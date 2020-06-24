@@ -349,8 +349,11 @@ class BasicInformationActivity : BaseActivity() {
                         tvChooseEndDate.text = Utils.convertDate(data!!.plannedEndDate)
                     }
 
-                    tvManagerName.text = data!!.managerFullName ?: "---"
-                    tvDeputyManagerName.text = data!!.deputyManagerFullName ?: "---"
+                    if(data!!.investorContacts != null) {
+                        tvManagerName.text = data!!.investorContacts!!.manager.name ?: "---"
+                        tvDeputyManagerName.text = data!!.investorContacts!!.deputyManager.name ?: "---"
+                    }
+
                     tvLeaderName.text = data!!.supervisorFullName ?: "---"
                     tvSecretaryName.text = data!!.secretaryFullName ?: "---"
                     tvChooseTeamOrContractor.text = data!!.teamName ?: "---"

@@ -10,7 +10,7 @@ data class Lorry (
     @SerializedName("brand")
     val brand: String,
     @SerializedName("capacity")
-    val capacity: String,
+    val capacity: String?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -30,7 +30,7 @@ data class Lorry (
     @SerializedName("model")
     val model: String,
     @SerializedName("plateNumber")
-    val plateNumber: String,
+    val plateNumber: String?,
     @SerializedName("status")
     val status: Any,
     @SerializedName("tripId")

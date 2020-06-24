@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnClose"
         android:layout_centerHorizontal="true"
-        android:text="Chọn loại công trình ?"
+        android:text="Chọn loại Công trình?"
         android:textColor="@color/colorPrimary"
          />
 

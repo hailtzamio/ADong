@@ -126,6 +126,13 @@ class DetailWorkerActivity : BaseActivity() {
                     } else {
                         mList.add(Information("Chức danh", "Công nhân", ""))
                     }
+
+                    if (worker!!.workingStatus == "idle") {
+                        mList.add(Information("Trạng thái", "Đang rảnh", ""))
+                    } else {
+                        mList.add(Information("Trạng thái", "Đang bận", ""))
+                    }
+
                     mList.add(Information("Số điện thoại", worker!!.phone ?: "---", ""))
                     mList.add(Information("Số điện thoại 2", worker!!.phone2 ?: "---", ""))
                     mList.add(Information("Địa chỉ", worker!!.address ?: "---", ""))
@@ -136,11 +143,7 @@ class DetailWorkerActivity : BaseActivity() {
 
 
 
-                    if (worker!!.workingStatus == "idle") {
-                        mList.add(Information("Trạng thái", "Đang rảnh", ""))
-                    } else {
-                        mList.add(Information("Trạng thái", "Đang bận", ""))
-                    }
+
 
                     if (worker!!.avatarUrl != null) {
                         Picasso.get().load(worker!!.avatarUrl).error(R.drawable.ava)

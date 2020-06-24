@@ -109,8 +109,8 @@ class DetailLorryActivity : BaseActivity(), OnMapReadyCallback {
                     if(model != null) {
                         tvName.text = model!!.brand
                         tvModel.text = model!!.model
-                        tvPlateNumber.text = model!!.plateNumber
-                        tvCapacity.text = model!!.capacity
+                        tvPlateNumber.text = model!!.plateNumber ?: "---"
+                        tvCapacity.text = model!!.capacity ?: "---"
                         lat = model!!.latitude
                         lg = model!!.longitude
 

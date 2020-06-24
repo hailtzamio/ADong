@@ -270,7 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="" />
+                        android:text="---" />
 
                     <TextView
                         android:id="@+id/tvChooseLeader"
@@ -297,7 +297,7 @@
                         android:id="@+id/tvDeputyManagerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="" />
+                        android:text="---" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -360,7 +360,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giám sát"
+                        android:text="Quản lý vùng"
                         android:textColor="@color/colorGray" />
 
                     <View
