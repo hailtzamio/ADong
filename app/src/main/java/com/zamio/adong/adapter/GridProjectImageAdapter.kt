@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.ProjectImage
+import com.zamio.adong.utils.Utils
 
 internal class GridProjectImageAdapter internal constructor(context: Context, private val resource: Int, private val itemList: List<ProjectImage>?) : ArrayAdapter<GridProjectImageAdapter.ItemHolder>(context, resource) {
 
@@ -35,7 +36,7 @@ internal class GridProjectImageAdapter internal constructor(context: Context, pr
         val projectItem =  this.itemList!![position]
 
         holder.name!!.text = projectItem.createdByFullName
-        holder.tvCreatedDate!!.text = projectItem.createdTime
+        holder.tvCreatedDate!!.text = Utils.convertDate(projectItem.createdTime ?: "2020-04-12T18:18:37")
 
         if(projectItem.thumbnailUrl != null){
             Picasso.get().load(projectItem.thumbnailUrl).error(R.drawable.ava).into(holder.icon)

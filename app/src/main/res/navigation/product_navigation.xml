@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/nv1">
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.zamio.adong.ui.PermissionsFragment"
-        android:label="@string/product_title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/nv1"
+        android:name="com.zamio.adong.ui.trip.TripFragment"
+        android:label="@string/nv1"
+        tools:layout="@layout/activity_overview_project" />
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.zamio.adong.ui.product.MainProductFragment"
-        android:label="@string/product_title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nv2"
+        android:name="com.zamio.adong.ui.NotificationFragment"
+        android:label="@string/nv2"
+        tools:layout="@layout/fragment_main_notification" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.zamio.adong.ui.DashboardFragment"
-        android:label="@string/product_title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/nv3"
+        android:name="com.zamio.adong.ui.profile.ProfileFragment"
+        android:label="@string/nv3"
+        tools:layout="@layout/fragment_profile" />
 
 
 </navigation>

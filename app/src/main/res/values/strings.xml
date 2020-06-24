@@ -4,9 +4,9 @@
     <string name="title_dashboard">Cài đặt</string>
     <string name="title_permissions">Trang chủ</string>
 
-    <string name="product_title_home">Product</string>
-    <string name="product_title_dashboard">Dashboard</string>
-    <string name="product_title_notifications">Notifications</string>
+    <string name="nv1">Trang chủ</string>
+    <string name="nv2">Thông báo</string>
+    <string name="nv3">Thông tin</string>
 
 
     <string name="google_maps_key">AIzaSyBMUaia9R5XsXAyiMBtKn2-QKXK7h-kzHM</string>

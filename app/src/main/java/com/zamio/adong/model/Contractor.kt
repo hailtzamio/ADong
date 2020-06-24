@@ -50,7 +50,7 @@ data class Contractor(
     @SerializedName("updatedTime")
     val updatedTime: String,
     @SerializedName("workingStatus")
-    val workingStatus: String,
+    val workingStatus: String?,
     @SerializedName("isRegistered")
     val isRegistered: Boolean?
 ) : Serializable

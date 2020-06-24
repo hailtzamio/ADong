@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.elcom.com.quizupapp.utils.PreferUtils
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -44,6 +45,9 @@ class BasicInformationActivity : BaseActivity() {
             rightButton.visibility = View.GONE
         }
 
+        if(!ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type)) {
+            tvPause.visibility = View.GONE
+        }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)

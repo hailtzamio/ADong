@@ -79,25 +79,24 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: String
                 val cellViewHolder = holder as MyViewHolder
                 cellViewHolder.tvTitle.text = topic
                 if (type == Team.ADONG.type) {
-                    when (position) {
-                        2 -> holder.imvAva.setImageResource(R.drawable.add_worker)
-                        3 -> holder.imvAva.setImageResource(R.drawable.print)
-                        4 -> holder.imvAva.setImageResource(R.drawable.drawing)
-                        6 -> holder.imvAva.setImageResource(R.drawable.healthcare)
-                        7 -> holder.imvAva.setImageResource(R.drawable.hospital)
-                        11 -> holder.imvAva.setImageResource(R.drawable.history)
-                        9 -> holder.imvAva.setImageResource(R.drawable.picture)
-                        10 -> holder.imvAva.setImageResource(R.drawable.history)
+                    when (topic) {
+                        "Thêm công nhân" -> holder.imvAva.setImageResource(R.drawable.add_worker)
+                        "Danh sách yêu cầu vật tư" -> holder.imvAva.setImageResource(R.drawable.print)
+                        "Bản thiết kế" -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        "Đánh giá công trình" -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                        "An toàn lao động" -> holder.imvAva.setImageResource(R.drawable.hospital)
+                        "Kho ảnh" -> holder.imvAva.setImageResource(R.drawable.picture)
+                        "Lịch sử điểm danh" -> holder.imvAva.setImageResource(R.drawable.history)
                     }
                 } else if (type == Team.CONTRACTOR.type) {
-                    when (position) {
-                        2 -> holder.imvAva.setImageResource(R.drawable.regpro2)
-                        3 -> holder.imvAva.setImageResource(R.drawable.print)
-                        4 -> holder.imvAva.setImageResource(R.drawable.drawing)
-                        6 -> holder.imvAva.setImageResource(R.drawable.healthcare)
-                        7 -> holder.imvAva.setImageResource(R.drawable.hospital)
-                        9 -> holder.imvAva.setImageResource(R.drawable.picture)
-                        10 -> holder.imvAva.setImageResource(R.drawable.history)
+                    when (topic) {
+                        "Danh sách đăng ký thi công" -> holder.imvAva.setImageResource(R.drawable.law)
+                        "Danh sách yêu cầu vật tư" -> holder.imvAva.setImageResource(R.drawable.print)
+                        "Bản thiết kế" -> holder.imvAva.setImageResource(R.drawable.drawing)
+                        "Đánh giá công trình" -> holder.imvAva.setImageResource(R.drawable.healthcare)
+                        "An toàn lao động" -> holder.imvAva.setImageResource(R.drawable.hospital)
+                        "Kho ảnh" -> holder.imvAva.setImageResource(R.drawable.picture)
+                        "Lịch sử điểm danh" -> holder.imvAva.setImageResource(R.drawable.history)
 
                     }
                 } else {

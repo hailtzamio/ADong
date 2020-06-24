@@ -32,7 +32,7 @@
             android:orientation="vertical">
             <TextView
                 android:id="@+id/topTitle"
-                android:textColor="@color/colorOrange"
+                android:textColor="@color/colorBigTitle"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="5dp"
                 android:scrollbars="vertical" />
             <TextView
-                android:textColor="@color/colorOrange"
+                android:textColor="@color/colorBigTitle"
                 android:textStyle="bold"
                 android:layout_marginLeft="15dp"
                 android:layout_width="match_parent"

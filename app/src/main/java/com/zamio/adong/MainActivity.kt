@@ -1,14 +1,8 @@
 package com.zamio.adong
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.RECORD_AUDIO
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.elcom.com.quizupapp.ui.activity.BaseActivity

@@ -94,11 +94,16 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
         })
     }
 
-    private fun getBitmapIcon() : Bitmap {
-        val height = 100
-        val width = 100
-        val bitmapdraw =
-            ResourcesCompat.getDrawable(resources,R.drawable.marker_01, null) as BitmapDrawable
+    private fun getBitmapIcon(type : Int) : Bitmap {
+        val height = 30
+        val width = 30
+        var bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.busy_dot, null) as BitmapDrawable
+        when(type) {
+            1 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.busy_dot, null) as BitmapDrawable
+            2 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.green_dot, null) as BitmapDrawable
+            3 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.correct_orange, null) as BitmapDrawable
+        }
+
         val b = bitmapdraw.bitmap
         return Bitmap.createScaledBitmap(b, width, height, false)
     }
@@ -123,21 +128,27 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
                             mList.forEach {
                                 val location = LatLng(it.latitude ?: 0.0, it.longitude ?: 0.0)
                                 with(mGoogleMap!!) {
-                                    if (it.status == "PROCESSING") {
-                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(
-                                            BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                                    } else if(it.status == "NEW") {
-                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
-                                    } else {
-                                        addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(it.name ?: "").icon(BitmapDescriptorFactory.fromBitmap(getBitmapIcon())))
-                                    }
+                                    when (it.status) {
+                                        "PROCESSING" -> {
+                                            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(BitmapDescriptorFactory.fromBitmap(getBitmapIcon(2))))
+                                        }
+                                        "NEW" -> {
+                                            addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(BitmapDescriptorFactory.fromBitmap(getBitmapIcon(1))))
+                                        }
+                                        else -> {
 
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             })
+    }
+
+    private fun getProjectTitle(project:Project) : String{
+        return project.name ?: "" + " \n ${project.address ?: ""}"
     }
 
 

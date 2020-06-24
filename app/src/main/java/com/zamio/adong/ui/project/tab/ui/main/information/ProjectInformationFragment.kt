@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.elcom.com.quizupapp.ui.network.Team
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.zamio.adong.R
@@ -235,7 +236,9 @@ class ProductInformationFragment : BaseFragment() {
         if (teamType == Team.ADONG.type) {
             data.add("Thêm công nhân")
         } else {
-            data.add("Danh sách đăng ký thi công")
+            if(ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type)) {
+                data.add("Danh sách đăng ký thi công")
+            }
         }
 
         data.add("Danh sách yêu cầu vật tư")
@@ -250,33 +253,39 @@ class ProductInformationFragment : BaseFragment() {
             data.add("Lịch sử điểm danh")
         }
 
-//        if(isPauseProject) {
-//            data.add("Phục hồi công trình")
-//        } else {
-//            data.add("Tạm dừng công trình")
-//        }
-
         val mAdapter = TitleAdapter(data,teamType)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            when(product) {
-                0 -> goToBaseInformation()
-                2 -> {
-                    if(teamType == Team.CONTRACTOR.type) {
-                        goToRegistration()
-                    } else {
-                        goToAddingWorkers()
+            if(ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type)) {
+
+                when(product) {
+                    0 -> goToBaseInformation()
+                    2 -> {
+                        if(teamType == Team.CONTRACTOR.type) {
+                            goToRegistration()
+                        } else {
+                            goToAddingWorkers()
+                        }
                     }
+                    3 -> goToProductRequirement()
+                    4 -> goToFile()
+                    9 -> goToAlbum()
+                    10 -> goToCheckinHistory()
                 }
-                3 -> goToProductRequirement()
-                4 -> goToFile()
-                9 -> goToAlbum()
-                10 -> goToCheckinHistory()
-//                13 ->  pauseProject()
+            } else {
+                when(product) {
+                    0 -> goToBaseInformation()
+                    2 -> goToProductRequirement()
+                    3 -> goToFile()
+                    8 -> goToAlbum()
+                    9 -> goToCheckinHistory()
+                }
             }
+
+
         }
     }
 

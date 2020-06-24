@@ -8,6 +8,7 @@ import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
 import com.zamio.adong.model.Transport
 import com.zamio.adong.utils.Utils
@@ -85,19 +86,19 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
                 1 -> holder.tv6.text = "Mới"
                 2 -> {
                     holder.tv6.text = "Đã hủy"
-                    holder.tv6.setTextColor(Color.parseColor("#962E34"))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
                 }
                 3 -> {
                     holder.tv6.text = "Hoàn thành"
-                    holder.tv6.setTextColor(Color.parseColor("#3ca150"))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
                 }
                 4 -> {
                     holder.tv6.text = "Đã ghép xe"
-                    holder.tv6.setTextColor(Color.parseColor("#4C4C4C"))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
                 }
                 5 -> {
                     holder.tv6.text = "Đã nhận hàng"
-                    holder.tv6.setTextColor(Color.parseColor("#4C4C4C"))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
                 }
             }
         }

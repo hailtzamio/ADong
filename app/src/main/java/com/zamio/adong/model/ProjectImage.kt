@@ -7,11 +7,11 @@ data class ProjectImage(
     @SerializedName("cameraModelName")
     val cameraModelName: String,
     @SerializedName("createdByFullName")
-    val createdByFullName: String,
+    val createdByFullName: String?,
     @SerializedName("createdById")
     val createdById: Int,
     @SerializedName("createdTime")
-    val createdTime: String,
+    val createdTime: String?,
     @SerializedName("dateTimeOriginal")
     val dateTimeOriginal: String,
     @SerializedName("deviceManufacturer")
