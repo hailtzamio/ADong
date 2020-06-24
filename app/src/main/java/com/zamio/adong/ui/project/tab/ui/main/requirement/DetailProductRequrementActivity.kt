@@ -359,7 +359,7 @@ class DetailProductRequrementActivity : BaseActivity() {
         val data2 = ArrayList<Information>()
 
         data.forEach {
-            data2.add(Information(it.quantity.toString() + " ${it.unit}", it.productName, ""))
+            data2.add(Information(it.quantity.toString() + " ${it.productUnit}", it.productName, ""))
         }
 
         val mAdapter = InformationAdapter(data2)

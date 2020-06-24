@@ -1,19 +1,24 @@
 package com.zamio.adong.ui.worker
 
+import InformationAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
+import com.zamio.adong.model.Information
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
-import kotlinx.android.synthetic.main.activity_detail_worker.*
+import kotlinx.android.synthetic.main.activity_detail_worker.cropImageView
+import kotlinx.android.synthetic.main.activity_detail_worker.recyclerView
+import kotlinx.android.synthetic.main.activity_detail_worker.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,8 +27,9 @@ import retrofit2.Response
 class DetailWorkerActivity : BaseActivity() {
 
 
-    var product: Worker? = null
+    var worker: Worker? = null
     var productId = 1
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
         return R.layout.activity_detail_worker
     }
@@ -49,7 +55,7 @@ class DetailWorkerActivity : BaseActivity() {
 
             rightButton.setOnClickListener {
                 val intent = Intent(this, UpdateWorkerActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, worker!!)
                 startActivityForResult(intent, 1000)
                 this!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
@@ -73,20 +79,12 @@ class DetailWorkerActivity : BaseActivity() {
             }
 
             cropImageView.setOnClickListener {
-                if (product!!.avatarUrl != null) {
+                if (worker!!.avatarUrl != null) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.avatarUrl)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, worker!!.avatarUrl)
                     startActivityForResult(intent, 1000)
                 }
             }
-
-            tvTeam.setOnClickListener {
-                //                val intent = Intent(this, DetailTeamActivity::class.java)
-//                intent.putExtra(ConstantsApp.KEY_QUESTION_ID, product.id)
-//                startActivity(intent)
-//               overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-
         }
 
         if (intent.hasExtra(ConstantsApp.ChooseTeamWorkerActivity)) {
@@ -116,53 +114,84 @@ class DetailWorkerActivity : BaseActivity() {
             ) {
                 dismisProgressDialog()
                 if (response!!.body() != null && response!!.body().status == 1) {
-                    product = response.body().data ?: return
-                    tvName.text = product!!.fullName
-                    tvPhone.text = product!!.phone
-                    tvAddress.text = product!!.address
+                    worker = response.body().data ?: return
 
+                    mList.clear()
 
-                    if (product!!.lineId != null && product!!.lineId != "") {
-                        tvEmail.text = product!!.lineId
-                    }
+                    updateObject(worker!!)
 
-                    if (product!!.bankName != null && product!!.bankName != "") {
-                        tvBankName.text = product!!.bankName
-                    }
-
-                    if (product!!.bankAccount != null && product!!.bankAccount != "") {
-                        tvBankAccount.text = product!!.bankAccount
-                    }
-
-                    if (product!!.teamName != null && product!!.teamName != "") {
-                        tvTeam.text = product!!.teamName
-                    }
-
-                    if (product!!.isTeamLeader) {
-                        tvPosition.text = "Đội trưởng"
+                    mList.add(Information("Tên", worker!!.fullName ?: "---", ""))
+                    if (worker!!.isTeamLeader) {
+                        mList.add(Information("Chức danh", "Đội trưởng", ""))
                     } else {
-                        tvPosition.text = "Công nhân"
+                        mList.add(Information("Chức danh", "Công nhân", ""))
                     }
+                    mList.add(Information("Số điện thoại", worker!!.phone ?: "---", ""))
+                    mList.add(Information("Số điện thoại 2", worker!!.phone2 ?: "---", ""))
+                    mList.add(Information("Địa chỉ", worker!!.address ?: "---", ""))
+                    mList.add(Information("Line ID", worker!!.lineId ?: "---", ""))
+                    mList.add(Information("Tên đội", worker!!.teamName ?: "---", ""))
+                    mList.add(Information("Ngân hàng", worker!!.bankName ?: "---", ""))
+                    mList.add(Information("Số tài khoản", worker!!.bankAccount ?: "---", ""))
 
-                    if (product!!.workingStatus == "idle") {
-                        tvStatus.text = "Đang rảnh"
+
+
+                    if (worker!!.workingStatus == "idle") {
+                        mList.add(Information("Trạng thái", "Đang rảnh", ""))
                     } else {
-                        tvStatus.text = "Đang bận"
+                        mList.add(Information("Trạng thái", "Đang bận", ""))
                     }
 
-                    if (product!!.avatarUrl != null) {
-                        Picasso.get().load(product!!.avatarUrl).error(R.drawable.ava)
+                    if (worker!!.avatarUrl != null) {
+                        Picasso.get().load(worker!!.avatarUrl).error(R.drawable.ava)
                             .into(cropImageView)
                     }
+
+                    setupRecyclerView(mList)
 
                 }
             }
         })
     }
 
+    private fun updateObject(worker:Worker) {
+
+        if(worker.lineId == "") {
+            worker.lineId = null
+        }
+
+        if(worker.address == "") {
+            worker.address = null
+        }
+
+        if(worker.bankName == "") {
+            worker.bankName = null
+        }
+
+        if(worker.phone2 == "") {
+            worker.phone2 = null
+        }
+
+        if(worker.teamName == "") {
+            worker.teamName = null
+        }
+
+        if(worker.bankAccount == "") {
+            worker.bankAccount = null
+        }
+
+    }
+
+    private fun setupRecyclerView(data: List<Information>) {
+        val mAdapter = InformationAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
+    }
+
     private fun removeLorry() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().removeWorker(product!!.id).enqueue(object :
+        RestClient().getInstance().getRestService().removeWorker(worker!!.id).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {

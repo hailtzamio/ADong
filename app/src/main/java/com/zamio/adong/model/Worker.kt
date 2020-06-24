@@ -6,15 +6,15 @@ import java.io.Serializable
 
 data class Worker(
     @SerializedName("address")
-    val address: String,
+    var address: String?,
     @SerializedName("avatarExtId")
     val avatarExtId: String,
     @SerializedName("avatarUrl")
     val avatarUrl: String?,
     @SerializedName("bankAccount")
-    val bankAccount: String?,
+    var bankAccount: String?,
     @SerializedName("bankName")
-    val bankName: String?,
+    var bankName: String?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -24,17 +24,17 @@ data class Worker(
     @SerializedName("email")
     val email: String,
     @SerializedName("fullName")
-    val fullName: String,
+    val fullName: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("isTeamLeader")
     val isTeamLeader: Boolean = false,
     @SerializedName("lineId")
-    val lineId: String?,
+    var lineId: String?,
     @SerializedName("phone")
-    val phone: String,
+    var phone: String?,
     @SerializedName("phone2")
-    val phone2: String,
+    var phone2: String?,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")

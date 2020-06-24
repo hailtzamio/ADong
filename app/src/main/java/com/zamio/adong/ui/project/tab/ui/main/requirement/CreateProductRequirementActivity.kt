@@ -21,7 +21,11 @@ import com.zamio.adong.model.LinesAddNew
 import com.zamio.adong.model.Product
 import com.zamio.adong.model.ProductRequirementRes
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.popup.ConfirmProductRequirementDialog
+import com.zamio.adong.popup.HoldSimDialog
 import com.zamio.adong.ui.product.DetailProductActivity
+import com.zamio.adong.ui.trip.CreateTripActivity
+import com.zamio.adong.ui.trip.TripActivity
 import kotlinx.android.synthetic.main.activity_create_product_requirement.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
@@ -81,42 +85,52 @@ class CreateProductRequirementActivity : BaseActivity() {
         tvTitle.text = "Thêm Vật Tư"
         rightButton.setOnClickListener {
 
-//            if(tvChooseDate.text == "Chọn") {
-//                showToast("Chọn ngày")
-//                return@setOnClickListener
-//            }
+            showConfirmPopup()
 
-            for (j in (products.size - 1) downTo 0) {
-                if (products[j].quantityChoose != 0) {
-                    Log.e("hailpt~~", " Come ")
-                    productChoose.add(products[j])
+        }
+    }
+
+    private fun showConfirmPopup() {
+
+        for (j in (products.size - 1) downTo 0) {
+            if (products[j].quantityChoose != 0) {
+                Log.e("hailpt~~", " Come ")
+                productChoose.add(products[j])
+            }
+        }
+
+        Log.e("hailpt~~", " before "+productChoose.size)
+
+        val addNew = ArrayList<LinesAddNew>()
+
+        var count = productChoose.size
+        for (i in 0 until count) {
+            var j = i + 1
+            while (j < count) {
+                if (productChoose[i].id == productChoose[j].id) {
+                    productChoose.removeAt(j--)
+                    count--
                 }
+                j++
             }
+        }
 
-            Log.e("hailpt~~", " before "+productChoose.size)
+        Log.e("hailpt~~", " after "+productChoose.size)
 
-            val addNew = ArrayList<LinesAddNew>()
-
-            var count = productChoose.size
-            for (i in 0 until count) {
-                var j = i + 1
-                while (j < count) {
-                    if (productChoose[i].id == productChoose[j].id) {
-                        productChoose.removeAt(j--)
-                        count--
-                    }
-                    j++
-                }
+        productChoose.forEach {
+            if(it.quantityChoose != 0) {
+                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, it.name ?: "---", null,it.unit ?: "---"))
             }
+        }
 
-            Log.e("hailpt~~", " after "+productChoose.size)
+        val dialog = ConfirmProductRequirementDialog(this, addNew)
+        dialog.show()
 
-            productChoose.forEach {
-                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, "", null))
+        dialog.onItemClick = {
+            if(it == 2) {
+                val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())
+                create(productRequirementRes)
             }
-
-            val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())
-            create(productRequirementRes)
         }
     }
 

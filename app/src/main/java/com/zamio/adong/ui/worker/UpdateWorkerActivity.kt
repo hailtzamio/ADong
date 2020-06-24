@@ -18,7 +18,6 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_create_worker.*
-
 import kotlinx.android.synthetic.main.item_header_layout.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
