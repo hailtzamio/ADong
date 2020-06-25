@@ -85,7 +85,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             when (topic.status) {
                 1 ->  {
                     holder.tv6.text = "Mới"
-                    holder.tv6.setTextColor(Color.parseColor(AppColor.Gray.hex))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
                 }
                 2 -> {
                     holder.tv6.text = "Đã hủy"
