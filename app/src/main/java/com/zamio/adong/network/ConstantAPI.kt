@@ -39,5 +39,6 @@ enum class AppColor(val hex: String) {
     Green("#3ca150"),
     Blue("#3366CC"),
     Gray("#90928E"),
+    Orange("#FB9214"),
     Red("#962E34")
 }

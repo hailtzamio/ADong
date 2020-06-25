@@ -144,7 +144,7 @@ class BasicInformation2Activity : BaseActivity() {
             reason.addProperty("teamId", data!!.teamId)
         }
 
-        reason.addProperty("note", "Need to Pause")
+        reason.addProperty("note", "Tạm dừng CT")
 
         showProgessDialog()
         RestClient().getRestService().pauseResume(id, reason).enqueue(object :

@@ -68,11 +68,11 @@ class ProjectAdapter(private val topicDetails: ArrayList<Project>) :
             }
             "PROCESSING" -> {
                 holder.tv6.text = "Đang thi công"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
+                holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
             }
             "DONE" -> {
                 holder.tv6.text = "Hoàn thành"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Gray.hex))
+                holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
             }
             "PAUSED" -> {
                 holder.tv6.text = "Tạm dừng"

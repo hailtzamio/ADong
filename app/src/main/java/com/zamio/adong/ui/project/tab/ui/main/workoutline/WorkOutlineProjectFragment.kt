@@ -34,6 +34,7 @@ import com.zamio.adong.model.WorkOutline
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
 import com.zamio.adong.utils.ProgressDialogUtils.TAG
 import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 import okhttp3.MediaType
@@ -195,12 +196,18 @@ class MainWorkOutlineFragment : BaseFragment() {
                     if (data.status == "DONE") {
                         tvOk.text = "ĐÃ HOÀN THÀNH"
                         tvOk.setTextColor(Color.WHITE)
+
                         tvOk.background = ResourcesCompat.getDrawable(
                             resources,
                             R.drawable.button_normal_main_radius_green_layout,
                             null
                         )
-                        tvOk.isEnabled = false
+
+                        tvOk.setOnClickListener {
+                            val intent = Intent(context, FinishProjectAlbumActivity::class.java)
+                            intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+                            startActivityForResult(intent, 1000)
+                        }
                     }
                 }
             }
