@@ -98,7 +98,7 @@ class DetailTransportActivity : BaseActivity() {
                     mList.add(Information("Kho / Xưởng",model!!.warehouseName ?: "---", ""))
                     mList.add(Information("Địa chỉ Kho / Xưởng",model!!.warehouseAddress ?: "---", ""))
                     mList.add(Information("Tên dự án",model!!.projectName ?: "---", ""))
-                    mList.add(Information("Địa chỉ dựa án",model!!.projectAddress ?: "---", ""))
+                    mList.add(Information("Địa chỉ dự án",model!!.projectAddress ?: "---", ""))
 
                     setupRecyclerView(mList)
 

@@ -151,7 +151,7 @@ class ProductInformationFragment : BaseFragment() {
 
 
         val reason = JsonObject()
-        reason.addProperty("note", "Need to Pause")
+        reason.addProperty("note", "Tạm dừng")
 
 
         showProgessDialog()

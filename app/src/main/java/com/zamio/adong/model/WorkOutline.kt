@@ -28,7 +28,7 @@ data class WorkOutline(
     @SerializedName("workOutlineName")
     val workOutlineName: String,
     @SerializedName("finishDatetime")
-    val finishDatetime: String?,
+    var finishDatetime: String?,
     @SerializedName("order")
     val order: Int,
     @SerializedName("photos")

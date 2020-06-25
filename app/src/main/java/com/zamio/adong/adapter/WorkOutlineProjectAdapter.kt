@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.WorkOutline
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -52,7 +53,7 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
             holder.imvCheck.setImageResource(R.drawable.dot2)
 //            holder.imvNext.visibility = View.GONE
         } else {
-            holder.quantity.text = topic.finishDatetime
+            holder.quantity.text = Utils.convertDate(topic.finishDatetime ?: "2020-06-25T17:45:29")
             holder.imvCheck.setImageResource(R.drawable.check_green2)
 //            holder.imvNext.visibility = View.VISIBLE
         }

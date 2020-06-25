@@ -101,9 +101,9 @@ class UpdateProductActivity : BaseActivity() {
 
     private fun setupChooseSpinner(){
         val list: MutableList<String> = ArrayList()
-        list.add("Mua tại công trình")
+        list.add("Mua")
         list.add("Sản xuất")
-        list.add("Công cụ")
+        list.add("Xuất kho")
 
         val dataAdapter = ArrayAdapter(
             this,
