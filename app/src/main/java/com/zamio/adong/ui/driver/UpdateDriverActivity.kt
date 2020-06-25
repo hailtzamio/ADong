@@ -56,7 +56,9 @@ class UpdateDriverActivity : BaseActivity() {
         edtPhone2.setText(model.phone2)
         edtEmail.setText(model.email)
 
-        Picasso.get().load(model.avatarUrl ?: "htt").error(R.drawable.ava).into(cropImageView)
+        if(model.avatarUrl != null && model.avatarUrl != "") {
+            Picasso.get().load(model.avatarUrl ?: "htt").error(R.drawable.ava).into(cropImageView)
+        }
 
         tvOk.setOnClickListener {
 

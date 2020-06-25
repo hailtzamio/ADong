@@ -26,7 +26,11 @@ enum class PROJECTTYPE(val type: String) {
 enum class UserPermission(val type: String) {
     ProductRequirementr("ProductRequirementr"),
     ProductRequirementc("ProductRequirementc"),
-    ProductRequirementu("ProductRequirementu")
+    ProductRequirementu("ProductRequirementu"),
+    Tripr("Tripr"),
+    Tripc("Tripc"),
+    TransportReqr("TransportReqr"),
+    TransportReqc("TransportReqc")
 }
 
 enum class UserRoles(val type: String) {

@@ -29,7 +29,7 @@ class AreaProfileDetailDialog(context: Context, var data: AreaManager) :
             mData.email = null
         }
 
-        tv1.text = mData.name ?: "---"
+        tv0.text = mData.name ?: "---"
         tv2.text = mData.phone ?: "---"
         tv3.text = mData.email ?: "---"
 

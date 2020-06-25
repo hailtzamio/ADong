@@ -22,6 +22,7 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Lorry
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.activity_lorry_list_location.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,6 +61,10 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
             return
         }
         locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+
+        imvBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun resumeData() {

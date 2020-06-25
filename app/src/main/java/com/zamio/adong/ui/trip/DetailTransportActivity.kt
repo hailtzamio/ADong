@@ -104,7 +104,7 @@ class DetailTransportActivity : BaseActivity() {
 
                     if(model!!.lines != null) {
                         model!!.lines!!.forEach {
-                            mListProduct.add(Information(it.productName,it.quantity.toString() + " " + it.productUnit, ""))
+                            mListProduct.add(Information(it.quantity.toString() + " " + it.productUnit, it.productName, ""))
                         }
                     }
 

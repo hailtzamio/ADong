@@ -132,6 +132,7 @@ class MainProjectFragment : BaseFragment() {
                     dismisProgressDialog()
                     if (response!!.body() != null && response!!.body().status == 1) {
                         data.addAll(response.body().data!!)
+                        recyclerView.recycledViewPool.clear()
                         recyclerView.post {
                             mAdapter.notifyDataSetChanged()
                         }

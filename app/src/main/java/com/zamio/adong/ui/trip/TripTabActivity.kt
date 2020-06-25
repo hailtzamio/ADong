@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.elcom.com.quizupapp.ui.network.UserPermission
 import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -34,21 +35,21 @@ class TripTabActivity : AppCompatActivity() {
         setContentView(R.layout.activity_trip_tab)
 
 
-        if(ConstantsApp.USER_ROLES.contains(UserRoles.CarManagement.type)) {
+        if(ConstantsApp.USER_PERMISSIONS.contains(UserPermission.TransportReqr.type)) {
             titles.add("YCVC")
         }
 
-        if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+        if(ConstantsApp.USER_PERMISSIONS.contains(UserPermission.Tripr.type)) {
             titles.add("Chuyến đi")
         }
 
         val sectionsPagerAdapter = TripPagerAdapter(this, supportFragmentManager, titles)
 
-        if(ConstantsApp.USER_ROLES.contains(UserRoles.CarManagement.type)) {
+        if(ConstantsApp.USER_PERMISSIONS.contains(UserPermission.TransportReqr.type)) {
             sectionsPagerAdapter.addFragment(transportRequestFragment)
         }
 
-        if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+        if(ConstantsApp.USER_PERMISSIONS.contains(UserPermission.Tripr.type)) {
             sectionsPagerAdapter.addFragment(tripFragment)
         }
 

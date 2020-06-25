@@ -23,7 +23,16 @@ import com.zamio.adong.popup.AreaProfileDetailDialog
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.Utils
+import kotlinx.android.synthetic.main.activity_basic_information.*
 import kotlinx.android.synthetic.main.activity_basic_informationn.*
+import kotlinx.android.synthetic.main.activity_basic_informationn.imvMap
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvAddress
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvChooseDate
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvChooseEndDate
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvName
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvOk
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvPause
+import kotlinx.android.synthetic.main.activity_basic_informationn.tvStatus
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -91,6 +100,36 @@ class BasicInformation2Activity : BaseActivity() {
                 }
             }
 
+            tvPause.setOnClickListener {
+
+
+                var title = ""
+                title = if (tvPause.text == "PHỤC HỒI") {
+                    "Phục hồi công trình?"
+                } else {
+                    "Tạm dừng công trình?"
+                }
+
+                val dialogClickListener =
+                    DialogInterface.OnClickListener { dialog, which ->
+                        when (which) {
+                            DialogInterface.BUTTON_POSITIVE -> {
+                                if (tvPause.text == "PHỤC HỒI") {
+                                    doResumeProjectApi()
+                                } else {
+                                    doPauseProjectApi()
+                                }
+                            }
+                            DialogInterface.BUTTON_NEGATIVE -> {
+                            }
+                        }
+                    }
+
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage(title).setPositiveButton("Đồng ý", dialogClickListener)
+                    .setNegativeButton("Không", dialogClickListener).show()
+            }
+
         }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_REG_APPROVED)) {
@@ -100,6 +139,37 @@ class BasicInformation2Activity : BaseActivity() {
             val registrationId = intent.getIntExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, 0)
             getRegistationDetail(registrationId)
         }
+    }
+
+    private fun doPauseProjectApi() {
+
+        val reason = JsonObject()
+        reason.addProperty("note", "Need to Pause")
+
+        showProgessDialog()
+        RestClient().getRestService().pauseProject(id, reason).enqueue(object :
+            Callback<RestData<JsonElement>> {
+
+            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<JsonElement>>?,
+                response: Response<RestData<JsonElement>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response!!.body().status == 1) {
+                    showToast("Thành công")
+                    getData(id)
+                } else {
+                    if (response.errorBody() != null) {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView(mList: List<Information>) {
@@ -336,7 +406,9 @@ class BasicInformation2Activity : BaseActivity() {
                     }
 
                     mList.add(Information("Quản lý vùng", data!!.supervisorFullName ?: "---", ""))
-                    mList.add(Information("Đội trưởng", data!!.teamLeaderFullName ?: "---", ""))
+                    if (data!!.teamType == "ADONG") {
+                        mList.add(Information("Đội trưởng", data!!.teamLeaderFullName ?: "---", ""))
+                    }
                     mList.add(Information("Thư ký", data!!.secretaryFullName ?: "---", ""))
 
                     setupRecyclerView(mList)

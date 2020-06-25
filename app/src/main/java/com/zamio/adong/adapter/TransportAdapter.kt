@@ -97,11 +97,11 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
                 }
                 4 -> {
                     holder.tv6.text = "Đã ghép xe"
-                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
                 }
                 5 -> {
                     holder.tv6.text = "Đã nhận hàng"
-                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
                 }
             }
         }

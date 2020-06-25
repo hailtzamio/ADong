@@ -68,7 +68,8 @@ class UpdateProjectActivity: BaseActivity() {
         tvTitle.text = "Sửa Công Trình"
         rightButton.visibility = View.GONE
 
-
+        dialog = AreaProfileDialog(this, investorManager)
+        dialog2 = AreaProfileDialog(this, investorDeputyManager)
 
         tvChooseDate.setOnClickListener {
             hideKeyboard()
@@ -136,8 +137,8 @@ class UpdateProjectActivity: BaseActivity() {
                     data = response.body().data ?: return
                     edtName.setText(data!!.name ?: "Chọn")
                     edtAddress.setText(data!!.address ?: "Chọn")
-                    tvChooseDate.text = Utils.convertDate(data!!.plannedStartDate ?: "2020-06-T12:12:12") ?: "Chọn"
-                    tvChooseEndDate.text = Utils.convertDate(data!!.plannedEndDate ?: "2020-06-T12:12:12") ?: "Chọn"
+                    tvChooseDate.text = data!!.plannedStartDate ?: "2020-06-T12:12:12"
+                    tvChooseEndDate.text = data!!.plannedEndDate ?: "2020-06-T12:12:12"
                     tvManagerName.text = data!!.managerFullName ?: "Chọn"
 
                     if(data!!.investorContacts != null) {
@@ -317,14 +318,14 @@ class UpdateProjectActivity: BaseActivity() {
                 product.addProperty("secretaryId", secretaryId)
             }
 
-            if (teamId != 0) {
+            if (isChooseADong && teamId != 0) {
                 product.addProperty("teamId", teamId)
             }
-            if (contractorId != 0) {
+            if (!isChooseADong && contractorId != 0) {
                 product.addProperty("contractorId", contractorId)
             }
 
-            if (!isChooseADong && supervisorId != 0) {
+            if (supervisorId != 0) {
                 product.addProperty("supervisorId", supervisorId)
             }
 
