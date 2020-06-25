@@ -21,14 +21,14 @@ import retrofit2.Response
 class FinishProjectAlbumActivity : BaseActivity() {
 
     var id = 0
-    private var itemList:List<ProjectImage>? = null
+    private var itemList = ArrayList<ProjectImage>()
 
     override fun getLayout(): Int {
         return R.layout.activity_checkin_out_album_image
     }
 
     override fun initView() {
-        tvTitle.text = "Ảnh Nghiệm Thu"
+        tvTitle.text = "Kho Ảnh"
         rightButton.visibility = View.GONE
     }
 
@@ -58,28 +58,49 @@ class FinishProjectAlbumActivity : BaseActivity() {
 
     }
 
-    private fun getData() {
+    private fun getProjectImages() {
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjectFinishImages(id).enqueue(object :
-            Callback<RestData<List<ProjectImage>>> {
-            override fun onFailure(call: Call<RestData<List<ProjectImage>>>?, t: Throwable?) {
+        RestClient().getInstance().getRestService().getProjectImages(id).enqueue(object :
+            Callback<RestData<ArrayList<ProjectImage>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<ProjectImage>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
             override fun onResponse(
-                call: Call<RestData<List<ProjectImage>>>?,
-                response: Response<RestData<List<ProjectImage>>>?
+                call: Call<RestData<ArrayList<ProjectImage>>>?,
+                response: Response<RestData<ArrayList<ProjectImage>>>?
             ) {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
-                    itemList = response.body().data
-                    if (itemList!!.isNotEmpty()) {
+
+                    itemList.addAll(response.body().data ?: ArrayList<ProjectImage>())
+                    if (itemList.isNotEmpty()) {
                         viewNoData.visibility = View.GONE
                         setupView()
                     } else {
                         viewNoData.visibility = View.VISIBLE
                     }
+                }
+            }
+        })
+    }
 
+    private fun getData() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getProjectFinishImages(id).enqueue(object :
+            Callback<RestData<ArrayList<ProjectImage>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<ProjectImage>>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<ArrayList<ProjectImage>>>?,
+                response: Response<RestData<ArrayList<ProjectImage>>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response.body().status == 1) {
+                    itemList = response.body().data ?: ArrayList<ProjectImage>()
+                    getProjectImages()
                 }
             }
         })

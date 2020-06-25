@@ -10,6 +10,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity
 import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity
 import kotlinx.android.synthetic.main.activity_choose_team_leader.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -80,7 +81,7 @@ class ProjectRegistranleActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { it ->
-               val intent = Intent(this, BasicInformationActivity::class.java)
+               val intent = Intent(this, BasicInformation2Activity::class.java)
             intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
             intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, it.id)
             startActivity(intent)

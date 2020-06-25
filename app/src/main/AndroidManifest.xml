@@ -45,6 +45,9 @@
             android:name=".ui.project.tab.ui.main.information.BasicInformationActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.project.tab.ui.main.information.BasicInformation2Activity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.project.tab.ui.main.requirement.ProductRequirementActivity"
             android:screenOrientation="portrait" />
         <activity

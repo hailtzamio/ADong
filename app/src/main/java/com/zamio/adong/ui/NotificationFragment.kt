@@ -18,6 +18,7 @@ import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.NotificationOb
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.network.Pagination
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity
 import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity
 import com.zamio.adong.ui.trip.DetailTripActivity
 import kotlinx.android.synthetic.main.fragment_main_notification.*
@@ -169,13 +170,13 @@ class NotificationFragment : BaseFragment() {
             when (it.type) {
 
                 "REG_APPROVED" -> {
-                    val intent = Intent(activity, BasicInformationActivity::class.java)
+                    val intent = Intent(activity, BasicInformation2Activity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, objectId)
                     startActivity(intent)
                 }
 
                 "NEW_PROJECT" -> {
-                    val intent = Intent(activity, BasicInformationActivity::class.java)
+                    val intent = Intent(activity, BasicInformation2Activity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, objectId)
                     intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, objectId)
                     startActivity(intent)

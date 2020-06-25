@@ -233,7 +233,7 @@ class MainWorkOutlineFragment : BaseFragment() {
         })
     }
 
-    private fun finishProject(id: Int) {
+    private fun finishProject(id: Int, images : List<Image> ) {
         showProgessDialog()
         RestClient().getInstance().getRestService().finishProject(id).enqueue(object :
             Callback<RestData<JsonElement>> {
@@ -248,6 +248,9 @@ class MainWorkOutlineFragment : BaseFragment() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     getProject()
+                    images.forEach {
+                        uploadProjectCompletion(File(it.path))
+                    }
                 } else {
                     if (response.errorBody() != null) {
                         val obj = JSONObject(response.errorBody().string())
@@ -348,12 +351,9 @@ class MainWorkOutlineFragment : BaseFragment() {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data1)) {
             // Get a list of picked images
             val images = ImagePicker.getImages(data1)
-
-            images.forEach {
-                uploadProjectCompletion(File(it.path))
+            if(images.size > 0) {
+                finishProject((activity as ProjectTabActivity).getProjectId(), images)
             }
-
-            finishProject((activity as ProjectTabActivity).getProjectId())
 
             // or get a single image only
 //            val image = ImagePicker.getFirstImageOrNull(data1)

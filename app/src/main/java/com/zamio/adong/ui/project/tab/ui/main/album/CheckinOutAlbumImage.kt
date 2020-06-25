@@ -61,14 +61,14 @@ class CheckinOutAlbumImage : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService().getProjectImages(id).enqueue(object :
-            Callback<RestData<List<ProjectImage>>> {
-            override fun onFailure(call: Call<RestData<List<ProjectImage>>>?, t: Throwable?) {
+            Callback<RestData<ArrayList<ProjectImage>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<ProjectImage>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
 
             override fun onResponse(
-                call: Call<RestData<List<ProjectImage>>>?,
-                response: Response<RestData<List<ProjectImage>>>?
+                call: Call<RestData<ArrayList<ProjectImage>>>?,
+                response: Response<RestData<ArrayList<ProjectImage>>>?
             ) {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {

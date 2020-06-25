@@ -66,6 +66,10 @@ class DetailProjectActivity : BaseActivity() {
             intent.putExtra(ConstantsApp.KEY_VALUES_LONG, data!!.longitude)
             startActivity(intent)
         }
+
+        lnAreaManager.setOnClickListener {
+
+        }
     }
 
     var data: Project? = null
@@ -94,6 +98,7 @@ class DetailProjectActivity : BaseActivity() {
                     tvLeaderName.text = data!!.supervisorFullName ?: "---"
                     tvSecretaryName.text = data!!.secretaryFullName ?: "---"
                     tvChooseTeamOrContractor.text = data!!.deputyManagerFullName ?: "---"
+                    tvAreaManagerName.text = data!!.supervisorFullName ?: "---"
                     if (data!!.teamType == "ADONG") {
                         rlLeader.visibility = View.GONE
                         tvContractorOrTeam.text = "Đội Á đông"

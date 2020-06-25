@@ -102,7 +102,15 @@ class DetailTripActivity : BaseActivity() {
                     mList.clear()
 
                     mList.add(Information("Code", model!!.code ?: "---", ""))
-                    mList.add(Information("Trạng thái", model!!.status.toString() ?: "---", ""))
+
+//                    if(model!!.status ?: 1 == 3) {
+//                        mList.add(Information("Trạng thái", "Hoàn thành", ""))
+//                    } else if(model!!.status ?: 1 == 2) {
+//                        mList.add(Information("Trạng thái", "Đã Hủy", ""))
+//                    } else {
+//                        mList.add(Information("Trạng thái", "Mới", ""))
+//                    }
+
                     mList.add(Information("Lái xe", model!!.driverFullName ?: "---", ""))
                     mList.add(Information("Số điện thoại", model!!.driverPhone ?: "---", ""))
                     mList.add(Information("Biến số xe", model!!.lorryPlateNumber ?: "---", ""))

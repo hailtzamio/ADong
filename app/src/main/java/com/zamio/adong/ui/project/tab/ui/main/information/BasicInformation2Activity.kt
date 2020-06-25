@@ -1,11 +1,13 @@
 package com.zamio.adong.ui.project.tab.ui.main.information
 
+import InformationAdapter
 import RestClient
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.elcom.com.quizupapp.ui.network.UserRoles
@@ -14,24 +16,27 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Contractor
+import com.zamio.adong.model.Information
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.AreaProfileDetailDialog
 import com.zamio.adong.ui.lorry.map.LorryLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.Utils
-import kotlinx.android.synthetic.main.activity_basic_information.*
+import kotlinx.android.synthetic.main.activity_basic_informationn.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class BasicInformationActivity : BaseActivity() {
+class BasicInformation2Activity : BaseActivity() {
 
     var id = 0
+    var data: Project? = null
+    val mList = ArrayList<Information>()
     override fun getLayout(): Int {
-        return R.layout.activity_basic_information
+        return R.layout.activity_basic_informationn
     }
 
     override fun initView() {
@@ -81,62 +86,8 @@ class BasicInformationActivity : BaseActivity() {
             } else {
                 tvOk.setOnClickListener {
                     if (id != 0) {
-                        removeProject()
+
                     }
-                }
-            }
-
-            tvPause.setOnClickListener {
-
-
-                var title = ""
-                title = if (tvPause.text == "PHỤC HỒI") {
-                    "Phục hồi công trình?"
-                } else {
-                    "Tạm dừng công trình?"
-                }
-
-                val dialogClickListener =
-                    DialogInterface.OnClickListener { dialog, which ->
-                        when (which) {
-                            DialogInterface.BUTTON_POSITIVE -> {
-                                if (tvPause.text == "PHỤC HỒI") {
-                                    doResumeProjectApi()
-                                } else {
-                                    doPauseProjectApi()
-                                }
-                            }
-                            DialogInterface.BUTTON_NEGATIVE -> {
-                            }
-                        }
-                    }
-
-                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setMessage(title).setPositiveButton("Đồng ý", dialogClickListener)
-                    .setNegativeButton("Không", dialogClickListener).show()
-            }
-
-//            lnAreaManager.setOnClickListener {
-//
-//                if(data != null && data!!.investorContacts != null) {
-//                    val dialog = AreaProfileDetailDialog(this,data!!.investorContacts!!.manager)
-//                    dialog.show()
-//                }
-//            }
-
-            lnManager.setOnClickListener {
-
-                if(data != null && data!!.investorContacts != null) {
-                    val dialog = AreaProfileDetailDialog(this,data!!.investorContacts!!.manager)
-                    dialog.show()
-                }
-            }
-
-            lnDeputyManager.setOnClickListener {
-
-                if(data != null && data!!.investorContacts != null) {
-                    val dialog = AreaProfileDetailDialog(this,data!!.investorContacts!!.deputyManager)
-                    dialog.show()
                 }
             }
 
@@ -151,35 +102,31 @@ class BasicInformationActivity : BaseActivity() {
         }
     }
 
-    private fun doPauseProjectApi() {
+    private fun setupRecyclerView(mList: List<Information>) {
+        val mAdapter = InformationAdapter(mList)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(false)
+        recyclerView.adapter = mAdapter
+        mAdapter.onItemClick = {
+            when (it) {
+                1 -> {
+                    if (data != null && data!!.investorContacts != null) {
+                        val dialog =
+                            AreaProfileDetailDialog(this, data!!.investorContacts!!.manager)
+                        dialog.show()
+                    }
+                }
 
-        val reason = JsonObject()
-        reason.addProperty("note", "Need to Pause")
-
-        showProgessDialog()
-        RestClient().getRestService().pauseProject(id, reason).enqueue(object :
-            Callback<RestData<JsonElement>> {
-
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response!!.body().status == 1) {
-                    showToast("Thành công")
-                    getData(id)
-                } else {
-                    if (response.errorBody() != null) {
-                        val obj = JSONObject(response.errorBody().string())
-                        showToast(obj["message"].toString())
+                2 -> {
+                    if (data != null && data!!.investorContacts != null) {
+                        val dialog =
+                            AreaProfileDetailDialog(this, data!!.investorContacts!!.deputyManager)
+                        dialog.show()
                     }
                 }
             }
-        })
+
+        }
     }
 
     private fun doResumeProjectApi() {
@@ -336,26 +283,7 @@ class BasicInformationActivity : BaseActivity() {
 
     }
 
-    fun removeProjectPopup() {
-        val dialogClickListener =
-            DialogInterface.OnClickListener { dialog, which ->
-                when (which) {
-                    DialogInterface.BUTTON_POSITIVE -> {
-                        if (id != 0) {
-                            removeProject()
-                        }
-                    }
-                    DialogInterface.BUTTON_NEGATIVE -> {
-                    }
-                }
-            }
 
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setMessage("Xóa công trình?").setPositiveButton("Đồng ý", dialogClickListener)
-            .setNegativeButton("Không", dialogClickListener).show()
-    }
-
-    var data: Project? = null
     fun getData(id: Int) {
         RestClient().getInstance().getRestService().getProject(id).enqueue(object :
             Callback<RestData<Project>> {
@@ -370,6 +298,9 @@ class BasicInformationActivity : BaseActivity() {
             ) {
                 if (response!!.body() != null && response!!.body().status == 1 && tvName != null) {
                     data = response.body().data ?: return
+
+                    mList.clear()
+
                     tvName.text = data!!.name
                     tvAddress.text = data!!.address
 
@@ -381,39 +312,34 @@ class BasicInformationActivity : BaseActivity() {
                         tvChooseEndDate.text = Utils.convertDate(data!!.plannedEndDate)
                     }
 
-                    if (data!!.investorContacts != null) {
-                        tvManagerName.text = data!!.investorContacts!!.manager.name ?: "---"
-                        tvDeputyManagerName.text =
-                            data!!.investorContacts!!.deputyManager.name ?: "---"
-                    }
-
-                    tvLeaderName.text = data!!.supervisorFullName ?: "---"
-                    tvSecretaryName.text = data!!.secretaryFullName ?: "---"
-                    tvChooseTeamOrContractor.text = data!!.teamName ?: "---"
-                    tvAreaManagerName.text = data!!.supervisorFullName ?: "---"
-
                     if (data!!.teamType == "ADONG") {
-                        rlLeaderAdong.visibility = View.VISIBLE
-
-                        rlLeader.visibility = View.GONE
-                        tvContractorOrTeam.text = "Đội Á đông"
-                        tvContractorOrTeamLabel.text = "Đội thi công"
-                        rlLeader.visibility = View.GONE
-
-                        if (data!!.teamLeaderFullName != null && data!!.teamLeaderFullName != "") {
-                            tvLeaderNameAdong.text = data!!.teamLeaderFullName
-                        }
-
-
-//                        rlLeaderAdong.visibility = View.GONE // ??
+                        mList.add(Information("Đội Á Đông", data!!.teamName ?: "---", ""))
                     } else {
-                        rlLeaderAdong.visibility = View.GONE
-                        rlLeader.visibility = View.VISIBLE
-                        tvContractorOrTeam.text = data!!.contractorName ?: "---"
-                        tvContractorOrTeamLabel.text = "Nhà thầu phụ"
-                        lnTeamName.visibility = View.GONE
+                        mList.add(Information("Nhà thầu phụ", data!!.contractorName ?: "---", ""))
                     }
 
+                    if (data!!.investorContacts != null) {
+                        mList.add(
+                            Information(
+                                "Trưởng bộ phận",
+                                data!!.investorContacts!!.manager.name ?: "---",
+                                "Show"
+                            )
+                        )
+                        mList.add(
+                            Information(
+                                "Phó bộ phận",
+                                data!!.investorContacts!!.deputyManager.name ?: "---",
+                                "Show"
+                            )
+                        )
+                    }
+
+                    mList.add(Information("Quản lý vùng", data!!.supervisorFullName ?: "---", ""))
+                    mList.add(Information("Đội trưởng", data!!.teamLeaderFullName ?: "---", ""))
+                    mList.add(Information("Thư ký", data!!.secretaryFullName ?: "---", ""))
+
+                    setupRecyclerView(mList)
 
                     when (data!!.status ?: "NEW") {
                         "NEW" -> {
@@ -436,37 +362,6 @@ class BasicInformationActivity : BaseActivity() {
                 }
             }
         })
-    }
-
-    private fun removeProject() {
-        showProgessDialog()
-        RestClient().getInstance().getRestService()
-            .removeProject(id).enqueue(object :
-                Callback<RestData<JsonElement>> {
-
-                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                    dismisProgressDialog()
-                }
-
-                override fun onResponse(
-                    call: Call<RestData<JsonElement>>?,
-                    response: Response<RestData<JsonElement>>?
-                ) {
-                    dismisProgressDialog()
-                    if (response!!.body() != null && response.body().status == 1) {
-                        showToast("Xóa thành công")
-                        setResult(100)
-                        finish()
-                    } else {
-                        val obj = JSONObject(response.errorBody().string())
-                        Toast.makeText(
-                            this@BasicInformationActivity,
-                            obj["message"].toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

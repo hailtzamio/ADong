@@ -1,8 +1,10 @@
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
 import com.zamio.adong.model.*
 import com.zamio.adong.utils.Utils
@@ -68,12 +70,20 @@ class TripAdapter(private val topicDetails: List<Trip>) :
         }
 
         if (topic.status != null) {
-            when(topic.status) {
-                1 ->  holder.tv6.text = "Mới"
-                2 ->  holder.tv6.text = "Đã hủy"
-                3 ->  holder.tv6.text = "Đã xong"
-                4 ->  holder.tv6.text = "Đã chọn xe"
-                5 ->  holder.tv6.text = "Đã nhận hàng"
+
+            when (topic.status) {
+                1 -> {
+                    holder.tv6.text = "Mới"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Gray.hex))
+                }
+                2 -> {
+                    holder.tv6.text = "Đã hủy"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
+                }
+                3 -> {
+                    holder.tv6.text = "Hoàn thành"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
+                }
             }
         }
     }

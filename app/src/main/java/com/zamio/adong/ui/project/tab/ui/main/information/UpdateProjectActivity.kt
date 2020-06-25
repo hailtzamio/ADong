@@ -25,26 +25,8 @@ import com.zamio.adong.ui.map.MapActivity
 import com.zamio.adong.ui.project.ChooseContractorActivity
 import com.zamio.adong.ui.project.ChooseManagerActivity
 import com.zamio.adong.ui.project.ChooseTeamActivity
-import kotlinx.android.synthetic.main.activity_basic_information.*
+import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_project.*
-import kotlinx.android.synthetic.main.activity_update_project.*
-import kotlinx.android.synthetic.main.activity_update_project.edtAddress
-import kotlinx.android.synthetic.main.activity_update_project.edtName
-import kotlinx.android.synthetic.main.activity_update_project.rdGroup
-import kotlinx.android.synthetic.main.activity_update_project.rlLeader
-import kotlinx.android.synthetic.main.activity_update_project.tvChooseDate
-import kotlinx.android.synthetic.main.activity_update_project.tvChooseEndDate
-import kotlinx.android.synthetic.main.activity_update_project.tvChooseLeader
-import kotlinx.android.synthetic.main.activity_update_project.tvChooseLocation
-import kotlinx.android.synthetic.main.activity_update_project.tvChooseTeamOrContractor
-import kotlinx.android.synthetic.main.activity_update_project.tvContractor
-import kotlinx.android.synthetic.main.activity_update_project.tvDeputyManagerName
-import kotlinx.android.synthetic.main.activity_update_project.tvDeputyName
-import kotlinx.android.synthetic.main.activity_update_project.tvLeaderName
-import kotlinx.android.synthetic.main.activity_update_project.tvManagerName
-import kotlinx.android.synthetic.main.activity_update_project.tvOk
-import kotlinx.android.synthetic.main.activity_update_project.tvSeName
-import kotlinx.android.synthetic.main.activity_update_project.tvSecretaryName
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -79,7 +61,7 @@ class UpdateProjectActivity: BaseActivity() {
     var dialog2: AreaProfileDialog? = null
 
     override fun getLayout(): Int {
-        return R.layout.activity_update_project
+        return R.layout.activity_create_project
     }
 
     override fun initView() {
@@ -120,8 +102,6 @@ class UpdateProjectActivity: BaseActivity() {
 
             if (checkedRadioButton.text.toString() == "Đội Á đông") {
                 isChooseADong = true
-                rlLeader.visibility = View.GONE
-
                 tvContractor.text = "Tên đội *"
                 tvChooseLeader.text = "Trưởng bộ phận *"
                 tvDeputyName.text = "Phó bộ phận *"
@@ -129,14 +109,11 @@ class UpdateProjectActivity: BaseActivity() {
 
             } else {
                 isChooseADong = false
-                rlLeader.visibility = View.VISIBLE
-
                 tvContractor.text = "Tên đội"
                 tvChooseLeader.text = "Trưởng bộ phận"
                 tvDeputyName.text = "Phó bộ phận"
                 tvSeName.text = "Thư ký *"
             }
-
         })
     }
 
@@ -159,8 +136,8 @@ class UpdateProjectActivity: BaseActivity() {
                     data = response.body().data ?: return
                     edtName.setText(data!!.name ?: "Chọn")
                     edtAddress.setText(data!!.address ?: "Chọn")
-                    tvChooseDate.text = data!!.plannedStartDate ?: "Chọn"
-                    tvChooseEndDate.text = data!!.plannedEndDate ?: "Chọn"
+                    tvChooseDate.text = Utils.convertDate(data!!.plannedStartDate ?: "2020-06-T12:12:12") ?: "Chọn"
+                    tvChooseEndDate.text = Utils.convertDate(data!!.plannedEndDate ?: "2020-06-T12:12:12") ?: "Chọn"
                     tvManagerName.text = data!!.managerFullName ?: "Chọn"
 
                     if(data!!.investorContacts != null) {
@@ -181,11 +158,9 @@ class UpdateProjectActivity: BaseActivity() {
 
                     if (data!!.teamType == "ADONG") {
                         isChooseADong = true
-                        rlLeader.visibility = View.GONE
                         rdGroup.check(R.id.rdAdong)
                     } else {
                         isChooseADong = false
-                        rlLeader.visibility = View.GONE
                         rdGroup.check(R.id.rdContractor)
                     }
 

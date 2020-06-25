@@ -12,6 +12,7 @@ import com.onesignal.OneSignal;
 import com.zamio.adong.network.ConstantsApp;
 import com.zamio.adong.ui.activity.LoginActivity;
 import com.zamio.adong.ui.notification.ReceiveNotificationActivity;
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity;
 import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity;
 import com.zamio.adong.ui.trip.DetailTripActivity;
 import com.zamio.adong.utils.ConnectivityReceiver;
@@ -120,7 +121,7 @@ public class MyApplication extends Application {
                 switch (customKey) {
 
                     case "REG_APPROVED": {
-                        Intent intent = new Intent(getApplicationContext(), BasicInformationActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), BasicInformation2Activity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, id);
                         startActivity(intent) ;
@@ -128,7 +129,7 @@ public class MyApplication extends Application {
                      break;
 
                     case "NEW_PROJECT": {
-                        Intent intent = new Intent(getApplicationContext(), BasicInformationActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), BasicInformation2Activity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(ConstantsApp.KEY_VALUES_ID, id);
                         intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, id);

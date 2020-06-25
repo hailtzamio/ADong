@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:background="@drawable/button_normal_main_radius_layout"
+    android:padding="15dp">
+
+    <ImageView
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:src="@drawable/close_black"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imv1"
+        android:layout_width="15dp"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imv1"
+        android:layout_centerHorizontal="true"
+        android:text="NHẬP THÔNG TIN"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:layout_marginTop="@dimen/app_margin_top"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:textColor="@color/colorGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:autoLink="phone"
+            android:text="---" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl1"
+        android:layout_marginTop="@dimen/app_margin_top"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:textColor="@color/colorGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="---" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -228,7 +228,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/rlLeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="false"
-                        android:text="Quản lý vùng" />
+                        android:text="Quản lý vùng *" />
 
                     <TextView
                         android:id="@+id/tvLeaderName"

@@ -50,11 +50,11 @@ class WorkOutlineProjectAdapter(private val topicDetails: List<WorkOutline>) : R
         if(topic.finishDatetime == null ) {
             holder.quantity.text = "Chưa hoàn thành"
             holder.imvCheck.setImageResource(R.drawable.dot2)
-            holder.imvNext.visibility = View.GONE
+//            holder.imvNext.visibility = View.GONE
         } else {
             holder.quantity.text = topic.finishDatetime
             holder.imvCheck.setImageResource(R.drawable.check_green2)
-            holder.imvNext.visibility = View.VISIBLE
+//            holder.imvNext.visibility = View.VISIBLE
         }
 
 //        holder.quantity.text = Utils.convertDate(topic.createdTime)

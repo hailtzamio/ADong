@@ -53,11 +53,11 @@ class CreateProjectActivity : BaseActivity() {
     var latitude = 0.0
     var longitude = 0.0
 
-    var investorManager = AreaManager("","","")
-    var investorDeputyManager = AreaManager("","","")
+    var investorManager = AreaManager("", "", "")
+    var investorDeputyManager = AreaManager("", "", "")
 
-    var dialog:AreaProfileDialog? = null
-    var dialog2:AreaProfileDialog? = null
+    var dialog: AreaProfileDialog? = null
+    var dialog2: AreaProfileDialog? = null
 
     override fun getLayout(): Int {
         return R.layout.activity_create_project
@@ -67,8 +67,8 @@ class CreateProjectActivity : BaseActivity() {
         tvTitle.text = "Tạo Công Trình"
         rightButton.visibility = View.GONE
 
-         dialog = AreaProfileDialog(this, investorManager)
-         dialog2 = AreaProfileDialog(this, investorDeputyManager)
+        dialog = AreaProfileDialog(this, investorManager)
+        dialog2 = AreaProfileDialog(this, investorDeputyManager)
 
         tvChooseDate.setOnClickListener {
             hideKeyboard()
@@ -100,7 +100,7 @@ class CreateProjectActivity : BaseActivity() {
 
             if (checkedRadioButton.text.toString() == "Đội Á đông") {
                 isChooseADong = true
-                rlLeader.visibility = View.GONE
+                rlLeader.visibility = View.VISIBLE
 
                 tvContractor.text = "Tên đội *"
                 tvChooseLeader.text = "Trưởng bộ phận *"
@@ -112,8 +112,8 @@ class CreateProjectActivity : BaseActivity() {
                 rlLeader.visibility = View.VISIBLE
 
                 tvContractor.text = "Tên đội"
-                tvChooseLeader.text = "Trưởng bộ phận"
-                tvDeputyName.text = "Phó bộ phận"
+                tvChooseLeader.text = "Trưởng bộ phận *"
+                tvDeputyName.text = "Phó bộ phận *"
                 tvSeName.text = "Thư ký *"
             }
 
@@ -189,17 +189,15 @@ class CreateProjectActivity : BaseActivity() {
                 }
             }
 
+            if (checkChooseOrNot(tvLeaderName)) {
+                showToast("Chọn Quản lý vùng")
+                return@setOnClickListener
+            }
+
             if (checkChooseOrNot(tvSecretaryName)) {
                 showToast("Chọn thư ký")
                 return@setOnClickListener
             }
-
-//            if (!isChooseADong) {
-//                if (checkChooseOrNot(tvLeaderName)) {
-//                    showToast("Chọn thiếu thông tin")
-//                    return@setOnClickListener
-//                }
-//            }
 
             val product = JsonObject()
             product.addProperty("name", edtName.text.toString())
@@ -235,7 +233,7 @@ class CreateProjectActivity : BaseActivity() {
                 product.addProperty("contractorId", contractorId)
             }
 
-            if (!isChooseADong && leaderId != 0) {
+            if (leaderId != 0) {
                 product.addProperty("supervisorId", leaderId)
             }
 
@@ -277,7 +275,7 @@ class CreateProjectActivity : BaseActivity() {
 
             dialog2!!.show()
             dialog2!!.onItemClick = {
-                if (it.type == 2)  {
+                if (it.type == 2) {
                     investorDeputyManager = it
                     tvDeputyManagerName.text = it.name
                 }

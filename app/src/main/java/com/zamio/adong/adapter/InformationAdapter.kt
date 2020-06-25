@@ -21,6 +21,7 @@ class InformationAdapter(private val topicDetails: List<Information>) : Recycler
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tvName: TextView = view.findViewById(R.id.tvName)
         var tvTitle: TextView = view.findViewById(R.id.tvTitle)
+        var imvNext: ImageView = view.findViewById(R.id.imvNext)
         var view: View = view.findViewById(R.id.view)
 
         init {
@@ -43,6 +44,12 @@ class InformationAdapter(private val topicDetails: List<Information>) : Recycler
 
         if(position == topicDetails.size -1) {
             holder.view.visibility = View.GONE
+        }
+
+        if(topic.type == "Show") {
+            holder.imvNext.visibility = View.VISIBLE
+        } else {
+            holder.imvNext.visibility = View.GONE
         }
     }
 

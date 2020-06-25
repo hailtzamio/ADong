@@ -79,11 +79,11 @@
                     android:text="" />
 
                 <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@+id/tvAddress"
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAddress"
+                    android:layout_marginTop="5dp"
                     android:text="" />
             </RelativeLayout>
 
@@ -110,9 +110,9 @@
 
                 <TextView
                     android:id="@+id/tvPause"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
@@ -191,7 +191,8 @@
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -203,10 +204,10 @@
                     android:id="@+id/tvContractorOrTeam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:text="" />
 
                 <TextView
+                    android:layout_below="@+id/tvContractorOrTeam"
                     android:id="@+id/tvContractorOrTeamLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -214,13 +215,16 @@
                     android:textColor="@color/colorGray" />
 
                 <View
+                    android:layout_below="@+id/tvContractorOrTeamLabel"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/colorView" />
 
 
-            </LinearLayout>
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/lnTeamName"
@@ -260,7 +264,8 @@
                 android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/lnManager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -273,6 +278,7 @@
                         android:text="---" />
 
                     <TextView
+                        android:layout_below="@+id/tvManagerName"
                         android:id="@+id/tvChooseLeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -280,14 +286,25 @@
                         android:textColor="@color/colorGray" />
 
                     <View
+                        android:layout_below="@+id/tvChooseLeader"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="10dp"
                         android:background="@color/colorView" />
 
-                </LinearLayout>
+                    <ImageView
 
-                <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/next"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/lnDeputyManager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -300,9 +317,45 @@
                         android:text="---" />
 
                     <TextView
+                        android:id="@+id/tvDeputy"
+                        android:layout_below="@+id/tvDeputyManagerName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Phó bộ phận"
+                        android:textColor="@color/colorGray" />
+
+                    <View
+                        android:layout_below="@+id/tvDeputy"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorView" />
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/next"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnAreaManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAreaManagerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="---" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quản lý vùng"
                         android:textColor="@color/colorGray" />
 
                     <View

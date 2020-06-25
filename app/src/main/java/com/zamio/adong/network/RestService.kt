@@ -273,10 +273,10 @@ interface RestService {
 
 
     @GET("project/{projectId}/checkinPhotos")
-    fun getProjectImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
+    fun getProjectImages(@Path("projectId") id: Int): Call<RestData<ArrayList<ProjectImage>>>
 
     @GET("project/{projectId}/projectCompletionPhotos")
-    fun getProjectFinishImages(@Path("projectId") id: Int): Call<RestData<List<ProjectImage>>>
+    fun getProjectFinishImages(@Path("projectId") id: Int): Call<RestData<ArrayList<ProjectImage>>>
 
     @GET("project/{projectId}/attendances")
     fun getProjectAttendances(@Path("projectId") id: Int): Call<RestData<List<AttendanceCheckout>>>

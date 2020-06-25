@@ -25,6 +25,7 @@ import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListAct
 import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
 import com.zamio.adong.ui.project.tab.ui.main.album.AllAlbumProjectActivity
+import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
 import org.json.JSONObject
@@ -75,7 +76,7 @@ class ProductInformationFragment : BaseFragment() {
     }
 
     private fun goToBaseInformation() {
-        val intent = Intent(context, BasicInformationActivity::class.java)
+        val intent = Intent(context, BasicInformation2Activity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -99,7 +100,7 @@ class ProductInformationFragment : BaseFragment() {
     }
 
     private fun goToAlbum() {
-        val intent = Intent(context, AllAlbumProjectActivity::class.java)
+        val intent = Intent(context, FinishProjectAlbumActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -253,10 +254,9 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Line")
         data.add("Đánh giá công trình")
         data.add("An toàn lao động")
-
+        data.add("Kho ảnh")
         if (teamType == Team.ADONG.type) {
             data.add("Line")
-            data.add("Kho ảnh")
             data.add("Lịch sử điểm danh")
         }
 
