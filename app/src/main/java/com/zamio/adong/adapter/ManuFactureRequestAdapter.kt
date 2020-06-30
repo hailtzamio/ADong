@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.*
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -33,8 +34,6 @@ class ManuFactureRequestAdapter(private val topicDetails: List<ManuFactureRes>) 
                     onItemClick?.invoke(topicDetails[adapterPosition])
                 }
             }
-
-            tv6.visibility = View.GONE
         }
     }
 
@@ -56,23 +55,23 @@ class ManuFactureRequestAdapter(private val topicDetails: List<ManuFactureRes>) 
             holder.tv2.text = topic.warehouseName
         }
 
-        if (topic.status != null) {
-            holder.tv3.text = topic.status.toString()
+        if (topic.projectName != null) {
+            holder.tv3.text = topic.projectName.toString()
+        }
+
+        if (topic.projectAddress != null && topic.projectAddress != "") {
+            holder.tv4.text = topic.projectAddress
         }
 
         if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
-            holder.tv4.text = topic.plannedDatetime
+            holder.tv5.text = Utils.convertDate(topic.plannedDatetime)
         }
 
-        if (topic.note != null && topic.note != "") {
-            holder.tv5.text = topic.note
+        if (topic.status != null && topic.status == 1) {
+            holder.tv6.text = "Mới"
+        } else {
+            holder.tv6.text = "Hoàn thành"
         }
-
-//        if (topic.status != null && topic.status == "DONE") {
-//            holder.tv6.text = "Đã giao"
-//        } else {
-//            holder.tv6.text = "Nháp"
-//        }
     }
 
     override fun getItemCount(): Int {

@@ -60,11 +60,11 @@ class GoodsReceivedNoteAdapter(private val topicDetails: List<GoodsNote>, privat
                 }
 
                 if (topic.note != null && topic.note != "") {
-                    holder.tv4.text = topic.note
+                    holder.tv5.text = topic.note
                 }
 
                 if (topic.warehouseName != null && topic.warehouseName != "") {
-                    holder.tv5.text = topic.warehouseName
+                    holder.tv4.text = topic.warehouseName
                 }
 
                 if (topic.status == "DONE") {
