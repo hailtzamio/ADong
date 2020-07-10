@@ -15,7 +15,10 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.Team
 import com.zamio.adong.network.ConstantsApp
+import kotlinx.android.synthetic.main.fragment_main_project_list.*
 import kotlinx.android.synthetic.main.fragment_main_team_list.*
+import kotlinx.android.synthetic.main.fragment_main_team_list.recyclerView
+import kotlinx.android.synthetic.main.fragment_main_team_list.viewNoData
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
@@ -86,6 +89,12 @@ class MainTeamFragment : BaseFragment() {
                 dismisProgressDialog()
                 if( response!!.body() != null && response!!.body().status == 1){
                     setupRecyclerView(response.body().data!!)
+
+                    if (response.body().data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
+                    }
 
                     val pagination = response.body().pagination!!
 

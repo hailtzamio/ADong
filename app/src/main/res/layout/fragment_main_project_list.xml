@@ -88,4 +88,12 @@
         android:visibility="visible"
         android:src="@drawable/map_vew" />
 
+    <include
+        android:id="@+id/viewNoData"
+        layout="@layout/no_data_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

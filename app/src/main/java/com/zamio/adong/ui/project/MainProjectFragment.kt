@@ -21,7 +21,9 @@ import com.zamio.adong.popup.ProjectTypeDialog
 import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.PaginationScrollListener
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main_project_list.*
+import kotlinx.android.synthetic.main.fragment_main_project_list.viewNoData
 import kotlinx.android.synthetic.main.fragment_main_team_list.recyclerView
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
@@ -139,6 +141,13 @@ class MainProjectFragment : BaseFragment() {
                         totalPage = response.body().pagination!!.totalPages!!
 
                         val pagination = response.body().pagination!!
+
+
+                        if (data.isNotEmpty()) {
+                            viewNoData.visibility = View.GONE
+                        } else {
+                            viewNoData.visibility = View.VISIBLE
+                        }
 
                         if (pagination.totalRecords != null) {
 

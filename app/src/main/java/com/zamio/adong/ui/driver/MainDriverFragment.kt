@@ -14,7 +14,9 @@ import com.zamio.adong.R
 import com.zamio.adong.model.Driver
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.map.MapActivity
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main_lorry_list.*
+import kotlinx.android.synthetic.main.fragment_main_lorry_list.recyclerView
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -77,6 +79,12 @@ class MainDriverFragment : BaseFragment() {
                 dismisProgressDialog()
                 if(response!!.body() != null && response!!.body().status == 1){
                     setupRecyclerView(response.body().data!!)
+
+                    if (response.body()!!.data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
+                    }
                 }
             }
         })
