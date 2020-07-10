@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginRight="10dp">
+
 
 
     <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -42,7 +41,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/truck" />
+                        android:src="@drawable/icon_check" />
 
                     <TextView
                         android:id="@+id/tvName"
@@ -52,8 +51,7 @@
                         android:layout_marginLeft="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="1111"
-                        android:textStyle="bold" />
+                        android:text="1111" />
                 </LinearLayout>
 
                 <TextView
@@ -69,6 +67,7 @@
                     android:text="11111" />
 
                 <TextView
+                    android:textColor="@color/colorGray"
                     android:id="@+id/tvUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,11 +79,24 @@
                     android:text="11111" />
 
                 <TextView
+                    android:textColor="@color/colorGray"
                     android:layout_marginRight="30dp"
                     android:id="@+id/tvQuantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUnit"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="11111" />
+
+                <TextView
+                    android:textColor="@color/colorGray"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/tv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvQuantity"
                     android:singleLine="true"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -95,7 +107,3 @@
 
 
     </androidx.cardview.widget.CardView>
-
-
-
-</RelativeLayout>

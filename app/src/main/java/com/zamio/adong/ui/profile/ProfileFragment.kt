@@ -73,12 +73,14 @@ class ProfileFragment : BaseFragment() {
         }
 
         lnUpdateProfile.setOnClickListener {
-            //            startActivityForResult(Intent(context, UpdateProfileActivity::class.java),1000)
+            startActivityForResult(Intent(context, UpdateProfileActivity::class.java),1000)
         }
 
         lnChangePassword.setOnClickListener {
             startActivityForResult(Intent(context, ChangePasswordActivity::class.java), 1000)
         }
+
+
     }
 
     private fun getProfile() {

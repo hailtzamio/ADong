@@ -72,7 +72,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:src="@drawable/lock"
-                    android:text="Cập nhật" />
+                    android:text="Cập nhật thông tin" />
 
             </LinearLayout>
 

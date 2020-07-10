@@ -20,6 +20,7 @@ import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.criteria.MainCriteriaActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
@@ -95,6 +96,12 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun goToCheckinHistory() {
         val intent = Intent(context, CheckoutInWorkerListActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToGiveStars() {
+        val intent = Intent(context, MainCriteriaActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -252,8 +259,7 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Danh sách yêu cầu vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
-        data.add("Đánh giá công trình")
-        data.add("An toàn lao động")
+//        data.add("Đánh giá Công trình")
         data.add("Kho ảnh")
         if (teamType == Team.ADONG.type) {
             data.add("Line")
@@ -267,7 +273,6 @@ class ProductInformationFragment : BaseFragment() {
 
         mAdapter.onItemClick = { i ->
 
-
             when (data[i]) {
                 "Thông tin cơ bản" -> goToBaseInformation()
                 "Danh sách đăng ký thi công" -> goToRegistration()
@@ -276,6 +281,7 @@ class ProductInformationFragment : BaseFragment() {
                 "Bản thiết kế" -> goToFile()
                 "Kho ảnh" -> goToAlbum()
                 "Lịch sử điểm danh" -> goToCheckinHistory()
+                "Đánh giá Công trình" -> goToGiveStars()
             }
 
 

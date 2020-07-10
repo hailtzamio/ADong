@@ -1,7 +1,11 @@
 package com.zamio.adong.ui.map
 
 import RestClient
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.location.LocationManager
@@ -25,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
+import kotlinx.android.synthetic.main.fragment_map.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,7 +59,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
+        animationTest()
         return rootView
     }
 
@@ -77,7 +82,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         when(type) {
             1 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.busy_dot, null) as BitmapDrawable
             2 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.green_dot, null) as BitmapDrawable
-            3 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.correct_orange, null) as BitmapDrawable
+            3 -> bitmapdraw = ResourcesCompat.getDrawable(resources,R.drawable.blue_icon, null) as BitmapDrawable
         }
 
         val b = bitmapdraw.bitmap
@@ -103,24 +108,20 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                         if(mList != null) {
                             mList.forEach {
                                 val location = LatLng(it.latitude ?: 0.0, it.longitude ?: 0.0)
-                                val marker = com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
-                                    com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(getBitmapIcon(2)))
+//                                val marker = com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
+//                                    com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(getBitmapIcon(2)))
 
                                 with(mMap) {
                                     when (it.status) {
                                         "PROCESSING" -> {
-//
+                                            if(it.teamType == "ADONG") {
+                                                addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
+                                                    com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(getBitmapIcon(2))))
+                                            } else {
+                                                addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
+                                                    com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(getBitmapIcon(3))))
+                                            }
 
-//                                            val mainHandler = Handler(Looper.getMainLooper())
-//
-//                                            mainHandler.post(object : Runnable {
-//                                                override fun run() {
-//                                                    Log.d("Hailpt", "~~~~")
-//                                                    mainHandler.postDelayed(this, 1000)
-//
-//                                                }
-//                                            })
-                                            addMarker(marker.visible(true))
                                         }
                                         "NEW" -> {
                                             addMarker(com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
@@ -174,8 +175,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     fun animationTest() {
-        val markertimer  = Timer()
-
+//        val colorAnim: ObjectAnimator  = ObjectAnimator.ofInt(tvTitle, "backgroundColor", Color.BLACK, Color.TRANSPARENT)
+//        colorAnim.duration = 500
+//        colorAnim.setEvaluator(ArgbEvaluator())
+//        colorAnim.repeatCount = ValueAnimator.INFINITE
+//        colorAnim.repeatMode = ValueAnimator.REVERSE
+//        colorAnim.start()
     }
 
 }

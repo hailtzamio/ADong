@@ -2,6 +2,7 @@ package com.zamio.adong.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Profile(
     @SerializedName("accountNonExpired")
@@ -38,4 +39,4 @@ data class Profile(
     val updatedById: Int,
     @SerializedName("username")
     val username: String
-)
+): Serializable

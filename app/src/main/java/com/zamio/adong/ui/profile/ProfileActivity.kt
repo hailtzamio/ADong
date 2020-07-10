@@ -13,7 +13,9 @@ import com.elcom.com.quizupapp.utils.PreferUtils
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.model.Profile
+import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.LoginActivity
+import com.zamio.adong.ui.lorry.UpdateLorryActivity
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.btnLogout
 import kotlinx.android.synthetic.main.activity_profile.imvAva
@@ -22,12 +24,14 @@ import kotlinx.android.synthetic.main.activity_profile.lnUpdateProfile
 import kotlinx.android.synthetic.main.activity_profile.tvEmail
 import kotlinx.android.synthetic.main.activity_profile.tvName
 import kotlinx.android.synthetic.main.activity_profile.tvPhone
-import kotlinx.android.synthetic.main.fragment_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileActivity : BaseActivity() {
+
+
+    var profile:Profile? = null
     override fun getLayout(): Int {
         return R.layout.activity_profile
     }
@@ -67,7 +71,12 @@ class ProfileActivity : BaseActivity() {
         }
 
         lnUpdateProfile.setOnClickListener {
-            //            startActivityForResult(Intent(context, UpdateProfileActivity::class.java),1000)
+
+            val intent = Intent(this, UpdateProfileActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, profile!!)
+            startActivity(intent)
+             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
         }
 
         lnChangePassword.setOnClickListener {
@@ -92,15 +101,15 @@ class ProfileActivity : BaseActivity() {
                 dismisProgressDialog()
                 if (response?.body() != null && response.body()!!.data != null) {
 
-                    val profile = response.body()!!.data
+                     profile = response.body()!!.data
 
                     if (profile != null) {
-                        tvName.text = profile.fullName ?: "---"
-                        tvEmail.text = profile.email ?: "---"
-                        tvPhone.text = profile.phone ?: "---"
+                        tvName.text = profile!!.fullName ?: "---"
+                        tvEmail.text = profile!!.email ?: "---"
+                        tvPhone.text = profile!!.phone ?: "---"
 
-                        if(profile.avatarUrl != null && profile.avatarUrl != "") {
-                            Picasso.get().load(profile.avatarUrl).error(R.drawable.ava).into(imvAva)
+                        if(profile!!.avatarUrl != null && profile!!.avatarUrl != "") {
+                            Picasso.get().load(profile!!.avatarUrl).error(R.drawable.ava).into(imvAva)
                         }
 
                     }
