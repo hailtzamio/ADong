@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Á Đông</string>
-    <string name="title_home">Thông báo</string>
+    <string name="title_home">Công Trình</string>
     <string name="title_dashboard">Cài đặt</string>
-    <string name="title_permissions">Trang chủ</string>
+    <string name="title_permissions">Công Việc </string>
 
     <string name="nv1">Trang chủ</string>
     <string name="nv2">Thông báo</string>

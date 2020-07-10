@@ -32,7 +32,7 @@ data class Contractor(
     @SerializedName("status")
     var status: String?,
     @SerializedName("phone")
-    var phone: String,
+    var phone: String?,
     @SerializedName("projectId")
     val projectId: Int,
     @SerializedName("projectName")

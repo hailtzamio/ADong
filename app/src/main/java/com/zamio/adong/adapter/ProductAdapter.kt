@@ -92,9 +92,9 @@ class ProductAdapter(private val topicDetails: List<Product>, val isShowCheckBox
         holder.quantity.text = topic.quantity.toString()
 
         when (topic.type) {
-            "buy" -> holder.type.text = "Mua tại công trình"
+            "buy" -> holder.type.text = "Mua"
             "manufacture" -> holder.type.text = "Sản xuất"
-            "tool" -> holder.type.text = "Công cụ"
+            "tool" -> holder.type.text = "Xuất kho"
         }
 
         //in some cases, it will prevent unwanted situations

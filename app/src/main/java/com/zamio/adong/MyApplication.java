@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.downloader.PRDownloader;
+import com.elcom.com.quizupapp.utils.PreferUtils;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
 import com.zamio.adong.network.ConstantsApp;
 import com.zamio.adong.ui.activity.LoginActivity;
-import com.zamio.adong.ui.notification.ReceiveNotificationActivity;
 import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity;
-import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity;
 import com.zamio.adong.ui.trip.DetailTripActivity;
 import com.zamio.adong.utils.ConnectivityReceiver;
 import com.zamio.adong.utils.FontsOverride;
@@ -40,6 +39,11 @@ public class MyApplication extends Application {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+
+        PreferUtils preferUtils = new PreferUtils();
+        String token = preferUtils.getToken(this);
+        ConstantsApp.BASE64_AUTH_TOKEN = token;
+        Log.d("Token", "== " + token );
 //
 //        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.DEBUG, OneSignal.LOG_LEVEL.WARN);
 //

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    tools:context=".ui.profile.ProfileFragment">
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/logout"
+        android:padding="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorHeader"
+        android:gravity="center_horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="20dp"
+            android:padding="1dp"
+            android:id="@+id/imvAva"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ava"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorGray2"/>
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProfile"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/white"
+        android:elevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/lnUpdateProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/user" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/lock"
+                    android:text="Cập nhật" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnChangePassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/lock" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/lock"
+                    android:text="Đổi mật khẩu" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cvProfile"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên:" />
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Số điện thoại:" />
+
+            <TextView
+                android:textColor="@color/colorGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email:" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="" />
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

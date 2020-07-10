@@ -2,6 +2,7 @@ package com.zamio.adong.ui
 
 import PermissionAdapter
 import RestClient
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,16 +14,20 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
 import com.zamio.adong.model.Permission
+import com.zamio.adong.model.Profile
 import com.zamio.adong.model.User
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.contractor.MainContractorActivity
 import com.zamio.adong.ui.criteria.MainCriteriaActivity
 import com.zamio.adong.ui.driver.MainDriverActivity
 import com.zamio.adong.ui.lorry.MainLorryActivity
+import com.zamio.adong.ui.notification.NotificationActivity
 import com.zamio.adong.ui.product.MainProductActivity
+import com.zamio.adong.ui.profile.ProfileActivity
 import com.zamio.adong.ui.project.MainProjectActivity
 import com.zamio.adong.ui.project.tab.ui.main.registration.ProjectRegistranleActivity
 import com.zamio.adong.ui.team.MainTeamActivity
@@ -55,6 +60,18 @@ class PermissionsFragment : BaseFragment() {
 //        rightButton.visibility = View.GONE
 //        tvTitle.text = "Trang Chủ"
         getMyRoles()
+        getProfile()
+
+        imvNotification.setOnClickListener {
+            val intent = Intent(context, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
+        imvAva.setOnClickListener {
+
+            val intent = Intent(context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getPermission(){
@@ -319,5 +336,35 @@ class PermissionsFragment : BaseFragment() {
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
         }
+    }
+
+    private fun getProfile() {
+
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getProfile().enqueue(object :
+            Callback<RestData<Profile>> {
+            override fun onFailure(call: Call<RestData<Profile>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<RestData<Profile>>?,
+                response: Response<RestData<Profile>>?
+            ) {
+                dismisProgressDialog()
+                if (response?.body() != null && response.body()!!.data != null) {
+
+                    val profile = response.body()!!.data
+
+                    if (profile != null) {
+                        if(profile.avatarUrl != null && profile.avatarUrl != "") {
+                            Picasso.get().load(profile.avatarUrl).error(R.drawable.ava).into(imvAva)
+                        }
+                    }
+
+                }
+            }
+        })
     }
 }

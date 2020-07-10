@@ -14,5 +14,6 @@ data class NotificationOb(
     var updatedById: Int?,
     var updatedTime: String?,
     var userFullName: String?,
-    var userId: Int?
+    var userId: Int?,
+    var seen: Boolean?
 )

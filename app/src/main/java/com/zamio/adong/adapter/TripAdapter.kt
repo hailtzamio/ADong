@@ -1,3 +1,4 @@
+
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.Trip
 import com.zamio.adong.utils.Utils
 
 
@@ -57,8 +58,8 @@ class TripAdapter(private val topicDetails: List<Trip>) :
             holder.tv2.text = topic.driverFullName
         }
 
-        if (topic.note != null && topic.note != "") {
-            holder.tv3.text = topic.note
+        if (topic.driverPhone != null && topic.driverPhone != "") {
+            holder.tv3.text = topic.driverPhone
         }
 
         if (topic.lorryPlateNumber != null && topic.lorryPlateNumber != "") {
@@ -82,6 +83,11 @@ class TripAdapter(private val topicDetails: List<Trip>) :
                 }
                 3 -> {
                     holder.tv6.text = "Hoàn thành"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
+                }
+
+                4 -> {
+                    holder.tv6.text = "Đang xử lý"
                     holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
                 }
             }

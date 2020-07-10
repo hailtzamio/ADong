@@ -1,14 +1,15 @@
 
 
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
 import com.zamio.adong.model.NotificationOb
-import com.zamio.adong.model.WareHouse
 
 
 /**
@@ -27,14 +28,12 @@ class NotificationAdapter(private val topicDetails: List<NotificationOb>) : Recy
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }
-
-            quantity.visibility = View.GONE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_work_outline_layout, parent, false)
+                .inflate(R.layout.item_notification_layout, parent, false)
 
         return MyViewHolder(itemView)
     }
@@ -42,7 +41,15 @@ class NotificationAdapter(private val topicDetails: List<NotificationOb>) : Recy
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.title
-        holder.unit.text = topic.createdByFullName ?: "---"
+        holder.unit.text = topic.content ?: "---"
+
+        if(topic.seen == true) {
+            holder.quantity.text = "Đã đọc"
+            holder.quantity.setTextColor(Color.parseColor(AppColor.Green.hex))
+        } else {
+            holder.quantity.text = "Chưa đọc"
+            holder.quantity.setTextColor(Color.parseColor(AppColor.Red.hex))
+        }
     }
 
     override fun getItemCount(): Int {

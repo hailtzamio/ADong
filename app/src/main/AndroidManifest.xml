@@ -28,6 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.profile.ProfileActivity"></activity>
+        <activity android:name=".ui.notification.NotificationActivity" />
         <activity
             android:name=".ui.ware.stock.stock.StockListActivity"
             android:screenOrientation="portrait" />
@@ -140,19 +142,15 @@
         <activity
             android:name=".ui.lorry.map.LorryLocationActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.lorry.map.LorryListLocationActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.PreviewImageActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.team.ChooseTeamLeaderActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".test.ScrollingActivity"
             android:label="@string/title_activity_scrolling"
@@ -243,126 +241,96 @@
         <activity
             android:name=".ui.ware.WareTabActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.stock.CreateStockActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.stock.DetailStockActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.stock.UpdateStockActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_received.GoodsReceivedNoteListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_received.CreateGoodsReceivedNoteActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_received.DetailGoodsReveivedActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue.GoodsIssueListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_received.UpdateGoodsReceivedNoteActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue.DetailGoodsIssueActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue.UpdateGoodsIssueActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue.CreateGoodsIssueActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue_request.GoodsIssueRequestListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue_request.DetailGoodsIssueRequestActivity"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".ui.ware.stock.factory.ManufactureRequestListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.factory.CreateFactoryActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.factory.DetailManuFactureRequestActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.ware.stock.goods_issue_request.CreateGoodsIssueRequestActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.trip.TripTabActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.trip.DetailTransportActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.trip.CreateTripActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.project.tab.ui.main.registration.ProjectRegistranleActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.project.tab.ui.main.information.ProjectRegisterActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.trip.TripActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.trip.DetailTripActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.project.tab.ui.main.file.ProjectFilesActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".test.TestGpsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.project.tab.ui.main.album.AllAlbumProjectActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.project.tab.ui.main.album.FinishProjectAlbumActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.trip.TripAlbumImage"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.project.tab.ui.main.file.ChildFileListActivity"
             android:screenOrientation="portrait" />
@@ -372,9 +340,6 @@
         <activity
             android:name=".ui.activity.SplashActivity"
             android:label="@string/app_name">
-
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

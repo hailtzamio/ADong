@@ -40,6 +40,9 @@ interface RestService {
     @GET("product/{id}")
     fun getProduct(@Path("id") productId: Int): Call<RestData<Product>>
 
+    @GET("notification/{id}")
+    fun getNotification(@Path("id") productId: Int): Call<RestData<JsonElement>>
+
     @POST("product")
     fun createUser(@Body product: JsonObject): Call<RestData<JsonElement>>
 
