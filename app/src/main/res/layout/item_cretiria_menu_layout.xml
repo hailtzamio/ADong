@@ -66,6 +66,7 @@
 
                 <androidx.appcompat.widget.AppCompatRatingBar
                     android:rating="3.5"
+                    android:visibility="gone"
                     style="?android:attr/ratingBarStyleSmall"
                     android:id="@+id/rating"
                     android:numStars="5"

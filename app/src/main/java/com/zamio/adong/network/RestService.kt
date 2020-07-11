@@ -396,7 +396,7 @@ interface RestService {
     @GET("user?size=100&sort=id")
     fun getBuyers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-    @GET("transportRequest?size=100&sort=id,desc")
+    @GET("transportRequest?status=1&size=100&sort=id,desc")
     abstract fun getTransports(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Transport>>>
 
     @GET("transportRequest/{id}")

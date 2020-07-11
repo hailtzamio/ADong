@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
 import com.zamio.adong.model.Detail
@@ -17,10 +18,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 class SmallCriteriaAdapter(private val topicDetails: List<Detail>) : RecyclerView.Adapter<SmallCriteriaAdapter.MyViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var name: TextView = view.findViewById(R.id.tvName)
-        var phone: TextView = view.findViewById(R.id.tvPhone)
+        var tv2: TextView = view.findViewById(R.id.tv2)
         var imvAva: CircleImageView = view.findViewById(R.id.imvAva)
-
+        var rating: AppCompatRatingBar = view.findViewById(R.id.rating)
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(adapterPosition)
@@ -38,8 +38,8 @@ class SmallCriteriaAdapter(private val topicDetails: List<Detail>) : RecyclerVie
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
-        holder.name.text = topic.criterionName
-        holder.phone.text = topic.factor.toString()
+        holder.tv2.text = topic.criterionName
+        holder.rating.rating = topic.point ?: 0.0f
     }
 
     override fun getItemCount(): Int {

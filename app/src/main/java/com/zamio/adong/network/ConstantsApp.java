@@ -26,6 +26,7 @@ public class ConstantsApp {
 
     public static String USER_PERMISSIONS = "product";
     public static String USER_ROLES = "product";
+    public static String defaultDate = "2020-07-11T11:14:51";
 
 //            public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
 //    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
