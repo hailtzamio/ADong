@@ -17,6 +17,10 @@ data class Criteria(
     val id: Int,
     @SerializedName("name")
     val name: String,
+    @SerializedName("key")
+    val key: String,
+    @SerializedName("value")
+    val value: String,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")
@@ -24,3 +28,11 @@ data class Criteria(
     @SerializedName("updatedTime")
     val updatedTime: String
 ) : Serializable
+
+data class CriteriaMenu(
+    var type: String?,
+    var score: Float?,
+    var key: String?,
+    var value: String?,
+    var description: String?
+)

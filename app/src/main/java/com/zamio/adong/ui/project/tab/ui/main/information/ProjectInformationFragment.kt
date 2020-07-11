@@ -20,13 +20,12 @@ import com.google.gson.JsonObject
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.criteria.MainCriteriaActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
+import com.zamio.adong.ui.project.tab.ui.main.criteria.CriteriaMenuActivity
 import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
-import com.zamio.adong.ui.project.tab.ui.main.album.AllAlbumProjectActivity
-import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
 import org.json.JSONObject
@@ -101,7 +100,7 @@ class ProductInformationFragment : BaseFragment() {
     }
 
     private fun goToGiveStars() {
-        val intent = Intent(context, MainCriteriaActivity::class.java)
+        val intent = Intent(context, CriteriaMenuActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -259,7 +258,7 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Danh sách yêu cầu vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
-//        data.add("Đánh giá Công trình")
+        data.add("Đánh giá Công trình")
         data.add("Kho ảnh")
         if (teamType == Team.ADONG.type) {
             data.add("Line")
@@ -283,36 +282,6 @@ class ProductInformationFragment : BaseFragment() {
                 "Lịch sử điểm danh" -> goToCheckinHistory()
                 "Đánh giá Công trình" -> goToGiveStars()
             }
-
-
-//
-//            if (ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type)) {
-//
-//                when (product) {
-//                    0 -> goToBaseInformation()
-//                    2 -> {
-//                        if (teamType == Team.CONTRACTOR.type) {
-//                            goToRegistration()
-//                        } else {
-//                            goToAddingWorkers()
-//                        }
-//                    }
-//                    3 -> goToProductRequirement()
-//                    4 -> goToFile()
-//                    9 -> goToAlbum()
-//                    10 -> goToCheckinHistory()
-//                }
-//            } else {
-//                when (product) {
-//                    0 -> goToBaseInformation()
-//                    2 -> goToProductRequirement()
-//                    3 -> goToFile()
-//                    8 -> goToAlbum()
-//                    9 -> goToCheckinHistory()
-//                }
-//            }
-
-
         }
     }
 

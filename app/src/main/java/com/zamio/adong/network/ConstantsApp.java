@@ -30,8 +30,8 @@ public class ConstantsApp {
 //            public static String SERVER_URL = "http://adong-api.zamio.net/api/"; // UAT
 //    public static String SERVER_URL = "http://adong-api-dev.zamio.net/api/";
 
-//    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
-    public static String SERVER_URL = "https://erp-api.adong.com.vn/api/";
+    public static String SERVER_URL = "http://adong-api-test.zamio.net/api/";
+//    public static String SERVER_URL = "https://erp-api.adong.com.vn/api/";
 
     public static String KEY_LIVECHALLENGE_SHOWID = "KEY_LIVECHALLENGE_SHOWID";
     public static String KEY_LIVECHALLENGE_TOTAL = "KEY_LIVECHALLENGE_TOTAL";

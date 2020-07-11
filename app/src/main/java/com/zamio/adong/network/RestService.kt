@@ -104,6 +104,9 @@ interface RestService {
     @GET("criteriaBundle?size=100&sort=id,desc")
     fun getCriterias(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<List<Criteria>>>
 
+    @GET("sysParam?size=100&sort=id,desc")
+    fun getSysParams(): Call<RestData<ArrayList<CriteriaMenu>>>
+
     @GET("criteriaBundle/{cbId}")
     fun getCriteria(@Path("cbId") id: Int): Call<RestData<Criteria>>
 
@@ -203,6 +206,9 @@ interface RestService {
 
     @PUT("project/{id}/pause")
     fun pauseProject(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>
+
+    @GET("project/{id}/markSessions")
+    fun getMarkSessions(@Path("id") productId: Int): Call<RestData<ArrayList<MarkSession>>>
 
     @PUT("project/{id}/resume")
     fun pauseResume(@Path("id") productId: Int,@Body worker: JsonObject): Call<RestData<JsonElement>>

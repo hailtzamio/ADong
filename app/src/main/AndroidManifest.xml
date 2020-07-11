@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.map.TestMapActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.criteria.CriteriaMenuActivity"></activity>
+        <activity android:name=".ui.map.TestMapActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.notification.NotificationActivity" />
         <activity
@@ -332,7 +333,6 @@
         <activity
             android:name=".ui.trip.TripAlbumImage"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.profile.UpdateProfileActivity"
             android:screenOrientation="portrait" />
