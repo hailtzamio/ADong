@@ -57,7 +57,7 @@ data class Detail(
     @SerializedName("markSessionId")
     var markSessionId: Int?,
     @SerializedName("point")
-    var point: Int?,
+    var point: Float?,
     @SerializedName("updatedByFullName")
     var updatedByFullName: String?,
     @SerializedName("updatedById")

@@ -31,7 +31,6 @@ class CriteriaMenuActivity : BaseActivity() {
     }
 
     override fun initData() {
-        setupRecyclerView()
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
@@ -47,11 +46,6 @@ class CriteriaMenuActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
 
-//        data.add(CriteriaMenu("Quản lý đánh giá Thư ký", 3.5F))
-//        data.add(CriteriaMenu("Thư ký đánh giá Nhà thầu phụ", 3.5F))
-//        data.add(CriteriaMenu("Thư ký đánh giá Phòng vật tư", 3.5F))
-//        data.add(CriteriaMenu("Thư ký đánh giá Bộ phận giao vân", 3.5F))
-
         val mAdapter = CriteriaMenuAdapter(data)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
@@ -61,7 +55,6 @@ class CriteriaMenuActivity : BaseActivity() {
         mAdapter.onItemClick = { product ->
             showToast(product.value.toString())
 
-
             markSessions.forEach {
                 if (it.criteriaBundleId == (product.value ?: "0").toInt()) {
                     val intent = Intent(this, DetailCriteriaActivity::class.java)
@@ -70,8 +63,6 @@ class CriteriaMenuActivity : BaseActivity() {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
-
-
         }
     }
 
@@ -89,7 +80,7 @@ class CriteriaMenuActivity : BaseActivity() {
                 response: Response<RestData<ArrayList<CriteriaMenu>>>?
             ) {
                 dismisProgressDialog()
-                data.clear()
+//                data.clear()
                 if (response!!.body() != null && response!!.body().status == 1) {
                     val dataTem = response.body().data!!
                     dataTem.forEach {
@@ -109,6 +100,7 @@ class CriteriaMenuActivity : BaseActivity() {
         showProgessDialog()
         RestClient().getInstance().getRestService().getMarkSessions(id).enqueue(object :
             Callback<RestData<ArrayList<MarkSession>>> {
+
             override fun onFailure(call: Call<RestData<ArrayList<MarkSession>>>?, t: Throwable?) {
                 dismisProgressDialog()
             }
@@ -116,7 +108,7 @@ class CriteriaMenuActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<ArrayList<MarkSession>>>?, response: Response<RestData<ArrayList<MarkSession>>>?
             ) {
                 dismisProgressDialog()
-                data.clear()
+      
                 if (response!!.body() != null && response.body().status == 1) {
                     markSessions = response.body().data!!
                     Log.d("hailpt", " ==== " + markSessions.size)
