@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/lnRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imvAva"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        android:src="@drawable/materials" />
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/imvAva"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:progressTint="@color/colorOrange"
+            android:rating="3.5"
+            style="?android:attr/ratingBarStyleSmall"
+            android:id="@+id/rating"
+            android:numStars="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:text="11111"
+            android:textColor="@color/colorGray" />
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/colorView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+

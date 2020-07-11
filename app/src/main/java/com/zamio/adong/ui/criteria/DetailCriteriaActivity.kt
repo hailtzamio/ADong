@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.criteria
 
 import InformationAdapter
+import SmallCriteria2Adapter
 import SmallCriteriaAdapter
 import android.content.Intent
 import android.view.View
@@ -68,7 +69,7 @@ class DetailCriteriaActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
 
-        val mAdapter = SmallCriteriaAdapter(data!!.details!!)
+        val mAdapter = SmallCriteria2Adapter(data!!.details!!)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)

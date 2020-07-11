@@ -23,27 +23,27 @@
         <LinearLayout
             android:padding="5dp"
             android:layout_centerVertical="true"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imvAva"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:progressTint="@color/colorOrange"
-                android:rating="3.5"
-                style="?android:attr/ratingBarStyleSmall"
-                android:id="@+id/rating"
-                android:numStars="5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
+                android:singleLine="true"
+                android:text="11111" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:singleLine="true"
                 android:text="11111"
                 android:textColor="@color/colorGray" />
 
@@ -53,6 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
         </LinearLayout>
+
+
+
 
     </RelativeLayout>
 

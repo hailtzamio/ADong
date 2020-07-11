@@ -1,6 +1,3 @@
-
-
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +10,10 @@ import com.zamio.adong.model.ProductRequirement
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequirement>) : RecyclerView.Adapter<ProductRequirementAdapter.MyViewHolder>() {
+class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequirement>) :
+    RecyclerView.Adapter<ProductRequirementAdapter.MyViewHolder>() {
     var onItemClick: ((ProductRequirement) -> Unit)? = null
+
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -37,7 +36,7 @@ class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_project_requirement_layout, parent, false)
+            .inflate(R.layout.item_project_requirement_layout, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -45,8 +44,11 @@ class ProductRequirementAdapter(private val topicDetails: ArrayList<ProductRequi
         val topic = topicDetails[position]
         holder.name.text = topic.code
 
-        if(topic.status == "NEW") {
-            holder.unit.text = "Mới"
+
+        when (topic.status) {
+            "NEW" -> holder.unit.text = "Mới"
+            "PROCESSING" -> holder.unit.text = "Đang xử lý"
+            "DONE" -> holder.unit.text = "Hoàn thành"
         }
     }
 

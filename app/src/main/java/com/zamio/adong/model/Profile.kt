@@ -10,7 +10,7 @@ data class Profile(
     @SerializedName("accountNonLocked")
     val accountNonLocked: Boolean,
     @SerializedName("avatarExtId")
-    val avatarExtId: String,
+    var avatarExtId: String,
     @SerializedName("avatarUrl")
     val avatarUrl: String?,
     @SerializedName("createdByFullName")
