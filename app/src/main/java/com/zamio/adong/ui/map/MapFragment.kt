@@ -3,28 +3,21 @@ package com.zamio.adong.ui.map
 import RestClient
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Interpolator
-import android.view.animation.LinearInterpolator
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.Projection
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import retrofit2.Call
@@ -71,7 +64,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-        animationTest()
         return rootView
     }
 
@@ -79,6 +71,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         mMap = googleMap!!
 
         val location = LatLng(17.787203, 105.605202)
+
+        mMap.setOnMarkerClickListener { marker ->
+            if (marker.isInfoWindowShown) {
+                marker.hideInfoWindow()
+            } else {
+                marker.showInfoWindow()
+            }
+            true
+        }
+
+
         with(mMap) {
             moveCamera(
                 com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(
@@ -90,6 +93,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
 
         getProjects()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(marker != null) {
+            marker!!.removeMarker()
+            Log.d("hailpt", "BlinkingMarker Pause")
+        }
     }
 
     private fun getBitmapIcon(type: Int): Bitmap {
@@ -143,6 +154,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun getProjects() {
 
+        Log.d("hailpt", " getProjects ")
+
         showProgessDialog()
         RestClient().getInstance().getRestService().getProjects(0, "", "")
             .enqueue(object :
@@ -164,8 +177,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 //                                val marker = com.google.android.gms.maps.model.MarkerOptions().position(location).title(getProjectTitle(it)).icon(
 //                                    com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap(getBitmapIcon(2)))
 
-
-                                Log.d("Come Here", " onResponse ")
 
                                 with(mMap) {
 
@@ -227,43 +238,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun getProjectTitle(project: Project): String {
         return project.name ?: "" + " \n ${project.address ?: ""}"
-    }
-
-
-    fun animateMarker(marker: Marker, toPosition: LatLng, hideMarker: Boolean) {
-        val handler = Handler()
-        val start = SystemClock.uptimeMillis()
-        val proj: Projection = mMap.projection
-        val startPoint: Point = proj.toScreenLocation(marker.position)
-        val startLatLng = proj.fromScreenLocation(startPoint)
-        val duration: Long = 500
-        val interpolator: Interpolator = LinearInterpolator()
-        handler.post(object : Runnable {
-            override fun run() {
-                val elapsed = SystemClock.uptimeMillis() - start
-                val t: Float = interpolator.getInterpolation(
-                    elapsed.toFloat()
-                            / duration
-                )
-                val lng = t * toPosition.longitude + (1 - t) * startLatLng.longitude
-                val lat = t * toPosition.latitude + (1 - t) * startLatLng.latitude
-                marker.position = LatLng(lat, lng)
-                if (t < 1.0) { // Post again 16ms later.
-                    handler.postDelayed(this, 16)
-                } else {
-                    marker.isVisible = !hideMarker
-                }
-            }
-        })
-    }
-
-    fun animationTest() {
-//        val colorAnim: ObjectAnimator  = ObjectAnimator.ofInt(tvTitle, "backgroundColor", Color.BLACK, Color.TRANSPARENT)
-//        colorAnim.duration = 500
-//        colorAnim.setEvaluator(ArgbEvaluator())
-//        colorAnim.repeatCount = ValueAnimator.INFINITE
-//        colorAnim.repeatMode = ValueAnimator.REVERSE
-//        colorAnim.start()
     }
 
 }

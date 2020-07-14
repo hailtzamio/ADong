@@ -225,7 +225,9 @@ class PermissionsFragment : BaseFragment() {
             }
         }
 
-
+        if(context == null) {
+            return
+        }
 
         adapter = PermissionGridAdapter(context!!, permissions)
         gvFoods.adapter = adapter

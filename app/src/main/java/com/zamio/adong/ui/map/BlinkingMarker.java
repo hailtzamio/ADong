@@ -173,8 +173,11 @@ public class BlinkingMarker extends FragmentActivity {
         if (mUiHandler == null) {
             return;
         }
+
         mUiHandler.removeCallbacks(mBlinkerRunnable);
         mUiHandler = null;
+
+        Log.d("hailpt", "BlinkingMarker stopBlinking");
     }
 
     private void removeMarkers() {
@@ -195,6 +198,7 @@ public class BlinkingMarker extends FragmentActivity {
     private Runnable mBlinkerRunnable = new Runnable() {
         @Override
         public void run() {
+            Log.d("hailpt", "BlinkingMarker");
             if (mCurrentMarkerId == mDistinctBitmaps - 1) {
                 mDirection = -1;
             } else if (mCurrentMarkerId == 0) {
@@ -209,7 +213,7 @@ public class BlinkingMarker extends FragmentActivity {
             }
             mPrevMarkerId = mCurrentMarkerId;
             mCurrentMarkerId += mDirection;
-            mUiHandler.postDelayed(mBlinkerRunnable, 1000 / mFps);
+            mUiHandler.postDelayed(mBlinkerRunnable, 800 / mFps);
         }
     };
 
@@ -227,7 +231,7 @@ public class BlinkingMarker extends FragmentActivity {
     }
 
     private Marker addMarker(Bitmap bitmap, LatLng position) {
-        MarkerOptions markerOptions = new MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+        MarkerOptions markerOptions = new MarkerOptions().position(position).title("hailpt").icon(BitmapDescriptorFactory.fromBitmap(bitmap));
         Marker marker = mMap.addMarker(markerOptions);
         marker.setVisible(false);
         return marker;
