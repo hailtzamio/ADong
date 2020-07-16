@@ -47,15 +47,48 @@ class TripFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        getData(0)
+
         if(activity is TripTabActivity) {
             (activity as TripTabActivity).setTrips(ArrayList<Transport>())
+            getData(0)
+        } else {
+            getDataNewTrip(0)
         }
     }
 
     private fun getData(page: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().getTrips(page, "").enqueue(object :
+            Callback<RestData<ArrayList<Trip>>> {
+            override fun onFailure(call: Call<RestData<ArrayList<Trip>>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(
+                call: Call<RestData<ArrayList<Trip>>>?,
+                response: Response<RestData<ArrayList<Trip>>>?
+            ) {
+                dismisProgressDialog()
+                if (response!!.body() != null && response!!.body().status == 1) {
+                    data = response.body().data!!
+
+                    if (data != null && data!!.isNotEmpty()) {
+                        viewNoData.visibility = View.GONE
+                        setupRecyclerView()
+                    } else {
+                        viewNoData.visibility = View.VISIBLE
+                    }
+
+                    totalPages = response.body().pagination!!.totalPages!!
+
+                }
+            }
+        })
+    }
+
+    private fun getDataNewTrip(page: Int) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getTripsNew(page, "").enqueue(object :
             Callback<RestData<ArrayList<Trip>>> {
             override fun onFailure(call: Call<RestData<ArrayList<Trip>>>?, t: Throwable?) {
                 dismisProgressDialog()

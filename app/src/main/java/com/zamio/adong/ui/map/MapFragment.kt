@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.map
 
 import RestClient
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -20,6 +21,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
+import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.popup.ProjectMaplDialog
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +52,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private val mFps = DEFAULT_FPS
     private val mSyncMove = false
 
-
+    var mList = ArrayList<Project>()
     companion object {
         var mapFragment: SupportMapFragment? = null
         val TAG: String = MapFragment::class.java.simpleName
@@ -73,11 +77,26 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         val location = LatLng(17.787203, 105.605202)
 
         mMap.setOnMarkerClickListener { marker ->
-            if (marker.isInfoWindowShown) {
-                marker.hideInfoWindow()
-            } else {
-                marker.showInfoWindow()
+
+            mList.forEach {
+                if(marker.position.latitude == it.latitude && marker.position.longitude == it.longitude) {
+                    val mapPop = ProjectMaplDialog(context!!, it)
+                    mapPop.onItemClick = {
+
+                        val intent = Intent(activity, BasicInformation2Activity::class.java)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, it.id)
+                        startActivity(intent)
+                    }
+                    mapPop.show()
+                }
             }
+//
+//            if (marker.isInfoWindowShown) {
+//                marker.hideInfoWindow()
+//            } else {
+//                marker.showInfoWindow()
+//            }
             true
         }
 
@@ -97,8 +116,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onPause() {
         super.onPause()
-        if(marker != null) {
-            marker!!.removeMarker()
+        if (marker != null) {
+//            marker!!.removeMarker()
             Log.d("hailpt", "BlinkingMarker Pause")
         }
     }
@@ -157,20 +176,20 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         Log.d("hailpt", " getProjects ")
 
         showProgessDialog()
-        RestClient().getInstance().getRestService().getProjects(0, "", "")
+        RestClient().getInstance().getRestService().getProjectsMap(0, "", "")
             .enqueue(object :
-                Callback<RestData<List<Project>>> {
-                override fun onFailure(call: Call<RestData<List<Project>>>?, t: Throwable?) {
+                Callback<RestData<ArrayList<Project>>> {
+                override fun onFailure(call: Call<RestData<ArrayList<Project>>>?, t: Throwable?) {
                     dismisProgressDialog()
                 }
 
                 override fun onResponse(
-                    call: Call<RestData<List<Project>>>?,
-                    response: Response<RestData<List<Project>>>?
+                    call: Call<RestData<ArrayList<Project>>>?,
+                    response: Response<RestData<ArrayList<Project>>>?
                 ) {
                     dismisProgressDialog()
-                    if (response!!.body() != null && response!!.body().status == 1) {
-                        val mList = response.body().data
+                    if (response!!.body() != null && response.body().status == 1) {
+                         mList = response.body().data ?:  return
                         if (mList != null) {
                             mList.forEach {
                                 val location = LatLng(it.latitude ?: 0.0, it.longitude ?: 0.0)
@@ -224,8 +243,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                                         else -> {
 
                                         }
-
-
                                     }
                                 }
 

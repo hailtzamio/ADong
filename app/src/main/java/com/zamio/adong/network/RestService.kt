@@ -216,6 +216,9 @@ interface RestService {
     @GET("project?size=50&sort=id,desc")
     fun getProjects(@Query("page") page: Int,@Query("search") fullName: String,@Query("status") status: String): Call<RestData<List<Project>>>
 
+    @GET("project/forMap?size=50&sort=id,desc")
+    fun getProjectsMap(@Query("page") page: Int,@Query("search") fullName: String,@Query("status") status: String): Call<RestData<ArrayList<Project>>>
+
     @GET("project/{id}")
     fun getProject(@Path("id") id: Int): Call<RestData<Project>>
 
@@ -414,6 +417,9 @@ interface RestService {
 
     @GET("trip?size=100&sort=id,desc")
     abstract fun getTrips(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
+
+    @GET("trip?size=100&sort=id,desc&status=1")
+    abstract fun getTripsNew(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
 
     @POST("trip")
     fun createTrip(@Body data: TripRq): Call<RestData<JsonElement>>
