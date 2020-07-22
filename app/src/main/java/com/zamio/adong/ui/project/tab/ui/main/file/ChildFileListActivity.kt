@@ -3,12 +3,11 @@ package com.zamio.adong.ui.project.tab.ui.main.file
 import FileAdapter
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.*
 import android.graphics.drawable.Drawable
+import android.media.MediaScannerConnection
 import android.os.Build
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -24,6 +23,9 @@ import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
+import java.io.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ChildFileListActivity : BaseActivity() {
@@ -71,6 +73,9 @@ class ChildFileListActivity : BaseActivity() {
 
     }
 
+
+
+
     object MyDrawableCompat {
         fun setColorFilter(drawable: Drawable, color: Int) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -86,6 +91,8 @@ class ChildFileListActivity : BaseActivity() {
         progressBarOne.visibility = View.VISIBLE
 
 //        MyDrawableCompat.setColorFilter(progressBarOne.background,  Color.BLUE);
+
+        Log.d("hailpt", " dirPath ~~~>  "+dirPath)
 
         downloadIdOne = PRDownloader.download(file.downloadUrl, dirPath, file.fileName)
             .build()

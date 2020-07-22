@@ -68,7 +68,6 @@ class DetailTripActivity : BaseActivity() {
 
             tvOk.setOnClickListener {
                 CropImage.activity()
-                    .setAspectRatio(1, 1)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this)
             }

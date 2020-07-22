@@ -80,7 +80,6 @@ class ProjectWorkersFragment : BaseFragment() {
 
     fun pickImageFromAlbum() {
         CropImage.activity()
-            .setAspectRatio(1, 1)
             .setGuidelines(CropImageView.Guidelines.ON)
             .start(activity!!,this)
     }

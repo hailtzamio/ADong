@@ -258,7 +258,7 @@ class ProductInformationFragment : BaseFragment() {
         data.add("Danh sách yêu cầu vật tư")
         data.add("Bản thiết kế")
         data.add("Line")
-        data.add("Đánh giá Công trình")
+        data.add("Đánh giá công trình")
         data.add("Kho ảnh")
         if (teamType == Team.ADONG.type) {
             data.add("Line")
@@ -280,7 +280,7 @@ class ProductInformationFragment : BaseFragment() {
                 "Bản thiết kế" -> goToFile()
                 "Kho ảnh" -> goToAlbum()
                 "Lịch sử điểm danh" -> goToCheckinHistory()
-                "Đánh giá Công trình" -> goToGiveStars()
+                "Đánh giá công trình" -> goToGiveStars()
             }
         }
     }

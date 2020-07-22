@@ -64,19 +64,23 @@ class ProjectAdapter(private val topicDetails: ArrayList<Project>) :
         when (topic.status) {
             "NEW" -> {
                 holder.tv6.text = "Mới"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
+                holder.tv6.setBackgroundResource(R.drawable.button_project_status_1_layout)
+//                holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
             }
             "PROCESSING" -> {
+                holder.tv6.setBackgroundResource(R.drawable.button_project_status_3_layout)
                 holder.tv6.text = "Đang thi công"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
+//                holder.tv6.setTextColor(Color.parseColor(AppColor.Orange.hex))
             }
             "DONE" -> {
+                holder.tv6.setBackgroundResource(R.drawable.button_project_status_2_layout)
                 holder.tv6.text = "Hoàn thành"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
+//                holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
             }
             "PAUSED" -> {
+                holder.tv6.setBackgroundResource(R.drawable.button_project_status_4_layout)
                 holder.tv6.text = "Tạm dừng"
-                holder.tv6.setTextColor(Color.parseColor(AppColor.Blue.hex))
+//                holder.tv6.setTextColor(Color.parseColor(AppColor.Blue.hex))
             }
         }
 

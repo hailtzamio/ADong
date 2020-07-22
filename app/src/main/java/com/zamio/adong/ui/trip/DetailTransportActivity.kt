@@ -59,7 +59,6 @@ class DetailTransportActivity : BaseActivity() {
             rightButton.visibility = View.GONE
             tvOk.setOnClickListener {
                 CropImage.activity()
-                    .setAspectRatio(1, 1)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this)
             }

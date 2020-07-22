@@ -17,6 +17,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
+import com.zamio.adong.model.NotificationOb
 import com.zamio.adong.model.Permission
 import com.zamio.adong.model.Profile
 import com.zamio.adong.model.User
@@ -35,7 +36,10 @@ import com.zamio.adong.ui.trip.TripTabActivity
 import com.zamio.adong.ui.ware.WareTabActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import com.zamio.adong.ui.workoutline.MainWorkOutlineActivity
+import kotlinx.android.synthetic.main.fragment_main_notification.*
 import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.fragment_notifications.recyclerView
+import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,9 +49,9 @@ class PermissionsFragment : BaseFragment() {
 
     var adapter: PermissionGridAdapter? = null
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         return inflater.inflate(R.layout.fragment_notifications, container, false)
@@ -61,7 +65,7 @@ class PermissionsFragment : BaseFragment() {
 //        tvTitle.text = "Trang Chủ"
         getMyRoles()
         getProfile()
-
+        getNotificationNotSeen()
         imvNotification.setOnClickListener {
             val intent = Intent(context, NotificationActivity::class.java)
             startActivity(intent)
@@ -74,7 +78,7 @@ class PermissionsFragment : BaseFragment() {
         }
     }
 
-    private fun getPermission(){
+    private fun getPermission() {
         showProgessDialog()
         RestClient().getRestService().getPermissions().enqueue(object :
             Callback<RestData<ArrayList<Permission>>> {
@@ -83,9 +87,12 @@ class PermissionsFragment : BaseFragment() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<ArrayList<Permission>>>?, response: Response<RestData<ArrayList<Permission>>>?) {
+            override fun onResponse(
+                call: Call<RestData<ArrayList<Permission>>>?,
+                response: Response<RestData<ArrayList<Permission>>>?
+            ) {
                 dismisProgressDialog()
-                if( response!!.body() != null && response.body().status == 1){
+                if (response!!.body() != null && response.body().status == 1) {
 //                    setupRecyclerView(response.body().data!!)
                     setupGridView(response.body().data!!)
                 } else {
@@ -96,7 +103,7 @@ class PermissionsFragment : BaseFragment() {
     }
 
     var isContractor = false
-    private fun getMyRoles(){
+    private fun getMyRoles() {
         showProgessDialog()
         RestClient().getRestService().getMyRoles().enqueue(object :
             Callback<RestData<ArrayList<User>>> {
@@ -105,27 +112,30 @@ class PermissionsFragment : BaseFragment() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<ArrayList<User>>>?, response: Response<RestData<ArrayList<User>>>?) {
+            override fun onResponse(
+                call: Call<RestData<ArrayList<User>>>?,
+                response: Response<RestData<ArrayList<User>>>?
+            ) {
                 dismisProgressDialog()
-                if( response!!.body() != null && response.body().status == 1){
+                if (response!!.body() != null && response.body().status == 1) {
 
-                 val roles = response.body().data
+                    val roles = response.body().data
 
                     var rolesString = ""
 
-                    if(roles != null) {
+                    if (roles != null) {
                         roles.forEach {
 
-                            rolesString = rolesString +  it.name + "-" + it.code + ","
+                            rolesString = rolesString + it.name + "-" + it.code + ","
 
-                            if(it.code == "CONTRACTOR") {
-                                isContractor =  true
+                            if (it.code == "CONTRACTOR") {
+                                isContractor = true
                             }
                         }
                     }
 
                     Log.e("hailpt", " Role ~~~>>> " + rolesString)
-                   ConstantsApp.USER_ROLES = rolesString
+                    ConstantsApp.USER_ROLES = rolesString
                     getPermission()
 
                 } else {
@@ -136,75 +146,75 @@ class PermissionsFragment : BaseFragment() {
     }
 
 
-
-    private fun setupGridView(data:ArrayList<Permission>){
+    private fun setupGridView(data: ArrayList<Permission>) {
 
         Log.e("hailpt", "count >> " + data.size)
         var permissionString = ""
         data.forEach {
-            permissionString = permissionString +  it.appEntityCode + "" + it.action + ","
+            permissionString = permissionString + it.appEntityCode + "" + it.action + ","
         }
 
-        Log.e("permissionString == ",permissionString )
+        Log.e("permissionString == ", permissionString)
         ConstantsApp.USER_PERMISSIONS = permissionString
 
-        if( isContractor) {
-            data.add(Permission("r", "ContractorProject", 1,1,1,"ContractorProject"))
+        if (isContractor) {
+            data.add(Permission("r", "ContractorProject", 1, 1, 1, "ContractorProject"))
         }
 
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry"  || it.appEntityCode == "Warehouse"
+            if (it.action == "r" && (it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Warehouse"
                         || it.appEntityCode == "Product"
                         || it.appEntityCode == "Team" || it.appEntityCode == "Driver"
-                        || it.appEntityCode == "Contractor" || it.appEntityCode  == "CriteriaBundlee" || it.appEntityCode  == "Project" || it.appEntityCode  == "WorkOutlinee" || it.appEntityCode  == "Trip" || it.appEntityCode  == "ContractorProject"  )) {
+                        || it.appEntityCode == "Contractor" || it.appEntityCode == "CriteriaBundlee" || it.appEntityCode == "Project" || it.appEntityCode == "WorkOutlinee" || it.appEntityCode == "Trip" || it.appEntityCode == "ContractorProject")
+            ) {
 
-                if (it.appEntityCode == "Worker" ) {
+                if (it.appEntityCode == "Worker") {
                     it.name = "Công Nhân"
                 }
 
-                if (it.appEntityCode == "Product" ) {
+                if (it.appEntityCode == "Product") {
                     it.name = "Vật Tư"
                 }
 
-                if (it.appEntityCode == "Lorry" ) {
+                if (it.appEntityCode == "Lorry") {
                     it.name = "Xe"
                 }
 
-                if (it.appEntityCode == "Team" ) {
+                if (it.appEntityCode == "Team") {
                     it.name = "Đội Á Đông"
                 }
 
-                if (it.appEntityCode == "Driver" ) {
+                if (it.appEntityCode == "Driver") {
                     it.name = "Lái Xe"
                 }
 
-                if (it.appEntityCode == "Contractor" ) {
+                if (it.appEntityCode == "Contractor") {
                     it.name = "Nhà Thầu Phụ"
                 }
 
-                if (it.appEntityCode == "CriteriaBundle" ) {
+                if (it.appEntityCode == "CriteriaBundle") {
                     it.name = "Bộ Tiêu Chí"
                 }
 
-                if (it.appEntityCode == "Project" ) {
+                if (it.appEntityCode == "Project") {
                     it.name = "Công Trình"
                 }
 
-                if (it.appEntityCode == "WorkOutline" ) {
+                if (it.appEntityCode == "WorkOutline") {
                     it.name = "Hạng Mục"
                 }
 
-                if (it.appEntityCode == "Warehouse" ) {
+                if (it.appEntityCode == "Warehouse") {
                     it.name = "Kho Xưởng"
                 }
 
-                if (it.appEntityCode == "Trip" ) {
+                if (it.appEntityCode == "Trip") {
                     it.name = "Vận chuyển"
                 }
 
-                if (it.appEntityCode == "ContractorProject" ) {
+                if (it.appEntityCode == "ContractorProject") {
                     it.name = "Đấu Thầu"
                 }
 
@@ -225,7 +235,7 @@ class PermissionsFragment : BaseFragment() {
             }
         }
 
-        if(context == null) {
+        if (context == null) {
             return
         }
 
@@ -239,11 +249,11 @@ class PermissionsFragment : BaseFragment() {
                 val product = permissions[position]
                 var actionString = ""
                 data.forEach {
-                    if (it.appEntityCode == product.appEntityCode){
+                    if (it.appEntityCode == product.appEntityCode) {
                         actionString = actionString + "-" + it.action
                     }
                 }
-                var intent:Intent? = null
+                var intent: Intent? = null
                 when (product.appEntityCode) {
                     "Product" -> intent = Intent(context, MainProductActivity::class.java)
                     "Lorry" -> intent = Intent(context, MainLorryActivity::class.java)
@@ -256,14 +266,18 @@ class PermissionsFragment : BaseFragment() {
                     "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
                     "Warehouse" -> intent = Intent(context, WareTabActivity::class.java)
                     "Trip" -> intent = Intent(context, TripTabActivity::class.java)
-                    "ContractorProject" -> intent = Intent(context, ProjectRegistranleActivity::class.java)
+                    "ContractorProject" -> intent =
+                        Intent(context, ProjectRegistranleActivity::class.java)
                 }
 
                 ConstantsApp.PERMISSION = actionString
 
-                if(intent != null){
+                if (intent != null) {
                     startActivity(intent)
-                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    activity!!.overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
                 }
 
             }
@@ -283,26 +297,26 @@ class PermissionsFragment : BaseFragment() {
         }
     }
 
-    private fun setupRecyclerView(data:List<Permission>){
+    private fun setupRecyclerView(data: List<Permission>) {
 
         val permissions = ArrayList<Permission>()
 
         data.forEach {
-            if (it.action == "r" &&  ( it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product")){
+            if (it.action == "r" && (it.appEntityCode == "Worker" || it.appEntityCode == "Lorry" || it.appEntityCode == "Product")) {
 
-                if (it.appEntityCode == "Worker" ){
+                if (it.appEntityCode == "Worker") {
                     it.name = "Công Nhân"
                 }
 
-                if (it.appEntityCode == "Product" ){
+                if (it.appEntityCode == "Product") {
                     it.name = "Vật Tư"
                 }
 
-                if (it.appEntityCode == "Lorry" ){
+                if (it.appEntityCode == "Lorry") {
                     it.name = "Xe"
                 }
 
-                if (it.appEntityCode == "Team" ){
+                if (it.appEntityCode == "Team") {
                     it.name = "Đội Thi Công"
                 }
 
@@ -318,12 +332,12 @@ class PermissionsFragment : BaseFragment() {
         mAdapter.onItemClick = { product ->
             var actionString = ""
             data.forEach {
-                if (it.appEntityCode == product.appEntityCode){
+                if (it.appEntityCode == product.appEntityCode) {
                     actionString = actionString + "-" + it.action
                 }
             }
 
-            var intent:Intent? = null
+            var intent: Intent? = null
             when (product.name) {
                 "Vật Tư" -> intent = Intent(context, MainProductActivity::class.java)
                 "Xe" -> intent = Intent(context, MainLorryActivity::class.java)
@@ -332,7 +346,7 @@ class PermissionsFragment : BaseFragment() {
 
             ConstantsApp.PERMISSION = actionString
 
-            if(intent != null){
+            if (intent != null) {
                 intent.putExtra(ConstantsApp.KEY_PERMISSION, actionString)
                 startActivity(intent)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -360,7 +374,7 @@ class PermissionsFragment : BaseFragment() {
                     val profile = response.body()!!.data
 
                     if (profile != null) {
-                        if(profile.avatarUrl != null && profile.avatarUrl != "") {
+                        if (profile.avatarUrl != null && profile.avatarUrl != "") {
                             Picasso.get().load(profile.avatarUrl).error(R.drawable.ava).into(imvAva)
                         }
                     }
@@ -368,5 +382,40 @@ class PermissionsFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun getNotificationNotSeen() {
+
+        RestClient().getInstance().getRestService()
+            .getNotificationCount()
+            .enqueue(object :
+                Callback<RestData<NotificationOb>> {
+                override fun onFailure(
+                    call: Call<RestData<NotificationOb>>?,
+                    t: Throwable?
+                ) {
+
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<NotificationOb>>?,
+                    response: Response<RestData<NotificationOb>>?
+                ) {
+
+                    if (response!!.body() != null && response.body().status == 1) {
+
+                        if(response.body().data == null) {
+                            return
+                        }
+
+                        tvNotification.text = (response.body().data!!.notSeenCount ?: 0).toString()
+                        if(response.body().data!!.notSeenCount ?: 0 == 0) {
+                            rlNotification.visibility = View.GONE
+                        } else {
+                            rlNotification.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            })
     }
 }

@@ -2,6 +2,7 @@ package com.zamio.adong.ui.activity
 
 import RestClient
 import android.content.Intent
+import android.os.Environment
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.utils.PreferUtils
 import com.google.gson.JsonObject
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.util.*
 
 class LoginActivity : BaseActivity() {
 
@@ -41,6 +44,44 @@ class LoginActivity : BaseActivity() {
             login(user)
         }
 
+    }
+
+    fun writeFile(): String {
+
+        val wallpaperDirectory = File(
+            Environment.getDataDirectory().toString() + "/SimTD"
+        )
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdirs()
+        }
+
+        val f = File(wallpaperDirectory, Calendar.getInstance()
+            .timeInMillis.toString())
+
+//        try {
+//            val f = File(
+//                wallpaperDirectory, Calendar.getInstance()
+//                    .timeInMillis.toString() + ".jpg"
+//            )
+//            f.createNewFile()
+//            val fo = FileOutputStream(f)
+//            fo.write(bytes.toByteArray())
+//            MediaScannerConnection.scanFile(
+//                this,
+//                arrayOf(f.path),
+//                arrayOf("image/jpeg"), null
+//            )
+//
+//            fo.close()
+//            Log.d("TAG", "File Saved::--->" + f.absolutePath)
+//
+        return f.absolutePath
+//        } catch (e1: IOException) {
+//            e1.printStackTrace()
+//        }
+
+        return ""
     }
 
     override fun resumeData() {

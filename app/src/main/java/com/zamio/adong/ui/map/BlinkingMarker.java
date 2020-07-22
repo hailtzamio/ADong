@@ -177,7 +177,7 @@ public class BlinkingMarker extends FragmentActivity {
         mUiHandler.removeCallbacks(mBlinkerRunnable);
         mUiHandler = null;
 
-        Log.d("hailpt", "BlinkingMarker stopBlinking");
+//        Log.d("hailpt", "BlinkingMarker stopBlinking");
     }
 
     private void removeMarkers() {
@@ -198,7 +198,7 @@ public class BlinkingMarker extends FragmentActivity {
     private Runnable mBlinkerRunnable = new Runnable() {
         @Override
         public void run() {
-            Log.d("hailpt", "BlinkingMarker");
+//            Log.d("hailpt", "BlinkingMarker");
             if (mCurrentMarkerId == mDistinctBitmaps - 1) {
                 mDirection = -1;
             } else if (mCurrentMarkerId == 0) {

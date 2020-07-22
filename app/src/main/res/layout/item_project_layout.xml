@@ -93,14 +93,18 @@
                 android:textColor="@color/colorGray" />
 
             <TextView
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:gravity="center"
+                android:background="@drawable/button_project_status_1_layout"
                 android:id="@+id/tv6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_below="@+id/tv5"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text=""
-                android:textColor="@color/colorGray" />
+                android:textColor="@color/white" />
         </RelativeLayout>
 
     </RelativeLayout>

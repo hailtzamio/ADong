@@ -452,6 +452,9 @@ interface RestService {
     @GET("myNotifications?size=100&sort=id,desc")
     fun getNotifications(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<NotificationOb>>>
 
+    @GET("myNotifications/countNotSeen")
+    fun getNotificationCount(): Call<RestData<NotificationOb>>
+
     @GET("isRegistered")
     abstract fun checkHideShowRegistrationButton(@Query("contractorId") contractorId: Int,@Query("projectId") projectId: Int): Call<RestData<Contractor>>
 
