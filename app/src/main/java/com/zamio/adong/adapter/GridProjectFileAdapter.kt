@@ -13,6 +13,8 @@ import com.zamio.adong.utils.Utils
 
 internal class GridProjectFileAdapter internal constructor(context: Context, private val resource: Int, private val itemList: List<Project>?) : ArrayAdapter<GridProjectFileAdapter.ItemHolder>(context, resource) {
 
+
+
     override fun getCount(): Int {
         return if (this.itemList != null) this.itemList.size else 0
     }

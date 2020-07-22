@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.project.tab.ui.main.requirement
 
 import ProductAdapter
+import ProductRequirement2Adapter
 import RestClient
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -119,7 +120,7 @@ class CreateProductRequirementActivity : BaseActivity() {
 
         productChoose.forEach {
             if(it.quantityChoose != 0) {
-                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, it.name ?: "---", null,it.unit ?: "---"))
+                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, it.name ?: "---", null,it.unit ?: "---",it.note ?: ""))
             }
         }
 
@@ -253,7 +254,7 @@ class CreateProductRequirementActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        val mAdapter = ProductAdapter(products, true)
+        val mAdapter = ProductRequirement2Adapter(products, true)
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.setHasFixedSize(false)

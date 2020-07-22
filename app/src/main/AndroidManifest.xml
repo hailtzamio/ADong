@@ -85,6 +85,7 @@
             android:name=".ui.project.tab.ui.main.requirement.DetailProductRequrementActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".ui.project.tab.ui.main.requirement.CreateProductRequirementActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/tools"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        card_view:cardBackgroundColor="#E6E6E6"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="8dp">
+
+        <RelativeLayout
+            android:padding="5dp"
+            android:id="@+id/lnRoot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/imvAva"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ava" />
+
+            <RelativeLayout
+                android:layout_toLeftOf="@+id/cbWorker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/imvAva"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textColor="@color/colorGray"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/tvType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvName"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textColor="@color/colorGray"
+                    android:id="@+id/tvUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvType"
+                    android:layout_marginRight="30dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+                <TextView    android:textColor="@color/colorGray"
+                    android:visibility="gone"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/tvQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUnit"
+                    android:singleLine="true"
+                    android:text="11111" />
+
+
+
+                <EditText
+                    android:id="@+id/edtNote"
+                    android:layout_below="@+id/tvQuantity"
+
+                    android:gravity="center"
+                    android:hint="Ghi chú"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_normal_main_radius_layout"
+                    android:visibility="visible"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+
+            <EditText
+                android:inputType="number"
+                android:gravity="center"
+                android:hint="Số lượng"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_normal_main_radius_layout"
+                android:visibility="visible"
+                android:id="@+id/cbWorker"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="80dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
