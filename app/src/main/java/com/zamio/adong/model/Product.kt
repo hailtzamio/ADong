@@ -36,17 +36,17 @@ data class Product(
     @SerializedName("productUnit")
     val productUnit: String,
     @SerializedName("note")
-    val note: String = "test note",
+    var note: String?,
     @SerializedName("productId")
     val productId: Int,
     @SerializedName("weight")
-    val weight: Int?,
+    val weight: Double?,
     @SerializedName("length")
-    val length: Int?,
+    val length: Double?,
     @SerializedName("width")
-    val width: Int?,
+    val width: Double?,
     @SerializedName("height")
-    val height: Int?,
+    val height: Double?,
     @SerializedName("isSelected")
     var isSelected: Boolean = false,
     @SerializedName("quantityChoose")

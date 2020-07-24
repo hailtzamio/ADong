@@ -3,8 +3,10 @@ package com.zamio.adong.ui.project.tab.ui.main.workers
 import RestClient
 import WorkerCheckinOutAdapter
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,11 +24,10 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
+import com.zamio.adong.popup.CheckInOutDialog
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
-import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.fragment_main_worker.recyclerView
 import kotlinx.android.synthetic.main.fragment_project_worker_checkin.*
-import kotlinx.android.synthetic.main.fragment_project_worker_checkin.viewNoData
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -35,6 +36,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -80,9 +84,8 @@ class ProjectWorkersFragment : BaseFragment() {
 
     fun pickImageFromAlbum() {
         CropImage.activity()
-            .setAspectRatio(1, 1)
             .setGuidelines(CropImageView.Guidelines.ON)
-            .start(activity!!,this)
+            .start(activity!!, this)
     }
 
     override fun onResume() {
@@ -93,80 +96,119 @@ class ProjectWorkersFragment : BaseFragment() {
         data.clear()
     }
 
-    fun getData(pPage:Int){
+    fun getData(pPage: Int) {
 
         data.clear()
 //        showProgessDialog()
-        RestClient().getInstance().getRestService().getProjectWorkers((activity as ProjectTabActivity).getProjectId(),pPage).enqueue(object :
-            Callback<RestData<List<Worker>>> {
-            override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
+        RestClient().getInstance().getRestService()
+            .getProjectWorkers((activity as ProjectTabActivity).getProjectId(), pPage)
+            .enqueue(object :
+                Callback<RestData<List<Worker>>> {
+                override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
 //                dismisProgressDialog()
-            }
+                }
 
-            override fun onResponse(call: Call<RestData<List<Worker>>>?, response: Response<RestData<List<Worker>>>?) {
+                override fun onResponse(
+                    call: Call<RestData<List<Worker>>>?,
+                    response: Response<RestData<List<Worker>>>?
+                ) {
 //                dismisProgressDialog()
-                if(response!!.body() != null && response.body().status == 1){
-                    data.addAll(response.body().data!!)
+                    if (response!!.body() != null && response.body().status == 1) {
+                        data.addAll(response.body().data!!)
 
-                    if (data.isNotEmpty()) {
-                        if(viewNoData != null) {
-                            viewNoData.visibility = View.GONE
-                        }
-                        mAdapter.notifyDataSetChanged()
-                    } else {
-                        if(viewNoData != null) {
-                            viewNoData.visibility = View.VISIBLE
+                        if (data.isNotEmpty()) {
+                            if (viewNoData != null) {
+                                viewNoData.visibility = View.GONE
+                            }
+                            mAdapter.notifyDataSetChanged()
+                        } else {
+                            if (viewNoData != null) {
+                                viewNoData.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
     }
 
     val mAdapter = WorkerCheckinOutAdapter(data)
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(context)
-        if( recyclerView != null) {
+        if (recyclerView != null) {
             recyclerView.layoutManager = layoutManager
             recyclerView.setHasFixedSize(false)
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
                 var note = ""
-                note = if(product.workingStatus == "idle") {
+                note = if (product.workingStatus == "idle") {
                     "Điểm danh công nhân vào?"
                 } else {
                     "Điểm danh công nhân ra?"
                 }
 
-                val dialogClickListener =
-                    DialogInterface.OnClickListener { dialog, which ->
-                        when (which) {
-                            DialogInterface.BUTTON_POSITIVE -> {
-                                val ids = ArrayList<Int>()
-                                ids.add(product.id)
 
-                                val check = CheckinOut(projectId, ids)
-                                if (product.workingStatus == "idle") {
+                val dialog = CheckInOutDialog(context!!)
+                dialog.show()
+                dialog.onItemClick = {
 
-                                    checkin(check)
-                                } else {
-
-                                    checkout(check)
-                                }
-                            }
-                            DialogInterface.BUTTON_NEGATIVE -> {
-                            }
+                    val ids = ArrayList<Int>()
+                    ids.add(product.id)
+                    val check = CheckinOut(projectId, ids)
+                    when (it) {
+                        1 -> showDateTimePicker(true)
+                        2 -> if (product.workingStatus == "idle") {
+                            checkin(check)
+                        } else {
+                            checkout(check)
                         }
                     }
-
-                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                builder.setMessage(note)
-                    .setPositiveButton("Đồng ý", dialogClickListener)
-                    .setNegativeButton("Không", dialogClickListener).show()
+                }
             }
         }
     }
+
+    private lateinit var date: Calendar
+    var plannedStartDate = ""
+    var plannedEndDate = ""
+    private fun showDateTimePicker(isStartDate: Boolean) {
+        val currentDate: Calendar = Calendar.getInstance()
+        date = Calendar.getInstance()
+        DatePickerDialog(
+            context!!,
+            OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                date.set(year, monthOfYear, dayOfMonth)
+                TimePickerDialog(
+                    context!!,
+                    OnTimeSetListener { view, hourOfDay, minute ->
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        date.set(Calendar.MINUTE, minute)
+
+                        val format =
+                            SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+
+                        val formatToShow =
+                            SimpleDateFormat("hh:mm a dd/MM/yyyy")
+
+                        val dateTime = format.format(date.time).toString()
+                        val dateTimeToShow = formatToShow.format(date.time).toString()
+                        if (isStartDate) {
+                            plannedStartDate = dateTime
+                        } else {
+                            plannedEndDate = dateTime
+                        }
+                    },
+                    currentDate.get(Calendar.HOUR_OF_DAY),
+                    currentDate.get(Calendar.MINUTE),
+                    false
+                ).show()
+            },
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DATE)
+        ).show()
+    }
+
     private fun checkout(checkinOut: CheckinOut) {
         showProgessDialog()
         RestClient().getInstance().getRestService().checkout(checkinOut).enqueue(object :
@@ -183,6 +225,11 @@ class ProjectWorkersFragment : BaseFragment() {
                 if (response!!.body() != null && response.body().status == 1) {
                     Toast.makeText(context, "Chấm giờ ra thành công", Toast.LENGTH_SHORT).show()
                     getData(0)
+                } else {
+                    if(response!!.errorBody() != null) {
+                        val obj = JSONObject(response!!.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
                 }
             }
         })
@@ -204,6 +251,11 @@ class ProjectWorkersFragment : BaseFragment() {
                 if (response!!.body() != null && response.body().status == 1) {
                     Toast.makeText(context, "Chấm giờ vào thành công", Toast.LENGTH_SHORT).show()
                     getData(0)
+                } else {
+                    if(response!!.errorBody() != null) {
+                        val obj = JSONObject(response!!.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
                 }
             }
         })
@@ -216,7 +268,7 @@ class ProjectWorkersFragment : BaseFragment() {
             MultipartBody.Part.createFormData("image", file.name, requestFile)
 
         showProgessDialog()
-        RestClient().getRestService().updateImageCheckin(projectId,body).enqueue(object :
+        RestClient().getRestService().updateImageCheckin(projectId, body).enqueue(object :
             Callback<RestData<JsonElement>> {
 
             override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
@@ -255,7 +307,7 @@ class ProjectWorkersFragment : BaseFragment() {
             }
         }
 
-        if(resultCode == 101){
+        if (resultCode == 101) {
             data.clear()
             getData(0)
         }

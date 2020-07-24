@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:layout_centerVertical="true"
                 android:id="@+id/imvAva"
                 android:layout_width="60dp"
                 android:layout_height="60dp"

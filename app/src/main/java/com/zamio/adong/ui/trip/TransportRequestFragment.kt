@@ -47,6 +47,7 @@ class TransportRequestFragment : BaseFragment() {
         super.onResume()
         getData(0)
         ConstantsApp.transportsChoose.clear()
+        ( activity as TripTabActivity).setTrips(ConstantsApp.transportsChoose)
     }
 
     private fun getData(page:Int){

@@ -18,12 +18,16 @@
         app:layout_constraintTop_toTopOf="parent"
 
         />
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tvOk"
-        android:layout_below="@+id/view"
         android:orientation="vertical"
         android:padding="@dimen/padding_big_view"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,33 +40,54 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="THÔNG TIN"
-            android:textColor="@color/colorName"
+            android:textColor="@color/colorOrange"
             android:textStyle="bold" />
-
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_below_above">
+            />
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/imvAva"
+            android:orientation="vertical">
+            <View
+                android:background="@color/colorView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:progressTint="@color/colorOrange"
+                android:layout_marginTop="10dp"
+                android:rating="3.5"
+                style="?android:attr/ratingBarStyleSmall"
+                android:id="@+id/rating"
+                android:numStars="5"
+                android:layout_below="@+id/tvType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tên "
+                android:layout_marginRight="30dp"
+                android:text="Đánh giá"
                 android:textColor="@color/colorGray" />
 
-
-            <TextView
-
-                android:id="@+id/tvName"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
-                app:autoSizeTextType="uniform"
-                tools:text="Tên " />
-
-        </RelativeLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:background="@color/colorView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,127 +97,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Người tạo"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvAuthor"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
-                app:autoSizeTextType="uniform"
-                tools:text="Đội trưởng " />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_below_above">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ngày tạo"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
-                app:autoSizeTextType="uniform"
-                tools:text="Địa chỉ " />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_below_above">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Người sửa"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvEditer"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
-                app:autoSizeTextType="uniform"
-                tools:text="Đội trưởng" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_below_above">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ngày sửa"
-                android:textColor="@color/colorGray" />
-
-
-            <TextView
-                android:id="@+id/tvEditDate"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:ellipsize="end"
-                android:gravity="end"
-                app:autoSizeTextType="uniform"
-                tools:text="Đội trưởng" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_below_above">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TIÊU CHÍ CON"
-                android:textColor="@color/colorName"
+                android:text="CHI TIẾT ĐÁNH GIÁ"
+                android:textColor="@color/colorOrange"
                 android:textStyle="bold" />
 
 
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="@dimen/margin_below_above"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
          />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvOk"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_layout"
-        android:gravity="center"
-        android:text="XÓA"
-        android:textColor="@color/white" />
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

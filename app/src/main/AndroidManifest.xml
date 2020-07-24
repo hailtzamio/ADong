@@ -29,7 +29,7 @@
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.project.tab.ui.main.criteria.CriteriaMenuActivity"></activity>
-        <activity android:name=".ui.map.TestMapActivity" />
+        <activity android:name=".ui.map.SampleActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.notification.NotificationActivity" />
         <activity
@@ -85,6 +85,7 @@
             android:name=".ui.project.tab.ui.main.requirement.DetailProductRequrementActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".ui.project.tab.ui.main.requirement.CreateProductRequirementActivity"
             android:screenOrientation="portrait" />
         <activity

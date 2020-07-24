@@ -270,7 +270,6 @@ class MainWorkOutlineFragment : BaseFragment() {
 
     fun pickImageFromAlbum() {
         CropImage.activity()
-            .setAspectRatio(4, 3)
             .setGuidelines(CropImageView.Guidelines.ON)
             .start(activity!!, this)
     }

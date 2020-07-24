@@ -91,7 +91,7 @@ class AddProductToGoodsReceiedActivity : BaseActivity() {
             Log.e("hailpt~~", " after " + productChoose.size)
             ConstantsApp.productsToGooodReceied = productChoose
             productChoose.forEach {
-                val line = LinesAddNew(0,0,it.id, it.quantityChoose, "", null,"")
+                val line = LinesAddNew(0,0,it.id, it.quantityChoose, "", null,"","")
                 ConstantsApp.lines.add(line)
             }
             Log.e("hailpt~~", " line " + ConstantsApp.lines.size)

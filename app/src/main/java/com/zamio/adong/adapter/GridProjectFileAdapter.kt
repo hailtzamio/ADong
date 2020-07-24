@@ -9,8 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
+import com.zamio.adong.utils.Utils
 
 internal class GridProjectFileAdapter internal constructor(context: Context, private val resource: Int, private val itemList: List<Project>?) : ArrayAdapter<GridProjectFileAdapter.ItemHolder>(context, resource) {
+
+
 
     override fun getCount(): Int {
         return if (this.itemList != null) this.itemList.size else 0
@@ -34,7 +37,7 @@ internal class GridProjectFileAdapter internal constructor(context: Context, pri
         val projectItem =  this.itemList!![position]
 
         holder.name!!.text = projectItem.createdByFullName
-        holder.tvCreatedDate!!.text = projectItem.createdTime
+        holder.tvCreatedDate!!.text = Utils.convertDate(projectItem.createdTime ?: "2020-07-11T09:09:09")
 
 
         return convertView

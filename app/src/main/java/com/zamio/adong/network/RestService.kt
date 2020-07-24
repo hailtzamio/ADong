@@ -216,6 +216,9 @@ interface RestService {
     @GET("project?size=50&sort=id,desc")
     fun getProjects(@Query("page") page: Int,@Query("search") fullName: String,@Query("status") status: String): Call<RestData<List<Project>>>
 
+    @GET("project/forMap?size=50&sort=id,desc")
+    fun getProjectsMap(@Query("page") page: Int,@Query("search") fullName: String,@Query("status") status: String): Call<RestData<ArrayList<Project>>>
+
     @GET("project/{id}")
     fun getProject(@Path("id") id: Int): Call<RestData<Project>>
 
@@ -396,7 +399,7 @@ interface RestService {
     @GET("user?size=100&sort=id")
     fun getBuyers(@Query("page") page: Int,@Query("fullname") name: String): Call<RestData<List<Worker>>>
 
-    @GET("transportRequest?size=100&sort=id,desc")
+    @GET("transportRequest?status=1&size=100&sort=id,desc")
     abstract fun getTransports(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Transport>>>
 
     @GET("transportRequest/{id}")
@@ -414,6 +417,9 @@ interface RestService {
 
     @GET("trip?size=100&sort=id,desc")
     abstract fun getTrips(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
+
+    @GET("trip?size=100&sort=id,desc&status=1")
+    abstract fun getTripsNew(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Trip>>>
 
     @POST("trip")
     fun createTrip(@Body data: TripRq): Call<RestData<JsonElement>>
@@ -445,6 +451,9 @@ interface RestService {
 
     @GET("myNotifications?size=100&sort=id,desc")
     fun getNotifications(@Query("page") page: Int,@Query("fullName") fullName: String): Call<RestData<ArrayList<NotificationOb>>>
+
+    @GET("myNotifications/countNotSeen")
+    fun getNotificationCount(): Call<RestData<NotificationOb>>
 
     @GET("isRegistered")
     abstract fun checkHideShowRegistrationButton(@Query("contractorId") contractorId: Int,@Query("projectId") projectId: Int): Call<RestData<Contractor>>

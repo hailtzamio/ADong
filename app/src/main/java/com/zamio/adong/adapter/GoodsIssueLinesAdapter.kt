@@ -50,7 +50,7 @@ class GoodsIssueLinesAdapter(private val topicDetails: ArrayList<GoodsIssueLine>
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.productName
-        holder.phone.text = topic.quantity.toString()
+        holder.phone.text = topic.quantity.toString() + " " + topic.productUnit
     }
 
     override fun getItemCount(): Int {

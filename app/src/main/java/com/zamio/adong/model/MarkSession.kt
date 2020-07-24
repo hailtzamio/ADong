@@ -22,7 +22,7 @@ data class MarkSession(
     @SerializedName("note")
     var note: String?,
     @SerializedName("point")
-    var point: Double?,
+    var point: Float?,
     @SerializedName("projectId")
     var projectId: Int?,
     @SerializedName("projectName")

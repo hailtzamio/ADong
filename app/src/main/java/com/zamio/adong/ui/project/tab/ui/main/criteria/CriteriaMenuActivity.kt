@@ -4,6 +4,7 @@ import CriteriaMenuAdapter
 import RestClient
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
@@ -12,7 +13,8 @@ import com.zamio.adong.model.CriteriaMenu
 import com.zamio.adong.model.MarkSession
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.criteria.DetailCriteriaActivity
-import kotlinx.android.synthetic.main.fragment_main_criteria.*
+import kotlinx.android.synthetic.main.activity_criteria_menu.*
+import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,14 +29,15 @@ class CriteriaMenuActivity : BaseActivity() {
     }
 
     override fun initView() {
-
+            rightButton.visibility = View.GONE
+        tvTitle.text = "Đánh Giá Công Trình"
     }
 
     override fun initData() {
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
-            getData()
+
             getMarkSessions()
         }
     }
@@ -53,15 +56,19 @@ class CriteriaMenuActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            showToast(product.value.toString())
-
+            var isCanClick = false
             markSessions.forEach {
                 if (it.criteriaBundleId == (product.value ?: "0").toInt()) {
                     val intent = Intent(this, DetailCriteriaActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, it)
                     startActivityForResult(intent, 1000)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    isCanClick = true
                 }
+            }
+
+            if(!isCanClick) {
+                showToast("Chưa có đánh giá")
             }
         }
     }
@@ -89,6 +96,16 @@ class CriteriaMenuActivity : BaseActivity() {
                         }
                     }
 
+
+                    for (i in 1 until markSessions.size) {
+                        for (j in 1 until data.size) {
+                                if (markSessions[i].criteriaBundleId == (data[j].value ?: "0").toInt()) {
+                                    data[j].score = markSessions[i].point
+                                }
+                        }
+                    }
+
+
                     setupRecyclerView()
                 }
             }
@@ -111,10 +128,8 @@ class CriteriaMenuActivity : BaseActivity() {
 
                 if (response!!.body() != null && response.body().status == 1) {
                     markSessions = response.body().data!!
-                    Log.d("hailpt", " ==== " + markSessions.size)
-                    markSessions.forEach {
+                    getData()
 
-                    }
                 }
             }
         })

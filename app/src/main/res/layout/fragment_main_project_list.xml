@@ -85,7 +85,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
-        android:visibility="visible"
+        android:visibility="gone"
         android:src="@drawable/map_vew" />
 
     <include

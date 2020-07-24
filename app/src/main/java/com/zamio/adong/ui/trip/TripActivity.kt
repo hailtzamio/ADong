@@ -25,4 +25,8 @@ class TripActivity : BaseActivity() {
     override fun resumeData() {
 
     }
+
+    fun getIsGoToChoose() : Boolean {
+        return isGoToChoose
+    }
 }

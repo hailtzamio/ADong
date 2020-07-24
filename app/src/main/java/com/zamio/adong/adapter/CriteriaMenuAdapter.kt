@@ -41,7 +41,7 @@ class CriteriaMenuAdapter(private val topicDetails: List<CriteriaMenu>) : Recycl
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.description
-        holder.rating.rating = 3.5F
+        holder.rating.rating = topic.score ?: 0.0f
     }
 
     override fun getItemCount(): Int {

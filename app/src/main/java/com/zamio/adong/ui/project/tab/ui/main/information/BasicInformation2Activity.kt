@@ -64,6 +64,10 @@ class BasicInformation2Activity : BaseActivity() {
             tvPause.visibility = View.GONE
         }
 
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
+            rightButton.visibility = View.GONE
+        }
+
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 

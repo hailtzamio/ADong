@@ -60,7 +60,7 @@ class FactoryFragment : BaseFragment() {
         data.add("Danh sách xưởng")
         data.add("Line")
         data.add("Danh sách yêu cầu sản xuất")
-        data.add("Danh sách phiếu xuất kho")
+        data.add("Danh sách phiếu xuất xưởng")
 
         val mAdapter = TitleAdapter(data,  Team.STOCK.type)
         recyclerView.layoutManager = LinearLayoutManager(context)
