@@ -108,7 +108,7 @@ class CriteriaMenuActivity : BaseActivity() {
             override fun onResponse(call: Call<RestData<ArrayList<MarkSession>>>?, response: Response<RestData<ArrayList<MarkSession>>>?
             ) {
                 dismisProgressDialog()
-      
+
                 if (response!!.body() != null && response.body().status == 1) {
                     markSessions = response.body().data!!
                     Log.d("hailpt", " ==== " + markSessions.size)
