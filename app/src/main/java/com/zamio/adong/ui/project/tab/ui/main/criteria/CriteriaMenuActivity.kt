@@ -3,7 +3,6 @@ package com.zamio.adong.ui.project.tab.ui.main.criteria
 import CriteriaMenuAdapter
 import RestClient
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
@@ -11,6 +10,7 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.model.CriteriaMenu
 import com.zamio.adong.model.MarkSession
+import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.criteria.DetailCriteriaActivity
 import kotlinx.android.synthetic.main.activity_criteria_menu.*
@@ -39,6 +39,7 @@ class CriteriaMenuActivity : BaseActivity() {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
 
             getMarkSessions()
+            getProject(id)
         }
     }
 
@@ -130,6 +131,26 @@ class CriteriaMenuActivity : BaseActivity() {
                     markSessions = response.body().data!!
                     getData()
 
+                }
+            }
+        })
+    }
+
+    fun getProject(id: Int) {
+        RestClient().getInstance().getRestService().getProject(id).enqueue(object :
+            Callback<RestData<Project>> {
+
+            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(
+                call: Call<RestData<Project>>?,
+                response: Response<RestData<Project>>?
+            ) {
+                if (response!!.body() != null && response!!.body().status == 1) {
+                  var  data = response.body().data ?: return
+                    rating.rating = data.rating ?: 0.0f
                 }
             }
         })

@@ -71,6 +71,8 @@ data class Project(
     val supervisorFullName: String?,
     @SerializedName("supervisorId")
     val supervisorId: Int?,
+    @SerializedName("rating")
+    val rating: Float?,
     @SerializedName("supplyChainCriteriaBundleId")
     val supplyChainCriteriaBundleId: Int,
     @SerializedName("supplyChainCriteriaBundleName")
