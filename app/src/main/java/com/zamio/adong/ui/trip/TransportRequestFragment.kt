@@ -14,9 +14,7 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.Transport
 import com.zamio.adong.network.ConstantsApp
-import kotlinx.android.synthetic.main.activity_checkin_out_album_image.*
 import kotlinx.android.synthetic.main.activity_overview_project.*
-import kotlinx.android.synthetic.main.activity_overview_project.viewNoData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -97,8 +95,11 @@ class TransportRequestFragment : BaseFragment() {
 
 
         mAdapter.onItemSelected = { position, isChecked ->
-            data[position].isSelected = isChecked
-            ( activity as TripTabActivity).setTrips(data)
+            if(data.size > 0) {
+                data[position].isSelected = isChecked
+                ( activity as TripTabActivity).setTrips(data)
+            }
+
 //            for (i in data.indices) {
 //                if(data[i].isSelected == true) {
 //                    Log.e("hailpt", "workersChoose  " + data[i].code)

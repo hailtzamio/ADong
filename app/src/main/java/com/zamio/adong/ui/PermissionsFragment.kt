@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PermissionGridAdapter
@@ -24,6 +25,7 @@ import com.zamio.adong.model.User
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.contractor.MainContractorActivity
 import com.zamio.adong.ui.criteria.MainCriteriaActivity
+import com.zamio.adong.ui.driver.DriverActionActivity
 import com.zamio.adong.ui.driver.MainDriverActivity
 import com.zamio.adong.ui.lorry.MainLorryActivity
 import com.zamio.adong.ui.notification.NotificationActivity
@@ -262,7 +264,14 @@ class PermissionsFragment : BaseFragment() {
                     "Project" -> intent = Intent(context, MainProjectActivity::class.java)
                     "WorkOutline" -> intent = Intent(context, MainWorkOutlineActivity::class.java)
                     "Warehouse" -> intent = Intent(context, WareTabActivity::class.java)
-                    "Trip" -> intent = Intent(context, TripTabActivity::class.java)
+                    "Trip" -> {
+                        if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+                            intent = Intent(context, DriverActionActivity::class.java)
+                        } else {
+                            intent = Intent(context, TripTabActivity::class.java)
+                        }
+
+                    }
                     "ContractorProject" -> intent =
                         Intent(context, ProjectRegistranleActivity::class.java)
                 }

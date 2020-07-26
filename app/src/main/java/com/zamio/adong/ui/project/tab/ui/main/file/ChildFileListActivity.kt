@@ -143,7 +143,7 @@ class ChildFileListActivity : BaseActivity() {
 
             mAdapter.onItemClick = { product ->
 
-                if (product.fileName!!.contains("jpg") || product.fileName!!.contains("png") || product.fileName!!.contains("jpeg")) {
+                if (product.fileName!!.contains("PNG") || product.fileName!!.contains("JPG") || product.fileName!!.contains("jpg") || product.fileName!!.contains("png") || product.fileName!!.contains("jpeg") || product.fileName!!.contains("JPEG")) {
                     val intent = Intent(this, PreviewImageActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.downloadUrl)
                     startActivityForResult(intent, 1000)

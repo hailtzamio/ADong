@@ -15,12 +15,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.zamio.adong.R
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.ProjectTypeDialog
 import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
+import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformationActivity
 import com.zamio.adong.utils.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_main_project_list.*
 import kotlinx.android.synthetic.main.fragment_main_project_list.viewNoData
@@ -197,32 +199,32 @@ class MainProjectFragment : BaseFragment() {
                 Log.d("hailpt USER_ROLES", ConstantsApp.USER_ROLES)
                 Log.d("hailpt USER_PERMISSIONS", ConstantsApp.USER_PERMISSIONS)
 
-                val intent = Intent(context, ProjectTabActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
-                intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
-                intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
-                intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
-                startActivity(intent)
-                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                val intent = Intent(context, ProjectTabActivity::class.java)
+//                intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+//                intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+//                intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+//                intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+//                startActivity(intent)
+//                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
-//                if (ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type) || ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type)) {
-//                    val intent = Intent(context, ProjectTabActivity::class.java)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
-//                    startActivity(intent)
-//                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-//                } else {
-//                    val intent = Intent(context, BasicInformationActivity::class.java)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
-//                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
-//                    startActivity(intent)
-//                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-//
-//                }
+                if (ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type) || ConstantsApp.USER_ROLES.contains(UserRoles.LorryManager.type)) {
+                    val intent = Intent(context, BasicInformationActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+                    startActivity(intent)
+                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else {
+                    val intent = Intent(context, ProjectTabActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+                    startActivity(intent)
+                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+                }
 
 
             }
