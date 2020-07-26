@@ -11,8 +11,6 @@ import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.GoodsIssueRequest
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.ware.stock.goods_issue.CreateGoodsIssueActivity
-import com.zamio.adong.ui.ware.stock.goods_issue.DetailGoodsIssueActivity
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -22,6 +20,7 @@ import retrofit2.Response
 class GoodsIssueRequestListActivity : BaseActivity() {
 
     var mList = ArrayList<GoodsIssueRequest>()
+    var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
@@ -37,7 +36,7 @@ class GoodsIssueRequestListActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
     }
 
     override fun resumeData() {
@@ -53,7 +52,7 @@ class GoodsIssueRequestListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getGoodsIssueRequests(page)
+            .getGoodsIssueRequests(page, id)
             .enqueue(object :
                 Callback<RestData<ArrayList<GoodsIssueRequest>>> {
                 override fun onFailure(call: Call<RestData<ArrayList<GoodsIssueRequest>>>?, t: Throwable?) {

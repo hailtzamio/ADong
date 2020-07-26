@@ -25,6 +25,8 @@ data class Worker(
     var email: String,
     @SerializedName("fullName")
     var fullName: String?,
+    @SerializedName("username")
+    var username: String?,
     @SerializedName("id")
     val id: Int,
     @SerializedName("isTeamLeader")

@@ -16,9 +16,7 @@ import com.zamio.adong.model.Information
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
-import kotlinx.android.synthetic.main.activity_detail_worker.cropImageView
-import kotlinx.android.synthetic.main.activity_detail_worker.recyclerView
-import kotlinx.android.synthetic.main.activity_detail_worker.tvOk
+import kotlinx.android.synthetic.main.activity_detail_worker.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -121,6 +119,7 @@ class DetailWorkerActivity : BaseActivity() {
                     updateObject(worker!!)
 
                     mList.add(Information("Tên", worker!!.fullName ?: "---", ""))
+                    mList.add(Information("Tên đăng nhập", worker!!.username ?: "---", ""))
                     if (worker!!.isTeamLeader) {
                         mList.add(Information("Chức danh", "Đội trưởng", ""))
                     } else {

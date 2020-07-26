@@ -16,6 +16,7 @@ class PreviewImageActivity : AppCompatActivity() {
         if(intent.hasExtra(ConstantsApp.KEY_VALUES_HIDE)) {
             avatarUrl = avatarUrl + "&accessToken=" + ConstantsApp.BASE64_AUTH_TOKEN.removeRange(0,6)
         }
+
         Picasso.get().load(avatarUrl).into(imvAva)
 
         imvClose.setOnClickListener {

@@ -36,10 +36,7 @@ import com.zamio.adong.ui.trip.TripTabActivity
 import com.zamio.adong.ui.ware.WareTabActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import com.zamio.adong.ui.workoutline.MainWorkOutlineActivity
-import kotlinx.android.synthetic.main.fragment_main_notification.*
 import kotlinx.android.synthetic.main.fragment_notifications.*
-import kotlinx.android.synthetic.main.fragment_notifications.recyclerView
-import kotlinx.android.synthetic.main.item_search_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -407,13 +404,15 @@ class PermissionsFragment : BaseFragment() {
                         if(response.body().data == null) {
                             return
                         }
-
-                        tvNotification.text = (response.body().data!!.notSeenCount ?: 0).toString()
-                        if(response.body().data!!.notSeenCount ?: 0 == 0) {
-                            rlNotification.visibility = View.GONE
-                        } else {
-                            rlNotification.visibility = View.VISIBLE
+                        if(tvNotification != null) {
+                            tvNotification.text = (response.body().data!!.notSeenCount ?: 0).toString()
+                            if(response.body().data!!.notSeenCount ?: 0 == 0) {
+                                rlNotification.visibility = View.GONE
+                            } else {
+                                rlNotification.visibility = View.VISIBLE
+                            }
                         }
+
                     }
                 }
             })

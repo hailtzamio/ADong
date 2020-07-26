@@ -59,7 +59,7 @@
            android:layout_marginLeft="10dp"
             android:id="@+id/imvAva"
             android:layout_toRightOf="@+id/rlNoti"
-            android:src="@drawable/ava"
+            android:src="@drawable/user_default"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
 

@@ -324,7 +324,7 @@ interface RestService {
     fun getWareHouse(@Path("id") id: Int): Call<RestData<WareHouse>>
 
     @GET("goodsReceivedNote?size=100&sort=id,desc")
-    fun getGoodsReceivedNotes(@Query("page") page: Int): Call<RestData<ArrayList<GoodsNote>>>
+    fun getGoodsReceivedNotes(@Query("page") page: Int,@Query("warehouseId") id: Int): Call<RestData<ArrayList<GoodsNote>>>
 
     @POST("goodsReceivedNote")
     fun createGoodsReceivedNote(@Body data: GoodsNoteRq): Call<RestData<JsonElement>>
@@ -341,7 +341,7 @@ interface RestService {
 
     // Good Issue
     @GET("goodsIssueDocument?size=100&sort=id,desc")
-    fun getGoodsIssues(@Query("page") page: Int): Call<RestData<ArrayList<GoodsIssue>>>
+    fun getGoodsIssues(@Query("page") page: Int , @Query("warehouseId") id: Int): Call<RestData<ArrayList<GoodsIssue>>>
 
     @POST("goodsIssueDocument")
     fun createGoodsIssueDocument(@Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
@@ -356,8 +356,8 @@ interface RestService {
     fun confirmGoodsIssueDocument(@Path("id") grnId: Int): Call<RestData<JsonElement>>
 
     // ManuFacture
-    @GET("manufactureRequest")
-    fun getManufactures(@Query("page") page: Int): Call<RestData<ArrayList<ManuFactureRes>>>
+    @GET("manufactureRequest?size=100&sort=id,desc")
+    fun getManufactures(@Query("page") page: Int, @Query("warehouseId") id: Int): Call<RestData<ArrayList<ManuFactureRes>>>
 
     @GET("manufactureRequest/{id}")
     fun getManufacture(@Path("id") id: Int): Call<RestData<ManuFactureRes>>
@@ -369,8 +369,8 @@ interface RestService {
     fun updateManufacture(@Path("id") id: Int, @Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
     // Goods Issue Request
-    @GET("goodsIssueRequest")
-    fun getGoodsIssueRequests(@Query("page") page: Int): Call<RestData<ArrayList<GoodsIssueRequest>>>
+    @GET("goodsIssueRequest?size=100&sort=id,desc")
+    fun getGoodsIssueRequests(@Query("page") page: Int , @Query("warehouseId") id: Int): Call<RestData<ArrayList<GoodsIssueRequest>>>
 
 
 

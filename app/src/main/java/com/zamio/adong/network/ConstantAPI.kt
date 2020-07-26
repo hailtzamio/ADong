@@ -36,7 +36,9 @@ enum class UserPermission(val type: String) {
 enum class UserRoles(val type: String) {
     CarManagement("Quản lý đội xe"),
     Driver("Tài xế"),
-    Secretary("Thư ký")
+    Secretary("Thư ký"),
+    TeamLeader("Đội trưởng"),
+    LorryManager("Quản lý đội xe-LORRY_MANAGER")
 }
 
 enum class AppColor(val hex: String) {

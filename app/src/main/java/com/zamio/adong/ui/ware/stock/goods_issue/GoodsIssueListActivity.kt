@@ -1,7 +1,6 @@
 package com.zamio.adong.ui.ware.stock.goods_issue
 
 import GoodsIssueAdapterr
-import GoodsReceivedNoteAdapter
 import RestClient
 import android.content.Intent
 import android.view.View
@@ -11,7 +10,6 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.GoodsIssue
-import com.zamio.adong.model.GoodsNote
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -22,12 +20,13 @@ import retrofit2.Response
 class GoodsIssueListActivity : BaseActivity() {
 
     var mList = ArrayList<GoodsIssue>()
+    var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
 
     override fun initView() {
-        tvTitle.text = "Phiếu Xuất Kho"
+        tvTitle.text = "Phiếu Xuất Xưởng"
         rightButton.visibility = View.GONE
         rightButton.setOnClickListener {
             val intent = Intent(this, CreateGoodsIssueActivity::class.java)
@@ -37,7 +36,11 @@ class GoodsIssueListActivity : BaseActivity() {
     }
 
     override fun initData() {
+        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
 
+        if(intent.hasExtra(ConstantsApp.KEY_VALUES_STATUS)) {
+            tvTitle.text = "Phiếu Xuất Kho"
+        }
     }
 
     override fun resumeData() {
@@ -53,7 +56,7 @@ class GoodsIssueListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getGoodsIssues(page)
+            .getGoodsIssues(page, id)
             .enqueue(object :
                 Callback<RestData<ArrayList<GoodsIssue>>> {
                 override fun onFailure(call: Call<RestData<ArrayList<GoodsIssue>>>?, t: Throwable?) {

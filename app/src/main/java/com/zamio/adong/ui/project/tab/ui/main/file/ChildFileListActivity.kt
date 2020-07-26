@@ -1,13 +1,13 @@
 package com.zamio.adong.ui.project.tab.ui.main.file
 
 import FileAdapter
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.graphics.*
+import android.content.Intent
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.media.MediaScannerConnection
 import android.os.Build
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -20,12 +20,10 @@ import com.zamio.adong.R
 import com.zamio.adong.model.FileProject
 import com.zamio.adong.model.Project
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.ui.activity.PreviewImageActivity
 import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
-import java.io.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ChildFileListActivity : BaseActivity() {
@@ -74,8 +72,6 @@ class ChildFileListActivity : BaseActivity() {
     }
 
 
-
-
     object MyDrawableCompat {
         fun setColorFilter(drawable: Drawable, color: Int) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -92,7 +88,7 @@ class ChildFileListActivity : BaseActivity() {
 
 //        MyDrawableCompat.setColorFilter(progressBarOne.background,  Color.BLUE);
 
-        Log.d("hailpt", " dirPath ~~~>  "+dirPath)
+        Log.d("hailpt", " dirPath ~~~>  " + dirPath)
 
         downloadIdOne = PRDownloader.download(file.downloadUrl, dirPath, file.fileName)
             .build()
@@ -146,24 +142,34 @@ class ChildFileListActivity : BaseActivity() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
-                if (!isDownloading) {
-                    val dialogClickListener =
-                        DialogInterface.OnClickListener { dialog, which ->
-                            when (which) {
-                                DialogInterface.BUTTON_POSITIVE -> {
-                                    tryToDownload(product)
-                                }
 
-                                DialogInterface.BUTTON_NEGATIVE -> {
-                                }
-                            }
-                        }
-
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                    builder.setMessage("Tải file ?")
-                        .setPositiveButton("Đồng ý", dialogClickListener)
-                        .setNegativeButton("Không", dialogClickListener).show()
+                if (product.fileName!!.contains("jpg") || product.fileName!!.contains("png") || product.fileName!!.contains("jpeg")) {
+                    val intent = Intent(this, PreviewImageActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, product!!.downloadUrl)
+                    startActivityForResult(intent, 1000)
+                } else {
+                    showToast("Không hỗ trợ xem")
                 }
+
+
+//                if (!isDownloading) {
+//                    val dialogClickListener =
+//                        DialogInterface.OnClickListener { dialog, which ->
+//                            when (which) {
+//                                DialogInterface.BUTTON_POSITIVE -> {
+//                                    tryToDownload(product)
+//                                }
+//
+//                                DialogInterface.BUTTON_NEGATIVE -> {
+//                                }
+//                            }
+//                        }
+//
+//                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+//                    builder.setMessage("Tải file ?")
+//                        .setPositiveButton("Đồng ý", dialogClickListener)
+//                        .setNegativeButton("Không", dialogClickListener).show()
+//                }
             }
 
         }

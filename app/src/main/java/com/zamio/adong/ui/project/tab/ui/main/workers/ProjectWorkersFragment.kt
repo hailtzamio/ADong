@@ -56,6 +56,7 @@ class ProjectWorkersFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
     var data = ArrayList<Worker>()
+    var curentWorker:Worker? = null
     var projectId = 0
     var thumbnailExtId = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,6 +141,8 @@ class ProjectWorkersFragment : BaseFragment() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
+
+                curentWorker = product
                 var note = ""
                 note = if (product.workingStatus == "idle") {
                     "Điểm danh công nhân vào?"
@@ -154,9 +157,9 @@ class ProjectWorkersFragment : BaseFragment() {
 
                     val ids = ArrayList<Int>()
                     ids.add(product.id)
-                    val check = CheckinOut(projectId, ids)
+                    val check = CheckinOut(projectId, ids,plannedStartDate,plannedStartDate)
                     when (it) {
-                        1 -> showDateTimePicker(true)
+                        1 -> showDateTimePicker()
                         2 -> if (product.workingStatus == "idle") {
                             checkin(check)
                         } else {
@@ -171,7 +174,7 @@ class ProjectWorkersFragment : BaseFragment() {
     private lateinit var date: Calendar
     var plannedStartDate = ""
     var plannedEndDate = ""
-    private fun showDateTimePicker(isStartDate: Boolean) {
+    private fun showDateTimePicker() {
         val currentDate: Calendar = Calendar.getInstance()
         date = Calendar.getInstance()
         DatePickerDialog(
@@ -192,10 +195,16 @@ class ProjectWorkersFragment : BaseFragment() {
 
                         val dateTime = format.format(date.time).toString()
                         val dateTimeToShow = formatToShow.format(date.time).toString()
-                        if (isStartDate) {
-                            plannedStartDate = dateTime
-                        } else {
-                            plannedEndDate = dateTime
+                        plannedStartDate = dateTime
+                        if(curentWorker != null) {
+                            val ids = ArrayList<Int>()
+                            ids.add(curentWorker!!.id)
+                            val check = CheckinOut(projectId, ids,plannedStartDate,plannedStartDate)
+                            if (curentWorker!!.workingStatus == "idle") {
+                                checkin(check)
+                            } else {
+                                checkout(check)
+                            }
                         }
                     },
                     currentDate.get(Calendar.HOUR_OF_DAY),

@@ -2,6 +2,7 @@ package com.zamio.adong.ui.ware.stock.goods_received
 
 import GoodsReceivedNoteAdapter
 import RestClient
+import Type
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +11,6 @@ import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.GoodsNote
-import com.zamio.adong.model.aaaaa
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
@@ -21,6 +21,7 @@ import retrofit2.Response
 class GoodsReceivedNoteListActivity : BaseActivity() {
 
     var mList = ArrayList<GoodsNote>()
+    var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
@@ -36,7 +37,7 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
     }
 
     override fun resumeData() {
@@ -52,7 +53,7 @@ class GoodsReceivedNoteListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getGoodsReceivedNotes(page)
+            .getGoodsReceivedNotes(page, id)
             .enqueue(object :
                 Callback<RestData<ArrayList<GoodsNote>>> {
                 override fun onFailure(call: Call<RestData<ArrayList<GoodsNote>>>?, t: Throwable?) {

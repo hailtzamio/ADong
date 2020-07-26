@@ -1,10 +1,12 @@
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.GoodsIssueRequest
+import com.zamio.adong.utils.Utils
 
 
 /**
@@ -54,16 +56,24 @@ class GoodsIssueRequestAdapter(private val topicDetails: List<GoodsIssueRequest>
             holder.tv2.text = topic.warehouseName
         }
 
-        if (topic.status != null) {
-            holder.tv3.text = topic.status.toString()
-        }
+
 
         if (topic.plannedDatetime != null && topic.plannedDatetime != "") {
-            holder.tv4.text = topic.plannedDatetime
+            holder.tv3.text = Utils.convertDate(topic.plannedDatetime)
         }
 
         if (topic.note != null && topic.note != "") {
-            holder.tv5.text = topic.note
+            holder.tv4.text = topic.note
+        }
+
+
+        if (topic.status != null) {
+            if(topic.status == 1) {
+                holder.tv5.text = "Mới"
+            } else if (topic.status == 2) {
+                holder.tv5.text = "Hoàn thành"
+            }
+
         }
 
 //        if (topic.status != null && topic.status == "DONE") {

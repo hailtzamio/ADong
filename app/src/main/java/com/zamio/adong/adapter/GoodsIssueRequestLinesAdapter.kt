@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.GoodsIssueRequestLine
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -47,7 +47,7 @@ class GoodsIssueRequestLinesAdapter(private val topicDetails: ArrayList<GoodsIss
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val topic = topicDetails[position]
         holder.name.text = topic.productName
-        holder.phone.text = topic.quantity.toString()
+        holder.phone.text = topic.quantity.toString() + " " + topic.productUnit ?: ""
     }
 
     override fun getItemCount(): Int {

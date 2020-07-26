@@ -28,7 +28,7 @@
             android:id="@+id/imvAva"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ava"
+            android:src="@drawable/user_default"
             app:civ_border_width="2dp"
             app:civ_border_color="@color/colorGray2"/>
 

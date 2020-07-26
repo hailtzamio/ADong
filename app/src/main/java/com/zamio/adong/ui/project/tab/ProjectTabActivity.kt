@@ -48,6 +48,10 @@ class ProjectTabActivity : AppCompatActivity() {
             fab.visibility = View.GONE
         }
 
+//        if (ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type) || ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type)) {
+//
+//        }
+
         sectionsPagerAdapter.addFragment(MainWorkOutlineFragment())
         sectionsPagerAdapter.addFragment(informationPage)
 

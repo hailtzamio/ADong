@@ -341,6 +341,12 @@
             android:name=".ui.project.tab.ui.main.file.ChildFileListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.ware.stock.stock.StockListTitleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ware.stock.stock.FactoryListTitleActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity

@@ -1,6 +1,5 @@
 package com.zamio.adong.ui.ware.stock.factory
 
-import GoodsIssueRequestAdapter
 import ManuFactureRequestAdapter
 import RestClient
 import android.content.Intent
@@ -10,13 +9,9 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
 import com.zamio.adong.adapter.PaginationScrollListener
-import com.zamio.adong.model.GoodsIssueRequest
 import com.zamio.adong.model.ManuFactureRes
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.ware.stock.goods_issue.CreateGoodsIssueActivity
-import com.zamio.adong.ui.ware.stock.goods_issue.DetailGoodsIssueActivity
 import com.zamio.adong.ui.ware.stock.goods_issue_request.CreateGoodsIssueRequestActivity
-import com.zamio.adong.ui.ware.stock.goods_issue_request.DetailGoodsIssueRequestActivity
 import kotlinx.android.synthetic.main.activity_stock_list.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
@@ -26,6 +21,7 @@ import retrofit2.Response
 class ManufactureRequestListActivity : BaseActivity() {
 
     var mList = ArrayList<ManuFactureRes>()
+    var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_stock_list
     }
@@ -41,7 +37,7 @@ class ManufactureRequestListActivity : BaseActivity() {
     }
 
     override fun initData() {
-
+        id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
     }
 
     override fun resumeData() {
@@ -57,7 +53,7 @@ class ManufactureRequestListActivity : BaseActivity() {
     private fun getData() {
         showProgessDialog()
         RestClient().getInstance().getRestService()
-            .getManufactures(page)
+            .getManufactures(page, id)
             .enqueue(object :
                 Callback<RestData<ArrayList<ManuFactureRes>>> {
                 override fun onFailure(call: Call<RestData<ArrayList<ManuFactureRes>>>?, t: Throwable?) {

@@ -170,17 +170,20 @@ class CreateTripActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d(">>>>>>>>>>", "$resultCode")
 
-        if(requestCode == 1000) {
-            edt1.text = data!!.getStringExtra("name")
-            lorryId = data.getIntExtra("id", 0)
+
+        if(data != null) {
+            if(requestCode == 1000) {
+                edt1.text = data.getStringExtra("name")
+                lorryId = data.getIntExtra("id", 0)
+            }
+
+            if(requestCode == 1001) {
+                edt2.text = data.getStringExtra("name")
+                driverId = data.getIntExtra("id", 0)
+            }
         }
 
-        if(requestCode == 1001) {
-            edt2.text = data!!.getStringExtra("name")
-            driverId = data.getIntExtra("id", 0)
-        }
     }
 
 }

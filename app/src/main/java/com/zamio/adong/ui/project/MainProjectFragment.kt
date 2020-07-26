@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ import com.zamio.adong.popup.ProjectTypeDialog
 import com.zamio.adong.ui.lorry.map.LorryListLocationActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.utils.PaginationScrollListener
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_main_project_list.*
 import kotlinx.android.synthetic.main.fragment_main_project_list.viewNoData
 import kotlinx.android.synthetic.main.fragment_main_team_list.recyclerView
@@ -193,6 +193,10 @@ class MainProjectFragment : BaseFragment() {
                 builder.setMessage("Chọn "+data.name + " ?").setPositiveButton("Đồng ý", dialogClickListener)
                     .setNegativeButton("Không", dialogClickListener).show()
             } else {
+
+                Log.d("hailpt USER_ROLES", ConstantsApp.USER_ROLES)
+                Log.d("hailpt USER_PERMISSIONS", ConstantsApp.USER_PERMISSIONS)
+
                 val intent = Intent(context, ProjectTabActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
                 intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
@@ -200,6 +204,27 @@ class MainProjectFragment : BaseFragment() {
                 intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
                 startActivity(intent)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+//                if (ConstantsApp.USER_ROLES.contains(UserRoles.Secretary.type) || ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type)) {
+//                    val intent = Intent(context, ProjectTabActivity::class.java)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+//                    startActivity(intent)
+//                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                } else {
+//                    val intent = Intent(context, BasicInformationActivity::class.java)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, data.name)
+//                    intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, data.status)
+//                    startActivity(intent)
+//                    activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//
+//                }
+
+
             }
         }
 

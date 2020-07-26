@@ -101,10 +101,9 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: String
                     }
                 } else {
                     when (position) {
-                        0 -> holder.imvAva.setImageResource(R.drawable.factory)
-                        2 -> holder.imvAva.setImageResource(R.drawable.import11)
-                        3 -> holder.imvAva.setImageResource(R.drawable.export22)
-                        5 -> holder.imvAva.setImageResource(R.drawable.export11)
+                        0 -> holder.imvAva.setImageResource(R.drawable.import11)
+                        1 -> holder.imvAva.setImageResource(R.drawable.export22)
+                       3 -> holder.imvAva.setImageResource(R.drawable.export11)
                         6 -> holder.imvAva.setImageResource(R.drawable.hospital)
                     }
                 }

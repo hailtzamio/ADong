@@ -1,19 +1,14 @@
 package com.zamio.adong.ui.project.tab.ui.main.checkinout
 
 import RestClient
-import WorkOutlineAdapter
-import WorkerAdapter
 import WorkerCheckinOutAdapter
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
-import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.adapter.PaginationScrollListener
 import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
 import com.zamio.adong.network.ConstantsApp
@@ -93,7 +88,7 @@ class CheckInOutActivity : BaseActivity() {
                                 val ids = ArrayList<Int>()
                                 ids.add(product.id)
 
-                                val check = CheckinOut(id, ids)
+                                val check = CheckinOut(id, ids, "sta", "")
                                 if (product.workingStatus == "idle") {
                                     checkin(check)
                                 } else {

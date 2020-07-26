@@ -1,6 +1,7 @@
 package com.zamio.adong.ui.ware.stock
 
-import TitleAdapter
+import RestClient
+import WareHouseAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
-import com.elcom.com.quizupapp.ui.network.Team
+import com.elcom.com.quizupapp.ui.network.RestData
 import com.zamio.adong.R
+import com.zamio.adong.model.WareHouse
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.ware.stock.goods_issue.GoodsIssueListActivity
-import com.zamio.adong.ui.ware.stock.goods_issue_request.GoodsIssueRequestListActivity
-import com.zamio.adong.ui.ware.stock.goods_received.GoodsReceivedNoteListActivity
-import com.zamio.adong.ui.ware.stock.stock.StockListActivity
+import com.zamio.adong.ui.ware.stock.stock.StockListTitleActivity
 import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -25,7 +27,8 @@ class StockFragment : BaseFragment() {
     private var param2: String? = null
     var currentPage = 0
     var totalPages = 0
-
+    var type = "STOCK"
+    var mList = ArrayList<WareHouse>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,63 +48,59 @@ class StockFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        getData()
-        setupRecyclerView()
+
     }
 
     override fun onResume() {
         super.onResume()
 
+        mList.clear()
+        getData()
+
     }
 
-    private fun setupRecyclerView() {
+    private fun getData() {
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .getStocks("",type)
+            .enqueue(object :
+                Callback<RestData<ArrayList<WareHouse>>> {
+                override fun onFailure(call: Call<RestData<ArrayList<WareHouse>>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
 
-        val data = ArrayList<String>()
-        data.add("Danh sách kho")
-        data.add("Line")
-        data.add("Danh sách phiếu nhập kho")
-        data.add("Danh sách phiếu xuất kho")
-        data.add("Line")
-        data.add("Danh sách yêu cầu xuất kho")
+                override fun onResponse(
+                    call: Call<RestData<ArrayList<WareHouse>>>?,
+                    response: Response<RestData<ArrayList<WareHouse>>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        mList = response.body().data!!
+                        setupRecyclerView2()
+
+                    }
+                }
+            })
+    }
 
 
+    private fun setupRecyclerView2() {
+        if (recyclerView != null) {
+            val mAdapter = WareHouseAdapter(mList)
+            recyclerView.layoutManager = LinearLayoutManager(context!!)
+            recyclerView.setHasFixedSize(false)
+            recyclerView.adapter = mAdapter
 
-        val mAdapter = TitleAdapter(data, Team.STOCK.type)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(false)
-        recyclerView.adapter = mAdapter
-
-        mAdapter.onItemClick = { product ->
-            when(product) {
-                0 -> goToStockList()
-                2 -> GoodsReceivedNoteList()
-                3 -> GoodsIssueList()
-                5 -> GoodsIssueRequestList()
-//                9 -> goToAlbum()
-//                10 -> goToCheckinHistory()
+            mAdapter.onItemClick = { product ->
+                val intent = Intent(context, StockListTitleActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, type)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.id)
+                startActivityForResult(intent, 1000)
             }
         }
     }
 
-    private fun goToStockList() {
-        val intent = Intent(context, StockListActivity::class.java)
-        intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, "STOCK")
-        startActivityForResult(intent, 1000)
-    }
 
-    private fun GoodsReceivedNoteList() {
-        val intent = Intent(context, GoodsReceivedNoteListActivity::class.java)
-        startActivityForResult(intent, 1000)
-    }
-
-    private fun GoodsIssueList() {
-        val intent = Intent(context, GoodsIssueListActivity::class.java)
-        startActivityForResult(intent, 1000)
-    }
-
-    private fun GoodsIssueRequestList() {
-        val intent = Intent(context, GoodsIssueRequestListActivity::class.java)
-        startActivityForResult(intent, 1000)
-    }
 
     companion object {
         fun newInstance(param1: String, param2: String) =

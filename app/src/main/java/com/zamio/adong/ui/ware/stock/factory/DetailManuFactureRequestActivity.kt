@@ -196,7 +196,7 @@ class DetailManuFactureRequestActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            showToast("onItemClick")
+//            showToast("onItemClick")
         }
 
         mAdapter.onRemoveItem = {

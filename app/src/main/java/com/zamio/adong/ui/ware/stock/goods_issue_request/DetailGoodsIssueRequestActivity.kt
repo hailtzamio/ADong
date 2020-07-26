@@ -5,7 +5,9 @@ import RestClient
 import SwipeToDeleteCallback
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
@@ -17,9 +19,11 @@ import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.GoodsIssueRequest
+import com.zamio.adong.model.GoodsIssueRequestLine
+import com.zamio.adong.model.GoodsNoteUpdateRq
+import com.zamio.adong.model.LinesAddNew
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.ware.stock.goods_received.AddProductToGoodsReceiedActivity
 import kotlinx.android.synthetic.main.activity_detail_goods_issue_request.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import org.json.JSONObject
@@ -29,8 +33,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog.OnTimeSetListener
 
 class DetailGoodsIssueRequestActivity : BaseActivity() {
 
@@ -153,7 +155,12 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
                         }
 
                         if (data!!.status != null) {
-                            tvStatus.text = data!!.status.toString()
+                            if(data!!.status == 1) {
+                                tvStatus.text = "Mới"
+                            } else {
+                                tvStatus.text = "Hoàn thành"
+                            }
+
                         }
 //
                         if (data!!.plannedDatetime != null && data!!.plannedDatetime != "") {
@@ -201,7 +208,7 @@ class DetailGoodsIssueRequestActivity : BaseActivity() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { product ->
-            showToast("onItemClick")
+
         }
 
         mAdapter.onRemoveItem = {

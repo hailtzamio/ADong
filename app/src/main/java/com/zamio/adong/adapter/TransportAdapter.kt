@@ -1,4 +1,3 @@
-
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.network.AppColor
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.zamio.adong.R
 import com.zamio.adong.model.Transport
+import com.zamio.adong.network.ConstantsApp
 
 
 /**
@@ -42,6 +43,9 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
+            }
+            if (!ConstantsApp.USER_ROLES.contains(UserRoles.LorryManager.type)) {
+                cb.visibility = View.GONE
             }
 
             cb.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
@@ -83,7 +87,7 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
 
         if (topic.status != null) {
             when (topic.status) {
-                1 ->  {
+                1 -> {
                     holder.tv6.text = "Mới"
                     holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
                 }
@@ -106,13 +110,13 @@ class TransportAdapter(private val topicDetails: List<Transport>) :
             }
         }
 
-        if (topic.status == 1) {
-            holder.cb.visibility = View.VISIBLE
-            holder.icNext.visibility = View.GONE
-        } else {
-            holder.cb.visibility = View.GONE
-            holder.icNext.visibility = View.VISIBLE
-        }
+//        if (topic.status == 1) {
+//            holder.cb.visibility = View.VISIBLE
+//            holder.icNext.visibility = View.GONE
+//        } else {
+//            holder.cb.visibility = View.GONE
+//            holder.icNext.visibility = View.VISIBLE
+//        }
 
         holder.cb.isChecked = topic.isSelected
     }
