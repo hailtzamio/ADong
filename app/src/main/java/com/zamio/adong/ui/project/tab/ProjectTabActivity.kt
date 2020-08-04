@@ -62,9 +62,12 @@ class ProjectTabActivity : AppCompatActivity() {
 
         imvCheckInOut.visibility = View.GONE
         imvCheckInOut.setOnClickListener {
-            val intent = Intent(this, CheckInOutActivity::class.java)
-            intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
-            startActivityForResult(intent, 1000)
+            if(project != null) {
+                val intent = Intent(this, CheckInOutActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+                intent.putExtra(ConstantsApp.KEY_VALUES_STATUS, project!!.status ?: "DONE")
+                startActivityForResult(intent, 1000)
+            }
         }
 
 
@@ -109,6 +112,10 @@ class ProjectTabActivity : AppCompatActivity() {
 
     fun getProjectTeam() : String {
         return project!!.teamType ?: Team.ADONG.type
+    }
+
+    fun getProjectStatus() : String {
+        return project!!.status ?: "DONE"
     }
 
     private fun goToUploadImage() {

@@ -44,6 +44,8 @@
                         android:src="@drawable/icon_check" />
 
                     <TextView
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -65,11 +67,11 @@
                     android:text="11111" />
 
                 <androidx.appcompat.widget.AppCompatRatingBar
-                    android:rating="3.5"
+                    android:rating="1"
                     android:visibility="gone"
                     style="?android:attr/ratingBarStyleSmall"
                     android:id="@+id/rating"
-                    android:numStars="5"
+                    android:numStars="1"
                     android:layout_below="@+id/tvType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

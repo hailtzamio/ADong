@@ -1,4 +1,4 @@
-import android.graphics.Color
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +13,10 @@ import com.zamio.adong.model.Worker
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
+class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>, val status:String) :
     RecyclerView.Adapter<WorkerCheckinOutAdapter.MyViewHolder>() {
     var onItemClick: ((Worker) -> Unit)? = null
-
+    var mStatus = status
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.tvName)
         var type: TextView = view.findViewById(R.id.tvType)
@@ -27,6 +27,11 @@ class WorkerCheckinOutAdapter(private val topicDetails: List<Worker>) :
 
 
         init {
+
+            if(mStatus == "DONE") {
+                imvStatus.visibility = View.GONE
+            }
+
             itemView.setOnClickListener {
                 onItemClick?.invoke(topicDetails[adapterPosition])
             }

@@ -18,12 +18,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.google.gson.JsonElement
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
 import com.zamio.adong.model.CheckinOut
 import com.zamio.adong.model.Worker
+import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.CheckInOutDialog
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import kotlinx.android.synthetic.main.fragment_main_worker.recyclerView
@@ -56,8 +58,9 @@ class ProjectWorkersFragment : BaseFragment() {
     private var param1: String? = null
     private var param2: String? = null
     var data = ArrayList<Worker>()
-    var curentWorker:Worker? = null
+    var curentWorker: Worker? = null
     var projectId = 0
+    var status = ""
     var thumbnailExtId = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,10 +80,12 @@ class ProjectWorkersFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        projectId = (activity as ProjectTabActivity).getProjectId()
+        status = (activity as ProjectTabActivity).getProjectStatus()
         resetData()
         setupRecyclerView()
         getData(0)
-        projectId = (activity as ProjectTabActivity).getProjectId()
+
     }
 
     fun pickImageFromAlbum() {
@@ -100,20 +105,20 @@ class ProjectWorkersFragment : BaseFragment() {
     fun getData(pPage: Int) {
 
         data.clear()
-//        showProgessDialog()
+        showProgessDialog()
         RestClient().getInstance().getRestService()
             .getProjectWorkers((activity as ProjectTabActivity).getProjectId(), pPage)
             .enqueue(object :
                 Callback<RestData<List<Worker>>> {
                 override fun onFailure(call: Call<RestData<List<Worker>>>?, t: Throwable?) {
-//                dismisProgressDialog()
+                dismisProgressDialog()
                 }
 
                 override fun onResponse(
                     call: Call<RestData<List<Worker>>>?,
                     response: Response<RestData<List<Worker>>>?
                 ) {
-//                dismisProgressDialog()
+                dismisProgressDialog()
                     if (response!!.body() != null && response.body().status == 1) {
                         data.addAll(response.body().data!!)
 
@@ -121,7 +126,7 @@ class ProjectWorkersFragment : BaseFragment() {
                             if (viewNoData != null) {
                                 viewNoData.visibility = View.GONE
                             }
-                            mAdapter.notifyDataSetChanged()
+                            setupRecyclerView()
                         } else {
                             if (viewNoData != null) {
                                 viewNoData.visibility = View.VISIBLE
@@ -132,8 +137,9 @@ class ProjectWorkersFragment : BaseFragment() {
             })
     }
 
-    val mAdapter = WorkerCheckinOutAdapter(data)
+
     private fun setupRecyclerView() {
+        val mAdapter = WorkerCheckinOutAdapter(data, status)
         val layoutManager = LinearLayoutManager(context)
         if (recyclerView != null) {
             recyclerView.layoutManager = layoutManager
@@ -142,30 +148,33 @@ class ProjectWorkersFragment : BaseFragment() {
 
             mAdapter.onItemClick = { product ->
 
-                curentWorker = product
-                var note = ""
-                note = if (product.workingStatus == "idle") {
-                    "Điểm danh công nhân vào?"
-                } else {
-                    "Điểm danh công nhân ra?"
-                }
+                if (ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type)) {
 
+                    curentWorker = product
+                    var note = ""
+                    note = if (product.workingStatus == "idle") {
+                        "Điểm danh công nhân vào?"
+                    } else {
+                        "Điểm danh công nhân ra?"
+                    }
 
-                val dialog = CheckInOutDialog(context!!)
-                dialog.show()
-                dialog.onItemClick = {
+                    val dialog = CheckInOutDialog(context!!)
+                    dialog.show()
+                    dialog.onItemClick = {
 
-                    val ids = ArrayList<Int>()
-                    ids.add(product.id)
-                    val check = CheckinOut(projectId, ids,plannedStartDate,plannedStartDate)
-                    when (it) {
-                        1 -> showDateTimePicker()
-                        2 -> if (product.workingStatus == "idle") {
-                            checkin(check)
-                        } else {
-                            checkout(check)
+                        val ids = ArrayList<Int>()
+                        ids.add(product.id)
+                        val check = CheckinOut(projectId, ids, plannedStartDate, plannedStartDate)
+                        when (it) {
+                            1 -> showDateTimePicker()
+                            2 -> if (product.workingStatus == "idle") {
+                                checkin(check)
+                            } else {
+                                checkout(check)
+                            }
                         }
                     }
+
                 }
             }
         }
@@ -196,10 +205,11 @@ class ProjectWorkersFragment : BaseFragment() {
                         val dateTime = format.format(date.time).toString()
                         val dateTimeToShow = formatToShow.format(date.time).toString()
                         plannedStartDate = dateTime
-                        if(curentWorker != null) {
+                        if (curentWorker != null) {
                             val ids = ArrayList<Int>()
                             ids.add(curentWorker!!.id)
-                            val check = CheckinOut(projectId, ids,plannedStartDate,plannedStartDate)
+                            val check =
+                                CheckinOut(projectId, ids, plannedStartDate, plannedStartDate)
                             if (curentWorker!!.workingStatus == "idle") {
                                 checkin(check)
                             } else {
@@ -235,7 +245,7 @@ class ProjectWorkersFragment : BaseFragment() {
                     Toast.makeText(context, "Chấm giờ ra thành công", Toast.LENGTH_SHORT).show()
                     getData(0)
                 } else {
-                    if(response!!.errorBody() != null) {
+                    if (response!!.errorBody() != null) {
                         val obj = JSONObject(response!!.errorBody().string())
                         showToast(obj["message"].toString())
                     }
@@ -261,7 +271,7 @@ class ProjectWorkersFragment : BaseFragment() {
                     Toast.makeText(context, "Chấm giờ vào thành công", Toast.LENGTH_SHORT).show()
                     getData(0)
                 } else {
-                    if(response!!.errorBody() != null) {
+                    if (response!!.errorBody() != null) {
                         val obj = JSONObject(response!!.errorBody().string())
                         showToast(obj["message"].toString())
                     }

@@ -23,6 +23,7 @@ class CheckInOutActivity : BaseActivity() {
     var page = 0
     var data = ArrayList<Worker>()
     var id = 0
+    var status = ""
     override fun getLayout(): Int {
         return R.layout.activity_check_in_out
     }
@@ -41,6 +42,7 @@ class CheckInOutActivity : BaseActivity() {
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
             id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 1)
+            status = intent.getStringExtra(ConstantsApp.KEY_VALUES_STATUS) ?: "DONE"
             setupRecyclerView()
             getData(page)
         }
@@ -72,7 +74,7 @@ class CheckInOutActivity : BaseActivity() {
         })
     }
 
-    val mAdapter = WorkerCheckinOutAdapter(data)
+    val mAdapter = WorkerCheckinOutAdapter(data, status)
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         if (recyclerView != null) {

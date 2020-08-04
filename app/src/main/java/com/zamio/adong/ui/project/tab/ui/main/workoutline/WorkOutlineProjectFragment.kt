@@ -1,20 +1,14 @@
 package com.zamio.adong.ui.project.tab.ui.main.workoutline
 
 import RestClient
-import WorkOutlineAdapter
 import WorkOutlineProjectAdapter
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.DocumentsContract
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.google.gson.JsonElement
@@ -35,7 +30,6 @@ import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
 import com.zamio.adong.ui.project.tab.ProjectTabActivity
 import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
-import com.zamio.adong.utils.ProgressDialogUtils.TAG
 import kotlinx.android.synthetic.main.fragment_main_workeoutline.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -100,20 +94,20 @@ class MainWorkOutlineFragment : BaseFragment() {
     }
 
     private fun getData(page: Int) {
-//        showProgessDialog()
+        showProgessDialog()
         RestClient().getInstance().getRestService()
             .getProjectWorkOutlines((activity as ProjectTabActivity).getProjectId(), page)
             .enqueue(object :
                 Callback<RestData<List<WorkOutline>>> {
                 override fun onFailure(call: Call<RestData<List<WorkOutline>>>?, t: Throwable?) {
-//                dismisProgressDialog()
+                dismisProgressDialog()
                 }
 
                 override fun onResponse(
                     call: Call<RestData<List<WorkOutline>>>?,
                     response: Response<RestData<List<WorkOutline>>>?
                 ) {
-//                dismisProgressDialog()
+                dismisProgressDialog()
                     if (response!!.body() != null && response.body().status == 1) {
                         products = response.body().data!!
                         setupRecyclerView()
@@ -126,7 +120,7 @@ class MainWorkOutlineFragment : BaseFragment() {
                                 }
                             }
 
-                            if (isShowTvOK) {
+                            if (isShowTvOK && tvOk != null) {
                                 tvOk.visibility = View.VISIBLE
                             } else {
                                 tvOk.visibility = View.GONE
@@ -148,23 +142,26 @@ class MainWorkOutlineFragment : BaseFragment() {
             recyclerView.adapter = mAdapter
 
             mAdapter.onItemClick = { product ->
+
                 if (product.finishDatetime == null) {
-                    val dialogClickListener =
-                        DialogInterface.OnClickListener { dialog, which ->
-                            when (which) {
-                                DialogInterface.BUTTON_POSITIVE -> {
-                                    workOutlineId = product.id
-                                    pickImageFromAlbum()
-                                }
-                                DialogInterface.BUTTON_NEGATIVE -> {
+                    if (ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type) || ConstantsApp.USER_ROLES.contains(UserRoles.Contractor.type)) {
+                        val dialogClickListener =
+                            DialogInterface.OnClickListener { dialog, which ->
+                                when (which) {
+                                    DialogInterface.BUTTON_POSITIVE -> {
+                                        workOutlineId = product.id
+                                        pickImageFromAlbum()
+                                    }
+                                    DialogInterface.BUTTON_NEGATIVE -> {
+                                    }
                                 }
                             }
-                        }
 
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                    builder.setMessage("Hạng mục đã hoàn thành?")
-                        .setPositiveButton("Đồng ý", dialogClickListener)
-                        .setNegativeButton("Không", dialogClickListener).show()
+                        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                        builder.setMessage("Hạng mục đã hoàn thành?")
+                            .setPositiveButton("Đồng ý", dialogClickListener)
+                            .setNegativeButton("Không", dialogClickListener).show()
+                    }
                 } else {
                     if (product.photos != null && product.photos.isNotEmpty()) {
                         val intent = Intent(context, PreviewImageActivity::class.java)

@@ -1,9 +1,11 @@
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
 import com.zamio.adong.model.GoodsIssueRequest
 import com.zamio.adong.utils.Utils
@@ -70,8 +72,10 @@ class GoodsIssueRequestAdapter(private val topicDetails: List<GoodsIssueRequest>
         if (topic.status != null) {
             if(topic.status == 1) {
                 holder.tv5.text = "Mới"
+                holder.tv5.setTextColor(Color.parseColor(AppColor.Red.hex))
             } else if (topic.status == 2) {
                 holder.tv5.text = "Hoàn thành"
+                holder.tv5.setTextColor(Color.parseColor(AppColor.Green.hex))
             }
 
         }

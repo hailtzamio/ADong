@@ -1,11 +1,13 @@
+
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
 import com.zamio.adong.model.GoodsNote
-import com.zamio.adong.model.WareHouse
 
 
 /**
@@ -69,8 +71,10 @@ class GoodsReceivedNoteAdapter(private val topicDetails: List<GoodsNote>, privat
 
                 if (topic.status == "DONE") {
                     holder.tv6.text = "Hoàn thành"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
                 } else {
                     holder.tv6.text = "Nháp"
+                    holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
                 }
             }
 

@@ -10,7 +10,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
-import com.google.gson.JsonElement
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
@@ -18,12 +17,9 @@ import com.zamio.adong.model.Information
 import com.zamio.adong.model.Transport
 import com.zamio.adong.model.Trip
 import com.zamio.adong.network.ConstantsApp
+import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_transport_detail.*
 import kotlinx.android.synthetic.main.item_header_layout.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -113,7 +109,7 @@ class DetailTripActivity : BaseActivity() {
                     mList.add(Information("Lái xe", model!!.driverFullName ?: "---", ""))
                     mList.add(Information("Số điện thoại", model!!.driverPhone ?: "---", ""))
                     mList.add(Information("Biến số xe", model!!.lorryPlateNumber ?: "---", ""))
-                    mList.add(Information("Ngày dự kiến", model!!.plannedDatetime ?: "---", ""))
+                    mList.add(Information("Ngày dự kiến", Utils.convertDate(model!!.plannedDatetime ?: "2020-20-20T11:11:11"), ""))
 
                     setupRecyclerView(mList)
 

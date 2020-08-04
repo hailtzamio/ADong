@@ -148,7 +148,12 @@ class DetailManuFactureRequestActivity : BaseActivity() {
                         }
 
                         if (data!!.status != null) {
-                            tvStatus.text = data!!.status.toString()
+                            if(data!!.status == 1) {
+                                tvStatus.text = "Mới"
+                            } else {
+                                tvStatus.text = "Hoàn thành"
+                            }
+
                         }
 //
                         if (data!!.plannedDatetime != null && data!!.plannedDatetime != "") {

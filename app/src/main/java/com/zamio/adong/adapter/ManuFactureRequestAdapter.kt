@@ -1,10 +1,13 @@
+
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.elcom.com.quizupapp.ui.network.AppColor
 import com.zamio.adong.R
-import com.zamio.adong.model.*
+import com.zamio.adong.model.ManuFactureRes
 import com.zamio.adong.utils.Utils
 
 
@@ -69,8 +72,10 @@ class ManuFactureRequestAdapter(private val topicDetails: List<ManuFactureRes>) 
 
         if (topic.status != null && topic.status == 1) {
             holder.tv6.text = "Mới"
+            holder.tv6.setTextColor(Color.parseColor(AppColor.Red.hex))
         } else {
             holder.tv6.text = "Hoàn thành"
+            holder.tv6.setTextColor(Color.parseColor(AppColor.Green.hex))
         }
     }
 

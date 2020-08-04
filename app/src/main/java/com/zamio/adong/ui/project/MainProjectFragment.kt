@@ -207,7 +207,7 @@ class MainProjectFragment : BaseFragment() {
 //                startActivity(intent)
 //                activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
-                if (ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type) || ConstantsApp.USER_ROLES.contains(UserRoles.LorryManager.type)) {
+                if (ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type) || ConstantsApp.USER_ROLES.contains(UserRoles.LorryManager.type) || ConstantsApp.USER_ROLES.contains(UserRoles.WareHouseKeeper.type) || ConstantsApp.USER_ROLES.contains(UserRoles.FactoryManager.type)   ) {
                     val intent = Intent(context, BasicInformationActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
                     intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT, data)
