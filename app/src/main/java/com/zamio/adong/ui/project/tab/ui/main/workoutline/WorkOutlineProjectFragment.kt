@@ -168,6 +168,8 @@ class MainWorkOutlineFragment : BaseFragment() {
                         intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.id)
                         intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.photos[0].fullSizeUrl)
                         startActivityForResult(intent, 1000)
+                    } else {
+                        showToast("Upload Iamge")
                     }
                 }
 
