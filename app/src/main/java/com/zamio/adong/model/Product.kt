@@ -50,6 +50,8 @@ data class Product(
     @SerializedName("isSelected")
     var isSelected: Boolean = false,
     @SerializedName("quantityChoose")
-    var quantityChoose: Int
+    var quantityChoose: Int,
+    @SerializedName("statusText")
+    var statusText: String?
 
 ) : Serializable

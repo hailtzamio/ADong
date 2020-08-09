@@ -246,6 +246,12 @@ interface RestService {
     /* End Project */
     /* WorkOutline  */
 
+    @GET("productRequirement/{id}/goodsIssueRequests")
+    fun getProductRequirementGoodsIssue(@Path("id") id: Int,@Query("productRequirementId") id2: Int): Call<RestData<ArrayList<ProductRequirement>>>
+
+    @GET("productRequirement/{id}/purchaseRequests")
+    fun getProductRequirementpurchaseRequests(@Path("id") id: Int,@Query("productRequirementId") id2: Int): Call<RestData<ArrayList<ProductRequirement>>>
+
     @GET("project/{projectId}/workOutlines?size=100&sort=id,desc")
     fun getProjectWorkOutlines(@Path("projectId") projectId: Int, @Query("page") page: Int): Call<RestData<List<WorkOutline>>>
 
@@ -390,6 +396,9 @@ interface RestService {
     @PUT("goodsIssueRequest/{id}")
     fun updateGoodsIssueRequest(@Path("id") id: Int, @Body data: GoodsNoteUpdateRq): Call<RestData<JsonElement>>
 
+    @DELETE("workOutlineCompletionPhoto/{photoId}")
+    fun removeWorkOutlineCompletionPhoto(@Path("photoId") id: Int): Call<RestData<JsonElement>>
+
     @DELETE("goodsIssueRequest/{id}")
     fun removeGoodsIssueRequest(@Path("id") id: Int): Call<RestData<JsonElement>>
 
@@ -401,6 +410,9 @@ interface RestService {
 
     @GET("transportRequest?status=1&size=100&sort=id,desc")
     abstract fun getTransports(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Transport>>>
+
+    @GET("project/{id}/logs")
+    abstract fun getProjectLogs(@Path("id") id: Int): Call<RestData<ArrayList<LogsProject>>>
 
     @GET("transportRequest/{id}")
     fun getTransport(@Path("id") id: Int): Call<RestData<Transport>>

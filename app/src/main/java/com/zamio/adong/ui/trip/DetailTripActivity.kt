@@ -10,6 +10,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.zamio.adong.R
@@ -67,6 +68,7 @@ class DetailTripActivity : BaseActivity() {
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this)
             }
+
         }
     }
 

@@ -34,20 +34,6 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
-
-        <TextView
-            android:id="@+id/rightButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:padding="10dp"
-            android:text="Vận chuyển"
-            android:textColor="@color/white"
-            android:visibility="visible" />
-
-
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -67,16 +53,17 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvList"
+                android:visibility="gone"
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="THÔNG TIN CHUNG"
+                android:text="YÊU CẦU XUẤT KHO"
                 android:textColor="@color/colorOrange"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -121,6 +108,7 @@
                 android:layout_height="10dp"
                 android:layout_marginTop="10dp" />
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,9 +117,11 @@
                 android:layout_marginRight="20dp">
 
                 <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DANH SÁCH VẬT TƯ"
+                    android:text="YÊU CẦU ĐI MUA"
                     android:textColor="@color/colorOrange"
                     android:textStyle="bold" />
 
@@ -139,7 +129,7 @@
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recyclerView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"

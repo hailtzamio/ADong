@@ -18,7 +18,7 @@ data class Lorry (
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("driverFullName")
-    val driverFullName: Any,
+    val driverFullName: String?,
     @SerializedName("driverId")
     val driverId: Any,
     @SerializedName("id")

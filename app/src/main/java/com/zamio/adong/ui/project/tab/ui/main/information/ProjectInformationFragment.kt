@@ -25,6 +25,8 @@ import com.zamio.adong.ui.project.tab.ui.main.album.FinishProjectAlbumActivity
 import com.zamio.adong.ui.project.tab.ui.main.checkinout.CheckoutInWorkerListActivity
 import com.zamio.adong.ui.project.tab.ui.main.criteria.CriteriaMenuActivity
 import com.zamio.adong.ui.project.tab.ui.main.file.ProjectFilesActivity
+import com.zamio.adong.ui.project.tab.ui.main.logs.ProjectLogsActivity
+import com.zamio.adong.ui.project.tab.ui.main.report.ProjectReportActivity
 import com.zamio.adong.ui.project.tab.ui.main.requirement.ProductRequirementActivity
 import com.zamio.adong.ui.worker.MainWorkerActivity
 import kotlinx.android.synthetic.main.activity_overview_project.*
@@ -101,6 +103,18 @@ class ProductInformationFragment : BaseFragment() {
 
     private fun goToGiveStars() {
         val intent = Intent(context, CriteriaMenuActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToLogs() {
+        val intent = Intent(context, ProjectLogsActivity::class.java)
+        intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
+        startActivityForResult(intent, 1000)
+    }
+
+    private fun goToReports() {
+        val intent = Intent(context, ProjectReportActivity::class.java)
         intent.putExtra(ConstantsApp.KEY_VALUES_ID, (activity as ProjectTabActivity).getProjectId())
         startActivityForResult(intent, 1000)
     }
@@ -203,7 +217,7 @@ class ProductInformationFragment : BaseFragment() {
             reason.addProperty("teamId", data!!.teamId)
         }
 
-        reason.addProperty("note", "Need to Pause")
+        reason.addProperty("note", "Tạm dừng công trình")
 
         showProgessDialog()
         RestClient().getRestService()
@@ -264,6 +278,8 @@ class ProductInformationFragment : BaseFragment() {
             data.add("Line")
             data.add("Lịch sử điểm danh")
         }
+        data.add("Lịch sử thay đổi")
+        data.add("Báo cáo quyết toán")
 
         val mAdapter = TitleAdapter(data, teamType)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -281,6 +297,8 @@ class ProductInformationFragment : BaseFragment() {
                 "Kho ảnh" -> goToAlbum()
                 "Lịch sử điểm danh" -> goToCheckinHistory()
                 "Đánh giá công trình" -> goToGiveStars()
+                "Lịch sử thay đổi" -> goToLogs()
+                "Báo cáo quyết toán" -> goToReports()
             }
         }
     }

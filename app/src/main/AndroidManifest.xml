@@ -28,7 +28,11 @@
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.driver.DriverActionActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.report.ProjectReportActivity"></activity>
+        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportDetailActivity" />
+        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportActivity" />
+        <activity android:name=".ui.project.tab.ui.main.logs.ProjectLogsActivity" />
+        <activity android:name=".ui.driver.DriverActionActivity" />
         <activity android:name=".ui.project.tab.ui.main.criteria.CriteriaMenuActivity" />
         <activity android:name=".ui.map.SampleActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />

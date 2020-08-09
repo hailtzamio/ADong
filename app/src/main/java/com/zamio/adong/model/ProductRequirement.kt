@@ -6,7 +6,11 @@ import java.io.Serializable
 
 data class ProductRequirement(
     @SerializedName("code")
-    val code: String,
+    val code: String?,
+    @SerializedName("transportReqCode")
+    val transportReqCode: String,
+    @SerializedName("transportReqId")
+    val transportReqId: Int?,
     @SerializedName("createdByFullName")
     val createdByFullName: String,
     @SerializedName("createdById")
@@ -14,11 +18,23 @@ data class ProductRequirement(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("expectedDatetime")
-    val expectedDatetime: String,
+    val expectedDatetime: String?,
+    @SerializedName("plannedDatetime")
+    val plannedDatetime: String?,
     @SerializedName("id")
     val id: Int,
+    @SerializedName("tripId")
+    val tripId: Int,
+    @SerializedName("tripName")
+    var tripName: String?,
+    @SerializedName("ref")
+    var ref: String?,
     @SerializedName("note")
     var note: String?,
+    @SerializedName("warehouseName")
+    var warehouseName: String?,
+    @SerializedName("warehouseAddress")
+    var warehouseAddress: String?,
     @SerializedName("order")
     val order: Int,
     @SerializedName("projectAddress")
@@ -26,9 +42,9 @@ data class ProductRequirement(
     @SerializedName("projectId")
     val projectId: Int,
     @SerializedName("projectName")
-    val projectName: String,
+    val projectName: String?,
     @SerializedName("status")
-    val status: String,
+    val status: Any,
     @SerializedName("updatedByFullName")
     val updatedByFullName: String,
     @SerializedName("updatedById")

@@ -10,6 +10,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.elcom.com.quizupapp.ui.network.UserRoles
 import com.google.gson.JsonElement
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -108,14 +109,15 @@ class DetailTransportActivity : BaseActivity() {
                     }
 
                     setupRecyclerViewSmall(mListProduct)
+                    if (ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+                        if (status == 4) {
+                            tvOk.visibility = View.VISIBLE
+                        }
 
-                    if(status == 4) {
-                        tvOk.visibility = View.VISIBLE
-                    }
-
-                    if(status == 5) {
-                        tvOk.visibility = View.VISIBLE
-                        tvOk.text = "GIAO HÀNG"
+                        if (status == 5) {
+                            tvOk.visibility = View.VISIBLE
+                            tvOk.text = "GIAO HÀNG"
+                        }
                     }
                 }
             }

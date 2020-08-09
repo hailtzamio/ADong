@@ -87,12 +87,11 @@ class TransportRequestFragment : BaseFragment() {
         recyclerView.adapter = mAdapter
 
         mAdapter.onItemClick = { it ->
-//            val intent = Intent(context, DetailTransportActivity::class.java)
-//            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
-//            startActivityForResult(intent,1000)
-//            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            val intent = Intent(context, DetailTransportActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
+            startActivityForResult(intent,1000)
+            activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-
 
         mAdapter.onItemSelected = { position, isChecked ->
             if(data.size > 0) {

@@ -60,6 +60,7 @@ class MainWorkOutlineFragment : BaseFragment() {
     var totalPages = 0
     var products: List<WorkOutline>? = null
     var workOutlineId = 0
+    var isReuploadImageWorkoutline = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -100,14 +101,14 @@ class MainWorkOutlineFragment : BaseFragment() {
             .enqueue(object :
                 Callback<RestData<List<WorkOutline>>> {
                 override fun onFailure(call: Call<RestData<List<WorkOutline>>>?, t: Throwable?) {
-                dismisProgressDialog()
+                    dismisProgressDialog()
                 }
 
                 override fun onResponse(
                     call: Call<RestData<List<WorkOutline>>>?,
                     response: Response<RestData<List<WorkOutline>>>?
                 ) {
-                dismisProgressDialog()
+                    dismisProgressDialog()
                     if (response!!.body() != null && response.body().status == 1) {
                         products = response.body().data!!
                         setupRecyclerView()
@@ -143,8 +144,18 @@ class MainWorkOutlineFragment : BaseFragment() {
 
             mAdapter.onItemClick = { product ->
 
-                if (product.finishDatetime == null) {
-                    if (ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type) || ConstantsApp.USER_ROLES.contains(UserRoles.Contractor.type)) {
+                if (product.finishDatetime == null || (product.photos != null && product.photos.isEmpty())) {
+
+                    var title = "Hạng mục đã hoàn thành?"
+                    if(product.finishDatetime != null) {
+                        title = "Tải ảnh?"
+                        isReuploadImageWorkoutline = true
+                    }
+
+                    if (ConstantsApp.USER_ROLES.contains(UserRoles.TeamLeader.type) || ConstantsApp.USER_ROLES.contains(
+                            UserRoles.Contractor.type
+                        ) || ConstantsApp.USER_ROLES.contains(UserRoles.Admin.type)
+                    ) {
                         val dialogClickListener =
                             DialogInterface.OnClickListener { dialog, which ->
                                 when (which) {
@@ -158,7 +169,7 @@ class MainWorkOutlineFragment : BaseFragment() {
                             }
 
                         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                        builder.setMessage("Hạng mục đã hoàn thành?")
+                        builder.setMessage(title)
                             .setPositiveButton("Đồng ý", dialogClickListener)
                             .setNegativeButton("Không", dialogClickListener).show()
                     }
@@ -166,10 +177,10 @@ class MainWorkOutlineFragment : BaseFragment() {
                     if (product.photos != null && product.photos.isNotEmpty()) {
                         val intent = Intent(context, PreviewImageActivity::class.java)
                         intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.id)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, product.workOutlineName)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT,product.photos[0].photoId)
                         intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.photos[0].fullSizeUrl)
                         startActivityForResult(intent, 1000)
-                    } else {
-                        showToast("Upload Iamge")
                     }
                 }
 
@@ -180,37 +191,37 @@ class MainWorkOutlineFragment : BaseFragment() {
     fun getProject() {
         RestClient().getInstance().getRestService()
             .getProject((activity as ProjectTabActivity).getProjectId()).enqueue(object :
-            Callback<RestData<Project>> {
+                Callback<RestData<Project>> {
 
-            override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
+                override fun onFailure(call: Call<RestData<Project>>?, t: Throwable?) {
 
-            }
+                }
 
-            override fun onResponse(
-                call: Call<RestData<Project>>?,
-                response: Response<RestData<Project>>?
-            ) {
-                if (response!!.body() != null && response.body().status == 1) {
-                    val data = response.body().data ?: return
-                    if (data.status == "DONE") {
-                        tvOk.text = "ĐÃ HOÀN THÀNH"
-                        tvOk.setTextColor(Color.WHITE)
+                override fun onResponse(
+                    call: Call<RestData<Project>>?,
+                    response: Response<RestData<Project>>?
+                ) {
+                    if (response!!.body() != null && response.body().status == 1) {
+                        val data = response.body().data ?: return
+                        if (data.status == "DONE") {
+                            tvOk.text = "ĐÃ HOÀN THÀNH"
+                            tvOk.setTextColor(Color.WHITE)
 
-                        tvOk.background = ResourcesCompat.getDrawable(
-                            resources,
-                            R.drawable.button_normal_main_radius_green_layout,
-                            null
-                        )
+                            tvOk.background = ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.button_normal_main_radius_green_layout,
+                                null
+                            )
 
-                        tvOk.setOnClickListener {
-                            val intent = Intent(context, FinishProjectAlbumActivity::class.java)
-                            intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
-                            startActivityForResult(intent, 1000)
+                            tvOk.setOnClickListener {
+                                val intent = Intent(context, FinishProjectAlbumActivity::class.java)
+                                intent.putExtra(ConstantsApp.KEY_VALUES_ID, data.id)
+                                startActivityForResult(intent, 1000)
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
     }
 
     private fun finishWorkOutline(id: Int) {
@@ -228,7 +239,6 @@ class MainWorkOutlineFragment : BaseFragment() {
                 dismisProgressDialog()
                 if (response!!.body() != null && response.body().status == 1) {
                     showToast("Thành công")
-                    getData(0)
                 } else {
                     if (response.errorBody() != null) {
                         val obj = JSONObject(response.errorBody().string())
@@ -239,7 +249,7 @@ class MainWorkOutlineFragment : BaseFragment() {
         })
     }
 
-    private fun finishProject(id: Int, images : List<Image> ) {
+    private fun finishProject(id: Int, images: List<Image>) {
         showProgessDialog()
         RestClient().getInstance().getRestService().finishProject(id).enqueue(object :
             Callback<RestData<JsonElement>> {
@@ -294,7 +304,11 @@ class MainWorkOutlineFragment : BaseFragment() {
                 ) {
                     dismisProgressDialog()
                     if (response?.body() != null && response.body().status == 1) {
-                        finishWorkOutline(workOutlineId)
+                        if(!isReuploadImageWorkoutline) {
+                            finishWorkOutline(workOutlineId)
+                        }
+                        getData(0)
+                        isReuploadImageWorkoutline = false
                     } else {
                         if (response!!.errorBody() != null) {
                             val obj = JSONObject(response.errorBody().string())
@@ -341,6 +355,11 @@ class MainWorkOutlineFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data1: Intent?) {
         super.onActivityResult(requestCode, resultCode, data1)
+
+        if(requestCode == 1000) {
+            getData(0)
+        }
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data1)
             if (resultCode == Activity.RESULT_OK) {
@@ -356,9 +375,10 @@ class MainWorkOutlineFragment : BaseFragment() {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data1)) {
             // Get a list of picked images
             val images = ImagePicker.getImages(data1)
-            if(images.size > 0) {
+            if (images.size > 0) {
                 finishProject((activity as ProjectTabActivity).getProjectId(), images)
             }
+
 
             // or get a single image only
 //            val image = ImagePicker.getFirstImageOrNull(data1)

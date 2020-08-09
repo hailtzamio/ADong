@@ -40,5 +40,7 @@ data class WorkOutlineImage(
     @SerializedName("fullSizeUrl")
     val fullSizeUrl: String,
     @SerializedName("thumbnailUrl")
-    val thumbnailUrl: String
+    val thumbnailUrl: String,
+    @SerializedName("photoId")
+    val photoId: Int
 )

@@ -149,14 +149,12 @@ class TripFragment : BaseFragment() {
                 )
                 createTrip(tripRq)
             } else {
-                if(ConstantsApp.USER_ROLES.contains(UserRoles.Driver.type)) {
+
                     val intent = Intent(context, DetailTripActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, it.id)
                     startActivityForResult(intent, 1000)
                     activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                } else {
-                    showToast("Bạn không phải lái xe")
-                }
+              
 
             }
         }

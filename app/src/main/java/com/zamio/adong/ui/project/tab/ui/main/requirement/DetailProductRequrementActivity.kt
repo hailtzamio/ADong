@@ -53,23 +53,12 @@ class DetailProductRequrementActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setOnClickListener {
-            val dialogClickListener =
-                DialogInterface.OnClickListener { dialog, which ->
-                    when (which) {
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            showDateTimePicker()
-                        }
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                            plannedStartDate = productRequirement!!.expectedDatetime
-                            askToGoToStockList()
-                        }
-                    }
-                }
-
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setMessage("Chọn thời gian ?")
-                .setPositiveButton("Đồng ý", dialogClickListener)
-                .setNegativeButton("Không", dialogClickListener).show()
+            if(productRequirement != null) {
+                val intent = Intent(this, ProductTransportActivity::class.java)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, productRequirement!!.id)
+                startActivityForResult(intent, 1000)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
         }
     }
 
@@ -201,7 +190,7 @@ class DetailProductRequrementActivity : BaseActivity() {
                 mList.add(
                     Information(
                         "Ngày dự kiến",
-                        Utils.convertDate(productRequirement!!.expectedDatetime) ?: "---",
+                        Utils.convertDate(productRequirement!!.expectedDatetime ?: "2020-07-28T10:12:29") ,
                         ""
                     )
                 )
@@ -231,7 +220,7 @@ class DetailProductRequrementActivity : BaseActivity() {
 
     private fun doCreate() {
         val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
-        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
+        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime ?: ""
 
         if (productRequirement!!.note != null) {
             goodsNoteUpdateRq.note = productRequirement!!.note!!
@@ -250,7 +239,7 @@ class DetailProductRequrementActivity : BaseActivity() {
 
     private fun doBuy() {
         val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
-        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
+        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime ?: ""
 
         if (productRequirement!!.note != null) {
             goodsNoteUpdateRq.note = productRequirement!!.note!!
@@ -293,7 +282,7 @@ class DetailProductRequrementActivity : BaseActivity() {
     private fun doManufactureRequest() {
 
         val goodsNoteUpdateRq = GoodsNoteUpdateRq2("")
-        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime
+        goodsNoteUpdateRq.plannedDatetime = productRequirement!!.expectedDatetime ?: ""
 
         if (productRequirement!!.note != null) {
             goodsNoteUpdateRq.note = productRequirement!!.note!!
@@ -364,10 +353,19 @@ class DetailProductRequrementActivity : BaseActivity() {
         val data2 = ArrayList<Information>()
 
         data.forEach {
+
+            var status = ""
+            when(it.statusText ?: "") {
+                "NEW" -> status = "Mới"
+                "DONE" -> status = "Đã nhận"
+                "GOODS_ISSUE_DOCUMENT_CONFIRMED" -> status = "Đã xuất"
+                "PURCHASE_REQUEST_CREATED" -> status = "Đã y/c mua hàng"
+            }
+
             if(it.note != null) {
-                data2.add(Information(it.quantity.toString() + " ${it.productUnit}" + " \n" + it.note ?: "", it.productName, ""))
+                data2.add(Information(it.quantity.toString() + " ${it.productUnit}" + " \n" + (it.note ?: "") + " \n" + status, it.productName, ""))
             } else {
-                data2.add(Information(it.quantity.toString() + " ${it.productUnit}", it.productName, ""))
+                data2.add(Information(it.quantity.toString() + " ${it.productUnit}" + " \n" + status, it.productName , ""))
             }
 
         }

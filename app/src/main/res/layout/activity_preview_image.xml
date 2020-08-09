@@ -7,6 +7,7 @@
     android:background="#000000"
     tools:context=".ui.activity.PreviewImageActivity">
 
+
     <ImageView
         android:layout_centerInParent="true"
         android:id="@+id/imvAva"
@@ -17,7 +18,27 @@
         android:id="@+id/imvClose"
         android:layout_alignParentRight="true"
         android:padding="20dp"
-        android:src="@drawable/close"
+        android:src="@drawable/close_black"
         android:layout_width="60dp"
         android:layout_height="60dp" />
+
+    <ImageView
+        android:visibility="visible"
+        android:id="@+id/imvRemove"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/remove_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/tvTitle"
+        android:textColor="@color/white"
+        android:text=""
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
