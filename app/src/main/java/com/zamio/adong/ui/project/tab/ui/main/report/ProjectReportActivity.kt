@@ -91,11 +91,13 @@ class ProjectReportActivity : BaseActivity() {
                 response: Response<RestData<Project>>?
             ) {
                 if (response!!.body() != null && response.body().status == 1 && response.body().data != null) {
+
                     when(response.body().data!!.accountingStatus) {
-                        1 -> tv1.text = "Đang làm hồ sơ quyết toán"
-                        2 -> tv1.text = "Đã gửi chủ đầu tư"
-                        3 -> tv1.text = "Đã nhận thông tin xuất hóa đơn"
-                        4 -> tv1.text = "Đã thanh toán (đã xuất hóa đơn)"
+                        1 -> tv1.text = "Đã bàn giao, đang xử lý hồ sơ quyết toán"
+                        2 -> tv1.text = "Đã gửi hồ sơ quyết toán, chờ chủ đầu tư phản hồi"
+                        3 -> tv1.text = "Đã xác nhận xuất hóa đơn, chuyển thông tin kế toán"
+                        4 -> tv1.text = "Đã xuất hóa đơn gửi chủ đầu tư, chờ thanh toán"
+                        5 -> tv1.text = "Đã thanh toán"
                     }
                 }
             }

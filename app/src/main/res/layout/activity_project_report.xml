@@ -23,7 +23,7 @@
         android:layout_below="@+id/header"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="TTT" />
+        android:text="" />
 
     <TextView
         android:id="@+id/tv2"

@@ -87,6 +87,8 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: String
                         "An toàn lao động" -> holder.imvAva.setImageResource(R.drawable.hospital)
                         "Kho ảnh" -> holder.imvAva.setImageResource(R.drawable.picture)
                         "Lịch sử điểm danh" -> holder.imvAva.setImageResource(R.drawable.history)
+                        "Lịch sử thay đổi" -> holder.imvAva.setImageResource(R.drawable.update_ic)
+                        "Báo cáo quyết toán" -> holder.imvAva.setImageResource(R.drawable.chart_ic)
                     }
                 } else if (type == Team.CONTRACTOR.type) {
                     when (topic) {

@@ -41,8 +41,8 @@ android {
         applicationId "com.zamio.adong"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 10
-        versionName "1.0.10"
+        versionCode 12
+        versionName "1.0.12"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
