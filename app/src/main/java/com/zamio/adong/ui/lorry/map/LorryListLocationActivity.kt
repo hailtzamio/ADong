@@ -194,16 +194,8 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
 
     }
 
-    override fun onLocationChanged(map: Location?) {
-//        val latitude = map!!.latitude ?: 0.0
-//        val longitude = map!!.longitude
-//        val msg = "New Latitude: " + latitude + "New Longitude: " + longitude
-//        Log.d("", "$msg")
-//        Toast.makeText(
-//            this,
-//            "Lat " + map!!.latitude.toString() + " " + "Long " + map!!.longitude.toString(),
-//            Toast.LENGTH_LONG
-//        ).show()
+    override fun onLocationChanged(location: Location) {
+
     }
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
@@ -215,7 +207,7 @@ class LorryListLocationActivity : BaseActivity(), OnMapReadyCallback, LocationLi
     }
 
     override fun onProviderDisabled(p0: String?) {
-
+        TODO("Not yet implemented")
     }
 
     override fun onDestroy() {

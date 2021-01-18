@@ -14,7 +14,9 @@ import com.zamio.adong.model.NotificationOb
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.network.Pagination
 import com.zamio.adong.ui.project.tab.ui.main.information.BasicInformation2Activity
+import com.zamio.adong.ui.project.tab.ui.main.requirement.DetailProductRequrementActivity
 import com.zamio.adong.ui.trip.DetailTripActivity
+import com.zamio.adong.ui.ware.stock.goods_issue_request.DetailGoodsIssueRequestActivity
 import kotlinx.android.synthetic.main.fragment_main_notification.*
 import kotlinx.android.synthetic.main.item_header_layout.*
 import kotlinx.android.synthetic.main.item_search_layout.*
@@ -120,18 +122,23 @@ class NotificationActivity : BaseActivity() {
 
             val objectId = it.objectId
             readNotification(it.id!!)
-            when (it.type) {
+            when (it.objectType) {
 
-                "REG_APPROVED" -> {
+                "Project" -> {
                     val intent = Intent(this, BasicInformation2Activity::class.java)
-                    intent.putExtra(ConstantsApp.KEY_VALUES_REG_APPROVED, objectId)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID, objectId)
                     startActivity(intent)
                 }
 
-                "NEW_PROJECT" -> {
-                    val intent = Intent(this, BasicInformation2Activity::class.java)
+                "ProductRequirement" -> {
+                    val intent = Intent(this, DetailProductRequrementActivity::class.java)
+                    intent.putExtra(ConstantsApp.KEY_VALUES_ID_PR, objectId)
+                    startActivity(intent)
+                }
+
+                "GoodsIssueReq" -> {
+                    val intent = Intent(this, DetailGoodsIssueRequestActivity::class.java)
                     intent.putExtra(ConstantsApp.KEY_VALUES_ID, objectId)
-                    intent.putExtra(ConstantsApp.KEY_VALUES_NEW_PROJECT, objectId)
                     startActivity(intent)
                 }
 

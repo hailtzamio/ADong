@@ -37,7 +37,7 @@ interface RestService {
     @GET("myPermissions")
     fun getPermissions(): Call<RestData<ArrayList<Permission>>>
 
-    @GET("product?size=100&sort=id,desc")
+    @GET("product?size=500&sort=id,desc")
     abstract fun getProducts(@Query("page") page: Int,@Query("name") fullName: String): Call<RestData<ArrayList<Product>>>
 
     @GET("product/{id}")
@@ -257,6 +257,10 @@ interface RestService {
 
     @GET("project/{projectId}/productRequirements?size=100&sort=id,desc")
     fun getProductRequirement(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<ArrayList<ProductRequirement>>>
+
+    @GET("productRequirement/{id}")
+    fun getProductRequirementById(@Path("id") id: Int): Call<RestData<ProductRequirement>>
+
 
     @GET("project/{projectId}/workers?size=100&sort=id,desc")
     fun getProjectWorkers(@Path("projectId") projectId: Int,@Query("page") page: Int): Call<RestData<List<Worker>>>

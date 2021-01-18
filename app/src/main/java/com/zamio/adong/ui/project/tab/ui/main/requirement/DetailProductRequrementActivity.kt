@@ -178,37 +178,67 @@ class DetailProductRequrementActivity : BaseActivity() {
     }
 
     override fun initData() {
+
+
+
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
             productRequirement =
                 intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as ProductRequirement
 
             if (productRequirement != null) {
-                data = productRequirement!!.lines
-
-                mList.add(Information("Tên dự án", productRequirement!!.projectName ?: "---", ""))
-                mList.add(
-                    Information(
-                        "Ngày dự kiến",
-                        Utils.convertDate(productRequirement!!.expectedDatetime ?: "2020-07-28T10:12:29") ,
-                        ""
-                    )
-                )
-
-                if(productRequirement!!.note == "") {
-                    productRequirement!!.note = null
-                }
-
-                mList.add(Information("Ghi chú", productRequirement!!.note ?: "---", ""))
-
-
-                setupRecyclerView()
+                setupView(productRequirement!!)
             }
 
-            setupChooseSpinner()
-
-            setupRecyclerViewTop(mList)
         }
+
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID_PR)) {
+            val id = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID_PR) as Int
+            rightButton.visibility = View.GONE
+            getProductRegById(id)
+        }
+    }
+
+    private fun getProductRegById(id:Int){
+        showProgessDialog()
+        RestClient().getInstance().getRestService().getProductRequirementById(id).enqueue(object :
+            Callback<RestData<ProductRequirement>> {
+
+            override fun onFailure(call: Call<RestData<ProductRequirement>>?, t: Throwable?) {
+                dismisProgressDialog()
+            }
+
+            override fun onResponse(call: Call<RestData<ProductRequirement>>?, response: Response<RestData<ProductRequirement>>?) {
+                dismisProgressDialog()
+                if(response!!.body() != null && response!!.body().status == 1){
+                    productRequirement = response.body().data!!
+                    setupView(response.body().data!!)
+                }
+            }
+        })
+    }
+
+    private fun setupView(productRequirement:ProductRequirement) {
+        data = productRequirement!!.lines
+
+        mList.add(Information("Tên dự án", productRequirement!!.projectName ?: "---", ""))
+        mList.add(
+            Information(
+                "Ngày dự kiến",
+                Utils.convertDate(productRequirement!!.expectedDatetime ?: "2020-07-28T10:12:29") ,
+                ""
+            )
+        )
+
+        if(productRequirement!!.note == "") {
+            productRequirement!!.note = null
+        }
+
+        mList.add(Information("Ghi chú", productRequirement!!.note ?: "---", ""))
+
+
+        setupRecyclerView()
+        setupRecyclerViewTop(mList)
     }
 
     private fun setupRecyclerViewTop(data: List<Information>) {

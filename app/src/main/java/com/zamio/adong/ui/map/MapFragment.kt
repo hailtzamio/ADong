@@ -123,8 +123,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun getBitmapIcon(type: Int): Bitmap {
-        val height = 24
-        val width = 24
+        val height = 18
+        val width = 18
         var bitmapdraw =
             ResourcesCompat.getDrawable(resources, R.drawable.busy_dot12, null) as BitmapDrawable
         when (type) {

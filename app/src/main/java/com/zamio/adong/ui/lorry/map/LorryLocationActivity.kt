@@ -128,14 +128,10 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
         }
     }
 
-    override fun onLocationChanged(map: Location?) {
+    override fun onLocationChanged(location: Location) {
 
-//        Toast.makeText(
-//            this,
-//            "Lat " + map!!.latitude.toString() + " " + "Long " + map!!.longitude.toString(),
-//            Toast.LENGTH_LONG
-//        ).show()
     }
+
 
     override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
 
@@ -148,6 +144,7 @@ class LorryLocationActivity : FragmentActivity(), OnMapReadyCallback, LocationLi
     override fun onProviderDisabled(p0: String?) {
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -16,7 +16,7 @@ data class Product(
     @SerializedName("name")
     val name: String?,
     @SerializedName("quantity")
-    var quantity: Int,
+    var quantity: Double,
     @SerializedName("type")
     val type: String,
     @SerializedName("unit")
