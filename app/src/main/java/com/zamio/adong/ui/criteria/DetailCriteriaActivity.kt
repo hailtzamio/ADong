@@ -60,7 +60,7 @@ class DetailCriteriaActivity : BaseActivity() {
 
     }
 
-    private fun setupRecyclerView2(data: List<Information>) {
+    private fun setupRecyclerView2(data: ArrayList<Information>) {
         val mAdapter = InformationAdapter(data)
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView2.setHasFixedSize(false)

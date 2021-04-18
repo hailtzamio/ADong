@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:padding="15dp"
+    android:background="@drawable/button_normal_main_radius_layout">
+
+
+    <TextView
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv1"
+        android:text="NHẬP THÔNG TIN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_marginTop="@dimen/app_margin_top"
+        android:layout_below="@+id/tv1"
+        android:id="@+id/edt1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edt_size"
+        android:background="@drawable/button_normal_main_radius_layout"
+        android:hint="Ghi chú"
+        android:paddingLeft="10dp"
+        android:singleLine="true" />
+
+    <EditText
+        android:inputType="number"
+        android:layout_below="@+id/edt1"
+        android:id="@+id/edt2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edt_size"
+        android:layout_marginTop="@dimen/app_margin_top"
+        android:background="@drawable/button_normal_main_radius_layout"
+        android:hint="Số lượng"
+        android:paddingLeft="10dp"
+        android:singleLine="true" />
+
+
+    <Button
+        android:layout_marginTop="@dimen/app_margin_top"
+        android:layout_below="@+id/edt2"
+        android:id="@+id/btnOk"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/button_radius_bg_black_layout"
+        android:text="ĐỒNG Ý"
+        android:textColor="@color/white"
+
+        />
+
+
+</RelativeLayout>

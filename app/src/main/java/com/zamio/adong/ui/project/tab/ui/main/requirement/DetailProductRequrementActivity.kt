@@ -1,39 +1,39 @@
 package com.zamio.adong.ui.project.tab.ui.main.requirement
 
 import InformationAdapter
-import ProductRequirementDetailAdapter
 import RestClient
+import SwipeToDeleteCallback
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.*
 import com.zamio.adong.network.ConstantsApp
-import com.zamio.adong.ui.product.DetailProductActivity
+import com.zamio.adong.popup.EditProductReqDialog
+import com.zamio.adong.ui.project.ChooseManagerActivity
 import com.zamio.adong.ui.ware.stock.stock.StockListActivity
+import com.zamio.adong.utils.Utils
 import kotlinx.android.synthetic.main.activity_detail_product_requirement.*
-import kotlinx.android.synthetic.main.activity_detail_product_requirement.recyclerView
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog.OnTimeSetListener
-import android.graphics.Color
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import com.zamio.adong.ui.project.ChooseManagerActivity
-import com.zamio.adong.utils.Utils
-import kotlinx.android.synthetic.main.activity_detail_team.*
 import kotlin.collections.ArrayList
 
 class DetailProductRequrementActivity : BaseActivity() {
@@ -46,6 +46,7 @@ class DetailProductRequrementActivity : BaseActivity() {
     var warehouseName = ""
     var title = "Chọn người đi mua?"
     val mList = ArrayList<Information>()
+    var id = 0
     override fun getLayout(): Int {
         return R.layout.activity_detail_product_requirement
     }
@@ -53,12 +54,19 @@ class DetailProductRequrementActivity : BaseActivity() {
     override fun initView() {
         tvTitle.text = "Chi Tiết"
         rightButton.setOnClickListener {
-            if(productRequirement != null) {
+            if (productRequirement != null) {
                 val intent = Intent(this, ProductTransportActivity::class.java)
                 intent.putExtra(ConstantsApp.KEY_VALUES_ID, productRequirement!!.id)
                 startActivityForResult(intent, 1000)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
+        }
+
+        tvAddProduct.setOnClickListener {
+            val intent = Intent(this, CreateProductRequirementActivity::class.java)
+            intent.putExtra(ConstantsApp.KEY_VALUES_ID, id)
+            intent.putExtra(ConstantsApp.KEY_VALUES_FROM_DETAIL_PRODUCT_REQ, productRequirement)
+            startActivityForResult(intent, 1000)
         }
     }
 
@@ -180,7 +188,6 @@ class DetailProductRequrementActivity : BaseActivity() {
     override fun initData() {
 
 
-
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
 
             productRequirement =
@@ -193,13 +200,13 @@ class DetailProductRequrementActivity : BaseActivity() {
         }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID_PR)) {
-            val id = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID_PR) as Int
+            id = intent.extras!!.get(ConstantsApp.KEY_VALUES_ID_PR) as Int
             rightButton.visibility = View.GONE
             getProductRegById(id)
         }
     }
 
-    private fun getProductRegById(id:Int){
+    private fun getProductRegById(id: Int) {
         showProgessDialog()
         RestClient().getInstance().getRestService().getProductRequirementById(id).enqueue(object :
             Callback<RestData<ProductRequirement>> {
@@ -208,9 +215,12 @@ class DetailProductRequrementActivity : BaseActivity() {
                 dismisProgressDialog()
             }
 
-            override fun onResponse(call: Call<RestData<ProductRequirement>>?, response: Response<RestData<ProductRequirement>>?) {
+            override fun onResponse(
+                call: Call<RestData<ProductRequirement>>?,
+                response: Response<RestData<ProductRequirement>>?
+            ) {
                 dismisProgressDialog()
-                if(response!!.body() != null && response!!.body().status == 1){
+                if (response!!.body() != null && response!!.body().status == 1) {
                     productRequirement = response.body().data!!
                     setupView(response.body().data!!)
                 }
@@ -218,30 +228,28 @@ class DetailProductRequrementActivity : BaseActivity() {
         })
     }
 
-    private fun setupView(productRequirement:ProductRequirement) {
+    private fun setupView(productRequirement: ProductRequirement) {
         data = productRequirement!!.lines
-
+        mList.clear()
         mList.add(Information("Tên dự án", productRequirement!!.projectName ?: "---", ""))
         mList.add(
             Information(
                 "Ngày dự kiến",
-                Utils.convertDate(productRequirement!!.expectedDatetime ?: "2020-07-28T10:12:29") ,
+                Utils.convertDate(productRequirement!!.expectedDatetime ?: "2020-07-28T10:12:29"),
                 ""
             )
         )
 
-        if(productRequirement!!.note == "") {
+        if (productRequirement!!.note == "") {
             productRequirement!!.note = null
         }
 
         mList.add(Information("Ghi chú", productRequirement!!.note ?: "---", ""))
-
-
         setupRecyclerView()
         setupRecyclerViewTop(mList)
     }
 
-    private fun setupRecyclerViewTop(data: List<Information>) {
+    private fun setupRecyclerViewTop(data: ArrayList<Information>) {
         val mAdapter = InformationAdapter(data)
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView2.setHasFixedSize(false)
@@ -385,17 +393,28 @@ class DetailProductRequrementActivity : BaseActivity() {
         data.forEach {
 
             var status = ""
-            when(it.statusText ?: "") {
+            when (it.statusText ?: "") {
                 "NEW" -> status = "Mới"
                 "DONE" -> status = "Đã nhận"
                 "GOODS_ISSUE_DOCUMENT_CONFIRMED" -> status = "Đã xuất"
                 "PURCHASE_REQUEST_CREATED" -> status = "Đã y/c mua hàng"
             }
 
-            if(it.note != null) {
-                data2.add(Information(it.quantity.toString() + " ${it.productUnit}" + " \n" + (it.note ?: "") + " \n" + status, it.productName, ""))
+            if (it.note != null) {
+                data2.add(
+                    Information(
+                        it.quantity.toString() + " ${it.productUnit}" + " \n" + (it.note
+                            ?: "") + " \n" + status, it.productName, ""
+                    )
+                )
             } else {
-                data2.add(Information(it.quantity.toString() + " ${it.productUnit}" + " \n" + status, it.productName , ""))
+                data2.add(
+                    Information(
+                        it.quantity.toString() + " ${it.productUnit}" + " \n" + status,
+                        it.productName,
+                        ""
+                    )
+                )
             }
 
         }
@@ -406,12 +425,42 @@ class DetailProductRequrementActivity : BaseActivity() {
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
 
+        val swipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                productRequirement?.let {
+                    val adapter = recyclerView.adapter as InformationAdapter
+                    val lineRemove = mutableListOf<Int>()
+                    lineRemove.add(it.lines[viewHolder.adapterPosition].id)
+                    it.linesRemove = lineRemove
+                    updateItemProductRequirement(it)
+//                    adapter.removeAt(viewHolder.adapterPosition)
+                }
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
         mAdapter.onItemClick = { product ->
 //            val intent = Intent(this, DetailProductActivity::class.java)
 //            intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.productId)
 //            intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.productId)
 //            startActivityForResult(intent, 1000)
 //            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        mAdapter.onLongItemClick = { position ->
+            Log.d("hailpt", "+====> " + productRequirement!!.lines[position].productId)
+            val dialog = EditProductReqDialog(this, productRequirement!!.lines[position])
+            dialog.show()
+            dialog.onItemClick = { it ->
+                val lineUpdate = mutableListOf<Product>()
+                lineUpdate.add(it)
+                productRequirement?.let { productReq ->
+                    productReq.linesUpdate = lineUpdate
+                    updateItemProductRequirement(productReq)
+                }
+            }
         }
 
 //        mAdapter.onItemSelected = { position, isChecked ->
@@ -438,6 +487,30 @@ class DetailProductRequrementActivity : BaseActivity() {
 //            }
 //
 //        }
+    }
+
+    private fun updateItemProductRequirement(productRequirement: ProductRequirement) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .removeItemProductRequirement(productRequirement, productRequirement.id)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        showToast("Thành công")
+                        getProductRegById(id)
+                    }
+                }
+            })
     }
 
     override fun resumeData() {

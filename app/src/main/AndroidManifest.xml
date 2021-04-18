@@ -41,6 +41,9 @@
             android:name=".ui.ware.stock.stock.StockListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.project.tab.ui.main.album.ZoomInZoomOut"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.map.MapActivity"
             android:screenOrientation="portrait" />
         <activity

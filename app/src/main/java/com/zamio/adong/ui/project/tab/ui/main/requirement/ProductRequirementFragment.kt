@@ -104,7 +104,7 @@ class ProductRequirementFragment : BaseFragment() {
 
             mAdapter.onItemClick = { product ->
                 val intent = Intent(context, DetailProductRequrementActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, product)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID_PR, product.id)
                 startActivityForResult(intent,1000)
                 activity!!.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }

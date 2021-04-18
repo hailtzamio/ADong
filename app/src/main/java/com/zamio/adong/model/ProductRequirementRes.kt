@@ -9,5 +9,9 @@ data class ProductRequirementRes(
     @SerializedName("linesAddNew")
     val linesAddNew: ArrayList<LinesAddNew>,
     @SerializedName("note")
-    val note: String
+    val note: String,
+    @SerializedName("linesRemove")
+    val linesRemove: ArrayList<LinesAddNew>? = null ,
+    @SerializedName("linesUpdate")
+    val linesUpdate: ArrayList<LinesAddNew>? = null
 )

@@ -173,7 +173,7 @@ class DetailTeamActivity : BaseActivity() {
         })
     }
 
-    private fun setupRecyclerViewTop(data: List<Information>) {
+    private fun setupRecyclerViewTop(data: ArrayList<Information>) {
         val mAdapter = InformationAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)

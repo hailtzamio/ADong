@@ -37,6 +37,7 @@ public class ConstantsApp {
 
     public static String TOAST = "Không lấy được dữ liệu";
     public static String KEY_VALUES_ID = "KEY_VALUES_ID";
+    public static String KEY_VALUES_FROM_DETAIL_PRODUCT_REQ = "KEY_VALUES_FROM_DETAIL_PRODUCT_REQ";
     public static String KEY_VALUES_ID_PR = "KEY_VALUES_ID_PR";
     public static String KEY_VALUES_OBJECT = "KEY_VALUES_OBJECT";
     public static String KEY_VALUES_REG_APPROVED = "KEY_VALUES_REG_APPROVED";

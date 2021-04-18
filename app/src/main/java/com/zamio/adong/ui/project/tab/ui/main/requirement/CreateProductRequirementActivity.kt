@@ -20,6 +20,7 @@ import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.LinesAddNew
 import com.zamio.adong.model.Product
+import com.zamio.adong.model.ProductRequirement
 import com.zamio.adong.model.ProductRequirementRes
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.popup.ConfirmProductRequirementDialog
@@ -45,6 +46,8 @@ class CreateProductRequirementActivity : BaseActivity() {
     var products = ArrayList<Product>()
     var productChoose = ArrayList<Product>()
     var id = 0
+    var isFromUpdateProductRequirement = false
+    var productRequirement: ProductRequirement? = null
     override fun getLayout(): Int {
         return R.layout.activity_create_product_requirement
     }
@@ -57,12 +60,18 @@ class CreateProductRequirementActivity : BaseActivity() {
 
         id = intent.getIntExtra(ConstantsApp.KEY_VALUES_ID, 0)
 
+        if (intent.hasExtra(ConstantsApp.KEY_VALUES_FROM_DETAIL_PRODUCT_REQ)) {
+            isFromUpdateProductRequirement = true
+            productRequirement =
+                intent.extras!!.get(ConstantsApp.KEY_VALUES_FROM_DETAIL_PRODUCT_REQ) as ProductRequirement
+        }
+
         getProducts(0)
         imvBack.setOnClickListener {
             onBackPressed()
         }
 
-        if(!ConstantsApp.USER_PERMISSIONS.contains(UserPermission.ProductRequirementc.type)) {
+        if (!ConstantsApp.USER_PERMISSIONS.contains(UserPermission.ProductRequirementc.type)) {
             rightButton.visibility = View.GONE
         }
 
@@ -100,7 +109,7 @@ class CreateProductRequirementActivity : BaseActivity() {
             }
         }
 
-        Log.e("hailpt~~", " before "+productChoose.size)
+        Log.e("hailpt~~", " before " + productChoose.size)
 
         val addNew = ArrayList<LinesAddNew>()
 
@@ -116,11 +125,22 @@ class CreateProductRequirementActivity : BaseActivity() {
             }
         }
 
-        Log.e("hailpt~~", " after "+productChoose.size)
+        Log.e("hailpt~~", " after " + productChoose.size)
 
         productChoose.forEach {
-            if(it.quantityChoose != 0) {
-                addNew.add(LinesAddNew(null,0,it.id,it.quantityChoose, it.name ?: "---", null,it.unit ?: "---",it.note ?: ""))
+            if (it.quantityChoose != 0) {
+                addNew.add(
+                    LinesAddNew(
+                        null,
+                        0,
+                        it.id,
+                        it.quantityChoose,
+                        it.name ?: "---",
+                        null,
+                        it.unit ?: "---",
+                        it.note ?: ""
+                    )
+                )
             }
         }
 
@@ -128,9 +148,22 @@ class CreateProductRequirementActivity : BaseActivity() {
         dialog.show()
 
         dialog.onItemClick = {
-            if(it == 2) {
-                val productRequirementRes = ProductRequirementRes(plannedStartDate,addNew,edtNote.text.toString())
-                create(productRequirementRes)
+            if (it == 2) {
+                if (isFromUpdateProductRequirement && productRequirement != null) {
+                    if(plannedStartDate == "") {
+                        productRequirement!!.plannedDatetime = plannedStartDate
+                    }
+
+                    if(edtNote.text.toString().trim() != "") {
+                        productRequirement!!.note = edtNote.text.toString().trim()
+                    }
+
+                    updateItemProductRequirement(productRequirement!!)
+                } else {
+                    val productRequirementRes =
+                        ProductRequirementRes(plannedStartDate, addNew, edtNote.text.toString())
+                    create(productRequirementRes)
+                }
             }
         }
     }
@@ -185,30 +218,55 @@ class CreateProductRequirementActivity : BaseActivity() {
 
     }
 
+    private fun updateItemProductRequirement(productRequirement: ProductRequirement) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .removeItemProductRequirement(productRequirement, productRequirement.id)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        showToast("Thành công")
+                        finish()
+                    }
+                }
+            })
+    }
+
     private fun create(jsonObject: ProductRequirementRes) {
         showProgessDialog()
-        RestClient().getInstance().getRestService().createProductRequirementForProject(jsonObject,id).enqueue(object :
-            Callback<RestData<JsonElement>> {
+        RestClient().getInstance().getRestService()
+            .createProductRequirementForProject(jsonObject, id).enqueue(object :
+                Callback<RestData<JsonElement>> {
 
-            override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
-                dismisProgressDialog()
-            }
-
-            override fun onResponse(
-                call: Call<RestData<JsonElement>>?,
-                response: Response<RestData<JsonElement>>?
-            ) {
-                dismisProgressDialog()
-                if (response!!.body() != null && response.body().status == 1) {
-                    showToast("Tạo thành công")
-                    setResult(101)
-                    finish()
-                } else {
-                    val obj = JSONObject(response.errorBody().string())
-                    showToast(obj["message"].toString())
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        showToast("Tạo thành công")
+                        setResult(101)
+                        finish()
+                    } else {
+                        val obj = JSONObject(response.errorBody().string())
+                        showToast(obj["message"].toString())
+                    }
+                }
+            })
     }
 
     private fun getProducts(page: Int) {

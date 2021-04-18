@@ -176,7 +176,7 @@ class BasicInformation2Activity : BaseActivity() {
         })
     }
 
-    private fun setupRecyclerView(mList: List<Information>) {
+    private fun setupRecyclerView(mList: ArrayList<Information>) {
         val mAdapter = InformationAdapter(mList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)

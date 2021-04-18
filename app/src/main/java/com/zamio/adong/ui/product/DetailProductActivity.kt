@@ -138,7 +138,7 @@ class DetailProductActivity : BaseActivity() {
         })
     }
 
-    private fun setupRecyclerView(data: List<Information>) {
+    private fun setupRecyclerView(data: ArrayList<Information>) {
         val mAdapter = InformationAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)

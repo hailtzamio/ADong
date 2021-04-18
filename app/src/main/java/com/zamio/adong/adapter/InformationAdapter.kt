@@ -16,8 +16,9 @@ import com.zamio.adong.model.Lorry
 /**
  * Created by Hailpt on 4/24/2018.
  */
-class InformationAdapter(private val topicDetails: List<Information>) : RecyclerView.Adapter<InformationAdapter.MyViewHolder>() {
+class InformationAdapter(private val topicDetails: ArrayList<Information>) : RecyclerView.Adapter<InformationAdapter.MyViewHolder>() {
     var onItemClick: ((Int) -> Unit)? = null
+    var onLongItemClick: ((Int) -> Unit)? = null
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tvName: TextView = view.findViewById(R.id.tvName)
         var tvTitle: TextView = view.findViewById(R.id.tvTitle)
@@ -28,7 +29,17 @@ class InformationAdapter(private val topicDetails: List<Information>) : Recycler
             itemView.setOnClickListener {
                 onItemClick?.invoke(adapterPosition)
             }
+
+            itemView.setOnLongClickListener {
+                onLongItemClick?.invoke(adapterPosition)
+                return@setOnLongClickListener true
+            }
         }
+    }
+
+    fun removeAt(position: Int) {
+        topicDetails.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

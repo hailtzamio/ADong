@@ -132,14 +132,14 @@ class DetailTripActivity : BaseActivity() {
         })
     }
 
-    private fun setupRecyclerView(data: List<Information>) {
+    private fun setupRecyclerView(data: ArrayList<Information>) {
         val mAdapter = InformationAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(false)
         recyclerView.adapter = mAdapter
     }
 
-    private fun setupRecyclerViewSmall(data: List<Transport>) {
+    private fun setupRecyclerViewSmall(data: ArrayList<Transport>) {
         val mAdapter = TransportAdapter(data)
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView2.setHasFixedSize(false)
