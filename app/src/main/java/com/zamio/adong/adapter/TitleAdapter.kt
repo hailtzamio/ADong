@@ -99,13 +99,14 @@ class TitleAdapter(private val topicDetails: ArrayList<String>, val type: String
                         "An toàn lao động" -> holder.imvAva.setImageResource(R.drawable.hospital)
                         "Kho ảnh" -> holder.imvAva.setImageResource(R.drawable.picture)
                         "Lịch sử điểm danh" -> holder.imvAva.setImageResource(R.drawable.history)
-
+                        "Báo cáo quyết toán" -> holder.imvAva.setImageResource(R.drawable.chart_ic)
+                        "Lịch sử thay đổi" -> holder.imvAva.setImageResource(R.drawable.update_ic)
                     }
                 } else {
                     when (position) {
                         0 -> holder.imvAva.setImageResource(R.drawable.import11)
                         1 -> holder.imvAva.setImageResource(R.drawable.export22)
-                       3 -> holder.imvAva.setImageResource(R.drawable.export11)
+                        3 -> holder.imvAva.setImageResource(R.drawable.export11)
                         6 -> holder.imvAva.setImageResource(R.drawable.hospital)
                     }
                 }
