@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elcom.com.quizupapp.ui.fragment.BaseFragment
 import com.elcom.com.quizupapp.ui.network.RestData
+import com.google.gson.JsonElement
 import com.zamio.adong.R
 import com.zamio.adong.model.ProductRequirement
 import com.zamio.adong.network.ConstantsApp
@@ -94,6 +95,31 @@ class ProductRequirementFragment : BaseFragment() {
         })
     }
 
+    private fun removeProductRequirement(id: Int) {
+        showProgessDialog()
+        RestClient().getInstance().getRestService()
+            .removeProductRequirement(id)
+            .enqueue(object :
+                Callback<RestData<JsonElement>> {
+
+                override fun onFailure(call: Call<RestData<JsonElement>>?, t: Throwable?) {
+                    dismisProgressDialog()
+                }
+
+                override fun onResponse(
+                    call: Call<RestData<JsonElement>>?,
+                    response: Response<RestData<JsonElement>>?
+                ) {
+                    dismisProgressDialog()
+                    if (response!!.body() != null && response.body().status == 1) {
+                        showToast("Thành công")
+                    } else {
+                        showToast(response.message() ?: "")
+                    }
+                }
+            })
+    }
+
     private fun setupRecyclerView(){
         if ( recyclerView != null ) {
             val mAdapter = ProductRequirementAdapter(data!!)
@@ -112,7 +138,10 @@ class ProductRequirementFragment : BaseFragment() {
             val swipeHandler = object : SwipeToDeleteCallback(activity!!) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val adapter = recyclerView.adapter as ProductRequirementAdapter
-                    adapter.removeAt(viewHolder.adapterPosition)
+                    if(!data.isNullOrEmpty()) {
+                        removeProductRequirement(data!![viewHolder.adapterPosition].id)
+                        adapter.removeAt(viewHolder.adapterPosition)
+                    }
                 }
             }
 

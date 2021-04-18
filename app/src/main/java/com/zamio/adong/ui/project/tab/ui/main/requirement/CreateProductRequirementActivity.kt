@@ -144,22 +144,24 @@ class CreateProductRequirementActivity : BaseActivity() {
             }
         }
 
-        val dialog = ConfirmProductRequirementDialog(this, addNew)
-        dialog.show()
+        if (isFromUpdateProductRequirement && productRequirement != null) {
+            if(plannedStartDate != "") {
+                productRequirement!!.expectedDatetime = plannedStartDate
+            }
 
-        dialog.onItemClick = {
-            if (it == 2) {
-                if (isFromUpdateProductRequirement && productRequirement != null) {
-                    if(plannedStartDate == "") {
-                        productRequirement!!.plannedDatetime = plannedStartDate
-                    }
+            if(edtNote.text.toString().trim() != "") {
+                productRequirement!!.note = edtNote.text.toString().trim()
+            }
 
-                    if(edtNote.text.toString().trim() != "") {
-                        productRequirement!!.note = edtNote.text.toString().trim()
-                    }
+            productRequirement!!.linesAddNew = addNew
 
-                    updateItemProductRequirement(productRequirement!!)
-                } else {
+            updateItemProductRequirement(productRequirement!!)
+        } else {
+            val dialog = ConfirmProductRequirementDialog(this, addNew)
+            dialog.show()
+
+            dialog.onItemClick = {
+                if (it == 2) {
                     val productRequirementRes =
                         ProductRequirementRes(plannedStartDate, addNew, edtNote.text.toString())
                     create(productRequirementRes)
@@ -299,6 +301,7 @@ class CreateProductRequirementActivity : BaseActivity() {
                             for (j in (productRes.size - 1) downTo 0) {
                                 if (productChoose[i].id == productRes[j].id) {
                                     productRes[j].quantityChoose = productChoose[i].quantityChoose
+                                    productRes[j].note = productChoose[i].note
                                 }
                             }
                         }

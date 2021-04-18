@@ -187,16 +187,17 @@ class DetailProductRequrementActivity : BaseActivity() {
 
     override fun initData() {
 
+    }
 
+    override fun onResume() {
+        super.onResume()
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID)) {
-
             productRequirement =
                 intent.extras!!.get(ConstantsApp.KEY_VALUES_ID) as ProductRequirement
 
             if (productRequirement != null) {
                 setupView(productRequirement!!)
             }
-
         }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_ID_PR)) {

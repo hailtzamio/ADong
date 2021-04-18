@@ -18,7 +18,7 @@ data class ProductRequirement(
     @SerializedName("createdTime")
     val createdTime: String,
     @SerializedName("expectedDatetime")
-    val expectedDatetime: String?,
+    var expectedDatetime: String?,
     @SerializedName("plannedDatetime")
     var plannedDatetime: String?,
     @SerializedName("id")
@@ -56,5 +56,7 @@ data class ProductRequirement(
     @SerializedName("linesRemove")
     var linesRemove: MutableList<Int>? = null ,
     @SerializedName("linesUpdate")
-    var linesUpdate: MutableList<Product>? = null
+    var linesUpdate: MutableList<Product>? = null,
+    @SerializedName("linesAddNew")
+    var linesAddNew: MutableList<LinesAddNew>? = null
 ) : Serializable

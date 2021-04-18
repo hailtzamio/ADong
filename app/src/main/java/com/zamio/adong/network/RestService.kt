@@ -261,6 +261,9 @@ interface RestService {
     @GET("productRequirement/{id}")
     fun getProductRequirementById(@Path("id") id: Int): Call<RestData<ProductRequirement>>
 
+    @DELETE("productRequirement/{id}")
+    fun removeProductRequirement(@Path("id") id: Int): Call<RestData<JsonElement>>
+
     @PUT("productRequirement/{id}")
     fun removeItemProductRequirement(@Body productRequirement: ProductRequirement, @Path("id") id: Int): Call<RestData<JsonElement>>
 

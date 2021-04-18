@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/base_trash_icon.xml" value="0.2111111111111111" />
         <entry key="app/src/main/res/layout/activity_checkin_out_album_image.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail_product_requirement.xml" value="0.375" />
         <entry key="app/src/main/res/layout/area_manager_profile_detail_popup_layout.xml" value="0.1" />
