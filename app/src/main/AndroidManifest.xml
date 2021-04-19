@@ -20,6 +20,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_app"

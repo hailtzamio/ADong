@@ -7,38 +7,38 @@
     android:background="#000000"
     tools:context=".ui.activity.PreviewImageActivity">
 
-
-    <ImageView
-        android:layout_centerInParent="true"
+    <com.zamio.adong.ui.project.tab.ui.main.album.ZoomClass
         android:id="@+id/imvAva"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <ImageView
 
         android:id="@+id/imvClose"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:padding="20dp"
-        android:src="@drawable/close_black"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:src="@drawable/close_black" />
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/imvRemove"
-        android:padding="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/remove_image"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:src="@drawable/remove_image"
+        android:visibility="gone" />
 
     <TextView
-        android:textSize="18sp"
         android:id="@+id/tvTitle"
-        android:textColor="@color/white"
-        android:text=""
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 </RelativeLayout>
