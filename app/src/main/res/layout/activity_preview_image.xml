@@ -7,20 +7,55 @@
     android:background="#000000"
     tools:context=".ui.activity.PreviewImageActivity">
 
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:background="@color/colorHeader"
+        android:layout_height="50dp">
+        <ImageView
+            android:padding="10dp"
+            android:id="@+id/imvBack"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:textColor="#ffffff"
+            android:id="@+id/tvTitle"
+            android:text="Title"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:id="@+id/rightButton"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/download_ic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+
+    </RelativeLayout>
+
     <com.zamio.adong.ui.project.tab.ui.main.album.ZoomClass
+        android:layout_below="@+id/rlTop"
         android:id="@+id/imvAva"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
-
-        android:id="@+id/imvClose"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:padding="20dp"
-        android:src="@drawable/close_black" />
 
     <ImageView
         android:id="@+id/imvRemove"
@@ -32,13 +67,4 @@
         android:src="@drawable/remove_image"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="18sp" />
 </RelativeLayout>

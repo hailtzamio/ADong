@@ -72,7 +72,7 @@ class PreviewImageActivity : BaseActivity() {
 
         Picasso.get().load(avatarUrl).into(imvAva)
 
-        imvClose.setOnClickListener {
+        rightButton.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 saveImage(Glide.with(this@PreviewImageActivity)
                     .asBitmap()
@@ -166,17 +166,19 @@ class PreviewImageActivity : BaseActivity() {
         val folder = File(
             Environment.getDataDirectory().toString() + separator.toString() + "ADong"
         )
-//        val storageDir = File(
-//            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-//                .toString() + "/ADong"
-//        )
+        val storageDir = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                .toString() + "/ADong"
+        )
+
+
 
         var success = true
-        if (!folder.exists()) {
-            success = folder.mkdirs()
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs()
         }
         if (success) {
-            val imageFile = File(folder, imageFileName)
+            val imageFile = File(storageDir, imageFileName)
             savedImagePath = imageFile.getAbsolutePath()
             try {
                 val fOut: OutputStream = FileOutputStream(imageFile)
