@@ -48,7 +48,7 @@ class CheckinOutAlbumImage : BaseActivity() {
 
             if (itemList!![position].fullSizeUrl != null) {
                 val intent = Intent(this, PreviewImageActivity::class.java)
-                intent.putExtra(ConstantsApp.KEY_VALUES_ID, itemList!!.get(position).fullSizeUrl)
+                intent.putExtra(ConstantsApp.KEY_VALUES_ID, itemList!!.get(position).thumbnailUrl)
                 startActivityForResult(intent, 1000)
             }
         }

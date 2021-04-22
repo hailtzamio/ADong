@@ -4,7 +4,18 @@ import RestClient
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.AsyncTask
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.elcom.com.quizupapp.ui.activity.BaseActivity
 import com.elcom.com.quizupapp.ui.network.RestData
 import com.google.gson.JsonElement
@@ -12,40 +23,25 @@ import com.squareup.picasso.Picasso
 import com.zamio.adong.R
 import com.zamio.adong.network.ConstantsApp
 import kotlinx.android.synthetic.main.activity_preview_image.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import android.graphics.drawable.Drawable
-
-import android.widget.Toast
-
-import android.graphics.Bitmap
-import android.os.AsyncTask
-import android.os.Environment
-import android.util.Log
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.squareup.picasso.Picasso.LoadedFrom
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
-import java.lang.ref.WeakReference
-import android.content.Intent
-import android.net.Uri
-import com.bumptech.glide.request.target.SimpleTarget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File.separator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.lang.ref.WeakReference
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PreviewImageActivity : BaseActivity() {
 
     var id = 0
     var fileUri = ""
+    var title = ""
     override fun getLayout(): Int {
         return R.layout.activity_preview_image
     }
@@ -67,16 +63,18 @@ class PreviewImageActivity : BaseActivity() {
         }
 
         if (intent.hasExtra(ConstantsApp.KEY_VALUES_TITLE)) {
-            tvTitle.text = intent.extras!!.getString(ConstantsApp.KEY_VALUES_TITLE)
+            title = intent.extras!!.getString(ConstantsApp.KEY_VALUES_TITLE) ?: ""
+            tvTitle.text = title
         }
 
         Picasso.get().load(avatarUrl).into(imvAva)
 
         rightButton.setOnClickListener {
+            showToast("Thành công")
             CoroutineScope(Dispatchers.IO).launch {
-                saveImage(Glide.with(this@PreviewImageActivity)
+                storeImage(Glide.with(this@PreviewImageActivity)
                     .asBitmap()
-                    .load("https://i.imgur.com/4HFRb2z.jpg") // sample image
+                    .load(avatarUrl) // sample image
                     .placeholder(android.R.drawable.progress_indeterminate_horizontal) // need placeholder to avoid issue like glide annotations
                     .error(android.R.drawable.stat_notify_error) // need error to avoid issue like glide annotations
                     .submit()
@@ -133,52 +131,34 @@ class PreviewImageActivity : BaseActivity() {
             }
         })
     }
-//
-//    fun SaveImage(url: String?) {
-//        Picasso.with(applicationContext).load(url).into(object : Target() {
-//            fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom?) {
-//                try {
-//                    val mydir =
-//                        File(Environment.getExternalStorageDirectory().toString() + "/11zon")
-//                    if (!mydir.exists()) {
-//                        mydir.mkdirs()
-//                    }
-//                    fileUri = mydir.absolutePath + File.separator + System.currentTimeMillis()
-//                        .toString() + ".jpg"
-//                    val outputStream = FileOutputStream(fileUri)
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-//                    outputStream.flush()
-//                    outputStream.close()
-//                } catch (e: IOException) {
-//                    e.printStackTrace()
-//                }
-//                Toast.makeText(applicationContext, "Image Downloaded", Toast.LENGTH_LONG).show()
-//            }
-//
-//            fun onBitmapFailed(errorDrawable: Drawable?) {}
-//            fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
-//        })
-//    }
+
+    private fun storeImage(image: Bitmap) {
+        val savedImageURL = MediaStore.Images.Media.insertImage(
+            contentResolver,
+            image,
+            title,
+            "Image of $title"
+        )
+
+        Uri.parse(savedImageURL)
+    }
 
     private fun saveImage(image: Bitmap): String? {
+
         var savedImagePath: String? = null
-        val imageFileName = "JPEG_" + "FILE_NAME" + ".jpg"
-        val folder = File(
-            Environment.getDataDirectory().toString() + separator.toString() + "ADong"
-        )
-        val storageDir = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                .toString() + "/ADong"
-        )
-
-
+        val time = System.currentTimeMillis()
+        val sdf = SimpleDateFormat("ddMyyyy")
+        val currentDate = sdf.format(Date())
+        val imageFileName = "$title-$currentDate.jpg"
+        val file = File(baseContext.getExternalFilesDir(
+            Environment.DIRECTORY_PICTURES), "ADong")
 
         var success = true
-        if (!storageDir.exists()) {
-            success = storageDir.mkdirs()
+        if (!file.exists()) {
+            success = file.mkdirs()
         }
         if (success) {
-            val imageFile = File(storageDir, imageFileName)
+            val imageFile = File(file, imageFileName)
             savedImagePath = imageFile.getAbsolutePath()
             try {
                 val fOut: OutputStream = FileOutputStream(imageFile)
@@ -245,4 +225,5 @@ class PreviewImageActivity : BaseActivity() {
 
         }
     }
+
 }

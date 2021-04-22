@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zamio.adong">
 
     <permission
@@ -33,16 +34,17 @@
         android:roundIcon="@drawable/icon_app"
         android:supportsRtl="true"
         android:theme="@style/BlueActivityTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".ui.project.tab.ui.main.report.ProjectReportActivity"></activity>
-        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportDetailActivity" />
-        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportActivity" />
-        <activity android:name=".ui.project.tab.ui.main.logs.ProjectLogsActivity" />
-        <activity android:name=".ui.driver.DriverActionActivity" />
-        <activity android:name=".ui.project.tab.ui.main.criteria.CriteriaMenuActivity" />
-        <activity android:name=".ui.map.SampleActivity" />
-        <activity android:name=".ui.profile.ProfileActivity" />
-        <activity android:name=".ui.notification.NotificationActivity" />
+        android:usesCleartextTraffic="true"
+        tools:targetApi="q">
+        <activity android:name=".ui.project.tab.ui.main.report.ProjectReportActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportDetailActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.project.tab.ui.main.requirement.ProductTransportActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.project.tab.ui.main.logs.ProjectLogsActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.driver.DriverActionActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.project.tab.ui.main.criteria.CriteriaMenuActivity"   android:screenOrientation="portrait" />
+        <activity android:name=".ui.map.SampleActivity"   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.profile.ProfileActivity"   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.notification.NotificationActivity"   android:screenOrientation="portrait" />
         <activity
             android:name=".ui.ware.stock.stock.StockListActivity"
             android:screenOrientation="portrait" />

@@ -16,11 +16,7 @@ import com.zamio.adong.model.Information
 import com.zamio.adong.model.Product
 import com.zamio.adong.network.ConstantsApp
 import com.zamio.adong.ui.activity.PreviewImageActivity
-import kotlinx.android.synthetic.main.activity_detail_driver.*
 import kotlinx.android.synthetic.main.activity_detail_product.*
-import kotlinx.android.synthetic.main.activity_detail_product.cropImageView
-import kotlinx.android.synthetic.main.activity_detail_product.recyclerView
-import kotlinx.android.synthetic.main.activity_detail_product.tvOk
 import kotlinx.android.synthetic.main.item_header_layout.*
 import retrofit2.Call
 import retrofit2.Callback

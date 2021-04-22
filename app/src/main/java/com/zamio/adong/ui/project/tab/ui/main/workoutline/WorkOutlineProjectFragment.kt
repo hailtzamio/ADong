@@ -179,7 +179,7 @@ class MainWorkOutlineFragment : BaseFragment() {
                         intent.putExtra(ConstantsApp.KEY_VALUES_HIDE, product.id)
                         intent.putExtra(ConstantsApp.KEY_VALUES_TITLE, product.workOutlineName)
                         intent.putExtra(ConstantsApp.KEY_VALUES_OBJECT,product.photos[0].photoId)
-                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.photos[0].fullSizeUrl)
+                        intent.putExtra(ConstantsApp.KEY_VALUES_ID, product.photos[0].thumbnailUrl)
                         startActivityForResult(intent, 1000)
                     }
                 }
